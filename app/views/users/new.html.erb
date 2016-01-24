@@ -1,0 +1,51 @@
+<h1>Create a new user</h1>
+<%= form_for(@user) do |u| %>
+	<p>
+		<%= u.label :firstname %>
+		<br />
+		<%= u.text_field :firstname %>
+	</p>
+	<p>
+		<%= u.label :lastname %>
+		<br />
+		<%= u.text_field :lastname %>
+	</p>
+	<p>
+		<%= u.label :email %>
+		<br />
+		<%= u.text_field :email %>
+	</p>
+	<p>
+		<%= u.label :password %>
+		<br />
+		<%= u.password_field :password %>
+	</p>
+	<p>
+		<%= u.label :'Confirm password' %>
+		<br />
+		<%= u.password_field :'Confirm password' %>
+	</p>
+	<p>
+		<%= u.label :language %>
+		<br />
+		<%= u.text_field :language %>
+	</p>
+	<p>
+		<%= u.label :nationality %>
+		<br />
+		<%= u.text_field :nationality %>
+	</p>
+	<p>
+		<%= u.label :phone %>
+		<br />
+		<%= u.text_field :phone %>
+	</p>
+	<p>
+		<%= u.label :birthdate %>
+		<br />
+		<%= u.date_field :birthdate %>
+	</p>
+	<p>
+		<%= u.submit %>
+	</p>
+<% end %>
