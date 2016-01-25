@@ -1,10 +1,46 @@
-<p>Users</p>
+<!--<p id="notice"><%= notice %></p>-->
 
-<% @users.each do |u| %>
-	<p>
-		<%= u.firstname %> <%= u.lastname %> - <%= u.email %>
-		<br />
-	</p>
+<h1>Listing Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Language</th>
+      <th>Nationality</th>
+      <th>Birthdate</th>
+      <th>Phone</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.firstname %></td>
+        <td><%= user.lastname %></td>
+        <td><%= user.email %></td>
+        <td><%= user.language %></td>
+        <td><%= user.nationality %></td>
+        <td><%= user.birthdate %></td>
+        <td><%= user.phone %></td>
+        <% if logged_in? %>
+          <td><%= link_to 'Show', user %></td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+          <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<!--<% if logged_in? %>
+  <%= link_to 'New User', new_user_path %>
+<% end %>-->
+<% if !logged_in? %>
+  <%= link_to 'Register', new_user_path %>
 <% end %>
-
-<%= link_to "Create a New User", new_user_path, class: "new_user" %>

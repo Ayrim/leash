@@ -1,51 +1,57 @@
 <h1>Create a new user</h1>
 <%= form_for(@user) do |u| %>
+
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
 	<p>
-		<%= u.label :firstname %>
-		<br />
+		<%= u.label :firstname %><br />
 		<%= u.text_field :firstname %>
 	</p>
 	<p>
-		<%= u.label :lastname %>
-		<br />
+		<%= u.label :lastname %><br />
 		<%= u.text_field :lastname %>
 	</p>
 	<p>
-		<%= u.label :email %>
-		<br />
+		<%= u.label :email %><br />
 		<%= u.text_field :email %>
 	</p>
 	<p>
-		<%= u.label :password %>
-		<br />
+		<%= u.label :password %><br />
 		<%= u.password_field :password %>
 	</p>
 	<p>
-		<%= u.label :'Confirm password' %>
-		<br />
-		<%= u.password_field :'Confirm password' %>
+		<%= u.label :'Confirm password' %><br />
+		<%= u.password_field :'password_confirmation' %>
 	</p>
 	<p>
-		<%= u.label :language %>
-		<br />
+		<%= u.label :language %><br />
 		<%= u.text_field :language %>
 	</p>
 	<p>
-		<%= u.label :nationality %>
-		<br />
+		<%= u.label :nationality %><br />
 		<%= u.text_field :nationality %>
 	</p>
 	<p>
-		<%= u.label :phone %>
-		<br />
+		<%= u.label :phone %><br />
 		<%= u.text_field :phone %>
 	</p>
 	<p>
-		<%= u.label :birthdate %>
-		<br />
+		<%= u.label :birthdate %><br />
 		<%= u.date_field :birthdate %>
 	</p>
 	<p>
 		<%= u.submit %>
 	</p>
+<%= link_to 'Back', users_path %>
 <% end %>
