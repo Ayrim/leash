@@ -1,0 +1,55 @@
+<%= form_for(@user) do |u| %>
+
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+	<p>
+		<%= u.label :firstname, nil, :class => "form-label text-right" %>
+		<%= u.text_field :firstname, :class => "form-field"  %>
+	</p>
+	<p>
+		<%= u.label :lastname, nil, :class => "form-label text-right" %>
+		<%= u.text_field :lastname, :class => "form-field" %>
+	</p>
+	<p>
+		<%= u.label :email, nil, :class => "form-label text-right" %>
+		<%= u.text_field :email, :class => "form-field" %>
+	</p>
+	<p>
+		<%= u.label :password, nil, :class => "form-label text-right" %>
+		<%= u.password_field :password, :class => "form-field" %>
+	</p>
+	<p>
+		<%= u.label :'Confirm password', nil, :class => "form-label text-right" %>
+		<%= u.password_field :'password_confirmation', :class => "form-field" %>
+	</p>
+	<p>
+		<%= u.label :language, nil, :class => "form-label text-right" %>
+		<%= u.text_field :language, :class => "form-field" %>
+	</p>
+	<p>
+		<%= u.label :nationality, nil, :class => "form-label text-right" %>
+		<%= u.text_field :nationality, :class => "form-field" %>
+	</p>
+	<p>
+		<%= u.label :phone, nil, :class => "form-label text-right" %>
+		<%= u.text_field :phone, :class => "form-field" %>
+	</p>
+	<p>
+		<%= u.label :birthdate, nil, :class => "form-label text-right" %>
+		<%= u.date_field :birthdate, :class => "form-field" %>
+	</p>
+	<p>
+		<%= u.submit %>
+	</p>
+<% end %>

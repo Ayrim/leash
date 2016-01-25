@@ -1,23 +1,28 @@
-<h1>Login</h1>
+<div class="container-fluid text-center">
+  <h1>Sign in</h1>
 
   <p class="flash">
     <%= flash.alert %>
   </p>
-<%= form_tag user_sessions_path, method: :post do %>
-  <div class="field">
-    <%= label_tag :email %>
-    <%= text_field_tag :email %>
-    <br/>
-  </div>
-  <div class="field">
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-    <br/>
-  </div>
-  <div class="actions">
-    <%= submit_tag "Login" %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', users_path %>
-<%= link_to 'Register', new_user_path %>
+  <%= form_tag user_sessions_path, method: :post do %>
+    <div class="field">
+      <%= label_tag :email, nil, :class => "form-label text-right"  %>
+      <%= text_field_tag :email, nil, :class => "form-field" %>
+      <br/>
+    </div>
+    <div class="field">
+      <%= label_tag :password, nil, :class => "form-label text-right"   %>
+      <%= password_field_tag :password, nil, :class => "form-field"  %>
+      <br/>
+    </div>
+    <div class="field">
+      <%= check_box_tag :remember, params[:remember], true%>
+      <%= label_tag :remember %>
+      <br />
+    </div>
+    <div class="actions">
+      <%= submit_tag "Login" %>
+    </div>
+  <% end %>
+  <%= link_to 'Back', users_path %>
+</div>

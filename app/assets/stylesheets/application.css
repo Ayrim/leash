@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+.form-label{
+	width: 125px;
+}
+
+.form-field{
+	width: 250px;
+}
+
+th, td{
+	padding-right: 15px !important; 
+}

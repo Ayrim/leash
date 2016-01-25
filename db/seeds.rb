@@ -16,5 +16,5 @@ a2 = Address.create(street: 'Scharebrugstraat', number: '145', city: city, count
 
 animal = Animal.create(name: 'Dobby', birthdate: '20/01/2014', breed:'house cat', plannings: plannings)
 
-User.create(firstname: 'Maxim', lastname: 'Braekman', email: 'maxim.braekman@hotmail.com', language: 'NL', nationality: 'BE', phone:'', birthdate:'22/08/1989', address: a1, animals:[animal]) 
-User.create(firstname: 'Ayrton', lastname: 'Vercruysse', email:'ayrton.vercruysse@gmail.com', language: 'NL', nationality: 'BE', phone:'', birthdate: '11/02/1989',address: a2, animals: [])
+User.create(firstname: 'Maxim', lastname: 'Braekman', email: 'maxim.braekman@hotmail.com', password: 'abc', password_confirmation: 'abc', language: 'NL', nationality: 'BE', phone:'', birthdate:'22/08/1989', address: a1, animals:[animal]) 
+User.create(firstname: 'Ayrton', lastname: 'Vercruysse', email:'ayrton.vercruysse@gmail.com', password: 'abc', password_confirmation: 'abc', language: 'NL', nationality: 'BE', phone:'', birthdate: '11/02/1989',address: a2, animals: [])

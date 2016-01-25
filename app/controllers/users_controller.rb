@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  #before_action :require_login, except: [:new]
-	#before_create :check_valid_username
+  #before_action :require_login, except: [:index, :new]
+  #before_create :check_valid_email
 
 	def index
 		@users = User.all
@@ -27,30 +27,37 @@ class UsersController < ApplicationController
   	end
 
 	def create
-		#if(check_valid_email)
-			@user = User.new(user_params)
+		@user = User.new(user_params)
 
-		    respond_to do |format|
-		      if @user.save
-		        format.html { redirect_to users_path, notice: 'User was successfully created.' }
-		      else
+		respond_to do |format|
+			if @user.save
+		        format.html { redirect_to login_path, notice: 'User was successfully created.' }
+		    else
 		        format.html { render :new }
 		        format.json { render json: @user.errors, status: :unprocessable_entity }
-		      end
 		    end
-		#else
-			#@user = User.new
-			#@user.errors = "This emailaddress is already in use."
-			#return redirect_to :action => 'new'
-			#redirect_to new_user_path
-			#render :nothing => true, :status => 409
-		#	@user = User.new
-		#    respond_to do |format|
-		#		format.html { render :new, notice: "This emailaddress is already in use." }
-        #		format.json { render json: @user.errors, status: :unprocessable_entity }
-        #	end
-		#end
+	  	end
 	end
+
+  def update
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
 
 	private 
     	def set_user
