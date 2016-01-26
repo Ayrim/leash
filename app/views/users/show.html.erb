@@ -1,4 +1,13 @@
-<p>
+  <!--<p id="notice"><%= notice %></p>-->
+  <div id="container">
+    <div id="content">
+      <div class="container-fluid text-center">
+ <p class="flash">
+    <%= flash.notice %>
+  </p>
+  <div id="container">
+    <div id="content">
+      <p>
   <strong>Firstname:</strong>
   <%= @user.firstname %>
 </p>
@@ -35,3 +44,11 @@
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+ </div>
+  </div>
+  </div>
+</div>
+  <div id="footer">
+    <p>Copyright (c) 2016</p>
+  </div>
+</div>

@@ -1,8 +1,20 @@
-<div class="container-fluid text-center">
-	<h1>Editing User</h1>
+<div id="container">
+	<div id="content">
+   		<div id="loginbox" class="container-fluid text-center">
+			<div class="titlebox">
+				<h1>Editing User</h1>
+				<p class="flash">
+		    		<%= flash.notice %>
+		  		</p>
+			</div>
+				<%= render 'form' %>
 
-	<%= render 'form' %>
+				<%= link_to 'Show', @user %> |
+				<%= link_to 'Back', users_path %>
 
-	<%= link_to 'Show', @user %> |
-	<%= link_to 'Back', users_path %>
+  	</div>
+  </div>
+  	<div id="footer">
+   		<p>Copyright (c) 2016</p>
+  	</div>
 </div>

@@ -22,7 +22,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><%= $title.capitalize %></a>
+                <% if logged_in? %>
+                  <%= link_to $title.capitalize, users_path, :class => "navbar-brand" %>
+                <% else %>
+                  <%= link_to $title.capitalize, home_root_path, :class => "navbar-brand" %>
+                <% end %> 
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
@@ -44,19 +48,7 @@
     </nav>
 
 
-    <div class="jumbotron text-center">
-        <h1><%= $title.downcase %></h1>
-        <p>tools</p>
-    </div>
 
- <p class="flash">
-    <%= flash.notice %>
-  </p>
-  <div class="container">
-    <div class="content">
-      <%= yield %>
-    </div>
-  </div>
-
+    <%= yield %>
 </body>
 </html>

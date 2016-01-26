@@ -14,14 +14,216 @@
  *= require_self
  */
 
+th, td{
+	padding-right: 15px !important; 
+}
+
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+html{
+	background-color: #36373B;
+}
+
+.jumbotron {
+    background-color:#36373B !important;
+    color: #FF5B45 !important;
+    padding: 100px 25px;
+}
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #36373B !important;
+
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    border-color: transparent !important;
+
+    opacity: 0.8;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #FF5B45 !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #36373B !important;
+    background-color: #FF5B45 !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent !important;
+    color: #FF5B45 !important;
+}
+
 .form-label{
-	width: 125px;
+	width: 160px;
 }
 
 .form-field{
 	width: 250px;
 }
 
-th, td{
-	padding-right: 15px !important; 
+#footer, #footer2{
+   width:100%;
+   height:50px;   /* Height of the footer */
+   background:#36373B;
+   color: white;
+   letter-spacing: 4px;
+   text-align: center;
+   padding-top: 15px;
+   font-size: 0.7em;
+}
+
+#footer{
+   position:absolute;
+   bottom:0;
+}
+
+
+.container{
+	width: auto !important;
+}
+
+#content{
+	padding-top: 150px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    text-align: center;
+    color: #fff;
+   /* background-image: url(walking-garden-dog-outside.jpg);
+    background-image: url(animal-dog-pet-brown.jpg);
+    background-image: url(animal-dog-pet-fur.jpg);
+    background-image: url(pexels-photo-10517.jpg);
+    background-image: url(animal-dog-outside-pet.jpg);*/
+    background-image: url(walking-garden-dog-outside.jpg);
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+header .header-content {
+    position: relative;
+    width: 100%;
+    padding: 100px 15px;
+    text-align: center;
+}
+
+header .header-content .header-content-inner h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+header .header-content .header-content-inner h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+header .header-content .header-content-inner hr {
+    margin: 30px auto;
+	max-width: 50px;
+	border-color: #FF5B45 !important;
+	border-width: 3px !important;
+}
+
+header .header-content .header-content-inner p {
+    margin-bottom: 50px;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+@media(min-width:768px) {
+    header {
+        min-height: 100%;
+    }
+
+    header .header-content {
+        position: absolute;
+        top: 50%;
+        padding: 0 50px;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    header .header-content .header-content-inner {
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 1000px;
+    }
+
+    header .header-content .header-content-inner p {
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 80%;
+        font-size: 18px;
+    }
+}
+
+
+#loginbox{
+	width: 475px;
+	border-color: #36373B;
+	border-width: 1px;
+	border-style: solid;
+}
+#userbox{
+	width: 950px;
+	border-color: #36373B;
+	border-width: 1px;
+	border-style: solid;
+}
+.titlebox{
+	color:white;
+	height: 140px;
+	margin-left:-15px;
+	margin-right:-15px;
+	margin-top:-20px;
+	margin-bottom: 15px;
+	border-bottom-color: #36373B;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+  	background-color: #36373B;
+}
+
+.titlebox h1{
+	padding-top: 55px;
+}
+
+.buttons{
+	border-radius: 0px !important;
+	margin-bottom: 15px !important;
+	width: 250px !important;
+}
+.rememberme{
+	width: 280px !important;
+}
+.rememberme label{
+	font-weight: lighter;
+	margin-top: 10px;
+}
+.row{
+	padding-bottom: 25px;
+	background-color: #FF5B45;
 }
