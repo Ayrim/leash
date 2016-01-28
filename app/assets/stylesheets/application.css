@@ -101,6 +101,28 @@ html{
     position: relative;
 }
 
+
+#imagebackground {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    text-align: center;
+    color: black;
+   /* background-image: url(walking-garden-dog-outside.jpg);
+    background-image: url(animal-dog-pet-brown.jpg);
+    background-image: url(animal-dog-pet-fur.jpg);
+    background-image: url(pexels-photo-10517.jpg);
+    background-image: url(animal-dog-outside-pet.jpg);
+    background-image: url(light-person-woman-night.jpg);*/
+    background-image: url(light-person-woman-night.jpg);
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+
 header {
     position: relative;
     width: 100%;
@@ -157,6 +179,9 @@ header .header-content .header-content-inner p {
 
 @media(min-width:768px) {
     header {
+        min-height: 100%;
+    }
+    #imagebackground{
         min-height: 100%;
     }
 
