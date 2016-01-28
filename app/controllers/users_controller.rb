@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, except: [ :new]
+  #before_action :require_login, except: [ :new]
   #before_create :check_valid_email
 
 	def index
@@ -27,8 +27,9 @@ class UsersController < ApplicationController
   	end
 
 	def create
+		puts "login started"
 		@user = User.new(user_params)
-
+		puts "login completed"
 		respond_to do |format|
 			if @user.save
 		        format.html { redirect_to login_path, notice: 'User was successfully created.' }
