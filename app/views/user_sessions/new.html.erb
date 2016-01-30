@@ -1,43 +1,38 @@
 <header id="imagebackground">
-  <!--   <header> -->
-      <!--   <div class="header-content">
-            <div class="header-content-inner"> -->
-    
- <div id="container">
-    <div id="content">
+      <!--   <header> -->
+          <!--   <div class="header-content">
+                <div class="header-content-inner"> -->
+        
+    <div id="container">
+        <div id="content">
 
-    <div class="container">
-        <div class="card card-container">
-            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-            <p id="profile-name" class="profile-name-card"></p>
-            <p class="flash">
-              <%= flash.alert %>
-            </p>
-            <%= form_tag user_sessions_path, method: :post, :class => "form-signin" do %>
-                <span id="reauth-email" class="reauth-email"></span>
-                <!-- <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
-                <%= text_field_tag :email, nil, :id => "inputEmail", :class => "form-control", :placeholder => "Email address", :required => true, :autofocus => true %>
-                <%= password_field_tag :password, nil, :id => "inputPassword", :class => "form-control", :placeholder => "Password", :required => true  %>
-                <div id="remember" class="checkbox">
-                    <label>
-                        <%= check_box_tag :remember, params[:remember], true%> Remember me
-                    </label>
-                </div>
-                <%= submit_tag "Sign in", :class => "btn btn-lg btn-primary btn-block btn-signin" %>
-            <% end %><!-- /form -->
-            <a href="#" class="forgot-password">
-                Forgot the password?
-            </a>
-        </div><!-- /card-container -->
+            <div class="container">
+                <div class="card card-container">
+                    <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                    <p id="profile-name" class="profile-name-card"></p>
+                    <p class="flash">
+                      <%= flash.alert %>
+                    </p>
+                    <%= form_tag user_sessions_path, method: :post, :class => "form-signin" do %>
+                        <span id="reauth-email" class="reauth-email"></span>
+                        <!-- <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
+                        <%= text_field_tag :email, nil, :id => "inputEmail", :class => "form-control", :placeholder => "Email address", :required => true, :autofocus => true %>
+                        <%= password_field_tag :password, nil, :id => "inputPassword", :class => "form-control", :placeholder => "Password", :required => true  %>
+                        <div id="remember" class="checkbox">
+                            <label>
+                                <%= check_box_tag :remember, params[:remember], true%> Remember me
+                            </label>
+                        </div>
+                        <%= submit_tag "Sign in", :class => "btn btn-lg btn-primary btn-block btn-signin" %>
+                    <% end %><!-- /form -->
+                    <a href="#" class="forgot-password">
+                        Forgot the password?
+                    </a>
+                </div><!-- /card-container -->
+            </div>
         </div>
-</div>
-</div><!-- /container -->
-          <!--   </div>
-        </div> -->
-<!--     </header>
- -->
+
+        <%= render "layouts/footer" %>
+    </div>
 </header>
-          <div id="footer">
-    <p>Copyright (c) 2016</p>
-  </div>

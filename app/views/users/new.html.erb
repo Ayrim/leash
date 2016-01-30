@@ -1,16 +1,41 @@
-<div id="container">
-	<div id="content">
-   		<div id="loginbox" class="container-fluid text-center">
-			<div class="titlebox">
-				<h1>Sign up</h1>
-				<p class="flash">
-   					<%= flash.notice %>
-				</p>
-			</div>
-			<%= render 'form' %>
+<header id="imagebackground">
+	<div id="container">
+		<div id="content">
+
+			<div class="container">
+		        <div class="card card-container">
+		            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+		            <p id="profile-name" class="profile-name-card"></p>
+		            <p class="flash">
+		              <%= flash.alert %>
+		            </p>
+
+					<%= form_for(@user, :html => {class: 'form-signin'}) do |u| %>
+
+						<% if @user.errors.any? %>
+						    <div id="error_explanation">
+								<p>
+						      		<% @user.errors.full_messages.each do |message| %>
+						        		<span><%= message %></span><br />
+						      		<% end %>
+						  		</p>
+						    </div>
+						<% end %>
+
+						<%= u.text_field :firstname, :id => "inputFirstname", :class => "form-control", :placeholder => "First name", :required => true, :autofocus => true %>
+		                <%= u.text_field :lastname, :id => "inputLastname", :class => "form-control", :placeholder => "Last name", :required => true, :autofocus => true %>
+		                <%= u.text_field :email, :id => "inputEmail", :class => "form-control", :placeholder => "Email address", :required => true, :autofocus => true %>
+		                <%= u.password_field :password, :id => "inputPassword", :class => "form-control", :placeholder => "Password", :required => true  %>
+		                <%= u.password_field :password_confirmation, :id => "inputPasswordConfirm", :class => "form-control", :placeholder => "Confirm password", :required => true  %>
+		                <div id="remember" class="checkbox">
+                                <%= u.check_box :terms_of_service %> I agree with the <a href="#">general agreements</a>
+                        </div>
+		               	<%= submit_tag "Sign up", :class => "btn btn-lg btn-primary btn-block btn-signin" %>
+					<% end %>
+		        </div><!-- /card-container -->
+	        </div>
+
 		</div>
+        <%= render "layouts/footer" %>
 	</div>
-  	<div id="footer">
-    	<p>Copyright (c) 2016</p>
-  	</div>
-</div>
+</header>
