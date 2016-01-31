@@ -14,6 +14,15 @@
  *= require_self
  */
 
+@font-face {
+  font-family: 'Aspergit';    
+  src: url('Aspergit.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
 th, td{
 	padding-right: 15px !important; 
 }
@@ -23,7 +32,7 @@ html,
 body {
     width: 100%;
     height: 100%;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif !important;
+    font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
     /*font-family: Merriweather,'Helvetica Neue',Arial,sans-serif !important;*/
    
 }
@@ -45,7 +54,7 @@ html{
 
     z-index: 9999;
     border: 0;
-    font-size: 12px !important;
+    font-size: 14px !important;
     line-height: 1.42857143 !important;
     letter-spacing: 4px;
     border-radius: 0;
@@ -67,6 +76,50 @@ html{
     border-color: transparent !important;
     color: #FF5B45 !important;
 }
+
+
+.btn-primary, .btn-getstarted {
+    border-color: #FF5B45;
+    color: #fff;
+    background-color: #FF5B45;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+
+    border-radius: 300px;
+    padding: 19px 30px;
+    line-height: 0.1em;
+
+    cursor: pointer;
+    margin-top: 25px;
+}
+.btn-getstarted {
+    border-color: #fff;
+    color: #FF5B45;
+    background-color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    border-color: #ed431f;
+    color: #fff;
+    background-color: #ee4b28;
+}
+.btn-getstarted:hover,
+.btn-getstarted:focus,
+.btn-getstarted.focus,
+.btn-getstarted:active,
+.btn-getstarted.active,
+.open > .dropdown-toggle.btn-getstarted {
+    border-color: #F0C8BA;
+    color: #FF5B45;
+    background-color: #F0C8BA;
+}
+
 
 .form-label{
 	width: 160px;
@@ -157,7 +210,7 @@ header .header-content {
 header .header-content .header-content-inner h1 {
     margin-top: 0;
     margin-bottom: 0;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-weight: 700;
 }
 
