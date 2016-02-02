@@ -27,12 +27,12 @@ class UsersController < ApplicationController
   	end
 
 	def create
-		puts "login started"
 		@user = User.new(user_params)
-		puts "login completed"
+
 		respond_to do |format|
 			if @user.save
-		        format.html { redirect_to login_path, notice: 'User was successfully created.' }
+				@user.send_activation_email
+		        format.html { redirect_to login_path, alert: 'Please check your email to activate your account.' }
 		    else
 		        format.html { render :new }
 		        format.json { render json: @user.errors, status: :unprocessable_entity }
