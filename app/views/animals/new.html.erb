@@ -1,0 +1,23 @@
+<div id="container">
+	<div id="content">
+
+		Hello
+		<%= form_for :animal do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+ 
+  <p>
+    <%= f.label :breed %><br>
+    <%= f.text_field :breed %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+	</div>
+
+</div>

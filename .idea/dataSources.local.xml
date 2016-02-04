@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails leash: development" uuid="980ac80a-3b1c-4672-b9ee-8a143fa36816">
+      <user-name>ayrton</user-name>
+      <user-password>dfd8dfdfdfc8dfd3</user-password>
+      <schema-pattern>ayrton.pg_catalog ayrton.public</schema-pattern>
+      <default-schemas>ayrton.public</default-schemas>
+    </data-source>
+    <data-source name="Rails leash: test" uuid="d793fe04-45f2-48d4-963a-6e66049eb98c">
+      <user-name>ayrton</user-name>
+      <user-password>dfd8dfdfdfc8dfd3</user-password>
+    </data-source>
+    <data-source name="Rails leash: production" uuid="29148588-6ee9-4f43-a49f-14dc19083caf">
+      <user-name>postgres</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddfe6dfefdfebdff9dfe2dff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+    </data-source>
+  </component>
+</project>
