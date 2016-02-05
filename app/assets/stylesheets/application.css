@@ -167,6 +167,22 @@ html{
     color: #FF5B45;
     text-decoration: none;
 }
+.forgot-password, .termsofagreement{
+    text-decoration: none;
+}
+.forgot-password:hover,
+.forgot-password:focus,
+.forgot-password.focus,
+.forgot-password:active,
+.forgot-password.active,
+.termsofagreement:hover,
+.termsofagreement:focus,
+.termsofagreement.focus,
+.termsofagreement:active,
+.termsofagreement.active{
+    color: #FF5B45;
+    text-decoration: none;
+}
 
 .container{
 	width: auto !important;

@@ -29,7 +29,7 @@
 		                <%= u.password_field :password_confirmation, :id => "inputPasswordConfirm", :class => "form-control", :placeholder => "Confirm password", :required => true  %>
 		                <div id="remember" class="checkbox">
                             <label>
-                                <%= u.check_box :terms_of_service %> I agree with the <a href="#TermsOfAgreementModal" data-toggle="modal">general agreements</a>
+                                <%= u.check_box :terms_of_service %> I agree with the <a href="#TermsOfAgreementModal" data-toggle="modal" class="termsofagreement">general agreements</a>
                             </label>
                         </div>
 		               	<%= submit_tag "Sign up", :class => "btn btn-lg btn-primary btn-block btn-signin" %>
