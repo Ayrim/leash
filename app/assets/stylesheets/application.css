@@ -201,6 +201,19 @@ html{
     -o-background-size: cover;
 }
 
+.banner{
+    position: relative;
+    width: 100%;
+    min-height: 30%;
+    text-align: center;
+    color: black;
+    background-image: url(dog-264718_1920_narrow.jpg);
+    background-position: bottom;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
 
 header {
     position: relative;
@@ -259,6 +272,9 @@ header .header-content .header-content-inner p {
     
 @media(min-width:768px) {
     #content{
+        padding-top: 50px;
+    }
+    #contentAuthentication{
         padding-top: 150px;
     }
     header {
@@ -266,6 +282,9 @@ header .header-content .header-content-inner p {
     }
     #imagebackground{
         min-height: 100%;
+    }
+    .banner{
+        min-height: 30%;
     }
 
     header .header-content {
