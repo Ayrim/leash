@@ -1,52 +1,55 @@
   <!--<p id="notice"><%= notice %></p>-->
+  <div class="banner"></div>
   <div id="container">
     <div id="content">
       <div class="container-fluid text-center">
- <p class="flash">
-    <%= flash.notice %>
-  </p>
-  <div id="container">
-    <div id="content">
-      <p>
-  <strong>Firstname:</strong>
-  <%= @user.firstname %>
-</p>
+      <p class="flash">
+        <%= flash.notice %>
+      </p>
+      <div id="container">
+        <div id="content">
+          <p>
+            <strong>Firstname:</strong>
+            <%= @user.firstname %>
+          </p>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @user.lastname %>
-</p>
+          <p>
+            <strong>Lastname:</strong>
+            <%= @user.lastname %>
+          </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+          <p>
+            <strong>Email:</strong>
+            <%= @user.email %>
+          </p>
 
-<p>
-  <strong>Language:</strong>
-  <%= @user.language %>
-</p>
+          <p>
+            <strong>Language:</strong>
+            <%= @user.language %>
+          </p>
 
-<p>
-  <strong>Nationality:</strong>
-  <%= @user.nationality %>
-</p>
+          <p>
+            <strong>Nationality:</strong>
+            <%= @user.nationality %>
+          </p>
 
-<p>
-  <strong>Birthdate:</strong>
-  <%= @user.birthdate %>
-</p>
+          <p>
+            <strong>Birthdate:</strong>
+            <%= @user.birthdate %>
+          </p>
 
-<p>
-  <strong>Phone:</strong>
-  <%= @user.phone %>
-</p>
+          <p>
+            <strong>Phone:</strong>
+            <%= @user.phone %>
+          </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
- </div>
+          <%= link_to 'Edit', edit_user_path(@user) %> |
+          <%= link_to 'Back', users_path %>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
-</div>
+  <div id="footer">
         <%= render "layouts/footer" %>
+  </div>
 </div>

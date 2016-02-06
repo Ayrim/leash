@@ -1,6 +1,6 @@
 <header id="imagebackground">
 	<div id="container">
-		<div id="content">
+		<div id="contentAuthentication">
 
 			<div class="container">
 		        <div class="card card-container">
@@ -28,7 +28,9 @@
 		                <%= u.password_field :password, :id => "inputPassword", :class => "form-control", :placeholder => "Password", :required => true  %>
 		                <%= u.password_field :password_confirmation, :id => "inputPasswordConfirm", :class => "form-control", :placeholder => "Confirm password", :required => true  %>
 		                <div id="remember" class="checkbox">
-                                <%= u.check_box :terms_of_service %> I agree with the <a href="#">general agreements</a>
+                            <label>
+                                <%= u.check_box :terms_of_service %> I agree with the <a href="#TermsOfAgreementModal" data-toggle="modal" class="termsofagreement">general agreements</a>
+                            </label>
                         </div>
 		               	<%= submit_tag "Sign up", :class => "btn btn-lg btn-primary btn-block btn-signin" %>
 					<% end %>
@@ -36,6 +38,27 @@
 	        </div>
 
 		</div>
-        <%= render "layouts/footer" %>
+		  <div id="footer">
+		        <%= render "layouts/footer" %>
+		  </div>
 	</div>
 </header>
+
+    <!-- Modal HTML -->
+    <div id="TermsOfAgreementModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Terms of agreement</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This section will contain a complete list of legal information, expressing we will not be held accountable for anything happening to the animals.</p>
+                    <p class="text-warning"><small>This could be a warning of some sorts.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

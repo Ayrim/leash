@@ -16,10 +16,19 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">We've got what you need!</h2>
                     <hr class="light">
-                    <p class="text-faded">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    <p class="text-faded">Ever had the feeling that you do not have enough time to take your dog out for a walk? Are you sometimes, after a long day's work, lacking the energy to take your dog out for a stroll, while it could use a decent walk to run off some of its own energy? <br />
+                        Or are you in a situation where you would love to go out for a long walk with a friendly four-legged companion, but can't have a dog of your own because you are lacking the space in your house or appartment?
+                        <br />
+                        <br />
+                        Why not help each other out?
+                        <br />
+                        Leash will help you to get in touch with the perfect companion for yourself or your dog.
                     </p>
-                   <!--  <p class="text-faded">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p> -->
-                    <a href="#" class="btn btn-getstarted btn-xl">Get Started!</a>
+                    <% if logged_in? %>
+                      <%= link_to "Get Started!", users_path, :class => "btn btn-getstarted btn-xl" %>
+                    <% else %>
+                           <%= link_to "Get Started!", login_path, :class => "btn btn-getstarted btn-xl" %>
+                    <% end %> 
                     <br />
                 </div>
             </div>
@@ -37,42 +46,42 @@
         </div>
           <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
                         <h3>Create an agenda</h3>
-                        <p class="text-muted">Create your own planning for each animal.</p>
+                        <p class="text-muted">Create a planning for each of your dogs.</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
                         <h3>Made with Love</h3>
-                        <p class="text-muted">Making sure your beloved dog is getting all of the acitivty it needs!</p>
+                        <p class="text-muted">Making sure your beloved dog is getting all of the activity it needs!</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-comments wow bounceIn text-primary" data-wow-delay=".3s"></i>
                         <h3>Share ideas</h3>
                         <p class="text-muted">Got any questions about training or walking dogs? </p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-send wow bounceIn text-primary" data-wow-delay=".3s"></i>
                         <h3>Doggy-sit?</h3>
-                        <p class="text-muted">Going on a holiday and looking for someone to take care for your dog?</p>
+                        <p class="text-muted">Going on a holiday and looking for someone to take care of your dog?</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-map-o wow bounceIn text-primary" data-wow-delay=".3s"></i>
                         <h3>Favorite routes</h3>
                         <p class="text-muted">Share your favorite route with other people.</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-heartbeat wow bounceIn text-primary" data-wow-delay=".3s"></i>
                         <h3>Medical problems</h3>
@@ -83,6 +92,9 @@
         </div>
     </section>
 
-  <div id="footer2">
+<!--   <div id="footer2">
     <p>Copyright <span class="fa fa-copyright"></span> 2016</p>
+  </div> -->
+  <div id="footer2">
+        <%= render "layouts/footer" %>
   </div>
