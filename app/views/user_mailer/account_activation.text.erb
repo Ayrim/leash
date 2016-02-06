@@ -1,5 +1,6 @@
 Hi <%= @user.firstname %>,
 
-Welcome to the Sample App! Click on the link below to activate your account:
+Welcome to Leash!
 
+As soon as you have clicked the link below your account will be activated and you will be able to join the community.
 <%= edit_account_activation_url(@user.activation_token, email: @user.email) %>

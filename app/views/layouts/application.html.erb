@@ -38,6 +38,18 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
                      <% if logged_in? %>
+                <li>
+                 <%= link_to "Manage", users_path %>
+                </li>
+                <li>
+                 <%= link_to "Connections", users_path %>
+                </li>
+                <li>
+                 <%= link_to "Find", users_path %>
+                </li>
+                <li>
+                 <%= link_to "Blog", users_path %>
+                </li>
 			          <li>
 			          	<%= link_to "Sign Out (#{current_user.firstname} #{current_user.lastname})", logout_path %>
 			      	  </li>

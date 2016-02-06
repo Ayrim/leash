@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
   
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   root              'home#index'
 
   resources :users
   resources :user_sessions, only: [ :new, :create, :destroy ]
   resources :home
   resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :animals
 
   get 'login'   => 'user_sessions#new', :as => :login

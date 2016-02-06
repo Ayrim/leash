@@ -16,7 +16,10 @@
 
 @font-face {
   font-family: 'Aspergit';    
-  src: url('AspergitBold.otf');
+  src: url('AspergitBold.eot') format('embedded-opentype');
+  src: url('AspergitBold.eot?#iefix') format('embedded-opentype'),
+        url('AspergitBold.ttf') format('truetype'),
+        url('AspergitBold.otf');
   font-weight: normal;
   font-style: normal;
 }
@@ -34,7 +37,6 @@ body {
     height: 100%;
     font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
     /*font-family: Merriweather,'Helvetica Neue',Arial,sans-serif !important;*/
-   
 }
 
 html{
@@ -142,9 +144,45 @@ html{
 
 #footer{
    position:absolute;
-   bottom:0;
+   bottom: -50px;
 }
 
+.bg-footer{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footerSocialMedia{
+    max-width:140px; 
+    margin: 0 auto;
+}
+.footerlink{
+    color: #777;
+}
+.footerlink:hover,
+.footerlink:focus,
+.footerlink.focus,
+.footerlink:active,
+.footerlink.active{
+    color: #FF5B45;
+    text-decoration: none;
+}
+.forgot-password, .termsofagreement{
+    text-decoration: none;
+}
+.forgot-password:hover,
+.forgot-password:focus,
+.forgot-password.focus,
+.forgot-password:active,
+.forgot-password.active,
+.termsofagreement:hover,
+.termsofagreement:focus,
+.termsofagreement.focus,
+.termsofagreement:active,
+.termsofagreement.active{
+    color: #FF5B45;
+    text-decoration: none;
+}
 
 .container{
 	width: auto !important;
@@ -157,7 +195,9 @@ html{
     height: 100%;
     position: relative;
 }
-
+#contentAuthentication{
+    padding-top: 65px;
+}
 
 #imagebackground {
     position: relative;
@@ -179,6 +219,19 @@ html{
     -o-background-size: cover;
 }
 
+.banner{
+    position: relative;
+    width: 100%;
+    min-height: 30%;
+    text-align: center;
+    color: black;
+    background-image: url(dog-264718_1920_narrow.jpg);
+    background-position: bottom;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
 
 header {
     position: relative;
@@ -234,19 +287,24 @@ header .header-content .header-content-inner p {
     font-weight: 300;
 }
 
-    
-@media(min-width:768px) {
-    .col-lg-3 {
-        width: 50% !important;
+@media(min-width:1000px, max-height: 800px) {
+    #contentAuthentication{
+        padding-top: 5% !important;
     }
+}
+
+@media(min-width:768px) {
     #content{
-        padding-top: 150px;
+        padding-top: 50px;
     }
     header {
         min-height: 100%;
     }
     #imagebackground{
         min-height: 100%;
+    }
+    .banner{
+        min-height: 30%;
     }
 
     header .header-content {
@@ -269,6 +327,14 @@ header .header-content .header-content-inner p {
         margin-left: auto;
         max-width: 80%;
         font-size: 18px;
+    }
+
+    /*modal settings*/
+    .modal-dialog{
+        width: 900px;
+    }
+    #TermsOfAgreementModal{
+        margin-top: 5%;
     }
 }
 
@@ -326,10 +392,15 @@ header .header-content .header-content-inner p {
 }
 @media(max-width:1000px) {
     .col-lg-3 {
-        width: 100% !important;
+        width: 33% !important;
     }
 }
-.col-lg-3 {
+@media (min-width: 992px) {
+    .col-lg-4 {
+        width: 33% !important;
+    }
+}
+.col-lg-3, .col-lg-4 {
     margin-bottom: 25px;
 }
 @media(min-width:1200px) {
@@ -357,4 +428,11 @@ hr {
 }
 .text-primary {
     color: #FF5B45 !important;
+}
+
+#TermsOfAgreementModal{
+    margin-top: 50px;
+}
+.checkbox{
+    margin-top: :2px;
 }
