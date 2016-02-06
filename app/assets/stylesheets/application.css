@@ -153,7 +153,7 @@ html{
 }
 
 .footerSocialMedia{
-    max-width:135px; 
+    max-width:140px; 
     margin: 0 auto;
 }
 .footerlink{
@@ -195,7 +195,9 @@ html{
     height: 100%;
     position: relative;
 }
-
+#contentAuthentication{
+    padding-top: 65px;
+}
 
 #imagebackground {
     position: relative;
@@ -285,13 +287,15 @@ header .header-content .header-content-inner p {
     font-weight: 300;
 }
 
-    
+@media(min-width:1000px, max-height: 800px) {
+    #contentAuthentication{
+        padding-top: 5% !important;
+    }
+}
+
 @media(min-width:768px) {
     #content{
         padding-top: 50px;
-    }
-    #contentAuthentication{
-        padding-top: 150px;
     }
     header {
         min-height: 100%;
@@ -328,6 +332,9 @@ header .header-content .header-content-inner p {
     /*modal settings*/
     .modal-dialog{
         width: 900px;
+    }
+    #TermsOfAgreementModal{
+        margin-top: 5%;
     }
 }
 
@@ -424,7 +431,7 @@ hr {
 }
 
 #TermsOfAgreementModal{
-    margin-top: 5%;
+    margin-top: 50px;
 }
 .checkbox{
     margin-top: :2px;
