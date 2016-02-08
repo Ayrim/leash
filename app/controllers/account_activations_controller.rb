@@ -8,7 +8,7 @@ class AccountActivationsController < ApplicationController
       		current_user = user
 
       		flash[:notice] = "Your account has now been activated!"
-      		redirect_to users_path
+      		redirect_to overview_path
     	else
       		flash[:danger] = "Invalid activation link"
       		redirect_to root_url

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'logout'  => 'user_sessions#destroy', :as => :logout
   get 'signup'  => 'users#new', :as => :signup
   get 'home'    => 'home#index', :as => :home_root
-  
+  get 'overview'=> 'home#overview', :as => :overview
 
   
   #root 'users#index'

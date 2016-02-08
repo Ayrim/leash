@@ -294,8 +294,11 @@ header .header-content .header-content-inner p {
 }
 
 @media(min-width:768px) {
-    #content{
+    .content{
         padding-top: 50px;
+    }
+    .dl-horizontal dd{
+        margin-left: 120px;
     }
     header {
         min-height: 100%;
@@ -338,6 +341,9 @@ header .header-content .header-content-inner p {
     }
 }
 
+.content{
+       background: white;
+}
 
 #loginbox{
 	width: 475px;
