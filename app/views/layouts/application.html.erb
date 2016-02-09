@@ -21,53 +21,297 @@
 </head>
 <body data-no-turbolink="true">
 
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+    <!--<nav class="navbar navbar-default navbar-fixed-top">-->
+        <!--<div class="container">-->
+            <!--<div class="navbar-header">-->
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                <!--</button>-->
+                <!--<% if logged_in? %>-->
+                  <!--<%= link_to $title.capitalize, users_path, :class => "navbar-brand" %>-->
+                <!--<% else %>-->
+                  <!--<%= link_to $title.capitalize, home_root_path, :class => "navbar-brand" %>-->
+                <!--<% end %> -->
+            <!--</div>-->
+            <!--<div class="collapse navbar-collapse" id="myNavbar">-->
+                <!--<ul class="nav navbar-nav navbar-right">-->
+                  <!--<% if logged_in? %>-->
+			          <!--<li>-->
+			          	<!--<%= link_to "Sign Out (#{current_user.firstname} #{current_user.lastname})", logout_path %>-->
+			      	  <!--</li>-->
+			        <!--<% else %>-->
+			          <!--<li>-->
+			           <!--<%= link_to "Sign In", login_path %>-->
+			      	  <!--</li>-->
+			      	  <!--<li>-->
+			      	  	<!--<%= link_to "Sign Up", signup_path %>-->
+			      	  <!--</li>-->
+			        <!--<% end %>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--&lt;!&ndash;</nav>&ndash;&gt;-->
+    <!--<div id="wrapper" class="active">-->
+      <!--<% if logged_in? %>-->
+    <!--<div id="sidebar-wrapper">-->
+
+      <!--<ul id="sidebar_menu" class="sidebar-nav">-->
+        <!--<li class="sidebar-brand"><a id="menu-toggle" href="#">Leash<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>-->
+      <!--</ul>-->
+      <!--<ul class="sidebar-nav" id="sidebar">-->
+
+        <!--<li><%= link_to "Manage", users_path %></li>-->
+        <!--<li><%= link_to "Connections", users_path %></li>-->
+        <!--<li><%= link_to "Find", users_path %></li>-->
+        <!--<li><%= link_to "Blog", users_path %></li>-->
+
+      <!--</ul>-->
+    <!--</div>-->
+      <!--<% end %>-->
+    <!--<div id="page-content-wrapper">-->
+      <!--&lt;!&ndash; Keep all page content within the page-content inset div! &ndash;&gt;-->
+      <!--<div class="page-content inset">-->
+        <!--<nav class="navbar navbar-default navbar-fixed-top">-->
+          <!--<div class="container">-->
+            <!--<div class="navbar-header">-->
+              <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+              <!--</button>-->
+              <!--<% if logged_in? %>-->
+                  <!--<%= link_to $title.capitalize, users_path, :class => "navbar-brand" %>-->
+              <!--<% else %>-->
+                  <!--<%= link_to $title.capitalize, home_root_path, :class => "navbar-brand" %>-->
+              <!--<% end %>-->
+            <!--</div>-->
+            <!--<div class="collapse navbar-collapse" id="myNavbar">-->
+              <!--<ul class="nav navbar-nav navbar-right">-->
+                <!--<% if logged_in? %>-->
+                    <!--<li>-->
+                    <!--<li><a id="menu-toggle" href="#"><span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>-->
+                      <!--</button>-->
+                    <!--</li>-->
+
+                    <!--<li>-->
+                      <!--<%= link_to "Sign Out (#{current_user.firstname} #{current_user.lastname})", logout_path %>-->
+                    <!--</li>-->
+                <!--<% else %>-->
+                    <!--<li>-->
+                      <!--<%= link_to "Sign In", login_path %>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                      <!--<%= link_to "Sign Up", signup_path %>-->
+                    <!--</li>-->
+                <!--<% end %>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</nav>-->
+
+<div id="wrapper">
+  <% if logged_in? %>
+  <!-- Sidebar -->
+
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a href="#menu-toggle" class="glyphicon glyphicon-align-justify" id="menu-toggle2"></a>
+        <a href="#">Leash</a>
+      </li>
+      <li>
+        <a href="#">Dashboard</a>
+      </li>
+      <li>
+        <a href="#">Shortcuts</a>
+      </li>
+      <li>
+        <a href="#">Overview</a>
+      </li>
+      <li>
+        <a href="#">Events</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+      <li>
+        <a href="#">Services</a>
+      </li>
+      <li>
+        <a href="#">Contact</a>
+      </li>
+      <li>
+        <a href="#">Dashboard</a>
+      </li>
+      <li>
+        <a href="#">Shortcuts</a>
+      </li>
+      <li>
+        <a href="#">Overview</a>
+      </li>
+      <li>
+        <a href="#">Events</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+      <li>
+        <a href="#">Services</a>
+      </li>
+      <li>
+        <a href="#">Contact</a>
+      </li>
+      <li>
+        <a href="#">Dashboard</a>
+      </li>
+      <li>
+        <a href="#">Shortcuts</a>
+      </li>
+      <li>
+        <a href="#">Overview</a>
+      </li>
+      <li>
+        <a href="#">Events</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+      <li>
+        <a href="#">Services</a>
+      </li>
+      <li>
+        <a href="#">Contact</a>
+      </li>
+      <li>
+        <a href="#">Dashboard</a>
+      </li>
+      <li>
+        <a href="#">Shortcuts</a>
+      </li>
+      <li>
+        <a href="#">Overview</a>
+      </li>
+      <li>
+        <a href="#">Events</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+      <li>
+        <a href="#">Services</a>
+      </li>
+      <li>
+        <a href="#">Contact</a>
+      </li>      <li>
+      <a href="#">Dashboard</a>
+    </li>
+      <li>
+        <a href="#">Shortcuts</a>
+      </li>
+      <li>
+        <a href="#">Overview</a>
+      </li>
+      <li>
+        <a href="#">Events</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+      <li>
+        <a href="#">Services</a>
+      </li>
+      <li>
+        <a href="#">Contact</a>
+      </li>      <li>
+      <a href="#">Dashboard</a>
+    </li>
+      <li>
+        <a href="#">Shortcuts</a>
+      </li>
+      <li>
+        <a href="#">Overview</a>
+      </li>
+      <li>
+        <a href="#">Events</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+      <li>
+        <a href="#">Services</a>
+      </li>
+      <li>
+        <a href="#">Contact</a>
+      </li>
+
+
+    </ul>
+  </div>
+<% end %>
+  <div id="page-content-wrapper">
+
+
+
+          <!--<a href="#menu-toggle" class="glyphicon glyphicon-align-justify" id="menu-toggle"></a>-->
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div >
+                <ul class="navbar-header">
                 <% if logged_in? %>
-                  <%= link_to $title.capitalize, users_path, :class => "navbar-brand" %>
+
+                <li><a id="menu-toggle" href="#"><span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+                    <% end %>
+                <li><a class="navbar-brand" href="#">Leash</a></li>
+</ul>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                <% if logged_in? %>
+                    <li>
+                    <%= link_to "Sign Out (#{current_user.firstname} #{current_user.lastname})", logout_path %>
+                    </li>
                 <% else %>
-                  <%= link_to $title.capitalize, home_root_path, :class => "navbar-brand" %>
-                <% end %> 
+                    <li>
+                    <%= link_to "Sign In", login_path %>
+                    </li>
+                    <li>
+                    <%= link_to "Sign Up", signup_path %>
+                    </li>
+                <% end %>
+              </ul>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-right">
-                     <% if logged_in? %>
-                <li>
-                 <%= link_to "Manage", users_path %>
-                </li>
-                <li>
-                 <%= link_to "Connections", users_path %>
-                </li>
-                <li>
-                 <%= link_to "Find", users_path %>
-                </li>
-                <li>
-                 <%= link_to "Blog", users_path %>
-                </li>
-			          <li>
-			          	<%= link_to "Sign Out (#{current_user.firstname} #{current_user.lastname})", logout_path %>
-			      	  </li>
-			        <% else %>
-			          <li>
-			           <%= link_to "Sign In", login_path %>
-			      	  </li>
-			      	  <li>
-			      	  	<%= link_to "Sign Up", signup_path %>
-			      	  </li>
-			        <% end %>
-                </ul>
-            </div>
-        </div>
-    </nav>
+          </nav>
+
+          <%= yield %>
+          <div id="footer2">
+            <%= render "layouts/footer" %>
+          </div>
+
+
+  </div>
 
 
 
-    <%= yield %>
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    $(".main-icon").hide();
+  });
+
+  $("#menu-toggle2").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+</script>
+
+
 </body>
 </html>

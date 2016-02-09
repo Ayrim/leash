@@ -1,0 +1,35 @@
+<!--<p id="notice"><%= notice %></p>-->
+<div class="banner"></div>
+<div id="container">
+  <div id="content">
+    <div class="container-fluid text-center">
+      <p class="flash">
+        <%= flash.notice %>
+      </p>
+      <div id="container">
+        <div id="content">
+          <p>
+            <strong>Name:</strong>
+            <%= @animal.name %>
+          </p>
+
+          <p>
+            <strong>Breed:</strong>
+            <%= @animal.breed %>
+          </p>
+
+          <p>
+            <strong>Birthdate:</strong>
+            <%= @animal.birthdate %>
+          </p>
+
+ 
+          <%= link_to 'Back', animals_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer">
+    <%= render "layouts/footer" %>
+  </div>
+</div>
