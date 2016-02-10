@@ -1,0 +1,245 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+	 
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	   <style>
+	  @font-face {
+		  font-family: 'Aspergit';    
+		  src: url('fonts/AspergitBold.eot') format('embedded-opentype');
+		  src: url('fonts/AspergitBold.eot?#iefix') format('embedded-opentype'),
+				url('fonts/AspergitBold.ttf') format('truetype'),
+				url('fonts/AspergitBold.otf');
+		  font-weight: normal;
+		  font-style: normal;
+		}
+
+		html {
+			background-color: #FF5B45;
+			font-size:14px;
+		}
+		
+		body{
+			display: flex;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+		#login-page {
+			flex: 1 0 auto;
+			margin-top: 50px;
+        }
+		
+		footer{
+			margin-top: 100%;
+			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
+			letter-spacing: 4px;
+			background-color: #36373B !important;
+		}
+		
+		footer a{
+			color: #777;
+		}
+		
+		footer h4{
+			font-size: 18px;
+		}
+		footer p{
+			font-size: 0.7em;
+		}
+		footer .row{
+			margin-bottom: 0px;
+		}
+		footer .container{
+			width: 90%;
+			line-height: 1.42857143;
+			max-width: 1200px;
+		}
+		
+		.page-footer{
+			padding-top:10px !important;
+		}
+		
+		.footerlink span i{
+			font-size:25px;
+			text-align: left;
+		}
+		
+		.footer-copyright{
+			line-height: 10px !important;
+			height: 35px !important;
+			padding-bottom: 10px;
+			font-size: 0.95em;
+		}
+		
+		.service-box h4{
+			color:white;
+		}
+		.text-muted{
+			color: #777;
+			
+		}
+
+		.footerSocialMedia{
+			max-width:145px; 
+			margin: 0 auto;
+		}
+		.footerlink{
+			color: #777;
+		}
+		.footerlink:hover,
+		.footerlink:focus,
+		.footerlink.focus,
+		.footerlink:active,
+		.footerlink.active{
+			color: #FF5B45;
+			text-decoration: none;
+		}
+		
+		
+		.login-form{
+			width: 280px;
+		}
+		form{
+			display:block;
+			margin-top:0em;
+		}
+		.profile-image-login{
+			width: 96px;
+			height: 96px;
+			margin: 0 auto;
+			margin-top: 20px;
+			margin-bottom: -20px;
+		}
+		
+	  </style>
+	</head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	
+	  <script type="text/javascript">
+	  </script>
+	  
+	  <header>
+	  </header>
+	  
+	  <main>
+	 </main>
+	  	<div id="login-page" class="row">
+			<div class="col s12 z-depth-4 card-panel">
+				<form class="login-form">
+				<div class="row">
+				  <div class="input-field col s12 center">
+					<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle responsive-img valign profile-image-login">
+					<p class="center login-form-text"></p>
+				  </div>
+				</div>
+				<div class="row margin">
+				  <div class="input-field col s12">
+					<i class="mdi-social-person-outline prefix"></i>
+					<input id="username" type="text">
+					<label for="username" class="center-align">Username</label>
+				  </div>
+				</div>
+				<div class="row margin">
+				  <div class="input-field col s12">
+					<i class="mdi-action-lock-outline prefix"></i>
+					<input id="password" type="password">
+					<label for="password">Password</label>
+				  </div>
+				</div>
+				<div class="row">          
+				  <div class="input-field col s12 m12 l12  login-text">
+					  <input type="checkbox" id="remember-me">
+					  <label for="remember-me">Remember me</label>
+				  </div>
+				</div>
+				<div class="row">
+				  <div class="input-field col s12">
+					<a href="material design.html" class="btn waves-effect waves-light col s12">Login</a>
+				  </div>
+				</div>
+				<div class="row">
+				  <div class="input-field col s6 m6 l6">
+					<p class="margin medium-small"><a href="#!">Register Now!</a></p>
+				  </div>
+				  <div class="input-field col s6 m6 l6">
+					  <p class="margin right-align medium-small"><a href="#!">Forgot password ?</a></p>
+				  </div>          
+				</div>
+
+			  </form>
+			</div>
+		</div>
+	  <footer class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m4 center-align">
+					<div class="service-box">
+						<h4>Leash-logo</h4>
+						<p class="text-muted">
+							The favourite community of 
+							dog-lovers.<br /><br />
+							Find someone in your neighbourhood to walk your dog or find a dog to take for a walk.
+						</p>
+					</div>
+				</div>
+				<div class="col s12 m4 center-align">
+					<div class="service-box">
+						<h4>Follow us on</h4>
+						<div class="text-center footerSocialMedia">
+							<p class="text-muted left-align">
+								<a class="footerlink" href="#" target="blank">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-facebook-square fa-stack-2x"></i>
+									</span>   Facebook
+								</a><br>
+								<a class="footerlink" href="#" target="blank">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-twitter-square fa-stack-2x"></i>
+									</span>   Twitter
+								</a><br>
+								<a class="footerlink" href="#" target="blank">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-google-plus-square fa-stack-2x"></i>
+									</span>   Google Plus
+								</a><br>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m4 center-align">
+					<div class="service-box">
+						<h4>Contact us</h4>
+						<p class="text-muted">Questions or advice? 
+							<br />Feel free to send us a mail!
+							<br />
+							<br />
+							<a class="footerlink" href="mailto:leashayrim@gmail.com">
+								<span class="fa-stack fa-lg">
+									<i class="fa fa-envelope-square fa-stack-2x"></i>
+								</span>   info@leash.be
+							</a><br>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+            <div class="container center">
+				<p class="text-muted">Copyright <span class="fa fa-copyright"></span> 2016</p>
+            </div>
+          </div>
+	</footer>
+    </body>
+  </html>
