@@ -56,6 +56,10 @@
 			margin-bottom: 5px;
 		}
 		
+		ul .dropdown-content.active, ul .dropdown-content{
+			top: 64px !important;
+		}
+		
 		@media(min-width:768px){
 			.brand-logo{
 				margin-left:25px;
@@ -205,7 +209,7 @@
 		<ul id="dropdown1" class="dropdown-content">
 		  <li><a href="#!">Settings</a></li>
 		  <li class="divider"></li>
-		  <li><a href="#!">Sign Out</a></li>
+		  <li><a href="index.html">Sign Out</a></li>
 		</ul>
 		<ul id="dropdown2" class="dropdown-content">
 		  <li><a href="#!">Dogs</a></li>
@@ -226,10 +230,17 @@
 				  <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle accountPicture" ><!--<i class="material-icons right">more_vert</i>--></a></li>
 				</ul>
 				<ul class="side-nav" id="mobile-demo">
-				  <li><a href="#">Sign Out</a></li>
-				  <li class="divider"></li>
 				  <li><a href="#">Settings</a></li>
 				  <li><a href="#!">Search</a></li>
+				  <li class="bottom center-align" style="
+						position: absolute;
+						bottom: 64px;
+						width: 100%;
+					"><img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle accountPicture" style="
+						margin-top: 25px;
+						height: 75px;
+					">
+					<a href="index.html">Sign Out</a></li>
 				</ul>
 			  </div>
 			</nav>
