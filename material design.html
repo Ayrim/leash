@@ -157,6 +157,12 @@
 			color: #FF5B45;
 			text-decoration: none;
 		}
+		
+		.card-reveal.addition{
+			margin-top:44px;
+		}
+		
+		
 	  </style>
     </head>
 
@@ -226,18 +232,24 @@
 		<div class="navbar-fixed">
 			<nav>
 			  <div class="nav-wrapper">
-				<a href="#!" data-activates="mobile-demo" class="brand-logo">Leash</a>
+				<a href="#!" data-activates="mobile-demo" class="brand-logo hide-on-med-and-down">Leash<i class="material-icons left">menu</i></a>
+				<a href="#!" data-activates="mobile-demo" class="brand-logo hide-on-large-only">Leash</a>
 				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
 				<ul class="right hide-on-med-and-down">
-				  <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Search<i class="material-icons left">search</i></a></li>
-				  <li><a href="#">Connections</a></li>
+				  <!--<li><a class="dropdown-button" href="#!" data-activates="dropdown2">Search<i class="material-icons left">search</i></a></li>-->
 				  <!-- Dropdown Trigger -->
 				  <li><a class="dropdown-button" href="#!" data-activates="dropdown1">
 				  <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle accountPicture" ><!--<i class="material-icons right">more_vert</i>--></a></li>
 				</ul>
-				<ul class="side-nav" id="mobile-demo">
-				  <li><a href="#">Settings</a></li>
-				  <li><a href="#!">Search</a></li>
+				<ul class="side-nav collapsible" id="mobile-demo"  data-collapsible="accordion">
+				  <li><a href="#">Settings<i class="material-icons left">settings</i></a></li>
+				  <li><a href="#!">Search<i class="material-icons left">search</i></a></li>
+				  
+					<!--<li>
+					  <div class="collapsible-header">Search<i class="material-icons left">search</i></div>
+					  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+					</li>-->
+	
 				  <li class="bottom center-align" style="
 						position: absolute;
 						bottom: 64px;
@@ -282,7 +294,7 @@
 				<li class="collection-header"><strong>Dog walkers</strong></li>
 				<li class="collection-item avatar">
 				  <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle">
-				  <i class="material-icons" style="position:absolute; left:40px; top: 3px; color:#ffc107;">grade</i>
+				  <i class="material-icons" style="position:absolute; left:40px; top: 3px; color:#ffc107;">stars</i>
 				  <span class="title truncate">Maxim Braekman</span>
 				  <p class="truncate">Blankenberge <br>
 					 Distance: 0.00 km
@@ -292,7 +304,7 @@
 				<li class="collection-item avatar">
 				  <img src="https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-19/11939272_112396902446470_791408390_a.jpg" alt="" class="circle">
 				  <!--<i class="material-icons circle red">account_circle</i>-->
-				  <i class="material-icons" style="position:absolute; left:40px; top: 3px; color:#ffc107;">grade</i>
+				  <i class="material-icons" style="position:absolute; left:40px; top: 3px; color:#ffc107;">stars</i>
 				  <span class="title truncate">Florence Compernolle</span>
 				  <p class="truncate">Blankenberge <br>
 					 Distance: 0.01 km
@@ -317,11 +329,14 @@
 				  </p>
 				  <a href="#!" class="activator secondary-content"><i class="material-icons">view_headline</i></a>
 				</li>
-					<li class="card-reveal" style="margin-top: 43px;">
+					<li class="card-reveal addition">
 					  <span class="card-title grey-text text-darken-4">Ayrton Vercruysse<i class="material-icons right">close</i></span>
 					  <p>
-						<i>Premium user</i><br />
-						<i>Walker-rating:</i>  <u>***</u>**
+						<i style="line-height:24px;">Premium user</i><i class="material-icons right" style=" color:#ffc107;">star star star star_half star_border</i>
+						<br />
+						<div class="col s6 m6 offset-s3 offset-m3">
+							<img class="responsive-img" src="https://www.peepl.be/static/images/team/ayrton.jpg" />
+						</div>
 					  </p>
 					  <p class="walkerInfo">
 						<i>Blankenberge</i><br />
@@ -336,7 +351,7 @@
 				<li class="collection-header"><strong>Dogs</strong></li>
 				<li class="collection-item avatar">
 				  <img src="img/lake-animals-dogs-pets.jpg" alt="" class="circle">
-				  <i class="material-icons" style="position:absolute; left:40px; top: 3px; color:#ffc107;">grade</i>
+				  <i class="material-icons" style="position:absolute; left:40px; top: 3px; color:#ffc107;">stars</i>
 				  <span class="title truncate">Zara</span>
 				  <p class="truncate"><i>Unknown</i><br>
 					Blankenberge
@@ -355,7 +370,7 @@
 				<li class="collection-item avatar">
 				<img src="https://s.graphiq.com/sites/default/files/stories/t4/20_Best_Breeds_for_First-Time_Dog_Owners_3132_4371.jpg" alt="" class="circle" />
 				  <!--<i class="material-icons circle red" style="background-color:#FF5B45 !important;" >adb</i>-->
-				  <i class="material-icons" style="position:absolute; left:40px; top: 3px; color:#ffc107;">grade</i>
+				  <i class="material-icons" style="position:absolute; left:40px; top: 3px; color:#ffc107;">stars</i>
 				  <span class="title truncate">Cooper</span>
 				  <p class="truncate"><i>Boxer</i><br>
 					Blankenberge
@@ -371,9 +386,12 @@
 				  </p>
 				  <a href="#!" class="activator secondary-content"><i class="material-icons">view_headline</i></a>
 				</li>
-					<li class="card-reveal" style="margin-top: 43px;">
+					<li class="card-reveal addition">
 					  <span class="card-title grey-text text-darken-4">Zara<i class="material-icons right">close</i></span>
 					  <p><i>Unknown</i></p>
+						<div class="col s6 m6 offset-s3 offset-m3">
+							<img class="responsive-img" src="img/lake-animals-dogs-pets.jpg" />
+						</div>
 					  <p class="ownerInfo">
 					    Ayrton Vercruysse
 						<i>Blankenberge</i><br />
@@ -390,7 +408,7 @@
 				  <i class="material-icons circle green">map</i>
 				  <span class="title">Boerenbuiten</span>
 				  <p><i>Blankenberge</i> <br>
-					 Length: 5.5 km
+					 5.5 km
 				  </p>
 				  <a href="#!" class="activator secondary-content"><i class="material-icons">view_headline</i></a>
 				</li>
@@ -398,7 +416,7 @@
 				  <i class="material-icons circle green">map</i>
 				  <span class="title">Strand wandeling</span>
 				  <p><i>Blankenberge</i> <br>
-					 Length: 4.5 km
+					 4.5 km
 				  </p>
 				  <a href="#!" class="activator secondary-content"><i class="material-icons">view_headline</i></a>
 				</li>
@@ -406,7 +424,7 @@
 				  <i class="material-icons circle green">map</i>
 				  <span class="title">Brugse vesten</span>
 				  <p><i>Brugge</i> <br>
-					 Length: 10.2 km
+					 10.2 km
 				  </p>
 				  <a href="#!" class="activator secondary-content"><i class="material-icons">view_headline</i></a>
 				</li>
@@ -414,11 +432,11 @@
 				  <i class="material-icons circle green">map</i>
 				  <span class="title">Stadswandeling</span>
 				  <p><i>Brugge</i> <br>
-					 Length: 8.9 km
+					 8.9 km
 				  </p>
 				  <a href="#!" class="activator secondary-content"><i class="material-icons">view_headline</i></a>
 				</li>
-					<li class="card-reveal" style="margin-top: 43px;">
+					<li class="card-reveal addition">
 					  <span class="card-title grey-text text-darken-4">Strand wandeling<i class="material-icons right">close</i></span>
 					  <p>Google maps route.</p>
 					  <p class="routeInfo">
@@ -490,7 +508,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col s12 m4">
+			<div class="col s12 m12 l6">
 				<div class="card z-depth-1 hoverable">
 					<!--<div class="card-content">
 					  <span class="card-title activator grey-text text-darken-4">Calendar<i class="material-icons right">more_vert</i></span>-->
@@ -503,7 +521,7 @@
 					<!--</div>-->
 				</div>
 			</div>
-			<div class="col s12 m4 hide-on-small-only">
+			<div class="col s12 m6 hide-on-small-only">
 			 <ul class="collection z-depth-1 with-header hoverable">
 				<li class="collection-header"><strong>Planning</strong></li>
 				<li class="collection-item avatar">
@@ -525,7 +543,7 @@
 				</li>
 			  </ul>
 			</div>
-			<div class="col s12 m4">
+			<div class="col s12 m6">
 			 <ul class="collection z-depth-1 with-header hoverable">
 				<li class="collection-header"><strong>Active blog-threads</strong></li>
 				<li class="collection-item avatar">
