@@ -8,7 +8,7 @@ class UserSessionsController < ApplicationController
 	    if user
 	      	if user.activated?
 				if(login(params[:email], params[:password], params[:remember]))
-					redirect_back_or_to(users_path, notice: 'Logged in successfully.')
+					redirect_back_or_to(overview_path, notice: 'Logged in successfully.')
 				else
 					flash.now.alert = "Login failed."
 					render action: :new

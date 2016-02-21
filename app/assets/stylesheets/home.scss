@@ -1,3 +1,82 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.table-responsive{
+	min-height: 570px;
+	max-width: 1000px;
+	margin: 0 auto;
+	margin-top: 50px;
+	padding-right: 0px;
+	border-width: 0px;
+}	
+
+.imageColumn{
+	width: 100px;
+}
+.animalDescription, .animalLocation{
+	padding-bottom: 10px;
+}
+
+.descriptionColumn{
+	padding-top: 0px !important;
+}
+
+.circular {
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 2px rgba(0, 0, 0, .8);
+	-moz-box-shadow: 0 0 2px rgba(0, 0, 0, .8);
+	margin: auto;
+
+	/*padding: 4px;  
+	line-height: 1.428571429;  
+	background-color: #ffffff;  
+	border: 1px solid #dddddd;  
+	-webkit-transition: all 0.2s ease-in-out;  
+          transition: all 0.2s ease-in-out; */
+	}
+
+@media(min-width:768px) {
+    header {
+        min-height: 150px;
+    }
+	.dl-horizontal dt{
+		width: 100px;
+	}
+	
+	.circular {
+		width: 100px;
+		height: 100px;
+		border-radius: 50px;
+		-webkit-border-radius: 50px;
+		-moz-border-radius: 50px;
+		box-shadow: 0 0 4px rgba(0, 0, 0, .8);
+		-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .8);
+		-moz-box-shadow: 0 0 4px rgba(0, 0, 0, .8);
+		margin: auto;
+
+		/*padding: 4px;  
+		line-height: 1.428571429;  
+		background-color: #ffffff;  
+		border: 1px solid #dddddd;  
+		-webkit-transition: all 0.2s ease-in-out;  
+			  transition: all 0.2s ease-in-out; */
+	}
+
+	.table-responsive{
+		padding-right: 250px;
+	}
+
+	.animalDescription{
+		min-width: 250px;
+	}
+
+	.detailsHeader{
+		padding-left: 65px !important;
+	}
+}

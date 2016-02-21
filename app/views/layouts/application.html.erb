@@ -30,7 +30,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <% if logged_in? %>
-                  <%= link_to $title.capitalize, users_path, :class => "navbar-brand" %>
+                  <%= link_to $title.capitalize, overview_path, :class => "navbar-brand" %>
                 <% else %>
                   <%= link_to $title.capitalize, home_root_path, :class => "navbar-brand" %>
                 <% end %> 
