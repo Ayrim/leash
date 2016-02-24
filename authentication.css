@@ -1,0 +1,28 @@
+
+		html{
+			background-color: #FF5B45;
+			font-size:14px;
+		}
+	
+	
+		/* ------- LOGIN-FORM ------- */
+		#login-page {
+			flex: 1 0 auto;
+			margin-top: 50px;
+        }
+		
+		.login-form{
+			width: 300px;
+		}
+		form{
+			display:block;
+			margin-top:0em;
+		}
+		.profile-image-login{
+			width: 96px;
+			height: 96px;
+			margin: 0 auto;
+			margin-top: 20px;
+			margin-bottom: -20px;
+		}
+		/* ------- END LOGIN-FORM ------- */

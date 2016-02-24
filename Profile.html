@@ -1,0 +1,615 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="screen.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="profile.css"  media="screen,projection"/>
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+	 
+	  
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	  	  
+	  <script type="text/javascript" src="fullcalendar/lib/jquery-ui.custom.min.js"></script>
+	  <script type="text/javascript" src="fullcalendar/lib/moment.min.js"></script>
+	  <script type="text/javascript" src="fullcalendar/fullcalendar.min.js"></script>
+	  <script type="text/javascript" src="fullcalendar/fullcalendar.js"></script>
+	  
+    <!-- google map api -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
+	
+      <script type="text/javascript" src="scripts/application.js"></script>
+	
+	  
+		<ul id="dropdown1" class="dropdown-content">
+		  <li><a href="profile.html">Settings</a></li>
+		  <li class="divider"></li>
+		  <li><a href="index.html">Sign Out</a></li>
+		</ul>
+		<ul id="dropdown2" class="dropdown-content">
+		  <li><a href="#!">Dogs</a></li>
+		  <li><a href="#!">Dog walkers</a></li>
+		  <li class="divider"></li>
+		  <li><a href="#!">Routes</a></li>
+		</ul>
+		<div class="navbar-fixed">
+			<nav>
+			  <div class="nav-wrapper">
+				<a href="#!" data-activates="mobile-demo" class="brand-logo hide-on-med-and-down">Leash<i class="material-icons left">menu</i></a>
+				<a href="#!" data-activates="mobile-demo" class="brand-logo hide-on-large-only">Leash</a>
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
+				<ul class="right hide-on-med-and-down">
+				  <!--<li><a class="dropdown-button" href="#!" data-activates="dropdown2">Search<i class="material-icons left">search</i></a></li>-->
+				  <!-- Dropdown Trigger -->
+				  <li><a class="dropdown-button" href="#!" data-activates="dropdown1">
+				  <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle accountPicture" ><!--<i class="material-icons right">more_vert</i>--></a></li>
+				</ul>
+				<ul class="side-nav collapsible" id="mobile-demo"  data-collapsible="accordion">
+				  <li><a href="profile.html">Settings<i class="material-icons left">settings</i></a></li>
+				  <li class="no-padding">
+					<ul class="collapsible collapsible-accordion">
+					  <li>
+						<a class="collapsible-header">Search<i class="material-icons left" >search</i></i></a>
+						<div class="collapsible-body">
+						  <ul>
+							<li><a href="#!">Dogs</a></li>
+							<li><a href="#!">Dog walkers</a></li>
+							<li><a href="#!">Routes</a></li>
+						  </ul>
+						</div>
+					  </li>
+					</ul>
+				  </li>
+				  
+				  
+					<!--<li>
+					  <div class="collapsible-header">Search<i class="material-icons left">search</i></div>
+					  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+					</li>-->
+	
+				  <li class="bottom center-align" style="
+						position: absolute;
+						bottom: 64px;
+						width: 100%;
+					"><img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle accountPicture" style="
+						margin-top: 25px;
+						height: 75px;
+					">
+					<a href="index.html">Sign Out</a></li>
+				</ul>
+			  </div>
+			</nav>
+		</div>
+	  
+	    <!-- START MAIN -->
+  <div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+	        <!-- START CONTENT -->
+      <section id="content">        
+
+        <!--start container-->
+        <div class="container">
+
+          <div id="profile-page" class="section">
+            <!-- profile-page-header -->
+            <div id="profile-page-header" class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="http://demo.geekslabs.com/materialize/v2.1/layout03/images/user-profile-bg.jpg" alt="user background">                    
+                </div>
+                <figure class="card-profile-image">
+                    <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="profile image" class="circle z-depth-2 responsive-img activator">
+                </figure>
+                <div class="card-content">
+                  <div class="row">                    
+                    <div class="col s3 offset-s2">                        
+                        <h4 class="card-title grey-text text-darken-4">Maxim Braekman</h4>
+                        <p class="medium-small grey-text">Integration Consultant</p>                        
+                    </div>         		
+                    <div class="col s2 offset-s2 center-align">
+                        <h4 class="card-title grey-text text-darken-4">0</h4>
+                        <p class="medium-small grey-text">Dogs</p>                        
+                    </div>   
+                    <div class="col s2 center-align">
+                        <h4 class="card-title grey-text text-darken-4">10+</h4>
+                        <p class="medium-small grey-text">Walking Experience</p>                        
+                    </div>             
+                    <div class="col s1 right-align">
+                      <a class="btn-floating activator waves-effect waves-light darken-2 right">
+                          <i class="mdi-action-perm-identity"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-reveal">
+                    <p>
+                      <span class="card-title grey-text text-darken-4">Maxim Braekman <i class="mdi-navigation-close right"></i></span>
+                      <span><i class="mdi-action-perm-identity cyan-text text-darken-2"></i> Integration Consultant</span>
+                    </p>
+
+                    <p>This is a small description every user can add to his/her account.</p>
+                    
+                    <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> +32 (0)498 20 85 85</p>
+                    <p><i class="mdi-communication-email cyan-text text-darken-2"></i> maxim.braekman@hotmail.com</p>
+                    <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 22th August 1989</p>
+                </div>
+            </div>
+            <!--/ profile-page-header -->
+
+            <!-- profile-page-content -->
+            <div id="profile-page-content" class="row">
+              <!-- profile-page-sidebar-->
+              <div id="profile-page-sidebar" class="col s12 m4">
+                <!-- Profile About  -->
+                <div class="card light-blue">
+                  <div class="card-content white-text">
+                    <span class="card-title">About Me!</span>
+                    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                  </div>                  
+                </div>
+                <!-- Profile About  -->
+
+                <!-- Profile About Details  -->
+                <ul id="profile-page-about-details" class="collection z-depth-1">
+                  <li class="collection-item">
+                    <div class="row">
+                      <div class="col s5 grey-text darken-1"><i class="mdi-action-wallet-travel"></i> Area</div>
+                      <div class="col s7 grey-text text-darken-4 right-align">Coast</div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    <div class="row">
+                      <div class="col s5 grey-text darken-1"><i class="mdi-social-poll"></i> Skills</div>
+                      <div class="col s7 grey-text text-darken-4 right-align"> Dog walking/training</div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    <div class="row">
+                      <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Lives in</div>
+                      <div class="col s7 grey-text text-darken-4 right-align">Blankenberge, BE</div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    <div class="row">
+                      <div class="col s5 grey-text darken-1"><i class="mdi-social-cake"></i> Birth date</div>
+                      <div class="col s7 grey-text text-darken-4 right-align">22th August, 1989</div>
+                    </div>
+                  </li>
+                </ul>
+                <!--/ Profile About Details  -->
+
+                <!-- Profile About  -->
+                <div class="card amber darken-2">
+                  <div class="card-content white-text center-align">
+                    <p class="card-title"><i class="mdi-social-group-add"></i> 2</p>
+                    <p>Connections</p>
+                  </div>                  
+                </div>
+                <!-- Profile About  -->
+
+                <!-- Profile feed  -->
+			 <ul class="collection z-depth-1 with-header hoverable">
+				<li class="collection-header"><strong>Planning</strong></li>
+				<li class="collection-item avatar">
+				  <img src="img/lake-animals-dogs-pets.jpg" alt="" class="circle">
+				  <img src="https://www.peepl.be/static/images/team/ayrton.jpg" class="circle top-circle font-size:0.5em;" style="position:absolute; left:40px; top: 3px; color:#ffc107; />
+				  <span class="title truncate"><strong>Coming</strong> for a walk with Zara</span>
+				  <p class="truncate"><i>Ayrton Vercruysse</i><br>
+					18:00 - 19:00
+				  </p>
+				  <a href="#!" class="secondary-content">Today</a>
+				</li>
+				<li class="collection-item avatar">
+				  <img src="http://bebusinessed.com/wp-content/uploads/2014/03/734899052_13956580111.jpg" alt="" class="circle">
+				  <span class="title truncate"><strong>Going</strong> for a walk with Blacky</span>
+				  <p class="truncate"><i>@ Aaron Bakker</i><br>
+					10:00 - 11:00
+				  </p>
+				  <a href="#!" class="secondary-content">Saturday</a>
+				</li>
+			  </ul>
+			
+                <!-- Profile feed  -->
+
+
+
+                <!-- Map Card -->
+                <div class="map-card">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <div id="map-canvas" data-lat="51.312374" data-lng="3.132768"></div>
+                        </div>
+                        <div class="card-content">                    
+                            <a class="btn-floating btn-move-up waves-effect waves-light darken-2 right">
+                                <i class="mdi-maps-pin-drop"></i>
+                            </a>
+                            <h4 class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">Blankenberge</a>
+                            </h4>
+                            <p class="blog-post-content">Indication of where this person lives.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Map Card -->
+
+              </div>
+              <!-- profile-page-sidebar-->
+
+              <!-- profile-page-wall -->
+              <div id="profile-page-wall" class="col s12 m8">
+                <!-- profile-page-wall-share -->
+                <div id="profile-page-wall-share" class="row">
+                  <div class="col s12">
+                    <ul class="tabs tab-profile z-depth-1 light-blue">
+                      <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#UpdateStatus"><i class="mdi-editor-border-color"></i> Update Status</a>
+                      </li>
+                      <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#AddPhotos"><i class="mdi-image-camera-alt"></i> Add Photos</a>
+                      </li>
+                      <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#CreateAlbum"><i class="mdi-image-photo-album"></i> Create Album</a>
+                      </li>                      
+                    </ul>
+                    <!-- UpdateStatus-->
+                    <div id="UpdateStatus" class="tab-content col s12  grey lighten-4">
+                      <div class="row">
+                        <div class="col s2">
+                          <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle responsive-img valign profile-image-post">
+                        </div>
+                        <div class="input-field col s10">
+                          <textarea id="textarea" row="2" class="materialize-textarea"></textarea>
+                          <label for="textarea" class="">What's on your mind?</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s12 m6 share-icons">
+                          <a href="#"><i class="mdi-image-camera-alt"></i></a>
+                          <a href="#"><i class="mdi-action-account-circle"></i></a>
+                          <a href="#"><i class="mdi-hardware-keyboard-alt"></i></a>
+                          <a href="#"><i class="mdi-communication-location-on"></i></a>
+                        </div>
+                        <div class="col s12 m6 right-align">
+                           <!-- Dropdown Trigger -->
+                            <a class='dropdown-button btn' href='#' data-activates='profliePost'><i class="mdi-action-language"></i> Public</a>
+
+                            <!-- Dropdown Structure -->
+                            <ul id='profliePost' class='dropdown-content'>
+                              <li><a href="#!"><i class="mdi-action-language"></i> Public</a></li>
+                              <li><a href="#!"><i class="mdi-action-face-unlock"></i> Friends</a></li>                              
+                              <li><a href="#!"><i class="mdi-action-lock-outline"></i> Only Me</a></li>
+                            </ul>
+
+                            <a class="waves-effect waves-light btn"><i class="mdi-maps-rate-review left"></i>Post</a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- AddPhotos -->
+                    <div id="AddPhotos" class="tab-content col s12  grey lighten-4">
+                      <div class="row">
+                        <div class="col s2">
+                          <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle responsive-img valign profile-image-post">
+                        </div>
+                        <div class="input-field col s10">
+                          <textarea id="textarea" row="2" class="materialize-textarea"></textarea>
+                          <label for="textarea" class="">Share your favorites photos!</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s12 m6 share-icons">
+                          <a href="#"><i class="mdi-image-camera-alt"></i></a>
+                          <a href="#"><i class="mdi-action-account-circle"></i></a>
+                          <a href="#"><i class="mdi-hardware-keyboard-alt"></i></a>
+                          <a href="#"><i class="mdi-communication-location-on"></i></a>
+                        </div>
+                        <div class="col s12 m6 right-align">
+                           <!-- Dropdown Trigger -->
+                            <a class='dropdown-button btn' href='#' data-activates='profliePost2'><i class="mdi-action-language"></i> Public</a>
+
+                            <!-- Dropdown Structure -->
+                            <ul id='profliePost2' class='dropdown-content'>
+                              <li><a href="#!"><i class="mdi-action-language"></i> Public</a></li>
+                              <li><a href="#!"><i class="mdi-action-face-unlock"></i> Friends</a></li>                              
+                              <li><a href="#!"><i class="mdi-action-lock-outline"></i> Only Me</a></li>
+                            </ul>
+
+                            <a class="waves-effect waves-light btn"><i class="mdi-maps-rate-review left"></i>Post</a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- CreateAlbum -->
+                    <div id="CreateAlbum" class="tab-content col s12  grey lighten-4">
+                      <div class="row">
+                        <div class="col s2">
+                          <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle responsive-img valign profile-image-post">
+                        </div>
+                        <div class="input-field col s10">
+                          <textarea id="textarea" row="2" class="materialize-textarea"></textarea>
+                          <label for="textarea" class="">Create awesome album.</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s12 m6 share-icons">
+                          <a href="#"><i class="mdi-image-camera-alt"></i></a>
+                          <a href="#"><i class="mdi-action-account-circle"></i></a>
+                          <a href="#"><i class="mdi-hardware-keyboard-alt"></i></a>
+                          <a href="#"><i class="mdi-communication-location-on"></i></a>
+                        </div>
+                        <div class="col s12 m6 right-align">
+                           <!-- Dropdown Trigger -->
+                            <a class='dropdown-button btn' href='#' data-activates='profliePost3'><i class="mdi-action-language"></i> Public</a>
+
+                            <!-- Dropdown Structure -->
+                            <ul id='profliePost3' class='dropdown-content'>
+                              <li><a href="#!"><i class="mdi-action-language"></i> Public</a></li>
+                              <li><a href="#!"><i class="mdi-action-face-unlock"></i> Friends</a></li>                              
+                              <li><a href="#!"><i class="mdi-action-lock-outline"></i> Only Me</a></li>
+                            </ul>
+
+                            <a class="waves-effect waves-light btn"><i class="mdi-maps-rate-review left"></i>Post</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ profile-page-wall-share -->
+
+                <!-- profile-page-wall-posts -->
+                <div id="profile-page-wall-posts"class="row">
+                  <div class="col s12">
+                      <!-- medium -->
+                      <div id="profile-page-wall-post" class="card">
+                        <div class="card-profile-title">
+                          <div class="row">
+                            <div class="col s1">
+                              <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle responsive-img valign profile-post-uer-image">                        
+                            </div>
+                            <div class="col s10">
+                              <p class="grey-text text-darken-4 margin">John Doe</p>
+                              <span class="grey-text text-darken-1 ultra-small">Shared publicly  -  26 Jun 2015</span>
+                            </div>
+                            <div class="col s1 right-align">
+                              <i class="mdi-navigation-expand-more"></i>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col s12">
+                              <p>I am a very simple wall post. I am good at containing <a href="#">#small</a> bits of <a href="#">#information</a>.  I require little more information to use effectively.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-image profile-medium">                          
+                          <img src="img/sunrise-666524_1920.jpg" alt="sample" class="responsive-img profile-post-image profile-medium">                        
+                          <span class="card-title">Card Title</span>
+                        </div>
+                        <div class="card-content">
+                          <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action row">
+                          <div class="col s4 card-action-share">
+                            <a href="#">Like</a>                          
+                            <a href="#">Share</a>
+                          </div>
+                          
+                          <div class="input-field col s8 margin">
+                            <input id="profile-comments" type="text" class="validate margin">
+                            <label for="profile-comments" class="">Comments</label>
+                          </div>                        
+                        </div>                        
+                      </div>
+
+                      <!-- medium video -->
+                      <div id="profile-page-wall-post" class="card">
+                        <div class="card-profile-title">
+                          <div class="row">
+                            <div class="col s1">
+                              <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle responsive-img valign profile-post-uer-image">                        
+                            </div>
+                            <div class="col s10">
+                              <p class="grey-text text-darken-4 margin">John Doe</p>
+                              <span class="grey-text text-darken-1 ultra-small">Shared publicly  -  26 Jun 2015</span>
+                            </div>
+                            <div class="col s1 right-align">
+                              <i class="mdi-navigation-expand-more"></i>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col s12">
+                              <p>I am a very simple wall post. I am good at containing <a href="#">#small</a> bits of <a href="#">#information</a>.  I require little more information to use effectively.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-image profile-medium">
+                          <div class="video-container no-controls">
+                            <iframe width="640" height="360" src="https://www.youtube.com/embed/10r9ozshGVE" frameborder="0" allowfullscreen></iframe>
+                          </div>                          
+                          <span class="card-title">Card Title</span>
+                        </div>
+                        <div class="card-content">
+                          <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action row">
+                          <div class="col s4 card-action-share">
+                            <a href="#">Like</a>                          
+                            <a href="#">Share</a>
+                          </div>
+                          
+                          <div class="input-field col s8 margin">
+                            <input id="profile-comments" type="text" class="validate margin">
+                            <label for="profile-comments" class="">Comments</label>
+                          </div>                        
+                        </div>                        
+                      </div>                      
+
+                      <!-- small -->
+                      <div id="profile-page-wall-post" class="card">
+                        <div class="card-profile-title">
+                          <div class="row">
+                            <div class="col s1">
+                              <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle responsive-img valign profile-post-uer-image">                        
+                            </div>
+                            <div class="col s10">
+                              <p class="grey-text text-darken-4 margin">John Doe</p>
+                              <span class="grey-text text-darken-1 ultra-small">Shared publicly  -  26 Jun 2015</span>
+                            </div>
+                            <div class="col s1 right-align">
+                              <i class="mdi-navigation-expand-more"></i>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col s12">
+                              <p>I am a very simple wall post. I am good at containing <a href="#">#small</a> bits of <a href="#">#information</a>.  I require little more information to use effectively.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-image profile-small">
+                          <img src="img/bench-sea-sunny-man.jpg" alt="sample" class="responsive-img profile-post-image">                        
+                          <span class="card-title">Card Title</span>
+                        </div>
+                        <div class="card-content">
+                          <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action row">
+                          <div class="col s4 card-action-share">
+                            <a href="#">Like</a>                          
+                            <a href="#">Share</a>
+                          </div>
+                          
+                          <div class="input-field col s8 margin">
+                            <input id="profile-comments" type="text" class="validate">
+                            <label for="profile-comments" class="">Comments</label>
+                          </div>                        
+                        </div>                        
+                      </div>
+
+                      <!-- small -->
+                      <div id="profile-page-wall-post" class="card">
+                        <div class="card-profile-title">
+                          <div class="row">
+                            <div class="col s1">
+                              <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle responsive-img valign profile-post-uer-image">                        
+                            </div>
+                            <div class="col s10">
+                              <p class="grey-text text-darken-4 margin">John Doe</p>
+                              <span class="grey-text text-darken-1 ultra-small">Shared publicly  -  26 Jun 2015</span>
+                            </div>
+                            <div class="col s1 right-align">
+                              <i class="mdi-navigation-expand-more"></i>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col s12">
+                              <p>I am a very simple wall post. I am good at containing <a href="#">#small</a> bits of <a href="#">#information</a>.  I require little more information to use effectively.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-image profile-large">
+                          <img src="img/lake-animals-dogs-pets.jpg" alt="sample" class="responsive-img profile-post-image">                        
+                          <span class="card-title">Card Title</span>
+                        </div>
+                        <div class="card-content">
+                          <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action row">
+                          <div class="col s4 card-action-share">
+                            <a href="#">Like</a>                          
+                            <a href="#">Share</a>
+                          </div>
+                          
+                          <div class="input-field col s8 margin">
+                            <input id="profile-comments" type="text" class="validate">
+                            <label for="profile-comments" class="">Comments</label>
+                          </div>                        
+                        </div>                        
+                      </div>
+                  </div>                  
+                </div>
+                <!--/ profile-page-wall-posts -->
+
+              </div>
+              <!--/ profile-page-wall -->
+
+            </div>
+          </div>
+        </div>
+        </div>
+        <!--end container-->
+      </section>
+      <!-- END CONTENT -->
+
+    </div>
+    <!-- END WRAPPER -->
+
+  </div>
+  <!-- END MAIN -->
+	  
+	<footer class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m4 center-align">
+					<div class="service-box">
+						<h4>Leash-logo</h4>
+						<p class="text-muted">
+							The favourite community of 
+							dog-lovers.<br /><br />
+							Find someone in your neighbourhood to walk your dog or find a dog to take for a walk.
+						</p>
+					</div>
+				</div>
+				<div class="col s12 m4 center-align">
+					<div class="service-box">
+						<h4>Follow us on</h4>
+						<div class="text-center footerSocialMedia">
+							<p class="text-muted left-align">
+								<a class="footerlink" href="#" target="blank">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-facebook-square fa-stack-2x"></i>
+									</span>   Facebook
+								</a><br>
+								<a class="footerlink" href="#" target="blank">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-twitter-square fa-stack-2x"></i>
+									</span>   Twitter
+								</a><br>
+								<a class="footerlink" href="#" target="blank">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-google-plus-square fa-stack-2x"></i>
+									</span>   Google Plus
+								</a><br>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m4 center-align">
+					<div class="service-box">
+						<h4>Contact us</h4>
+						<p class="text-muted">Questions or advice? 
+							<br />Feel free to send us a mail!
+							<br />
+							<br />
+							<a class="footerlink" href="mailto:leashayrim@gmail.com">
+								<span class="fa-stack fa-lg">
+									<i class="fa fa-envelope-square fa-stack-2x"></i>
+								</span>   info@leash.be
+							</a><br>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+            <div class="container center">
+				<p class="text-muted">Copyright <span class="fa fa-copyright"></span> 2016</p>
+            </div>
+          </div>
+	</footer>
+    </body>
+  </html>
+        

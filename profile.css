@@ -1,0 +1,63 @@
+		/* ------- PROFILE ------- */
+		#profile-page-header .card-image{
+			height:250px;
+		}
+		.card .card-image{
+			position:relative;
+		}
+		#profile-page-header .card-profile-image{
+			width: 110px;
+			position: absolute;
+			top: 190px;
+			z-index: 1;
+			left: 40px;
+			cursor: pointer;
+			margin: 0;
+		}
+		#profile-page-wall-posts .card-profile-title{
+			font-size: 16px;
+			padding: 20px;
+			border-radius: 0 0 2px 2px;
+		}
+		
+		#profile-page-wall .profile-image-post{
+			width: 60px;
+			margin: 30px 10px;
+		}
+		
+		
+		#profile-page-header .card-content{
+			margin-top: -40px;
+		}
+		
+		#content .container .row{
+			margin-bottom: 0;
+		}
+		
+		.collection .collection-item{
+			background-color: #FFF;
+			line-height: 1.5rem;
+			padding: 10px 20px !important;
+			margin: 0;
+			border-bottom: 1px solid #e0e0e0
+		}
+		.collection .collection-item.avatar{
+			height: 84px;
+			padding-left: 72px !important;
+			position: relative;
+		}
+		
+		/* -- Google Maps -- */
+		.map-card #map-canvas{
+			width: 100%;
+			height: 342px;
+		}
+		.map-card .btn-move-up{
+			top: -38px;
+		}
+		.map-card .card .card-content{
+			padding: 0px 20px 20px 20px;
+			border-radius: 0 0 2px 2px;
+		}
+		
+		/* ------- END PROFILE ------- */

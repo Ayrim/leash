@@ -5,183 +5,84 @@
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="screen.css"  media="screen,projection"/>
 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
 	 
+	  
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	   <style>
-	  @font-face {
-		  font-family: 'Aspergit';    
-		  src: url('fonts/AspergitBold.eot') format('embedded-opentype');
-		  src: url('fonts/AspergitBold.eot?#iefix') format('embedded-opentype'),
-				url('fonts/AspergitBold.ttf') format('truetype'),
-				url('fonts/AspergitBold.otf');
-		  font-weight: normal;
-		  font-style: normal;
-		}
-
-		html {
-			background-color: #FF5B45;
-			font-size:14px;
-		}
-		
-		body{
-			display: flex;
-			min-height: 100vh;
-			flex-direction: column;
-		}
-		#login-page {
-			flex: 1 0 auto;
-			margin-top: 50px;
-        }
-		
-		footer{
-			margin-top: 100%;
-			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
-			letter-spacing: 4px;
-			background-color: #36373B !important;
-		}
-		
-		footer a{
-			color: #777;
-		}
-		
-		footer h4{
-			font-size: 18px;
-		}
-		footer p{
-			font-size: 0.7em;
-		}
-		footer .row{
-			margin-bottom: 0px;
-		}
-		footer .container{
-			width: 90%;
-			line-height: 1.42857143;
-			max-width: 1200px;
-		}
-		
-		.page-footer{
-			padding-top:10px !important;
-		}
-		
-		.footerlink span i{
-			font-size:25px;
-			text-align: left;
-		}
-		
-		.footer-copyright{
-			line-height: 10px !important;
-			height: 35px !important;
-			padding-bottom: 10px;
-			font-size: 0.95em;
-		}
-		
-		.service-box h4{
-			color:white;
-		}
-		.text-muted{
-			color: #777;
-			
-		}
-
-		.footerSocialMedia{
-			max-width:145px; 
-			margin: 0 auto;
-		}
-		.footerlink{
-			color: #777;
-		}
-		.footerlink:hover,
-		.footerlink:focus,
-		.footerlink.focus,
-		.footerlink:active,
-		.footerlink.active{
-			color: #FF5B45;
-			text-decoration: none;
-		}
-		
-		
-		.login-form{
-			width: 300px;
-		}
-		form{
-			display:block;
-			margin-top:0em;
-		}
-		.profile-image-login{
-			width: 96px;
-			height: 96px;
-			margin: 0 auto;
-			margin-top: 20px;
-			margin-bottom: -20px;
-		}
-		
-	  </style>
-	</head>
+    </head>
 
     <body>
       <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	  	  
+	  <script type="text/javascript" src="fullcalendar/lib/jquery-ui.custom.min.js"></script>
+	  <script type="text/javascript" src="fullcalendar/lib/moment.min.js"></script>
+	  <script type="text/javascript" src="fullcalendar/fullcalendar.min.js"></script>
+	  <script type="text/javascript" src="fullcalendar/fullcalendar.js"></script>
+	  
+      <script type="text/javascript" src="scripts/default.js"></script>
 	
-	  <script type="text/javascript">
-	  </script>
 	  
-	  <header>
-	  </header>
+		<ul id="dropdown1" class="dropdown-content">
+		  <li><a href="login.html">Sign In</a></li>
+		  <li class="divider"></li>
+		  <li><a href="register.html">Sign Up</a></li>
+		</ul>
+		
+		<div class="navbar-fixed">
+			<nav>
+			  <div class="nav-wrapper">
+				<a href="#!" class="brand-logo hide-on-med-and-down">Leash</a>
+				<a href="#!" data-activates="mobile-demo" class="brand-logo hide-on-large-only">Leash</a>
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
+				<ul class="right hide-on-med-and-down">
+				
+				  <!-- Dropdown Trigger -->
+				  <li><a class="dropdown-button" href="#!" data-activates="dropdown1">
+				  <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle accountPicture" ><!--<i class="material-icons right">more_vert</i>--></a></li>
+				</ul>
+				<ul class="side-nav collapsible" id="mobile-demo"  data-collapsible="accordion">
+				  <li><a href="login.html">Sign In</a></li>
+				  <li><a href="register.html">Sign Up</a></li>
+				</ul>
+			  </div>
+			</nav>
+		</div>
 	  
-	  <main>
-	 </main>
-	  	<div id="login-page" class="row">
-			<div class="col s12 z-depth-4 card-panel">
-				<form class="login-form">
-				<div class="row">
-				  <div class="input-field col s12 center">
-					<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle responsive-img valign profile-image-login">
-					<p class="center login-form-text"></p>
-				  </div>
-				</div>
-				<div class="row margin">
-				  <div class="input-field col s12">
-					<i class="mdi-social-person-outline prefix"></i>
-					<input id="username" type="text">
-					<label for="username" class="center-align">Username</label>
-				  </div>
-				</div>
-				<div class="row margin">
-				  <div class="input-field col s12">
-					<i class="mdi-action-lock-outline prefix"></i>
-					<input id="password" type="password">
-					<label for="password">Password</label>
-				  </div>
-				</div>
-				<div class="row">          
-				  <div class="input-field col s12 m12 l12  login-text">
-					  <input type="checkbox" id="remember-me">
-					  <label for="remember-me">Remember me</label>
-				  </div>
-				</div>
-				<div class="row">
-				  <div class="input-field col s12">
-					<a href="material design.html" class="btn waves-effect waves-light col s12">Login</a>
-				  </div>
-				</div>
-				<div class="row">
-				  <div class="input-field col s6 m6 l6">
-					<p class="margin medium-small"><a href="register.html">Register Now!</a></p>
-				  </div>
-				  <div class="input-field col s6 m6 l6">
-					  <p class="margin right-align medium-small"><a href="forgotPassword.html">Forgot password ?</a></p>
-				  </div>          
-				</div>
-
-			  </form>
+		<div class="parallax-container">
+			<div class="parallax">
+				<img src="img/bench-sea-sunny-man.jpg">
+			</div>
+			<div class="parallax-header">
+                <h1>Looking for someone to walk your dog?</h2>
+                <hr>
+                <h1>Looking for a dog to take for a walk?</h2>
 			</div>
 		</div>
-	  <footer class="page-footer">
+		<div class="section white">
+			<div class="row container center-align">
+			  <h2 class="header">We've got what you need!</h2>
+			  
+			  <p class="grey-text text-darken-3 lighten-3">Ever had the feeling that you do not have enough time to take 	your dog out for a walk? Are you sometimes, after a long day's work, lacking the energy to take your dog out for a stroll, while it could use a decent walk to run off some of its own energy? <br />
+              Or are you in a situation where you would love to go out for a long walk with a friendly four-legged companion, but can't have a dog of your own because you are lacking the space in your house or appartment?
+              <br />
+              <br />
+              Why not help each other out?
+              <br />
+              Leash will help you to get in touch with the perfect companion for yourself or your dog.
+              </p>
+			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax"><img src="img/light-person-woman-night - small.jpg"></div>
+		</div>
+	  
+	<footer class="page-footer">
 		<div class="container">
 			<div class="row">
 				<div class="col s12 m4 center-align">
@@ -243,3 +144,4 @@
 	</footer>
     </body>
   </html>
+        
