@@ -9,7 +9,8 @@
 		#login-page {
 			flex: 1 0 auto;
 			margin-top: 50px;
-        }
+			width: 325px;
+		}
 		
 		.login-form{
 			width: 300px;
@@ -24,5 +25,16 @@
 			margin: 0 auto;
 			margin-top: 20px;
 			margin-bottom: -20px;
+		}
+		
+		.toast{
+			padding:15px 25px;
+			background-color: #36373B !important;
+		}
+		
+		#toast-container{
+			top:5% !important;
+			right:5% !important;
+			left: auto !important;
 		}
 		/* ------- END LOGIN-FORM ------- */

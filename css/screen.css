@@ -1,10 +1,10 @@
 
 	  @font-face {
 		  font-family: 'Aspergit';    
-		  src: url('fonts/AspergitBold.eot') format('embedded-opentype');
-		  src: url('fonts/AspergitBold.eot?#iefix') format('embedded-opentype'),
-				url('fonts/AspergitBold.ttf') format('truetype'),
-				url('fonts/AspergitBold.otf');
+		  src: url('../fonts/AspergitBold.eot') format('embedded-opentype');
+		  src: url('../fonts/AspergitBold.eot?#iefix') format('embedded-opentype'),
+				url('../fonts/AspergitBold.ttf') format('truetype'),
+				url('../fonts/AspergitBold.otf');
 		  font-weight: normal;
 		  font-style: normal;
 		}
@@ -17,6 +17,9 @@
 			display: flex;
 			min-height: 100vh;
 			flex-direction: column;
+		}
+		main {
+			flex: 1 0 auto;
 		}
 		
 		/* ------- FOOTER ------- */
@@ -170,15 +173,19 @@
 		
 		
 		/* ------- HOMEPAGE ------- */
+		
 		.parallax-header{
 			margin-top:10%;
+			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
+			letter-spacing: 4px;
 		}
 		
-		.parallax-header hr{
+		.parallax-header hr, .homePageContent hr{
 			margin: 30px auto;
 			max-width: 50px;
 			border-color: #FF5B45 !important;
 			border-width: 3px !important;
+			border-style: solid;
 		}
 		
 		.parallax-header h1 {
@@ -193,6 +200,18 @@
 		.header{
 			font-size: 25px;
 		}
+		
+		.homePageContent{
+			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
+			letter-spacing: 4px;
+			font-size:0.85em;
+		}
+		
+		
+		.homePageContent{
+			background-color: #fafafa;
+		}
+		
 		/* ------- END HOMEPAGE ------- */
 
 		
