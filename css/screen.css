@@ -287,4 +287,8 @@
 		#content{
 			height:100%;
 		}
+		
+		.btnProfilePost{
+			margin-bottom: 12px;
+		}
 		/* ------- END PROFILE ------- */
