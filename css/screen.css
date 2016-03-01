@@ -22,6 +22,17 @@
 			flex: 1 0 auto;
 		}
 		
+		@media only screen and (min-width: 993px){
+			.container{
+				width: 85% !important;
+			}	
+		}
+		@media only screen and (min-width: 1280px){
+			.container{
+				width: 70% !important;
+			}	
+		}
+		
 		/* ------- FOOTER ------- */
 		footer{
 			margin-top: 100%;
@@ -64,9 +75,10 @@
 		
 		.footer-copyright{
 			line-height: 10px !important;
-			height: 35px !important;
+			height: 32px !important;
 			padding-bottom: 10px;
 			font-size: 0.95em;
+			background-color: #36373B !important;
 		}
 		
 		.service-box h4{
@@ -124,6 +136,10 @@
 			top: 64px !important;
 		}
 		
+		.side-nav li:hover .material-icons{
+			color:#FF5B45;
+		}
+		
 		@media(min-width:768px){
 			.brand-logo{
 				margin-left:25px;
@@ -133,6 +149,10 @@
 		
 		
 		/* ------- MAINPAGE ------- */
+		body div.container{
+			height:83%;
+		}
+		
 		.collection .collection-item{
 			padding: 10px 70px !important;
 			padding-left: 72px !important;
@@ -222,20 +242,49 @@
 		.card .card-image{
 			position:relative;
 		}
-		#profile-page-header .card-profile-image{
-			width: 110px;
-			position: absolute;
-			top: 190px;
-			z-index: 1;
-			left: 40px;
-			cursor: pointer;
-			margin: 0;
+		
+		@media(min-width:768px){
+			#profile-page-header .card-profile-image{
+				width: 110px;
+				position: absolute;
+				top: 190px;
+				z-index: 1;
+				left: 40px;
+				cursor: pointer;
+				margin: 0;
+			}	
 		}
+		
+		@media(max-width:768px){
+			#profile-page-header .card-profile-image{
+				margin-top: -65px !important;
+			}
+			.btn-floating{
+				margin-top: -65px !important;
+			}
+			.personName{
+				margin-left:5% !important;
+			}
+			.card-profile-image {
+				margin-left: -5% !important;
+			}
+		}
+		
+		.profile-post-name{
+			margin-top:-15px;
+		}
+		
 		#profile-page-header .card-content{
 			margin-top: -40px;
+		}
+		#profile-page-sidebar{
+			margin-top: -0.5rem;
 		}
 		
 		#content .container .row{
 			margin-bottom: 0;
+		}
+		#content{
+			height:100%;
 		}
 		/* ------- END PROFILE ------- */

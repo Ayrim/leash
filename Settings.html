@@ -6,7 +6,7 @@
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
       <link type="text/css" rel="stylesheet" href="css/screen.css"  media="screen,projection"/>
-      <link type="text/css" rel="stylesheet" href="css/profile.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/settings.css"  media="screen,projection"/>
 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
@@ -84,7 +84,7 @@
 						position: absolute;
 						bottom: 64px;
 						width: 100%;
-					"><img src="https://www.peepl.be/static/images/team/ayrton.jpg" alt="" class="circle accountPicture" style="
+					"><img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle accountPicture" style="
 						margin-top: 25px;
 						height: 75px;
 					">
@@ -110,20 +110,20 @@
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src="http://demo.geekslabs.com/materialize/v2.1/layout03/images/user-profile-bg.jpg" alt="user background">                    
                 </div>
-                <figure class="card-profile-image circle z-depth-2 responsive-img activator" style="background: url(https://www.peepl.be/static/images/team/ayrton.jpg) 50% 50% no-repeat; width: 110px; height: 110px; background-size:cover;">
+                <figure class="card-profile-image circle z-depth-2 responsive-img activator" style="background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 110px; height: 110px; background-size:cover;">
                 </figure>
                 <div class="card-content">
                   <div class="row">                    
-                    <div class="col s3 offset-s2">                        
-                        <h4 class="card-title grey-text text-darken-4">Ayrton Vercruysse</h4>
+                    <div class="col s3 offset-s2 personName">                        
+                        <h4 class="card-title grey-text text-darken-4">Maxim Braekman</h4>
                         <p class="medium-small grey-text">Premium user</p>                        
                     </div>         		
                     <div class="col s2 offset-s2 center-align">
-                        <h4 class="card-title grey-text text-darken-4">2</h4>
+                        <h4 class="card-title grey-text text-darken-4">0</h4>
                         <p class="medium-small grey-text">Dogs</p>                        
                     </div>   
                     <div class="col s2 center-align">
-                        <h4 class="card-title grey-text text-darken-4">60+</h4>
+                        <h4 class="card-title grey-text text-darken-4">10+</h4>
                         <p class="medium-small grey-text">Walking Experience</p>                        
                     </div>             
                     <div class="col s1 right-align">
@@ -135,15 +135,15 @@
                 </div>
                 <div class="card-reveal">
                     <p>
-                      <span class="card-title grey-text text-darken-4">Ayrton Vercruysse <i class="mdi-navigation-close right"></i></span>
+                      <span class="card-title grey-text text-darken-4">Maxim Braekman <i class="mdi-navigation-close right"></i></span>
                       <span><i class="mdi-action-perm-identity cyan-text text-darken-2"></i> Premium user</span>
                     </p>
 
                     <p>This is a small description every user can add to his/her account.</p>
                     
                     <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> +32 (0)498 20 85 85</p>
-                    <p><i class="mdi-communication-email cyan-text text-darken-2"></i> ayrton.vercruysse@gmail.com</p>
-                    <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 11th February 1989</p>
+                    <p><i class="mdi-communication-email cyan-text text-darken-2"></i> maxim.braekman@hotmail.com</p>
+                    <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 22th August 1989</p>
                 </div>
             </div>
             <!--/ profile-page-header -->
@@ -184,7 +184,7 @@
                   <li class="collection-item">
                     <div class="row">
                       <div class="col s5 grey-text darken-1"><i class="mdi-social-cake"></i> Birth date</div>
-                      <div class="col s7 grey-text text-darken-4 right-align">11th February, 1989</div>
+                      <div class="col s7 grey-text text-darken-4 right-align">22th August, 1989</div>
                     </div>
                   </li>
                 </ul>
@@ -248,6 +248,116 @@
 
               <!-- profile-page-wall -->
               <div id="profile-page-wall" class="col s12 m8">
+                <!-- profile-page-wall-share -->
+                <div id="profile-page-wall-share" class="row">
+                  <div class="col s12">
+                    <ul class="tabs tab-profile z-depth-1 light-blue">
+                      <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#UpdateStatus"><i class="mdi-editor-border-color"></i> Update Status</a>
+                      </li>
+                      <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#AddPhotos"><i class="mdi-image-camera-alt"></i> Add Photos</a>
+                      </li>
+                      <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#CreateRoute"><i class="mdi-maps-map"></i> Create Route</a>
+                      </li>                      
+                    </ul>
+                    <!-- UpdateStatus-->
+                    <div id="UpdateStatus" class="tab-content col s12  grey lighten-4">
+                      <div class="row">
+                        <div class="col s2 circle responsive-img valign profile-image-post" style="background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 60px; height: 60px; background-size:cover;">
+                        </div>
+                        <div class="input-field col s10">
+                          <textarea id="textarea" row="2" class="materialize-textarea"></textarea>
+                          <label for="textarea" class="">What's on your mind?</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s12 m6 share-icons">
+                          <a href="#"><i class="mdi-image-camera-alt"></i></a>
+                          <a href="#"><i class="mdi-action-account-circle"></i></a>
+                          <a href="#"><i class="mdi-hardware-keyboard-alt"></i></a>
+                          <a href="#"><i class="mdi-communication-location-on"></i></a>
+                        </div>
+                        <div class="col s12 m6 right-align">
+                           <!-- Dropdown Trigger -->
+                            <!--<a class='dropdown-button btn' href='#' data-activates='profliePost'><i class="mdi-action-language"></i> Public</a>-->
+
+                            <!-- Dropdown Structure -->
+                            <!--<ul id='profliePost' class='dropdown-content'>
+                              <li><a href="#!"><i class="mdi-action-language"></i> Public</a></li>
+                              <li><a href="#!"><i class="mdi-action-face-unlock"></i> Friends</a></li>                              
+                              <li><a href="#!"><i class="mdi-action-lock-outline"></i> Only Me</a></li>
+                            </ul>-->
+
+                            <a class="waves-effect waves-light btn"><i class="mdi-maps-rate-review left"></i>Post</a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- AddPhotos -->
+                    <div id="AddPhotos" class="tab-content col s12  grey lighten-4">
+                      <div class="row">
+                        <div class="col s2 circle responsive-img valign profile-image-post" style="background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 60px; height: 60px; background-size:cover;">
+                        </div>
+                        <div class="input-field col s10">
+                          <textarea id="textarea" row="2" class="materialize-textarea"></textarea>
+                          <label for="textarea" class="">Share your favourites photos!</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s12 m6 share-icons">
+                          <a href="#"><i class="mdi-image-camera-alt"></i></a>
+                          <a href="#"><i class="mdi-action-account-circle"></i></a>
+                          <a href="#"><i class="mdi-hardware-keyboard-alt"></i></a>
+                          <a href="#"><i class="mdi-communication-location-on"></i></a>
+                        </div>
+                        <div class="col s12 m6 right-align">
+                           <!-- Dropdown Trigger -->
+                            <!--<a class='dropdown-button btn' href='#' data-activates='profliePost2'><i class="mdi-action-language"></i> Public</a>-->
+
+                            <!-- Dropdown Structure -->
+                            <!--<ul id='profliePost2' class='dropdown-content'>
+                              <li><a href="#!"><i class="mdi-action-language"></i> Public</a></li>
+                              <li><a href="#!"><i class="mdi-action-face-unlock"></i> Friends</a></li>                              
+                              <li><a href="#!"><i class="mdi-action-lock-outline"></i> Only Me</a></li>
+                            </ul>-->
+
+                            <a class="waves-effect waves-light btn"><i class="mdi-maps-rate-review left"></i>Post</a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- CreateRoute -->
+                    <div id="CreateRoute" class="tab-content col s12  grey lighten-4">
+                      <div class="row">
+                        <div class="col s2 circle responsive-img valign profile-image-post" style="background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 60px; height: 60px; background-size:cover;">
+                        </div>
+                        <div class="input-field col s10">
+                          <textarea id="textarea" row="2" class="materialize-textarea"></textarea>
+                          <label for="textarea" class="">Add your favourite routes.</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s12 m6 share-icons">
+                          <a href="#"><i class="mdi-image-camera-alt"></i></a>
+                          <a href="#"><i class="mdi-action-account-circle"></i></a>
+                          <a href="#"><i class="mdi-hardware-keyboard-alt"></i></a>
+                          <a href="#"><i class="mdi-communication-location-on"></i></a>
+                        </div>
+                        <div class="col s12 m6 right-align">
+                           <!-- Dropdown Trigger -->
+                            <!--<a class='dropdown-button btn' href='#' data-activates='profliePost3'><i class="mdi-action-language"></i> Public</a>-->
+
+                            <!-- Dropdown Structure -->
+                            <!--<ul id='profliePost3' class='dropdown-content'>
+                              <li><a href="#!"><i class="mdi-action-language"></i> Public</a></li>
+                              <li><a href="#!"><i class="mdi-action-face-unlock"></i> Friends</a></li>                              
+                              <li><a href="#!"><i class="mdi-action-lock-outline"></i> Only Me</a></li>
+                            </ul>-->
+
+                            <a class="waves-effect waves-light btn"><i class="mdi-maps-rate-review left"></i>Post</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ profile-page-wall-share -->
 
                 <!-- profile-page-wall-posts -->
                 <div id="profile-page-wall-posts"class="row">
@@ -256,7 +366,7 @@
                       <div id="profile-page-wall-post" class="card">
                         <div class="card-profile-title">
                           <div class="row">
-                            <div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(https://www.peepl.be/static/images/team/ayrton.jpg) 50% 50% no-repeat; width: 33px; height: 33px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
+                            <div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 33px; height: 33px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
                             </div>
                             <div class="col s10 profile-post-name">
                               <p class="grey-text text-darken-4 margin">John Doe</p>
@@ -296,7 +406,7 @@
                       <div id="profile-page-wall-post" class="card">
                         <div class="card-profile-title">
                           <div class="row">
-                            <div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(https://www.peepl.be/static/images/team/ayrton.jpg) 50% 50% no-repeat; width: 33px; height: 33px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
+                            <div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 33px; height: 33px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
                             </div>
                             <div class="col s10 profile-post-name">
                               <p class="grey-text text-darken-4 margin">John Doe</p>
@@ -338,7 +448,7 @@
                       <div id="profile-page-wall-post" class="card">
                         <div class="card-profile-title">
                           <div class="row">
-                            <div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(https://www.peepl.be/static/images/team/ayrton.jpg) 50% 50% no-repeat; width: 33px; height: 33px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
+                            <div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 33px; height: 33px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
                             </div>
                             <div class="col s10 profile-post-name">
                               <p class="grey-text text-darken-4 margin">John Doe</p>
@@ -378,7 +488,7 @@
                       <div id="profile-page-wall-post" class="card">
                         <div class="card-profile-title">
                           <div class="row">
-                            <div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(https://www.peepl.be/static/images/team/ayrton.jpg) 50% 50% no-repeat; width: 33px; height: 33px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
+                            <div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 33px; height: 33px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
                             </div>
                             <div class="col s10 profile-post-name">
                               <p class="grey-text text-darken-4 margin">John Doe</p>
