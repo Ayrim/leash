@@ -47,6 +47,20 @@
 			position: relative;
 		}
 		
+		.photoSelectField{
+			margin-top: 0px;
+			margin-left: 14.8% !important;
+		}
+		
+		.editBtnHeader{
+			margin-top: 5px;
+		}
+		/*.editBtn{
+			position:fixed;
+			right: 2%;
+			bottom: 1%;
+		}*/
+		
 		/* -- Google Maps -- */
 		.map-card #map-canvas{
 			width: 100%;
@@ -61,3 +75,41 @@
 		}
 		
 		/* ------- END PROFILE ------- */
+		
+		/* ------- EDIT SETTINGS ------- */
+		.header2{
+			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
+			letter-spacing: 4px;
+			margin-top: 0px;
+		}
+		#Profile{
+			margin-top: 15px;
+		}
+		.picker__weekday-display{
+			background-color: #E5523E;
+		}
+		.file-field .file-path-wrapper{
+			padding-left: 0px;
+			padding-right: 20px;
+		}
+		.card-panel-header-line{
+			margin: -10px auto 15px;
+			border-color: #FF5B45 !important;
+			border-width: 1px !important;
+			border-style: solid;
+		}
+		
+		.tableOfContents{
+			float:left;
+			box-sizing: border-box;
+		}
+		.table-of-contents{
+			margin-top: 5px;
+		}
+		.toc-wrapper{
+			position: relative;
+		}
+		.pinned{
+			position: fixed !important;
+		}
+		/* ------- END EDIT SETTINGS ------- */
