@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  animal_id: 
+  is_owner: false
+  can_add_to_flock: false
+
+two:
+  user_id: 
+  animal_id: 
+  is_owner: false
+  can_add_to_flock: false

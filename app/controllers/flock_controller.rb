@@ -1,0 +1,2 @@
+class FlockController < ApplicationController
+end

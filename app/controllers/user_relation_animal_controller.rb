@@ -1,0 +1,2 @@
+class UserRelationAnimalController < ApplicationController
+end

@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205162106) do
+ActiveRecord::Schema.define(version: 20160305113150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "flock"
+    t.integer  "user_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "location"
+    t.integer  "payment"
+    t.boolean  "on_wall"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street"
@@ -42,6 +56,17 @@ ActiveRecord::Schema.define(version: 20160205162106) do
 
   add_index "animals", ["user_id"], name: "index_animals_on_user_id", using: :btree
 
+  create_table "blogs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "content"
+    t.integer  "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "blogs", ["user_id"], name: "index_blogs_on_user_id", using: :btree
+
   create_table "cities", force: :cascade do |t|
     t.string   "name"
     t.string   "postalcode"
@@ -56,6 +81,53 @@ ActiveRecord::Schema.define(version: 20160205162106) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "dogs", force: :cascade do |t|
+    t.integer  "animal_id"
+    t.string   "breed"
+    t.integer  "maximum_walking_time"
+    t.string   "remarks"
+    t.boolean  "other_dogs"
+    t.boolean  "cats"
+    t.boolean  "children"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "dogs", ["animal_id"], name: "index_dogs_on_animal_id", using: :btree
+
+  create_table "flocks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "flock_id"
+    t.integer  "animal_id"
+    t.integer  "planning_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "flocks", ["animal_id"], name: "index_flocks_on_animal_id", using: :btree
+  add_index "flocks", ["flock_id"], name: "index_flocks_on_flock_id", using: :btree
+  add_index "flocks", ["planning_id"], name: "index_flocks_on_planning_id", using: :btree
+  add_index "flocks", ["user_id"], name: "index_flocks_on_user_id", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "desription"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
+
+  create_table "pictures", force: :cascade do |t|
+    t.string   "name"
+    t.string   "comment"
+    t.integer  "tag"
+    t.string   "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "plannings", force: :cascade do |t|
     t.date     "startDate"
     t.date     "endDate"
@@ -66,6 +138,45 @@ ActiveRecord::Schema.define(version: 20160205162106) do
   end
 
   add_index "plannings", ["animal_id"], name: "index_plannings_on_animal_id", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_group_relations", force: :cascade do |t|
+    t.integer  "group"
+    t.integer  "user_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_group_relations", ["user_id"], name: "index_user_group_relations_on_user_id", using: :btree
+
+  create_table "user_relation_animals", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "animal_id"
+    t.boolean  "is_owner"
+    t.boolean  "can_add_to_flock"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "user_relation_animals", ["animal_id"], name: "index_user_relation_animals_on_animal_id", using: :btree
+  add_index "user_relation_animals", ["user_id"], name: "index_user_relation_animals_on_user_id", using: :btree
+
+  create_table "user_relations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.date     "start_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_relations", ["user_id"], name: "index_user_relations_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "firstname",                         null: false
@@ -88,9 +199,38 @@ ActiveRecord::Schema.define(version: 20160205162106) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  create_table "wallposts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "picture"
+    t.integer  "blog_id"
+    t.integer  "route"
+    t.integer  "tag"
+    t.string   "url"
+    t.string   "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "wallposts", ["blog_id"], name: "index_wallposts_on_blog_id", using: :btree
+  add_index "wallposts", ["user_id"], name: "index_wallposts_on_user_id", using: :btree
+
+  add_foreign_key "activities", "users"
   add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "countries"
   add_foreign_key "addresses", "users"
   add_foreign_key "animals", "users"
+  add_foreign_key "blogs", "users"
+  add_foreign_key "dogs", "animals"
+  add_foreign_key "flocks", "animals"
+  add_foreign_key "flocks", "flocks"
+  add_foreign_key "flocks", "plannings"
+  add_foreign_key "flocks", "users"
+  add_foreign_key "groups", "users"
   add_foreign_key "plannings", "animals"
+  add_foreign_key "user_group_relations", "users"
+  add_foreign_key "user_relation_animals", "animals"
+  add_foreign_key "user_relation_animals", "users"
+  add_foreign_key "user_relations", "users"
+  add_foreign_key "wallposts", "blogs"
+  add_foreign_key "wallposts", "users"
 end

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  flock: 1
+  user_id: 
+  user_id: 
+  start_date: 2016-03-05 12:31:50
+  end_date: 2016-03-05 12:31:50
+  location: 1
+  payment: 1
+  on_wall: false
+
+two:
+  flock: 1
+  user_id: 
+  user_id: 
+  start_date: 2016-03-05 12:31:50
+  end_date: 2016-03-05 12:31:50
+  location: 1
+  payment: 1
+  on_wall: false

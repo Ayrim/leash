@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  animal_id: 
+  breed: MyString
+  maximum_walking_time: 1
+  remarks: MyString
+  other_dogs: false
+  cats: false
+  children: false
+
+two:
+  animal_id: 
+  breed: MyString
+  maximum_walking_time: 1
+  remarks: MyString
+  other_dogs: false
+  cats: false
+  children: false

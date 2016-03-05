@@ -1,0 +1,2 @@
+class WallpostController < ApplicationController
+end
