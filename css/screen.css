@@ -237,12 +237,19 @@
 		
 		/* ------- PROFILE ------- */
 		#profile-page-header .card-image{
+			z-index: 0;
 			height:250px;
 		}
 		.card .card-image{
 			position:relative;
 		}
 		
+		@media(max-width:400px){
+			#profile-page-header .card-profile-image{
+				margin-top: -125px !important;
+			}
+			
+		}
 		@media(min-width:768px){
 			#profile-page-header .card-profile-image{
 				width: 110px;
@@ -255,7 +262,7 @@
 			}	
 		}
 		
-		@media(max-width:768px){
+		@media(max-width:768px) and (min-width:400px){
 			#profile-page-header .card-profile-image{
 				margin-top: -65px !important;
 			}

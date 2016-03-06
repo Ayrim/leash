@@ -6,7 +6,7 @@
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
       <link type="text/css" rel="stylesheet" href="css/screen.css"  media="screen,projection"/>
-      <link type="text/css" rel="stylesheet" href="css/settings.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/editSettings.css"  media="screen,projection"/>
 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
@@ -29,7 +29,6 @@
       <!-- google map api -->
       <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
 	
-      <script type="text/javascript" src="scripts/application.js"></script>
 	
 	  <header>
 		<ul id="dropdown1" class="dropdown-content">
@@ -105,13 +104,40 @@
         <!--start container-->
         <div class="container">
 
+		
+            <!-- profile-page-header -->
+            <div id="profile-page-header" class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img src="http://demo.geekslabs.com/materialize/v2.1/layout03/images/user-profile-bg.jpg" alt="user background">                    
+                </div>
+                <figure class="card-profile-image circle z-depth-2 responsive-img" style="position:absolute; background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 110px; height: 110px; background-size:cover;">
+                </figure>
+                <div class="card-content">
+                  <div class="row">                    
+                    <div class="col s10 m3 offset-m2 personName">                        
+                        <h4 class="card-title grey-text text-darken-4">Maxim Braekman</h4>
+                        <p class="medium-small grey-text">Premium user</p>                        
+                    </div>         		
+                    <div class="col m2 offset-m3 center-align hide-on-small-only">
+                        <h4 class="card-title grey-text text-darken-4">0</h4>
+                        <p class="medium-small grey-text">Dogs</p>                        
+                    </div>   
+                    <div class="col m2 center-align hide-on-small-only">
+                        <h4 class="card-title grey-text text-darken-4">10+</h4>
+                        <p class="medium-small grey-text">Walking Experience</p>                        
+                    </div> 
+                  </div>
+                </div>
+            </div>
+            <!--/ profile-page-header -->
+		
 		  <!--<div class="row">
             <div class="card-image waves-effect waves-block waves-light">
 			  <div class="col  s12 m12 l12 card">-->
 			<div class="row">	
 			
 			
-             <div class="col s9 m9 l10">
+             <div class="col s12 m9 l10">
 				<div class="row">			
 				
 				 <div class="col s12 m12 l12">
@@ -121,26 +147,40 @@
 					<div class="row">
 					  <form class="col s12">
 						<div class="row">
-						  <div class="input-field col s6">
+						  <div class="input-field col s12 m6">
 							<input id="first_name" type="text" value="Maxim">
 							<label for="first_name" class="active">First Name</label>
 						  </div>
 						
-						  <div class="input-field col s6">
+						  <div class="input-field col s12 m6">
 							<input id="last_name" type="text" value="Braekman">
 							<label for="last_name" class="active">Last Name</label>
 						  </div>
 						</div>
 						<div class="row">
-						  <div class="input-field col s6">
+						  <div class="input-field col s12 m6">
 							<input id="email5" type="email" value="maxim.braekman@hotmail.com">
-							<label for="email" class="active">Email</label>
+							<label for="email" class="active" >Email</label>
 						  </div>                  
-						  <div class="input-field col s6">
+						  <div class="input-field col s12 m6">
 						  
 							<input id="birthdate" type="text" class="datepicker" value="22 August, 1989">
 							<label for="birthdate" class="active">Date of Birth</label>
 						  </div>
+						</div>
+						<div class="row">
+						  <div class="input-field col s4">
+							<input id="number_of_walks" type="number" value="11">
+							<label for="number_of_walks" class="active">Number of walks</label>
+						  </div> 
+						  <div class="input-field col s8 m4">
+							<input id="walking_region" type="text" value="Coast">
+							<label for="walking_region" class="active">Region of walks</label>
+						  </div> 
+						  <div class="input-field col s12 m4">
+							<input id="skills" type="text" value="Dog walking/training">
+							<label for="skills" class="active">Skills</label>
+						  </div> 
 						</div>
 						
 						<div class="row">
@@ -193,14 +233,20 @@
 					<div class="row">
 					  <form class="col s12">
 						<div class="row">
-						  <div class="input-field col s6">
-							<input id="first_name" type="password">
-							<label for="first_name">Password</label>
+						  <div class="input-field col s12 m6">
+							<input id="old_password" type="password">
+							<label for="old_password">Current Password</label>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="input-field col s12 m6">
+							<input id="new_password" type="password">
+							<label for="new_password">New Password</label>
 						  </div>
 						
-						  <div class="input-field col s6">
-							<input id="last_name" type="password">
-							<label for="last_name">Confirm Password</label>
+						  <div class="input-field col s12 m6">
+							<input id="confirm_new_password" type="password">
+							<label for="confirm_new_password">Confirm New Password</label>
 						  </div>
 						</div>
 						
@@ -225,30 +271,30 @@
 					<div class="row">
 					  <form class="col s12">
 						<div class="row">
-						  <div class="input-field col s5">
+						  <div class="input-field col s12 m5">
 							<input id="address" type="text" value="Ontmijnersstraat">
 							<label for="address" class="active">Address</label>
 						  </div>
-						  <div class="input-field col s2">
+						  <div class="input-field col s6 m2">
 							<input id="house_number" type="text" value="58">
 							<label for="house_number" class="active">House number</label>
 						  </div>
-						  <div class="input-field col s2">
+						  <div class="input-field col s6 m2">
 							<input id="busnummer" type="text" value="">
 							<label for="busnummer">Bus</label>
 						  </div>
 						</div>
 						<div class="row">
-						  <div class="input-field col s2">
+						  <div class="input-field col s5 m2">
 							<input id="zipcode" type="text" value="8370">
 							<label for="zipcode" class="active">Zipcode</label>
 						  </div>                  
-						  <div class="input-field col s5">
+						  <div class="input-field col s7 m5">
 							<input id="city" type="text" class="text" value="Blankenberge">
 							<label for="city" class="active">City</label>
 						  </div>
 						  
-						  <div class="input-field col s5">
+						  <div class="input-field col s12 m5">
 							<input id="country" type="text" value="Belgium">
 							<label for="country" class="active">Country</label>
 						  </div>
@@ -256,8 +302,8 @@
 						
 						
 						<div class="row">
-						  <div class="input-field col s6">
-							<input id="phone_number" type="text" value="0498/20 85 85">
+						  <div class="input-field col s12 m6">
+							<input id="phone_number" type="tel" value="0498/20 85 85">
 							<label for="phone_number" class="active">Telephone number</label>
 						  </div>
 						</div>
@@ -367,6 +413,6 @@
 	</footer>
     </body>
 	
-      <script type="text/javascript" src="scripts/settings.js"></script>
+      <script type="text/javascript" src="scripts/EditSettings.js"></script>
   </html>
         
