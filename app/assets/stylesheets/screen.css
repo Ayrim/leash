@@ -1,0 +1,301 @@
+
+	  @font-face {
+		  font-family: 'Aspergit';    
+		  src: url('AspergitBold.eot') format('embedded-opentype');
+		  src: url('AspergitBold.eot?#iefix') format('embedded-opentype'),
+				url('AspergitBold.ttf') format('truetype'),
+				url('AspergitBold.otf');
+		  font-weight: normal;
+		  font-style: normal;
+		}
+
+		html {
+			background-color: #fafafa;
+		}
+				
+		body{
+			display: flex;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+		main {
+			flex: 1 0 auto;
+		}
+		
+		@media only screen and (min-width: 993px){
+			.container{
+				width: 85% !important;
+			}	
+		}
+		@media only screen and (min-width: 1280px){
+			.container{
+				width: 70% !important;
+			}	
+		}
+		
+		/* ------- FOOTER ------- */
+		footer{
+			margin-top: 100%;
+			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
+			letter-spacing: 4px;
+			background-color: #36373B !important;
+		}
+		
+		footer a{
+			color: #777;
+		}
+		
+		footer h4{
+			font-size: 18px;
+		}
+		footer p{
+			font-size: 0.7em;
+		}
+		footer .row{
+			margin-bottom: 0px;
+		}
+		footer .container{
+			width: 90%;
+			line-height: 1.42857143;
+			max-width: 1200px;
+		}
+		
+		.page-footer{
+			padding-top:10px !important;
+		}
+		
+		footer.page-footer{
+			margin-top: 0px;
+		}
+		
+		.footerlink span i{
+			font-size:25px;
+			text-align: left;
+		}
+		
+		.footer-copyright{
+			line-height: 10px !important;
+			height: 32px !important;
+			padding-bottom: 10px;
+			font-size: 0.95em;
+			background-color: #36373B !important;
+		}
+		
+		.service-box h4{
+			color:white;
+		}
+		.text-muted{
+			color: #777;
+			
+		}
+
+		.footerSocialMedia{
+			max-width:145px; 
+			margin: 0 auto;
+		}
+		.footerlink{
+			color: #777;
+		}
+		.footerlink:hover,
+		.footerlink:focus,
+		.footerlink.focus,
+		.footerlink:active,
+		.footerlink.active{
+			color: #FF5B45;
+			text-decoration: none;
+		}
+		
+		/* ------- END FOOTER ------- */
+		
+		
+		/* ------- NAVIGATION ------- */
+		nav{
+			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
+			letter-spacing: 4px;
+			background-color: #FF5B45 !important;
+		}
+		.brand-logo{
+			letter-spacing: 4px;
+			color: #36373B !important;
+		}
+		nav ul a{
+			letter-spacing: 0px;
+			color: #36373B !important;
+		}
+		nav a{
+			letter-spacing: 0px;
+			color: #36373B !important;
+		}
+		.accountPicture{
+			height: 35px; 
+			vertical-align:middle; 
+			margin-bottom: 5px;
+		}
+		
+		ul .dropdown-content.active, ul .dropdown-content{
+			top: 64px !important;
+		}
+		
+		.side-nav li:hover .material-icons{
+			color:#FF5B45;
+		}
+		
+		@media(min-width:768px){
+			.brand-logo{
+				margin-left:25px;
+			}
+		}
+		/* ------- END NAVIGATION ------- */
+		
+		
+		/* ------- MAINPAGE ------- */
+		body div.container{
+			height:83%;
+		}
+		
+		.collection .collection-item{
+			padding: 10px 70px !important;
+			padding-left: 72px !important;
+		}
+		
+		.card-reveal{
+			position:relative;
+		}
+		
+		.userInfo{
+			position:absolute;
+			bottom: 0px;
+			left: 20px;
+			width: 88%
+		}
+		.routeInfo, .ownerInfo, .walkerInfo{
+			position: absolute;
+			bottom: 40px;
+			left: 20px;
+			width: 88%;
+		}
+		
+		.fc-center h2 {
+			font-size: 18px;
+			padding-top: 6px;
+		}
+		
+		.top-circle{
+			width: 20px !important;
+			height: 20px !important;
+		}
+				
+		
+		.card-reveal.addition{
+			margin-top:44px;
+		}
+		/* ------- END MAINPAGE ------- */
+		
+		
+		/* ------- HOMEPAGE ------- */
+		
+		.parallax-header{
+			margin-top:10%;
+			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
+			letter-spacing: 4px;
+		}
+		
+		.parallax-header hr, .homePageContent hr{
+			margin: 30px auto;
+			max-width: 50px;
+			border-color: #FF5B45 !important;
+			border-width: 3px !important;
+			border-style: solid;
+		}
+		
+		.parallax-header h1 {
+		  color: rgba(255, 255, 255, 0.8);
+		  font-size: 42px;
+		  font-weight: 700;
+		  text-align: center;
+		  text-transform: uppercase;
+		  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+		
+		.header{
+			font-size: 25px;
+		}
+		
+		.homePageContent{
+			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
+			letter-spacing: 4px;
+			font-size:0.85em;
+		}
+		
+		
+		.homePageContent{
+			background-color: #fafafa;
+		}
+		
+		/* ------- END HOMEPAGE ------- */
+
+		
+		/* ------- PROFILE ------- */
+		#profile-page-header .card-image{
+			z-index: 0;
+			height:250px;
+		}
+		.card .card-image{
+			position:relative;
+		}
+		
+		@media(max-width:400px){
+			#profile-page-header .card-profile-image{
+				margin-top: -125px !important;
+			}
+			
+		}
+		@media(min-width:768px){
+			#profile-page-header .card-profile-image{
+				width: 110px;
+				position: absolute;
+				top: 190px;
+				z-index: 1;
+				left: 40px;
+				cursor: pointer;
+				margin: 0;
+			}	
+		}
+		
+		@media(max-width:768px) and (min-width:400px){
+			#profile-page-header .card-profile-image{
+				margin-top: -65px !important;
+			}
+			.btn-floating{
+				margin-top: -65px !important;
+			}
+			.personName{
+				margin-left:5% !important;
+			}
+			.card-profile-image {
+				margin-left: -5% !important;
+			}
+		}
+		
+		.profile-post-name{
+			margin-top:-15px;
+		}
+		
+		#profile-page-header .card-content{
+			margin-top: -40px;
+		}
+		#profile-page-sidebar{
+			margin-top: -0.5rem;
+		}
+		
+		#content .container .row{
+			margin-bottom: 0;
+		}
+		#content{
+			height:100%;
+		}
+		
+		.btnProfilePost{
+			margin-bottom: 12px;
+		}
+		/* ------- END PROFILE ------- */

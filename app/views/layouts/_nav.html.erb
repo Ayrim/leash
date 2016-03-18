@@ -1,0 +1,90 @@
+<ul id="dropdownMenu" class="dropdown-content">
+      <% if logged_in? %>
+        <li><%= link_to "Settings", settings_path %></li>
+        <li class="divider"></li>
+        <li><%= link_to "Sign Out", logout_path %></li>
+      <% else %>
+        <li><%= link_to "Sign In", login_path %></li>
+        <li class="divider"></li>
+        <li><%= link_to "Sign Up", signup_path %></li>
+      <% end %> 
+    </ul>
+    <ul id="dropdown2" class="dropdown-content">
+      <li><a href="#!">Dogs</a></li>
+      <li><a href="#!">Dog walkers</a></li>
+      <li class="divider"></li>
+      <li><a href="#!">Routes</a></li>
+    </ul>
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <% if logged_in? %>
+            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-med-and-down">Leash<i class="material-icons left">menu</i></a>
+            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-large-only">Leash</a>
+            <a href="#" data-activates="sideNavMenu" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
+          <% else %>
+            <%= link_to "Leash", root_path, :class => 'brand-logo hide-on-med-and-down',  data: {activates: "sideNavMenu"} %>
+            <%= link_to "Leash", root_path, :class => 'brand-logo hide-on-large-only',  data: {activates: "sideNavMenu"} %>
+            <a href="#" data-activates="sideNavMenu" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
+          <% end %> 
+
+        <ul class="right hide-on-med-and-down">
+          <!-- Dropdown Trigger -->
+          <li>
+            <a class="dropdown-button" href="#!" data-activates="dropdownMenu">
+
+              <% if logged_in? %>
+                <img class="col s2 circle responsive-img valign accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 35px; height: 35px; background-size:cover;" />
+              <% else %>
+                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle accountPicture" >
+              <% end %> 
+            </a>
+          </li>
+        </ul>
+        <ul class="side-nav collapsible" id="sideNavMenu"  data-collapsible="accordion">
+            <% if logged_in? %>
+              <% unless @hideHome %>
+                <li>
+                  <%= link_to overview_path, :class => 'no-padding collapsible-header' do %>
+                    Home<i class="material-icons left">home</i>
+                  <% end %>
+                </li>
+                <li class="divider"/>
+              <% end %>
+              <li>
+                <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
+                  Settings<i class="material-icons left">settings</i>
+                <% end %>
+              </li>
+              <li class="no-padding">
+              <ul class="collapsible collapsible-accordion">
+              <li>
+              <a class="collapsible-header">Search<i class="material-icons left" >search</i></a>
+              <div class="collapsible-body">
+                <ul>
+                <li><a href="#!">Dogs</a></li>
+                <li><a href="#!">Dog walkers</a></li>
+                <li><a href="#!">Routes</a></li>
+                </ul>
+              </div>
+              </li>
+            <% else %>
+              <li><%= link_to "Sign In", login_path %></li>
+              <li><%= link_to "Sign Up", signup_path %></li>
+            <% end %> 
+          </ul>
+          </li>
+        
+  
+          <li class="bottom center-align" style="
+            position: absolute;
+            bottom: 64px;
+            width: 100%;
+          ">
+              <img class="circle accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; margin-top: 25px; width: 75px; height: 75px; background-size:cover;" />
+           <%= link_to "Sign Out", logout_path %>
+          </li>
+        </ul>
+        </div>
+      </nav>
+    </div>

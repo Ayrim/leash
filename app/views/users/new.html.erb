@@ -1,64 +1,132 @@
-<header id="imagebackground">
-	<div id="container">
-		<div id="contentAuthentication">
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "authentication", :media => "all" %>
 
-			<div class="container">
-		        <div class="card card-container">
-		            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-		            <p id="profile-name" class="profile-name-card"></p>
-		            <p class="flash">
-		              <%= flash.alert %>
-		            </p>
+	  	<div id="login-page" class="row">
+			<div class="col s12 z-depth-4 card-panel">
+			  <%= form_for(@user, :html => {class: 'login-form', :onsubmit => "document.getElementById('Register').disabled=true; document.getElementById('Register').value=\"Registering...\"; document.getElementById('registrationSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";"}) do |u| %>
+			    <!-- Showing alerts  -->
+		        <% if @showModal %>
+					<script type="text/javascript">
+						Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+					</script>
+		        <% end %>
+				<% if @user.errors.any? %>
+				    <% @user.errors.full_messages.each do |message| %>
+						<script type="text/javascript">
+							Materialize.toast('<p style="word-wrap: break-word;"><%= message %></p>', 10000);
+						</script>
+				    <% end %>
+				<% end %>
 
-					<%= form_for(@user, :html => {class: 'form-signin'}) do |u| %>
+				<div class="row">
+				  <div class="input-field col s12 center">
+					<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle responsive-img valign profile-image-login">
+					<p class="center login-form-text"></p>
+				  </div>
+				</div>
+				<div class="row margin">
+				  <div class="input-field col s12">
+					<i class="mdi-social-person-outline prefix"></i>
+					<%= u.text_field :firstname, :id => "firstname", :required => true %>
+					<!--<input id="firstname" type="text" name="user[firstname]" required="required">-->
+					<label for="firstname" class="center-align">First name</label>
+				  </div>
+				  <div class="input-field col s12">
+					<i class="mdi-social-person-outline prefix"></i>
+		            <%= u.text_field :lastname, :id => "lastname", :required => true %>
+					<!--<input id="lastname" type="text" name="user[lastname]" required="required">-->
+					<label for="lastname" class="center-align">Last name</label>
+				  </div>
+				  <div class="input-field col s12">
+					<i class="mdi-content-mail prefix"></i>
+		            <%= u.text_field :email, :id => "email", :required => true %>
+					<!--<input id="email" type="text" name="user[email]" required="required">-->
+					<label for="email" class="center-align">E-mail</label>
+				  </div>
+				  <div class="input-field col s12">
+					<i class="mdi-action-lock-outline prefix"></i>
+		            <%= u.password_field :password, :id => "password", :required => true  %>
+					<!--<input id="password" type="password" name="user[password]" required="required">-->
+					<label for="password">Password</label>
+				  </div>
+				  <div class="input-field col s12">
+					<i class="mdi-action-lock-outline prefix"></i>
+		            <%= u.password_field :password_confirmation, :id => "password_confirmation", :required => true  %>
+					<!--<input id="password_confirmation" type="password" name="user[password_confirmation]" required="required">-->
+					<label for="password_confirmation">Confirm Password</label>
+				  </div>       
+				  <div class="input-field col s12 m12 l12  login-text">
+                      <!--<%= u.check_box :terms_of_service %>-->
+                      <%= u.check_box :terms_of_service, :id => "terms_of_service" %> 
+					  <!--<input type="checkbox" id="terms_of_service" name="user[terms_of_service]" required="required">-->
+					  <label for="terms_of_service">I declare to have read and agree with the <a class="modal-trigger" href="#termsModel">terms of agreement.</a></label>
+				  </div>
+				</div>
+				<div class="row">
+				  <div class="input-field col s12" id="registrationSubmitTag">
+		            <%= submit_tag "Register", :id => 'Register', :class => "btn waves-effect waves-light col s12" %>
+				  </div>
+				</div>
+				<div class="row">
+				  <p class="margin center medium-small sign-up">Already have an account? 
+				  	<%= link_to "Login", login_path %></p>     
+				</div>
 
-						<% if @user.errors.any? %>
-						    <div id="error_explanation">
-								<p>
-						      		<% @user.errors.full_messages.each do |message| %>
-						        		<span><%= message %></span><br />
-						      		<% end %>
-						  		</p>
-						    </div>
-						<% end %>
-
-						<%= u.text_field :firstname, :id => "inputFirstname", :class => "form-control", :placeholder => "First name", :required => true, :autofocus => true %>
-		                <%= u.text_field :lastname, :id => "inputLastname", :class => "form-control", :placeholder => "Last name", :required => true, :autofocus => true %>
-		                <%= u.text_field :email, :id => "inputEmail", :class => "form-control", :placeholder => "Email address", :required => true, :autofocus => true %>
-		                <%= u.password_field :password, :id => "inputPassword", :class => "form-control", :placeholder => "Password", :required => true  %>
-		                <%= u.password_field :password_confirmation, :id => "inputPasswordConfirm", :class => "form-control", :placeholder => "Confirm password", :required => true  %>
-		                <div id="remember" class="checkbox">
-                            <label>
-                                <%= u.check_box :terms_of_service %> I agree with the <a href="#TermsOfAgreementModal" data-toggle="modal" class="termsofagreement">general agreements</a>
-                            </label>
-                        </div>
-		               	<%= submit_tag "Sign up", :class => "btn btn-lg btn-primary btn-block btn-signin" %>
-					<% end %>
-		        </div><!-- /card-container -->
-	        </div>
-
+			  <% end %>
+			</div>
 		</div>
-		  <div id="footer">
-		        <%= render "layouts/footer" %>
-		  </div>
-	</div>
-</header>
 
-    <!-- Modal HTML -->
-    <div id="TermsOfAgreementModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Terms of agreement</h4>
-                </div>
-                <div class="modal-body">
-                    <p>This section will contain a complete list of legal information, expressing we will not be held accountable for anything happening to the animals.</p>
-                    <p class="text-warning"><small>This could be a warning of some sorts.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+		<!-- Modal Structure -->
+		<div id="termsModel" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<h4>Terms of agreement</h4>
+				<hr />
+				<p>This section will contain a complete list of legal information, expressing we will not be held accountable for anything happening to the animals.</p>
+				<ul>
+					<li>
+						<div class="row">
+				  			<div class="input-field col s2">
+				  				art. 100.1
+				  			</div>
+				  			<div class="input-field col s10">
+				  				Section regarding the privacy of the users.
+				  			</div>
+						</div>
+					</li>
+					<li>
+						<div class="row">
+				  			<div class="input-field col s2">
+				  				art. 450.1
+				  			</div>
+				  			<div class="input-field col s10">
+				  				Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings.
+				  			</div>
+						</div>
+					</li>
+					<li>
+						<div class="row">
+				  			<div class="input-field col s2">
+				  				art. 450.2
+				  			</div>
+				  			<div class="input-field col s10">
+				  				Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings.
+				  			</div>
+						</div>
+					</li>
+					<li>
+						<div class="row">
+				  			<div class="input-field col s2">
+				  				art. 450.3
+				  			</div>
+				  			<div class="input-field col s10">
+				  				Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings.
+				  			</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<a id="disagreeTermsBtn" class="modal-action modal-close waves-effect waves-red btn-flat ">Disagree</a>
+				<a id="agreeTermsBtn" class="modal-action modal-close waves-effect waves-red btn-flat ">Agree</a>
+			</div>
+		</div>

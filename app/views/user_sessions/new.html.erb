@@ -1,32 +1,58 @@
-<header id="imagebackground">
-    <div id="container">
-        <div id="contentAuthentication">
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
 
-            <div class="container">
-                <div class="card card-container">
-                    <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-                    <p id="profile-name" class="profile-name-card"></p>
-                    <p class="flash">
-                      <%= flash.alert %>
+
+        <div id="login-page" class="row">
+            <div class="col s12 z-depth-4 card-panel">
+              <%= form_tag user_sessions_path, method: :post, :class => "login-form", :onsubmit => "document.getElementById('Login').disabled=true; document.getElementById('Login').value=\"Logging in...\"; document.getElementById('loginSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";" do %>
+
+                <% if @showModal %>
+                  <script type="text/javascript">
+                    Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+                  </script>
+                <% end %>
+
+                <div class="row">
+                  <div class="input-field col s12 center">
+                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle responsive-img valign profile-image-login">
+                    <p class="center login-form-text"></p>
+                  </div>
+
+                </div>
+                <div class="row margin">
+                  <div class="input-field col s12">
+                    <i class="mdi-social-person-outline prefix"></i>
+
+                    <input id="username" type="email" required="required" name="email">
+                    <label for="username" class="center-align">Username</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <i class="mdi-action-lock-outline prefix"></i>
+                    <input id="password" type="password" required="required" name="password">
+                    <label for="password">Password</label>
+                  </div>        
+                  <div class="input-field col s12 m12 l12 login-text rememberMeField">
+                      <input type="checkbox" id="remember-me" name="remember">
+                      <label for="remember-me">Remember me</label>
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="input-field col s12" id="loginSubmitTag">
+                    <%= submit_tag "Login", :id => "Login", :class => "btn waves-effect waves-light col s12" %>
+                  </div>
+                  <div class="input-field col s6 m6 l6">
+                    <p class="margin medium-small">
+                        <%= link_to "Register Now!", signup_path %>
                     </p>
-                    <%= form_tag user_sessions_path, method: :post, :class => "form-signin" do %>
-                        <span id="reauth-email" class="reauth-email"></span>
-                        <%= text_field_tag :email, nil, :id => "inputEmail", :class => "form-control", :placeholder => "Email address", :required => true, :autofocus => true %>
-                        <%= password_field_tag :password, nil, :id => "inputPassword", :class => "form-control", :placeholder => "Password", :required => true  %>
-                        <div id="remember" class="checkbox">
-                            <label>
-                                <%= check_box_tag :remember, params[:remember], true%> Remember me
-                            </label>
-                        </div>
-                        <%= submit_tag "Sign in", :class => "btn btn-lg btn-primary btn-block btn-signin" %>
-                    <% end %><!-- /form -->
-                    <%= link_to "Forgot the password?", new_password_reset_path, :class => 'forgot-password' %>
-                </div><!-- /card-container -->
+                  </div>
+                  <div class="input-field col s6 m6 l6">
+                      <p class="margin right-align medium-small">
+                        <%= link_to "Forgot password?", new_reset_password_path, :class => 'forgot-password' %>
+                      </p>
+                  </div>          
+                </div>
+
+              <% end %>
             </div>
         </div>
-
-      <div id="footer">
-            <%= render "layouts/footer" %>
-      </div>
-    </div>
-</header>
+      

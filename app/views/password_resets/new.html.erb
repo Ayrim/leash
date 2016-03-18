@@ -1,28 +1,51 @@
-<header id="imagebackground">
-	<div id="container">
-		<div id="contentAuthentication">
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "user_sessions", :media => "all" %>
 
-			<div class="container">
-		        <div class="card card-container">
-		            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-		            <p id="profile-name" class="profile-name-card">Forgot password</p>
-					<br />
-		            <p class="flash">
-		              <%= flash.alert %>
-		            </p>
 
-					<%= form_for(:password_reset, url: password_resets_path, :html => {class: 'form-signin'}) do |f| %>
+	  	<div id="login-page" class="row">
+			<div class="col s12 z-depth-4 card-panel">
+				<form class="login-form">
+				<div class="row">
+				  <div class="input-field col s12 center">
+					<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle responsive-img valign profile-image-login">
+					<p class="center login-form-text"></p>
+				  </div>
+				</div>
+				<% if @showModal %>
+					<script type="text/javascript">
+						Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+					</script>
+				<% end %>
 
-		                <%= f.text_field :email, :id => "inputEmail", :class => "form-control", :placeholder => "Email address", :required => true, :autofocus => true %>
+                <!-- Unclear as to why the below line needs to be present for the next form to send a POST instead of GET. -->
+				<%= form_for(:password_reset, url: password_resets_path, :html => {class: 'form-signin'}) do |f| %><% end %>
 
-		               	<%= submit_tag "Send me my password", :class => "btn btn-lg btn-primary btn-block btn-signin" %>
-					<% end %>
-		        </div><!-- /card-container -->
-	        </div>
+				<%= form_for(:password_reset, url: password_resets_path, :html => {class: 'form-signin', :onsubmit => "document.getElementById('SendPassword').disabled=true; document.getElementById('SendPassword').value=\"Resetting...\"; document.getElementById('resetPasswordSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";"}, :method => 'post' ) do |f| %>
+					<div class="row margin">
+					  <div class="input-field col s12">
+						<i class="mdi-social-person-outline prefix"></i>
 
+		                <%= f.email_field :email, :id => "inputEmail", :required => true %>
+						<!--<input id="email" type="text">-->
+						<label for="inputEmail" class="center-align">E-mail</label>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="input-field col s12" id="resetPasswordSubmitTag">
+					  	<%= submit_tag "Reset my password", :id => "SendPassword", :class => "btn waves-effect waves-light col s12" %>
+						<!--<a href="login.html#password" class="btn waves-effect waves-light col s12">Send me my password.</a>-->
+					  </div>
+					</div>
+				<% end %>
+				<div class="row">
+				  <div class="input-field col s6 m6 l6">
+					<p class="margin medium-small"><%= link_to "Sign in!", login_path %></p>
+				  </div>
+				  <div class="input-field col s6 m6 l6">
+					<p class="margin right-align medium-small"><%= link_to "Register Now!", signup_path %></p>
+				  </div>          
+				</div>
+
+			  </form>
+			</div>
 		</div>
-		  <div id="footer">
-		        <%= render "layouts/footer" %>
-		  </div>
-	</div>
-</header>

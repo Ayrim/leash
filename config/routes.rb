@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   
-  get 'password_resets/new'
-
-  get 'password_resets/edit'
+  get 'password_resets' => 'password_resets#new', :as => :new_reset_password
+  get 'password_resets' => 'password_resets#edit', :as => :edit_reset_password
 
   root              'home#index'
 
@@ -16,6 +15,12 @@ Rails.application.routes.draw do
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
   get 'signup'  => 'users#new', :as => :signup
+  post 'signup' => 'users#create'
+  patch 'update_profile' => 'users#update_profile', :as => :update_profile
+  patch 'update_contactinfo' => 'users#update_contactinfo', :as => :update_contactinfo
+  patch 'update_password' => 'users#update_password', :as => :update_password
+  get 'settings' => 'users#settings', :as => :settings
+  get 'edit_settings' => 'users#editSettings', :as => :edit_settings
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview
 
