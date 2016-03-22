@@ -18,4 +18,16 @@
     <%= f.text_field :breed %>
   </p>
 
+    <% fields_for @animal do |u| %>
+        <p>
+          <%= u.label :name %><br />
+          <%= u.text_field :name %>
+        </p>
+    <% end %>
+
+
+    <p>
+      <%= f.submit %>
+    </p>
+
 <% end %>

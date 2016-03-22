@@ -3,6 +3,7 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
+
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 
@@ -15,4 +16,5 @@ Rails.application.config.assets.version = '1.0'
 #Rails.application.config.assets.precompile += %w( screen.css )
 %w( home users user_sessions password_resets materialize.min authentication editSettings fullcalendar).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js.coffee", "#{controller}.css"]
+  Rails.application.config.assets.precompile += %w( dog.css )
 end

@@ -7,10 +7,11 @@ class DogController < ApplicationController
   end
 
   def show
-    @dog = Dog.find(params[:id])
+
   end
 
   def create
+    @animal = Animal.new(animal_params)
     @dog = Dog.new(dog_parameters)
 
     if @dog.save
@@ -23,5 +24,9 @@ class DogController < ApplicationController
   private
     def dog_params
       params.require(:dog).permit(:breed)
+    end
+  private
+    def animal_params
+      params.require(:animal).permit(:name)
     end
 end
