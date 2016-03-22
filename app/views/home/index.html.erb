@@ -1,100 +1,45 @@
-    <header>
-        <div class="header-content">
-            <div class="header-content-inner">
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+    
+        <div class="parallax-container">
+            <div class="parallax">
+                <img src="assets/bench-sea-sunny-man.jpg">
+            </div>
+            <div class="parallax-header">
                 <h1>Looking for someone to walk your dog?</h1>
                 <hr>
                 <h1>Looking for a dog to take for a walk?</h1>
-                <br />
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
             </div>
         </div>
-    </header>
-
-    <section class="bg-primary" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">We've got what you need!</h2>
-                    <hr class="light">
-                    <p class="text-faded">Ever had the feeling that you do not have enough time to take your dog out for a walk? Are you sometimes, after a long day's work, lacking the energy to take your dog out for a stroll, while it could use a decent walk to run off some of its own energy? <br />
-                        Or are you in a situation where you would love to go out for a long walk with a friendly four-legged companion, but can't have a dog of your own because you are lacking the space in your house or appartment?
-                        <br />
-                        <br />
-                        Why not help each other out?
-                        <br />
-                        Leash will help you to get in touch with the perfect companion for yourself or your dog.
-                    </p>
+        <div class="section white homePageContent">
+            <div class="row container center-align">
+              <h2 class="header">We've got what you need!</h2>
+                <hr>
+              <p class="grey-text text-darken-3 lighten-3">Ever had the feeling that you do not have enough time to take    your dog out for a walk? Are you sometimes, after a long day's work, lacking the energy to take your dog out for a stroll, while it could use a decent walk to run off some of its own energy? <br />
+              Or are you in a situation where you would love to go out for a long walk with a friendly four-legged companion, but can't have a dog of your own because you are lacking the space in your house or appartment?
+              <br />
+              <br />
+              Why not help each other out?
+              <br />
+              Leash will help you to get in touch with the perfect companion for yourself or your dog.
+              </p>
+              <br />
+              <br />
+                <span class="center-align">
                     <% if logged_in? %>
-                      <%= link_to "Get Started!", users_path, :class => "btn btn-getstarted btn-xl" %>
+                        <%= link_to "Get Started!", users_path, :class => "btn waves-effect waves-light col s2 offset-s5" %>
                     <% else %>
-                           <%= link_to "Get Started!", login_path, :class => "btn btn-getstarted btn-xl" %>
+                        <%= link_to "Get Started!", login_path, :class => "btn waves-effect waves-light col s2 offset-s5" %>
                     <% end %> 
-                    <br />
-                </div>
+                </span>
+            </div>
+            <br />
+        </div>
+        <div class="parallax-container">
+            <div class="parallax">
+                <img src="assets/light-person-woman-night - small.jpg">
             </div>
         </div>
-    </section>
 
-     <section class="bg-secondary" id="services">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">At Your Service</h2>
-                    <hr class="primary">
-                </div>
-            </div>
-        </div>
-          <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                        <h3>Create an agenda</h3>
-                        <p class="text-muted">Create a planning for each of your dogs.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Made with Love</h3>
-                        <p class="text-muted">Making sure your beloved dog is getting all of the activity it needs!</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-comments wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Share ideas</h3>
-                        <p class="text-muted">Got any questions about training or walking dogs? </p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-send wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Doggy-sit?</h3>
-                        <p class="text-muted">Going on a holiday and looking for someone to take care of your dog?</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-map-o wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Favorite routes</h3>
-                        <p class="text-muted">Share your favorite route with other people.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-heartbeat wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Medical problems</h3>
-                        <p class="text-muted">Temporarily can't walk your dog, because of medical problems? Find someone to help you out!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-<!--   <div id="footer2">
-    <p>Copyright <span class="fa fa-copyright"></span> 2016</p>
-  </div> -->
-  <div id="footer2">
-        <%= render "layouts/footer" %>
-  </div>
+                    
+             

@@ -1,0 +1,60 @@
+		/* ------- EDIT SETTINGS ------- */
+		.header2{
+			font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
+			letter-spacing: 4px;
+			margin-top: 0px;
+		}
+		section#content div.container{
+			padding-top: 1rem;
+		}
+		.picker__weekday-display{
+			background-color: #E5523E;
+		}
+		.file-field .file-path-wrapper{
+			padding-left: 0px;
+			padding-right: 20px;
+		}
+		.card-panel-header-line{
+			margin: -10px auto 15px;
+			border-color: #FF5B45 !important;
+			border-width: 1px !important;
+			border-style: solid;
+		}
+		
+		.tableOfContents{
+			float:left;
+			box-sizing: border-box;
+		}
+		.table-of-contents{
+			margin-top: 0px;
+		}
+		.section{
+			padding-top: 0.5rem;
+		}
+		.toc-wrapper{
+			position: relative;
+		}
+		.pinned{
+			position: fixed !important;
+		}
+		.table-of-contents a.active{
+			font-weight: 700;
+		}
+		.waves-effect, #profile-page-header .card-profile-image{
+			cursor: default !important;
+		}
+		/* ------- END EDIT SETTINGS ------- */
+
+        #saveAccountInfo, #saveContactInfo{
+            /*line-height:inherit;*/
+            line-height:27px;
+            font-size: 1em;
+            height: inherit;
+            margin-right: -45px;
+            margin-left: -45px;
+            padding-left: 45px;
+            padding-right: 45px;
+        }
+        .character-counter{
+        	margin-top:-15px;
+        }

@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 	has_one :address
 	has_many :animals
 
+  	accepts_nested_attributes_for :address
+
 	# Returns the hash digest of the given string.
 	def User.digest(string)
 	    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
