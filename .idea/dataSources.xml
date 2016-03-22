@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="4159332834">
+  <component name="DataSourceManagerImpl" format="xml" hash="1128431130">
     <data-source source="LOCAL" name="Rails leash: development" uuid="980ac80a-3b1c-4672-b9ee-8a143fa36816">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :animals
+  resources :dog
 
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
