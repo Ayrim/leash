@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview
 
+  post 'new_dog' => 'dog#create', :as => :create_dog
   
   #root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.

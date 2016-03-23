@@ -1,27 +1,15 @@
 <h1> NEW DOG</h1>
-<%= form_for :dog, url: dog_path do |f| %>
 
-    <% if @dog.errors.any? %>
-        <div id="error_explanation">
-          <h2>
-            <%= pluralize(@dog.errors.count, "error") %> prohibited this article from being saved:
-          </h2>
-          <ul>
-            <% @dog.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+<%= form_for :animal, :url => create_dog_path do |f| %>
   <p>
-    <%= f.label :breed %>
-    <%= f.text_field :breed %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
   </p>
 
-    <% fields_for @animal do |u| %>
+  <%= f.fields_for :dog do |d| %>  
         <p>
-          <%= u.label :name %><br />
-          <%= u.text_field :name %>
+          <%= d.label :breed %><br />
+          <%= d.text_field :breed %>
         </p>
     <% end %>
 
