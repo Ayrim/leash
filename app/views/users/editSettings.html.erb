@@ -15,7 +15,7 @@
                 <!-- profile-page-header -->
                 <div id="profile-page-header" class="card">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img src="http://demo.geekslabs.com/materialize/v2.1/layout03/images/user-profile-bg.jpg" alt="user background">
+                        <img src="<%= user_banner() %>" alt="user background">
                     </div>
                     <figure class="card-profile-image circle z-depth-2 responsive-img" style="position:absolute; background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 110px; height: 110px; background-size:cover;">
                     </figure>
@@ -101,22 +101,24 @@
                                                 <div class="file-field input-field col s12">
                                                     <div class="btn" style="display:inline-block; float:right;">
                                                         <span>...</span>
-                                                        <input type="file" />
+                                                        <%= u.file_field :profile_picture, :accept => "image/png,image/gif,image/jpeg" %>
+                                                        <!--<input type="file" name="user[profile_picture]" id="user_profile_picture" accept="image/png,image/gif,image/jpeg"/>-->
                                                     </div>
                                                     <div class="file-path-wrapper">
-                                                        <input id="profilePicture" class="file-path validate" type="text">
-                                                        <label for="profilePicture" class="active">Profile picture</label>
+                                                        <input id="user_profile_picture" class="file-path validate" type="text" >
+                                                        <label for="user_profile_picture" class="active">Profile picture</label>
                                                     </div>
                                                 </div>
 
                                                 <div class="file-field input-field col s12">
                                                     <div class="btn" style="display:inline-block; float:right;">
                                                         <span>...</span>
-                                                        <input type="file" />
+                                                        <%= u.file_field :banner_picture, :accept => "image/png,image/gif,image/jpeg" %>
+                                                        <!--<input type="file" name="user[banner_picture]" id="user_banner_picture" accept="image/png,image/gif,image/jpeg" />-->
                                                     </div>
                                                     <div class="file-path-wrapper">
-                                                        <input id="bannerPicture" class="file-path validate" type="text">
-                                                        <label for="bannerPicture" class="active">Banner picture</label>
+                                                        <input id="user_banner_picture" class="file-path validate" type="text">
+                                                        <label for="user_banner_picture" class="active">Banner picture</label>
                                                     </div>
                                                 </div>
 

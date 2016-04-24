@@ -1,0 +1,126 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "wallpost", :media => "all" %>
+
+<!-- profile-page-wall -->
+              <div id="profile-page-wall" class="col s12 m8">
+
+                <!-- profile-page-wall-share -->
+                <div id="profile-page-wall-share" class="row">
+                  <div class="col s12">
+                    <ul class="tabs tab-profile z-depth-1 light-blue">
+                      <li class="tab col s3"><a class="white-text waves-effect waves-light active" href="#UpdateStatus"><i class="mdi-editor-border-color"></i> Update Status</a>
+                      </li>
+                      <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#AddPhotos"><i class="mdi-image-camera-alt"></i> Add Photos</a>
+                      </li>
+                      <li class="tab col s3"><a class="white-text waves-effect waves-light" href="#CreateRoute"><i class="mdi-maps-map"></i> Create Route</a>
+                      </li>                      
+                    </ul>
+                    <!-- UpdateStatus-->
+                    <div id="UpdateStatus" class="tab-content col s12  grey lighten-4">
+                      <%= form_for(:wallpost, :url => create_wallpost_path, :remote => true) do |w| %>
+                      <div class="row">
+                        <div class="col s2 circle responsive-img valign profile-image-post" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 60px; height: 60px; background-size:cover;">
+                        </div>
+                        <div class="input-field col s10">
+                          <!--<textarea id="textarea" row="2" class="materialize-textarea"></textarea>-->
+                          <%= w.text_area :message, :class => 'materialize-textarea', :length => '250', :row => '2' %>
+                          <label for="message" class="">What's on your mind?</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s12 m6 share-icons">
+                          <a href="#"><i class="mdi-image-camera-alt"></i></a>
+                          <a href="#"><i class="mdi-action-account-circle"></i></a>
+                          <a href="#"><i class="mdi-hardware-keyboard-alt"></i></a>
+                          <a href="#"><i class="mdi-communication-location-on"></i></a>
+                        </div>
+                        <div class="col s12 m6 right-align">
+                            <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
+                              <input type="submit" name="commit" value="Post" id="sendWallPost" class="waves-button-input">
+                            </i>
+                        </div>
+                      </div>
+                      <% end %>
+                    </div>
+                    <!-- AddPhotos -->
+                    <div id="AddPhotos" class="tab-content col s12  grey lighten-4">
+                      <%= form_for(:wallpost, :url => create_wallpost_path, :remote => true) do |w| %>
+                        <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
+                        <div class="row">
+                          <div class="col s2 circle responsive-img valign profile-image-post" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 60px; height: 60px; background-size:cover;">
+                          </div>
+                          <div class="input-field col s10">
+                            <!--<textarea id="textarea" row="2" class="materialize-textarea"></textarea>-->
+                            <%= w.text_area :message, :id => "wallpost_photo_message", :class => 'materialize-textarea', :length => '250', :row => '2' %>
+                            <label for="message" class="">Share your favourites photos!</label>
+                          
+            						 <!--<form action="#" class="input-field col s10 offset-s2 photoSelectField">-->
+            						  <div class="file-field input-field" style="margin-top: 0;">
+              							<div class="btn" style="display:inline-block; float:right;">
+              							  <span>...</span>
+                              <%= w.file_field :picture, :accept => "image/png,image/gif,image/jpeg" %>
+              							</div>
+              							<div class="file-path-wrapper">
+                              <input id="wallpost_picture" class="file-path validate" type="text" >
+              							</div>
+            						  </div>
+            						<!--</form>-->
+                        </div></div>
+                        <div class="row">
+                          <div class="col s12 m6 share-icons">
+                            <a href="#"><i class="mdi-image-camera-alt"></i></a>
+                            <a href="#"><i class="mdi-action-account-circle"></i></a>
+                            <a href="#"><i class="mdi-hardware-keyboard-alt"></i></a>
+                            <a href="#"><i class="mdi-communication-location-on"></i></a>
+                          </div>
+                          <div class="col s12 m6 right-align">
+                              <!--<a class="waves-effect waves-light btn btnProfilePost"><i class="mdi-maps-rate-review left"></i>Post</a>-->
+                            <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
+                              <input type="submit" name="commit" value="Post" id="sendWallPost" class="waves-button-input">
+                            </i>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                    <!-- CreateRoute -->
+                    <div id="CreateRoute" class="tab-content col s12  grey lighten-4">
+                      <div class="row">
+                        <div class="col s2 circle responsive-img valign profile-image-post" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 60px; height: 60px; background-size:cover;">
+                        </div>
+                        <div class="input-field col s10">
+                          <textarea id="textarea" row="2" class="materialize-textarea"></textarea>
+                          <label for="textarea" class="">Add your favourite routes.</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s12 m6 share-icons">
+                          <a href="#"><i class="mdi-image-camera-alt"></i></a>
+                          <a href="#"><i class="mdi-action-account-circle"></i></a>
+                          <a href="#"><i class="mdi-hardware-keyboard-alt"></i></a>
+                          <a href="#"><i class="mdi-communication-location-on"></i></a>
+                        </div>
+                        <div class="col s12 m6 right-align">
+                            <a class="waves-effect waves-light btn btnProfilePost"><i class="mdi-maps-rate-review left"></i>Post</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ profile-page-wall-share -->
+
+                <!-- profile-page-wall-posts -->
+                <div id="profile-page-wall-posts" class="row">
+                  <div class="col s12">
+
+                    <div id="posts">
+                      <%= render $wallposts %>
+                    </div>
+                    <div id="infinite-scrolling">
+                      <%= will_paginate $wallposts %>
+                    </div>
+                  </div>                  
+                </div>
+                <!--/ profile-page-wall-posts -->
+
+              </div>
+              <!--/ profile-page-wall -->

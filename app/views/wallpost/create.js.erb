@@ -1,0 +1,4 @@
+$('#wallpostSection').html('<%= escape_javascript(render template: "wallpost/index", :url => index_wallpost_path) %>');
+$('#wallpost_message').val('');
+$('#wallpost_photo_message').val('');
+$('ul.tabs').tabs();

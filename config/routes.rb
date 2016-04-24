@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :animals
   resources :dog
+  resources :wallpost
 
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
@@ -20,12 +21,15 @@ Rails.application.routes.draw do
   patch 'update_profile' => 'users#update_profile', :as => :update_profile
   patch 'update_contactinfo' => 'users#update_contactinfo', :as => :update_contactinfo
   patch 'update_password' => 'users#update_password', :as => :update_password
-  get 'settings' => 'users#settings', :as => :settings
-  get 'edit_settings' => 'users#editSettings', :as => :edit_settings
+  get 'profile' => 'users#settings', :as => :settings
+  get 'edit_profile' => 'users#editSettings', :as => :edit_settings
+  #post 'settings' => 'users#settings_post'
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview
 
   post 'new_dog' => 'dog#create', :as => :create_dog
+  post 'new_post' => 'wallpost#create', :as => :create_wallpost
+  post 'index_post' => 'wallpost#index', :as => :index_wallpost
   
   #root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.

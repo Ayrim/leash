@@ -48,3 +48,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #authentication
 gem 'sorcery'
 gem 'bcrypt-ruby'
+
+#gem 'responders', '~> 2.0'
+
+gem 'remotipart', '~> 1.2'
+
+#endless scrolling wallposts
+gem 'will_paginate', '~> 3.0.7'

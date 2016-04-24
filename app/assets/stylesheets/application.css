@@ -174,8 +174,8 @@
         }
         
         .collection .collection-item{
-            padding: 10px 70px !important;
-            padding-left: 72px !important;
+            padding: 10px 70px;
+            padding-left: 72px;
         }
         
         .card-reveal{

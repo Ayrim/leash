@@ -46,9 +46,19 @@
             max-width: 350px;
         }
 
-        #Register, #Login, #SendPassword{
+        #Register, #Login, #SendPassword {
             width:inherit;
             line-height:inherit
+        }
+        #sendWallPost{
+            /*line-height:inherit;*/
+            line-height:27px;
+            font-size: 1em;
+            height: inherit;
+            margin-right: -45px;
+            margin-left: -45px;
+            padding-left: 45px;
+            padding-right: 45px;
         }
         /* ------- END LOGIN-FORM ------- */
         
@@ -104,6 +114,10 @@
             margin-bottom: 0;
         }
         
+        .tabs{
+            overflow-x:hidden;
+        }
+
         .collection .collection-item{
             background-color: #FFF;
             line-height: 1.5rem;
@@ -117,6 +131,12 @@
             position: relative;
         }
         
+        .planningDay{
+            position: relative !important;
+            top: -20px !important;
+            right: 0px !important;
+        }
+
         .photoSelectField{
             margin-top: 0px;
             margin-left: 14.8% !important;

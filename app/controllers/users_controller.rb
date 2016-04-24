@@ -4,13 +4,20 @@ class UsersController < ApplicationController
   #before_create :check_valid_email
 
 	def index
-		@users = User.all
+		#@users = User.all
+
+
 	end
 
 	def show
   end
 
   def settings
+    w = WallpostController.new
+    w.request = @_request
+    w.index
+
+    #render :controller => 'wallpost/index'
   end
 
 	def new
@@ -71,8 +78,34 @@ class UsersController < ApplicationController
   end
 
   def update_profile
+
+puts params
+# TO DO:
+# Save pictures to Azure Blob Storage or Amazon S3
+# Save the link towards the uploaded picture for this user.
+    puts "COPYING PICTURE"
+    directory = "app/assets/images"
+    save_directory = "assets"
+    save_banner_picture_path = ""
+    save_profile_picture_path = ""
+    if(params[:user][:profile_picture])
+      profile_picture_name = params[:user][:profile_picture].original_filename.gsub('[', '_').gsub(']', '_')
+      profile_picture_path = File.join(Rails.root, directory, profile_picture_name)
+      save_profile_picture_path = File.join(save_directory, profile_picture_name)
+      File.open(profile_picture_path, "wb") { |f| f.write(params[:user][:profile_picture].read) }
+    end
+
+    if(params[:user][:banner_picture])
+      banner_picture_name = params[:user][:banner_picture].original_filename.gsub('[', '_').gsub(']', '_')
+      banner_picture_path = File.join(Rails.root, directory, banner_picture_name)
+      save_banner_picture_path = File.join(save_directory, banner_picture_name)
+      File.open(banner_picture_path, "wb") { |f| f.write(params[:user][:banner_picture].read) }
+    end
+    puts save_banner_picture_path
+    puts "END COPYING PICTURE"
+    
     respond_to do |format|
-      if ((current_user.update_attribute(:firstname, params[:user][:firstname]) if params[:user][:firstname]) && (current_user.update_attribute(:lastname, params[:user][:lastname]) if params[:user][:lastname]) && (current_user.update_attribute(:email, params[:user][:email]) if params[:user][:email]) && (current_user.update_attribute(:birthdate, params[:user][:birthdate]) if params[:user][:birthdate]) && (current_user.update_attribute(:description, params[:user][:description]) if params[:user][:description])&& (current_user.update_attribute(:number_of_walks, params[:user][:number_of_walks]) if params[:user][:number_of_walks]) && (current_user.update_attribute(:walking_region, params[:user][:walking_region]) if params[:user][:walking_region]) && (current_user.update_attribute(:skills, params[:user][:skills]) if params[:user][:skills]))
+      if ([(current_user.update_attribute(:banner_picture, save_banner_picture_path) if params[:user][:banner_picture])] && [(current_user.update_attribute(:profile_picture, save_profile_picture_path) if params[:user][:profile_picture])] && (current_user.update_attribute(:firstname, params[:user][:firstname]) if params[:user][:firstname]) && (current_user.update_attribute(:lastname, params[:user][:lastname]) if params[:user][:lastname]) && (current_user.update_attribute(:email, params[:user][:email]) if params[:user][:email]) && (current_user.update_attribute(:birthdate, params[:user][:birthdate]) if params[:user][:birthdate]) && (current_user.update_attribute(:description, params[:user][:description]) if params[:user][:description])&& (current_user.update_attribute(:number_of_walks, params[:user][:number_of_walks]) if params[:user][:number_of_walks]) && (current_user.update_attribute(:walking_region, params[:user][:walking_region]) if params[:user][:walking_region]) && (current_user.update_attribute(:skills, params[:user][:skills]) if params[:user][:skills]))
         format.html { redirect_to edit_settings_path, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: current_user }
       else
@@ -146,6 +179,8 @@ class UsersController < ApplicationController
       end
     #end
   end
+
+
 
   def destroy
     @user.destroy
