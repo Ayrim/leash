@@ -1,45 +1,22 @@
 class WallpostController < ApplicationController
-	#respond_to :html, :js
 
 
 	def index
 		puts 'wallpost_index ========================================='
 		$wallposts = Wallpost.order(created_at: :desc).where({:user_id => current_user.id}).paginate(:page => params[:page], :per_page => 10)
-		
-		# respond_to do |format|
-	 #        format.html { redirect_to :controller => "users", :action => "settings" }
-	 #        format.js
-	 #    end
-		
+	end
 
-  #   	respond_to do |format|
-  #   		format.html
-  #       	format.js
-  #   	end
-		# respond_to do |format|
-  #   		format.js
-		# 	format.html { redirect_to :controller => "users", :action => "settings" }
-  #   	end
+	def showNewPosts
+		puts 'showNewPosts ========================================='
+		$wallposts = Wallpost.order(created_at: :desc).where({:user_id => current_user.id}).paginate(:page => params[:page], :per_page => 10)
+
+	   	respond_to do |format|
+    		format.html { redirect_to :controller => "users", :action => "settings" }
+         	format.js
+     	end
 	end
 
 	def show
-		# respond_to do |format|
-		# 	puts "redirect_to wallpost reached! -------------------------------------------------------------------"
-	 #     	format.html { redirect_to :controller => "users", :action => "settings" }
-	 #     	format.js
-	 #    end
-	    # w = WallpostController.new
-	    # w.request = @_request
-	    # w.index
-	  #   respond_to do |format|
-	  #   	format.html { $('#wallpostSection').html('<%= escape_javascript(render template: "wallpost/index", :url => index_wallpost_path) %>') }
-		 #    format.js
-		 # end
-	 #    respond_to do |format|
-	 #     	format.html
-		#     format.js
-		# end
-    	
     	#format.js { render :template => "create"}
 
 		respond_to do |format|
@@ -85,7 +62,7 @@ class WallpostController < ApplicationController
 	def destroy
 		@post = Wallpost.find(params[:id])
    		@post.destroy
-   
+   		params.delete :id
 		$wallposts = Wallpost.order(created_at: :desc).where({:user_id => current_user.id}).paginate(:page => params[:page], :per_page => 10)
 	   	respond_to do |format|
 	     		format.html { redirect_to wallpost }

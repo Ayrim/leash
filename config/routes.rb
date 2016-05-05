@@ -30,7 +30,10 @@ Rails.application.routes.draw do
   post 'new_dog' => 'dog#create', :as => :create_dog
   post 'new_post' => 'wallpost#create', :as => :create_wallpost
   post 'index_post' => 'wallpost#index', :as => :index_wallpost
-  
+  get 'extendPosts' => 'wallpost#showNewPosts', :as => :extend_wallpost
+  get 'extendPostsAfterDelete/:id' => 'wallpost#showNewPosts', :as => :extendAfterDelete_wallpost
+
+
   #root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

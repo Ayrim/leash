@@ -124,13 +124,3 @@
 
               </div>
               <!--/ profile-page-wall -->
-
-
-   <script type="text/javascript">  
-function UpdateWallposts()
-{
-   <!--$("<%= escape_javascript render(:partial => 'wallposts/index.js.erb', :formats=>[:js]) %>");-->
-  $('#posts').append('<%= escape_javascript render($wallposts) %>');
-  $('.pagination').replaceWith('<%= escape_javascript will_paginate($wallposts) %>');
-}
-   </script>
