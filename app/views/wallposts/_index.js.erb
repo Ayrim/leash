@@ -1,0 +1,3 @@
+
+$('#posts').append('<%= escape_javascript render($wallposts) %>');
+$('.pagination').replaceWith('<%= escape_javascript will_paginate($wallposts) %>');
