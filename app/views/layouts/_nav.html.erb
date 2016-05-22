@@ -20,18 +20,25 @@
 
         <ul class="right hide-on-med-and-down">
 
-          <li>
            <% if logged_in? %>
+            <li>
+              <%= link_to settings_path, :style => "line-height: 50px;" do %>
+                <i class="fa fa-comments-o fa-2 col s2 circle responsive-img valign" aria-hidden="true"></i>
+              <% end %>
+            </li>
+            <li>
               <%= link_to settings_path do %>
                 <img class="col s2 circle responsive-img valign accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 35px; height: 35px; background-size:cover;" />
               <% end %>
+            </li>
            <% else %>
+            <li>
               <%= link_to login_path do %>
                 <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle accountPicture" />
               <% end %>
+            </li>
            <% end %> 
 
-          </li>
         </ul>
         <ul class="side-nav collapsible" id="sideNavMenu"  data-collapsible="accordion">
             <% if logged_in? %>
