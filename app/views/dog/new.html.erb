@@ -1,6 +1,7 @@
 <h1> NEW DOG</h1>
 
 <%= form_for :animal, :url => create_dog_path do |f| %>
+    <div class="form-group">
   <p>
     <%= f.label :name %>
     <%= f.text_field :name %>
@@ -11,11 +12,34 @@
           <%= d.label :breed %><br />
           <%= d.text_field :breed %>
         </p>
+        <p>
+          <%= d.check_box :children %>
+          <%= d.label :children %><br />
+        </p>
+        <p>
+          <%= d.check_box :cats %>
+          <%= d.label :cats %><br />
+
+        </p>
+        <p>
+          <%= d.check_box :other_dogs %>
+          <%= d.label "Kan omgaan met andere honden" %><br />
+
+        </p>
     <% end %>
+    <p>
+      <%= f.label :birthdate %>
+      <%= f.date_field :birthdate %>
+    </p>
+    <div class="field">
+      <%= f.label :birthdate, nil, :class => "form-label text-right" %>
+      <%= f.date_field :birthdate, :class => "form-field" %>
+    </div>
 
 
     <p>
       <%= f.submit %>
     </p>
+      </div>
 
 <% end %>
