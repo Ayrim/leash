@@ -1,14 +1,4 @@
-<ul id="dropdownMenu" class="dropdown-content">
-      <% if logged_in? %>
-        <li><%= link_to "Profile", settings_path %></li>
-        <li class="divider"></li>
-        <li><%= link_to "Sign Out", logout_path %></li>
-      <% else %>
-        <li><%= link_to "Sign In", login_path %></li>
-        <li class="divider"></li>
-        <li><%= link_to "Sign Up", signup_path %></li>
-      <% end %> 
-    </ul>
+
     <ul id="dropdown2" class="dropdown-content">
       <li><a href="#!">Dogs</a></li>
       <li><a href="#!">Dog walkers</a></li>
@@ -29,16 +19,18 @@
           <% end %> 
 
         <ul class="right hide-on-med-and-down">
-          <!-- Dropdown Trigger -->
-          <li>
-            <a class="dropdown-button" href="#!" data-activates="dropdownMenu">
 
-              <% if logged_in? %>
+          <li>
+           <% if logged_in? %>
+              <%= link_to settings_path do %>
                 <img class="col s2 circle responsive-img valign accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 35px; height: 35px; background-size:cover;" />
-              <% else %>
-                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle accountPicture" >
-              <% end %> 
-            </a>
+              <% end %>
+           <% else %>
+              <%= link_to login_path do %>
+                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle accountPicture" />
+              <% end %>
+           <% end %> 
+
           </li>
         </ul>
         <ul class="side-nav collapsible" id="sideNavMenu"  data-collapsible="accordion">

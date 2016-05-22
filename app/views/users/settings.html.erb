@@ -68,16 +68,32 @@
 
             <!-- profile-page-content -->
             <div id="profile-page-content" class="row">
-              <!-- profile-page-sidebar-->
-              <div id="profile-page-sidebar" class="col s12 m4">
-                <!-- Profile About  -->
-                <div class="card light-blue hoverable">
-                  <div class="card-content white-text">
-                    <span class="card-title">About Me!</span>
-                    <p><%= current_user.description %></p>
+              <div class=" col s12 m4">
+                <div class="card light-blue hoverable" >
+                  <div class="card-content white-text center">
+                    <span class="card-title"><i class="fa fa-paw" aria-hidden="true"></i> Honden</span>
                   </div>                  
                 </div>
-                <!-- Profile About  -->
+              </div>
+              <div class=" col s12 m4">
+                <div class="card light-blue hoverable">
+                  <div class="card-content white-text center">
+                    <span class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> Routes</span>
+                  </div>                  
+                </div>
+              </div>
+              <div class=" col s12 m4">
+                <div class="card light-blue hoverable" >
+                  <div class="card-content white-text center">
+                    <span class="card-title"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Activeiten</span>
+                  
+                  </div>                  
+                </div>
+              </div>
+            </div>
+            <div id="profile-page-content" class="row">
+              <!-- profile-page-sidebar-->
+              <div id="profile-page-sidebar" class="col s12 m4">
 
                 <!-- Profile About Details  -->
                 <ul id="profile-page-about-details" class="collection z-depth-1 hoverable">
@@ -144,6 +160,31 @@
 			  </ul>
 			
                 <!-- Profile feed  -->
+
+
+                <!-- Afbeeldingen About  -->
+
+       <ul class="collection z-depth-1 with-header hoverable">
+        <li class="collection-header collection-PictureHeader">
+          <div class="card amber darken-2">
+            <div class="card-content white-text center-align">
+              <p class="card-title"><i class="mdi-image-camera-alt"></i></p>
+              <p>Afbeeldingen</p>
+            </div>                  
+          </div>
+        </li>
+        <li class="collection-item">
+         <div class="row">
+          <% @PicturePosts.each do |post| %>
+            <div class="col l3 m4" >
+              <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= collectWallpostPicture(post.picture) %>) no-repeat center center; height:5.5rem; width:5.5rem; background-size: cover;">
+              </div>
+            </div>
+          <% end %>
+         </div>
+        </li>
+        </ul>
+                <!-- Afbeeldingen About  -->
 
 
 
