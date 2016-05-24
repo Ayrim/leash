@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     # posts = Wallpost.order(created_at: :desc).where(userIdQuery).where("picture is not NULL").limit(10)
     posts = Wallpost.order(created_at: :desc).where("picture is not NULL").limit(10)
     # take 3 random wallposts from these 10
-    @PicturePosts = posts.shuffle.take(4)
+    @PicturePosts = posts.shuffle.take(6)
   end
 
 	def new

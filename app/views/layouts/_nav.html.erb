@@ -52,18 +52,33 @@
               <% end %>
               <li>
                 <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
-                  Profile<i class="material-icons left">settings</i>
+                  Mijn Profiel<i class="material-icons left">settings</i>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
+                  <i class="fa fa-calendar material-icons" aria-hidden="true"></i>Agenda
+                <% end %>
+              </li>
+              <li>
+                <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
+                  <i class="fa fa-map-marker material-icons" aria-hidden="true"></i>Routes
+                <% end %>
+              </li>
+              <li>
+                <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
+                  <i class="mdi-image-camera-alt material-icons"></i>Foto's
                 <% end %>
               </li>
               <li class="no-padding">
               <ul class="collapsible collapsible-accordion">
               <li>
-              <a class="collapsible-header">Search<i class="material-icons left" >search</i></a>
+              <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i>Honden</a>
               <div class="collapsible-body">
                 <ul>
-                <li><a href="#!">Dogs</a></li>
-                <li><a href="#!">Dog walkers</a></li>
-                <li><a href="#!">Routes</a></li>
+                <li><a href="#!">Blacky</a></li>
+                <li><a href="#!">Zara</a></li>
+                <li><a href="#!">Doggy</a></li>
                 </ul>
               </div>
               </li>
@@ -75,13 +90,34 @@
           </li>
         
   
-          <li class="bottom center-align" style="
+          <li class="divider"/>
+          <li class="bottom left" style="
             position: absolute;
             bottom: 64px;
             width: 100%;
           ">
-              <img class="circle accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; margin-top: 25px; width: 75px; height: 75px; background-size:cover;" />
-           <%= link_to "Sign Out", logout_path %>
+           <%= link_to "Afmelden", logout_path, :style => "line-height:35px; height:35px;" %>
+          </li>
+          <li class="bottom left" style="
+            position: absolute;
+            bottom: 100px;
+            width: 100%;
+          ">
+           <%= link_to "Algemene voorwaarden", settings_path, :style => "line-height:35px; height:35px;" %>
+          </li>
+          <li class="bottom left" style="
+            position: absolute;
+            bottom: 135px;
+            width: 100%;
+          ">
+           <%= link_to "Instellingen", settings_path, :style => "line-height:35px; height:35px;" %>
+          </li>
+          <li class="bottom left" style="
+            position: absolute;
+            bottom: 170px;
+            width: 100%;
+          ">
+           <%= link_to "Help", settings_path, :style => "line-height:35px; height:35px;" %>
           </li>
         </ul>
         </div>

@@ -9,10 +9,10 @@
           <div id="profile-page" class="section">
             <!-- profile-page-header -->
             <div id="profile-page-header" class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="<%= user_banner() %>" alt="user background">                    
+                <div class="card-image waves-effect waves-block waves-light showProfileDetails">
+                    <img class="activator showProfileDetails" src="<%= user_banner() %>" alt="user background">                    
                 </div>
-                <figure class="card-profile-image circle z-depth-2 responsive-img activator" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 110px; height: 110px; background-size:cover;">
+                <figure class="card-profile-image circle z-depth-2 responsive-img activator showProfileDetails" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 110px; height: 110px; background-size:cover;">
                 </figure>
                 <div class="card-content">
                   <div class="row">                    
@@ -42,26 +42,42 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-reveal">
-                    <p> 
-                      <span class="card-title grey-text text-darken-4"><%= current_user.firstname + ' ' + current_user.lastname %> <i class="mdi-navigation-close right"></i></span>  
+                <div class="card-reveal" style="top: 99%">
+                  <div>
+                    <p>
+                      <span class="card-title grey-text text-darken-4 HideGoogleMapsTitle"><%= current_user.firstname + ' ' + current_user.lastname %> <i class="mdi-navigation-close right"></i></span>  
                       <span><i class="mdi-action-perm-identity cyan-text text-darken-2"></i> Premium user</span>
                     </p>
-
-                    <p><%= current_user.description %></p>
+                    <div style="float:left; max-width:49%">
+                      <p><%= current_user.description %></p>
+                      
+                      <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> <%= current_user.phone %></p>
+                      <p><i class="mdi-communication-email cyan-text text-darken-2"></i> <%= current_user.email %></p>
+                      <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 
+                        <% if current_user.birthdate %>
+                          <%= current_user.birthdate.to_formatted_s(:long_ordinal) %>
+                        <% end %>
+                      </p>
+                    </div>
                     
-                    <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> <%= current_user.phone %></p>
-                    <p><i class="mdi-communication-email cyan-text text-darken-2"></i> <%= current_user.email %></p>
-                    <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 
-                      <% if current_user.birthdate %>
-                        <%= current_user.birthdate.to_formatted_s(:long_ordinal) %>
-                      <% end %>
-                    </p>
                     <!--<p class="editBtn"> 
                       <a class="btn-floating waves-effect waves-light darken-2 left">
                           <i class="mdi-image-edit"></i>
                       </a>
 					</p>-->
+                    <div style="float:right; margin-left:10%; width: 50%; display:none;" id="GoogleMapsDiv">
+                      <div class="card" style="position: absolute; width: 45%; top: 10%; right: 5%; z-index:1;">
+                          <div class="card-image waves-effect waves-block waves-light">
+                              <div id="map-canvas" data-lat="51.312374" data-lng="3.132768" style="height:100%;"></div>
+                          </div>
+                          <div class="card-content" style="padding: 10px; margin-top:-60px;">                    
+                              <a class="btn-floating btn-move-up waves-effect waves-light darken-2 right" href="javascript:ShowGeoLocation()" onclick="javascript:ShowGeoLocation()">
+                                  <i class="mdi-maps-pin-drop"></i>
+                              </a>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
             <!--/ profile-page-header -->
@@ -166,7 +182,7 @@
 
        <ul class="collection z-depth-1 with-header hoverable">
         <li class="collection-header collection-PictureHeader">
-          <div class="card amber darken-2">
+          <div class="card amber darken-2" style="box-shadow: none; border: none;">
             <div class="card-content white-text center-align">
               <p class="card-title"><i class="mdi-image-camera-alt"></i></p>
               <p>Afbeeldingen</p>
@@ -176,40 +192,17 @@
         <li class="collection-item">
          <div class="row">
           <% @PicturePosts.each do |post| %>
-            <div class="col l3 m4" >
-              <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= collectWallpostPicture(post.picture) %>) no-repeat center center; height:5.5rem; width:5.5rem; background-size: cover;">
+            <div class="" style="float: left; display: inline-table; width: 33%; margin-right:0.3%; margin-bottom:0.3%" >
+              <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= collectWallpostPicture(post.picture) %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
               </div>
             </div>
           <% end %>
+
+
          </div>
         </li>
         </ul>
                 <!-- Afbeeldingen About  -->
-
-
-
-                <!-- Map Card -->
-                <div class="map-card hoverable">
-                    <div class="card">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <div id="map-canvas" data-lat="51.312374" data-lng="3.132768"></div>
-                        </div>
-                        <div class="card-content">                    
-                            <a class="btn-floating btn-move-up waves-effect waves-light darken-2 right" href="javascript:ShowGeoLocation()" onclick="javascript:ShowGeoLocation()">
-                                <i class="mdi-maps-pin-drop"></i>
-                            </a>
-                            <h4 class="card-title grey-text text-darken-4">
-                              <% if current_user.address %>
-                                <%= current_user.address.try(:city).try(:name) %>
-                              <% elsif %>
-                                <%= "Unknown" %>
-                              <% end %>
-                            </h4>
-                            <p class="blog-post-content">Indication of where this person lives.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Map Card -->
 
               </div>
               <!-- profile-page-sidebar-->
@@ -229,6 +222,29 @@
       <script type="text/javascript">
           ShowGeoLocation();
 
+          var showMaps = document.getElementsByClassName("showProfileDetails");
+          for (var i = 0; i < showMaps.length; i++) {
+              showMaps[i].addEventListener('click', showGoogleMaps, false);
+          }
+          var hideMaps = document.getElementsByClassName("HideGoogleMapsTitle");
+          for (var i = 0; i < hideMaps.length; i++) {
+              hideMaps[i].addEventListener('click', hideGoogleMaps, false);
+          }
+
+          function showGoogleMaps()
+          {
+              var map = document.getElementById('GoogleMapsDiv');
+              map.style.display = 'inline';
+              setTimeout(ShowGeoLocation, 10);
+              
+          }
+
+          function hideGoogleMaps()
+          {
+              var map = document.getElementById('GoogleMapsDiv');
+              map.style.display = 'none';
+          }
+
           function ShowGeoLocation() {
             var street = "<%= current_user.address.try(:street) %>" + "";
             var city = "<%= current_user.address.try(:city).try(:name) %>" + "";
@@ -247,6 +263,11 @@
                 mapTypeControl: false,
                 scrollwheel: true,
                 draggable: true,
+    zoomControl: true,
+    zoomControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_TOP
+    },
+    streetViewControl: false,
               styles: [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}],
               mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
               navigationControl: false,
