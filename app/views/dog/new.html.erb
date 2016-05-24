@@ -1,45 +1,53 @@
-<h1> NEW DOG</h1>
+<section id="content">
+  <!--start container-->
+  <div class="container">
+<div class="row">
 
-<%= form_for :animal, :url => create_dog_path do |f| %>
-    <div class="form-group">
-  <p>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </p>
+  <div class="col s12 m9 l10">
+    <div class="row">
 
-  <%= f.fields_for :dog do |d| %>  
-        <p>
-          <%= d.label :breed %><br />
-          <%= d.text_field :breed %>
-        </p>
-        <p>
-          <%= d.check_box :children %>
-          <%= d.label :children %><br />
-        </p>
-        <p>
-          <%= d.check_box :cats %>
-          <%= d.label :cats %><br />
+      <div class="col s12 m12 l12">
+        <div id="Profile" class="card-panel section scrollspy">
+          <h4 class="header2">Hond toevoegen</h4>
+          <hr class="card-panel-header-line" />
+          <% if current_user.errors.any? %>
+              <div id="error_explanation" class="row s12" style="padding-left:25px; padding-top:5px; margin-left:10px; margin-right:10px; border-radius:5px; border-style: solid; border-color:red; border-width:1px;">
+                <h5><%= pluralize(current_user.errors.count, "error") %> prohibited this user from being saved:</h5>
+                <ul>
+                  <% current_user.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
 
-        </p>
-        <p>
-          <%= d.check_box :other_dogs %>
-          <%= d.label "Kan omgaan met andere honden" %><br />
+          <div class="row">
+            <%= render 'form' %>
 
-        </p>
-    <% end %>
-    <p>
-      <%= f.label :birthdate %>
-      <%= f.date_field :birthdate %>
-    </p>
-    <div class="field">
-      <%= f.label :birthdate, nil, :class => "form-label text-right" %>
-      <%= f.date_field :birthdate, :class => "form-field" %>
-    </div>
-
-
-    <p>
-      <%= f.submit %>
-    </p>
+           </div>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+    </div>
+  </section>
 
-<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".button-collapse").sideNav();
+    $(".brand-logo").sideNav();
+    $('.scrollspy').scrollSpy();
+  })
+
+
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 75, // Creates a dropdown of 15 years to control year
+    max: true
+  });
+
+  $(window).scroll(function(){
+    $(".pinned").css("top",Math.max(75,450-$(this).scrollTop()));
+  });
+</script>
