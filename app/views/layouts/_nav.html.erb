@@ -1,10 +1,20 @@
-
-    <ul id="dropdown2" class="dropdown-content">
-      <li><a href="#!">Dogs</a></li>
-      <li><a href="#!">Dog walkers</a></li>
-      <li class="divider"></li>
-      <li><a href="#!">Routes</a></li>
+    <ul id="dropdownMenu" class="dropdown-content">
+      <% if current_language().to_s.exclude? "nl" %>
+        <li class="liFlag">
+          <%= link_to params.merge({:locale => :nl}), :class => "languageFlagLink" do %>
+            <img src="assets/flags/blank.png" class="flag flag-be" alt="Belgium" /><span style="margin-left:15px">nl</span>
+          <% end %>
+        </li>
+      <% end %>
+      <% if current_language().to_s.exclude? "en" %>
+        <li class="liFlag">
+          <%= link_to params.merge({:locale => :en}), :class => "languageFlagLink" do %>
+            <img src="assets/flags/blank.png" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left:15px">en</span>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
+
     <div class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
@@ -38,6 +48,11 @@
               <% end %>
             </li>
            <% end %> 
+          <li style="border-left-width: 2px; border-left-style: solid; border-left-color: #36373B; margin-top: 5px; height: 54px;">
+            <a class="dropdown-button" href="#!" data-activates="dropdownMenu" style="line-height: 54px; font-size:1.2em;">
+              <%= current_language() %>
+            </a>
+          </li>
 
         </ul>
         <ul class="side-nav collapsible" id="sideNavMenu"  data-collapsible="accordion">
@@ -45,79 +60,93 @@
               <% unless @hideHome %>
                 <li>
                   <%= link_to overview_path, :class => 'no-padding collapsible-header' do %>
-                    Home<i class="material-icons left">home</i>
+                    <i class="fa fa-home material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.home') %>
                   <% end %>
                 </li>
                 <li class="divider"/>
               <% end %>
               <li>
                 <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
-                  Mijn Profiel<i class="material-icons left">settings</i>
+                  <i class="fa fa-cog material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.profile') %>
                 <% end %>
               </li>
               <li>
                 <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
-                  <i class="fa fa-calendar material-icons" aria-hidden="true"></i>Agenda
+                  <i class="fa fa-calendar material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.agenda') %>
                 <% end %>
               </li>
               <li>
                 <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
-                  <i class="fa fa-map-marker material-icons" aria-hidden="true"></i>Routes
+                  <i class="fa fa-map-marker material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.routes') %>
                 <% end %>
               </li>
               <li>
                 <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
-                  <i class="mdi-image-camera-alt material-icons"></i>Foto's
+                  <i class="mdi-image-camera-alt material-icons"></i><%= I18n.t('views.layout.nav.photos') %>
                 <% end %>
               </li>
               <li class="no-padding">
               <ul class="collapsible collapsible-accordion">
               <li>
-              <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i>Honden</a>
+              <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %></a>
               <div class="collapsible-body">
                 <ul>
-                <li><a href="#!">Blacky</a></li>
-                <li><a href="#!">Zara</a></li>
-                <li><a href="#!">Doggy</a></li>
+                <li><a href="#!" class="navDogName">Blacky</a></li>
+                <li><a href="#!" class="navDogName">Zara</a></li>
+                <li><a href="#!" class="navDogName">Doggy</a></li>
                 </ul>
               </div>
               </li>
             <% else %>
-              <li><%= link_to "Sign In", login_path %></li>
-              <li><%= link_to "Sign Up", signup_path %></li>
+              <!--<li><%= link_to "Sign In", login_path %></li>
+              <li><%= link_to "Sign Up", signup_path %></li>-->
+              <li><%= link_to I18n.t('views.layout.nav.signin'), login_path %></li>
+              <li><%= link_to I18n.t('views.layout.nav.signup'), signup_path %></li>
+              
             <% end %> 
           </ul>
           </li>
         
-  
           <li class="divider"/>
           <li class="bottom left" style="
             position: absolute;
             bottom: 64px;
             width: 100%;
           ">
-           <%= link_to "Afmelden", logout_path, :style => "line-height:35px; height:35px;" %>
+           <!--<%= link_to "Afmelden", logout_path, :style => "line-height:35px; height:35px;" %>-->
+           <%= link_to logout_path, :style => "line-height:35px; height:35px;" do %>
+            <%= I18n.t('views.layout.nav.logoff') %>
+           <% end %>
           </li>
           <li class="bottom left" style="
             position: absolute;
             bottom: 100px;
             width: 100%;
           ">
-           <%= link_to "Algemene voorwaarden", settings_path, :style => "line-height:35px; height:35px;" %>
+           <!--<%= link_to "Algemene voorwaarden", settings_path, :style => "line-height:35px; height:35px;" %>-->
+           <%= link_to settings_path, :style => "line-height:35px; height:35px;" do %>
+            <%= I18n.t('views.layout.nav.terms') %>
+           <% end %>
           </li>
           <li class="bottom left" style="
             position: absolute;
             bottom: 135px;
             width: 100%;
           ">
-           <%= link_to "Instellingen", settings_path, :style => "line-height:35px; height:35px;" %>
+           <!--<%= link_to "Instellingen", settings_path, :style => "line-height:35px; height:35px;" %>-->
+           <%= link_to settings_path, :style => "line-height:35px; height:35px;" do %>
+            <%= I18n.t('views.layout.nav.settings') %>
+           <% end %>
           </li>
           <li class="bottom left" style="
             position: absolute;
             bottom: 170px;
             width: 100%;
           ">
-           <%= link_to "Help", settings_path, :style => "line-height:35px; height:35px;" %>
+           <!--<%= link_to "Help", settings_path, :style => "line-height:35px; height:35px;" %>-->
+           <%= link_to settings_path, :style => "line-height:35px; height:35px;" do %>
+            <%= I18n.t('views.layout.nav.help') %>
+           <% end %>
           </li>
         </ul>
         </div>
