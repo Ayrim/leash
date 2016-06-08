@@ -8,4 +8,5 @@ $(document).ready(function(){
 	$(".button-collapse").sideNav();
 	$('.parallax').parallax();
 	$(".brand-logo").sideNav();
+  $('select').material_select();
 })

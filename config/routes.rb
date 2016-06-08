@@ -19,9 +19,10 @@ Rails.application.routes.draw do
   get 'signup'  => 'users#new', :as => :signup
   post 'signup' => 'users#create'
   patch 'update_profile' => 'users#update_profile', :as => :update_profile
+  patch 'update_walker_profile' => 'users#update_walker_profile', :as => :update_walker_profile
   patch 'update_contactinfo' => 'users#update_contactinfo', :as => :update_contactinfo
   patch 'update_password' => 'users#update_password', :as => :update_password
-  get 'profile' => 'users#settings', :as => :settings
+  get 'profile' => 'users#show', :as => :settings
   get 'edit_profile' => 'users#editSettings', :as => :edit_settings
   #post 'settings' => 'users#settings_post'
   get 'home'    => 'home#index', :as => :home_root

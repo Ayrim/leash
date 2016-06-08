@@ -172,5 +172,61 @@
             border-radius: 0 0 2px 2px;
         }
         
+        #profile-page-availability-details{
+            margin-top: 0px !important;
+        }
+        .availabilityHeader, .availabilityBox{
+            padding-top:0px;
+            padding-bottom: 0px;
+        }
+        .availabilityBox{
+            border-style: solid;
+            border-width: 1px;
+            border-color: white;
+            width: 11.9%;
+            margin-left:auto;
+            right:auto;
+            left:auto;
+        }
+        .availabilityBoxLegend{
+            border-style: solid;
+            border-width: 1px;
+            border-color: white;
+            width: 23.8%;
+            margin-left:auto;
+            right:auto;
+            left:auto;
+        }
+        .availabilityBox.free, .availabilityBoxLegend.free{
+            background-color: #00c853;
+        }
+        .availabilityBox.notfree, .availabilityBoxLegend.notfree{
+            background-color: #FF5B45;
+        }
+        #setGeneralAvailability{
+            padding: 5px; 
+            border: solid 1px grey;
+        }
+
+        #preferencefield div.select-wrapper{
+            margin-top:5px;
+        }
+        #preferencefield div.select-wrapper ul.dropdown-content li{
+            min-height: 30px !important;
+            line-height: 30px !important;
+        }
+        #preferencefield div.select-wrapper ul.dropdown-content li span{
+            line-height: 22px;
+            padding: 4px 16px;
+            font-size: 0.9em !important;
+        }
+        input.select-dropdown{
+            margin-bottom: 0px !important;
+            line-height: 30px !important;
+            height: 30px !important;
+        }
+        .caret{
+            top: 10px !important;
+        }
         /* ------- END SETTINGS ------- */
         

@@ -3,11 +3,11 @@
 
     <main>
 
-		<% if @showModal %>
-			<script type="text/javascript">
-				Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %><%= flash.notice %></p>', 10000);
-			</script>
-		<% end %>
+        <% if @showModal %>
+            <script type="text/javascript">
+                Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %><%= flash.notice %></p>', 10000);
+            </script>
+        <% end %>
         <section id="content">
             <!--start container-->
             <div class="container">
@@ -23,15 +23,17 @@
                         <div class="row">
                             <div class="col s10 m3 offset-m2 personName">
                                 <h4 class="card-title grey-text text-darken-4"><%= current_user.firstname + ' ' + current_user.lastname %></h4>
-                                <p class="medium-small grey-text">Premium user</p>
+                                <% if current_user.is_premium %>
+                                    <p class="medium-small grey-text"><%= I18n.t('views.user.show.premiumuser') %></p>
+                                <% end %>
                             </div>
                             <div class="col m2 offset-m3 center-align hide-on-small-only">
                                 <h4 class="card-title grey-text text-darken-4">0</h4>
-                                <p class="medium-small grey-text">Dogs</p>
+                                <p class="medium-small grey-text"><%= I18n.t('views.user.dogs') %></p>
                             </div>
                             <div class="col m2 center-align hide-on-small-only">
                                 <h4 class="card-title grey-text text-darken-4">10+</h4>
-                                <p class="medium-small grey-text">Walking Experience</p>
+                                <p class="medium-small grey-text"><%= I18n.t('views.user.edit.walkingexperience') %></p>
                             </div>
                         </div>
                     </div>
@@ -45,11 +47,11 @@
 
                             <div class="col s12 m12 l12">
                                 <div id="Profile" class="card-panel section scrollspy">
-                                    <h4 class="header2">Profile</h4>
+                                    <h4 class="header2"><%= I18n.t('views.user.edit.profile') %></h4>
                                     <hr class="card-panel-header-line" />
                                     <% if current_user.errors.any? %>
                                         <div id="error_explanation" class="row s12" style="padding-left:25px; padding-top:5px; margin-left:10px; margin-right:10px; border-radius:5px; border-style: solid; border-color:red; border-width:1px;">
-                                          <h5><%= pluralize(current_user.errors.count, "error") %> prohibited this user from being saved:</h5>
+                                          <h5><%= pluralize(current_user.errors.count, "error") %> <%= I18n.t('views.user.edit.errorstext') %></h5>
                                           <ul>
                                           <% current_user.errors.full_messages.each do |message| %>
                                             <li><%= message %></li>
@@ -62,38 +64,24 @@
                                         <%= form_for(current_user, :url => update_profile_path, :html => {class: 'col s12', :onchange => 'document.getElementById(\'submitAccountInfo\').getElementsByTagName("i")[0].className = \'btn waves-effect waves-light right\''}) do |u| %>
                                             <div class="row">
                                                 <div class="input-field col s12 m6">
-													<%= u.text_field :firstname %>
-                                                    <label for="firstname" class="active">First Name</label>
+                                                    <%= u.text_field :firstname %>
+                                                    <label for="firstname" class="active"><%= I18n.t('views.user.firstname') %></label>
                                                 </div>
 
                                                 <div class="input-field col s12 m6">
-													<%= u.text_field :lastname %>
-                                                    <label for="lastname" class="active">Last Name</label>
+                                                    <%= u.text_field :lastname %>
+                                                    <label for="lastname" class="active"><%= I18n.t('views.user.lastname') %></label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="input-field col s12 m6">
-													<%= u.email_field :email %>
-                                                    <label for="email" class="active">Email</label>
+                                                    <%= u.email_field :email %>
+                                                    <label for="email" class="active"><%= I18n.t('views.user.email') %></label>
                                                 </div>
                                                 <div class="input-field col s12 m6">
 
                                                     <%= u.text_field :birthdate, :class => 'datepicker', :value => nice_date_form(u.object.birthdate) %>
-                                                    <label for="birthdate" class="active">Date of Birth</label>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="input-field col s4">
-                                                    <%= u.number_field :number_of_walks %>
-                                                    <label for="number_of_walks" class="active">Number of walks</label>
-                                                </div>
-                                                <div class="input-field col s8 m4">
-                                                    <%= u.text_field :walking_region %>
-                                                    <label for="walking_region" class="active">Region of walks</label>
-                                                </div>
-                                                <div class="input-field col s12 m4">
-                                                    <%= u.text_field :skills %>
-                                                    <label for="skills" class="active">Skills</label>
+                                                    <label for="birthdate" class="active"><%= I18n.t('views.user.edit.birthday') %></label>
                                                 </div>
                                             </div>
 
@@ -106,7 +94,7 @@
                                                     </div>
                                                     <div class="file-path-wrapper">
                                                         <input id="user_profile_picture" class="file-path validate" type="text" >
-                                                        <label for="user_profile_picture" class="active">Profile picture</label>
+                                                        <label for="user_profile_picture" class="active"><%= I18n.t('views.user.edit.profilepicture') %></label>
                                                     </div>
                                                 </div>
 
@@ -118,7 +106,7 @@
                                                     </div>
                                                     <div class="file-path-wrapper">
                                                         <input id="user_banner_picture" class="file-path validate" type="text">
-                                                        <label for="user_banner_picture" class="active">Banner picture</label>
+                                                        <label for="user_banner_picture" class="active"><%= I18n.t('views.user.edit.bannerpicture') %></label>
                                                     </div>
                                                 </div>
 
@@ -126,13 +114,206 @@
                                             <div class="row">
                                                 <div class="input-field col s12">
                                                     <%= u.text_area :description, :class => 'materialize-textarea', :length => '120' %>
-                                                    <label for="description">Description</label>
+                                                    <label for="description"><%= I18n.t('views.user.edit.personaldescription') %></label>
                                                 </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="row">
                                                     <div class="input-field col s12" id="submitAccountInfo">
-    												<%= u.submit "Save", :id => "saveAccountInfo", :class => "btn waves-effect waves-light right disabled" do %>
-    													Save<i class="mdi-content-save right"></i>
-    												<% end %>
+                                                    <%= u.submit I18n.t('views.user.edit.savebtn'), :id => "saveAccountInfo", :class => "btn waves-effect waves-light right disabled" do %>
+                                                        <%= I18n.t('views.user.edit.savebtn') %><i class="mdi-content-save right"></i>
+                                                    <% end %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% end %>
+                                    </div>
+                                </div>
+
+                                    <div id="WalkerProfile" class="card-panel section scrollspy">
+                                        <h4 class="header2"><%= I18n.t('views.user.edit.walkerprofile') %></h4>
+                                        <hr class="card-panel-header-line" />
+                                        <% if current_user.errors.any? %>
+                                            <div id="error_explanation" class="row s12" style="padding-left:25px; padding-top:5px; margin-left:10px; margin-right:10px; border-radius:5px; border-style: solid; border-color:red; border-width:1px;">
+                                              <h5><%= pluralize(current_user.errors.count, "error") %> <%= I18n.t('views.user.edit.errorstext') %></h5>
+                                              <ul>
+                                              <% current_user.errors.full_messages.each do |message| %>
+                                                <li><%= message %></li>
+                                              <% end %>
+                                              </ul>
+                                            </div>
+                                          <% end %>
+                                        <div class="row">
+                                        <%= form_for(current_user, :url => update_walker_profile_path, :html => {class: 'col s12', :onchange => 'document.getElementById(\'submitWalkerAccountInfo\').getElementsByTagName("i")[0].className = \'btn waves-effect waves-light right\''}) do |u| %>
+                                            <div class="row">
+                                                <div class="input-field col s12" style="margin-top: 0px">
+                                                    <span><%= I18n.t('views.user.edit.is_walker') %></span>
+                                                    <%= u.check_box :is_walker, {}, true, false %>
+                                                    <label for="user_is_walker" class="active" style="top:45px;"></label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <% if !current_user.is_walker %>
+                                                <div id="walkerinformation" style="display:none;">
+                                            <% else %>
+                                                <div id="walkerinformation">
+                                            <% end %>
+                                                <div class="row">
+                                                    <div class="input-field col s4">
+                                                        <%= u.number_field :number_of_walks %>
+                                                        <label for="number_of_walks" class="active"><%= I18n.t('views.user.edit.numberofwalks') %></label>
+                                                    </div>
+                                                    <div class="input-field col s8 m4">
+                                                        <%= u.text_field :walking_region %>
+                                                        <label for="walking_region" class="active"><%= I18n.t('views.user.edit.walkingregion') %></label>
+                                                    </div>
+                                                    <div class="input-field col s12 m4">
+                                                        <%= u.text_field :skills %>
+                                                        <label for="skills" class="active"><%= I18n.t('views.user.skills') %></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col s4">
+                                                        <%= u.text_field :experience %>
+                                                        <label for="experience" class="active"><%= I18n.t('views.user.experience') %></label>
+                                                    </div>
+                                                    <div class="input-field col s8 m4">
+                                                        <%= u.text_field :pricing %>
+                                                        <label for="pricing" class="active"><%= I18n.t('views.user.pricing') %></label>
+                                                    </div>
+                                                    <div class="input-field col s12 m4" style="margin-top: 15px">
+                                                        <label class="active"><%= I18n.t('views.user.professional') %></label>
+                                                        <%= u.check_box :professional, {}, true, false %>
+                                                        <label for="user_professional" class="active" style="top:45px;"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col m4 s6" id="preferencefield">
+                                                        <%= u.select :preference, options_for_select(@preferences.collect {|p| [ translate_preference(p.name), p.id ]}, :selected => current_user.preference.id), :id => "user_preference" %>
+                                                        <label for="user_preference" class="active" style="top: 10px;"><%= I18n.t('views.user.preference') %></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col s12" style="margin-top:30px;">
+                                                        <label for="setGeneralAvailability" class="active" style="padding-bottom:5px;"><%= I18n.t('views.user.generalavailability') %></label>
+                                                        <div id="setGeneralAvailability" style="overflow-x: auto;">
+                                                            <%= u.fields_for :availability, current_user.availability || Availability.new do |av| %> 
+                                                            <table>
+                                                                <tr>
+                                                                  <td class="col l2 m2 s2 grey-text darken-1">&zwnj;</td>
+                                                                  <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.monday') %></td>
+                                                                  <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.tuesday') %></td>
+                                                                  <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.wednesday') %></td>
+                                                                  <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.thursday') %></td>
+                                                                  <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.friday') %></td>
+                                                                  <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.saturday') %></td>
+                                                                  <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.sunday') %></td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td class="col l2 m2 s2 center grey-text darken-1" style="line-height:28px"><%= I18n.t('views.user.morning') %></td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :monday_morning, {}, true, false %>
+                                                                    <label for="user_availability_attributes_monday_morning" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :tuesday_morning, {}, true, false %>
+                                                                    <label for="user_availability_attributes_tuesday_morning" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :wednesday_morning, {}, true, false %>
+                                                                    <label for="user_availability_attributes_wednesday_morning" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :thursday_morning, {}, true, false %>
+                                                                    <label for="user_availability_attributes_thursday_morning" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :friday_morning, {}, true, false %>
+                                                                    <label for="user_availability_attributes_friday_morning" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :saturday_morning, {}, true, false %>
+                                                                    <label for="user_availability_attributes_saturday_morning" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :sunday_morning, {}, true, false %>
+                                                                    <label for="user_availability_attributes_sunday_morning" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td class="col l2 m2 s2 center grey-text darken-1" style="line-height:28px"><%= I18n.t('views.user.midday') %></td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :monday_midday, {}, true, false %>
+                                                                    <label for="user_availability_attributes_monday_midday" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :tuesday_midday, {}, true, false %>
+                                                                    <label for="user_availability_attributes_tuesday_midday" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :wednesday_midday, {}, true, false %>
+                                                                    <label for="user_availability_attributes_wednesday_midday" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :thursday_midday, {}, true, false %>
+                                                                    <label for="user_availability_attributes_thursday_midday" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :friday_midday, {}, true, false %>
+                                                                    <label for="user_availability_attributes_friday_midday" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :saturday_midday, {}, true, false %>
+                                                                    <label for="user_availability_attributes_saturday_midday" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :sunday_midday, {}, true, false %>
+                                                                    <label for="user_availability_attributes_sunday_midday" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td class="col l2 m2 s2 center grey-text darken-1" style="line-height:28px"><%= I18n.t('views.user.evening') %></td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :monday_evening, {}, true, false %>
+                                                                    <label for="user_availability_attributes_monday_evening" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :tuesday_evening, {}, true, false %>
+                                                                    <label for="user_availability_attributes_tuesday_evening" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :wednesday_evening, {}, true, false %>
+                                                                    <label for="user_availability_attributes_wednesday_evening" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :thursday_evening, {}, true, false %>
+                                                                    <label for="user_availability_attributes_thursday_evening" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :friday_evening, {}, true, false %>
+                                                                    <label for="user_availability_attributes_friday_evening" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :saturday_evening, {}, true, false %>
+                                                                    <label for="user_availability_attributes_saturday_evening" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                  <td class="availabilityBox grey-text center">
+                                                                    <%= av.check_box :sunday_evening, {}, true, false %>
+                                                                    <label for="user_availability_attributes_sunday_evening" class="active" style="top:35px; height:21px"></label>
+                                                                  </td>
+                                                                </tr>
+                                                            </table>
+                                                            <% end %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="input-field col s12" id="submitWalkerAccountInfo">
+                                                    <%= u.submit I18n.t('views.user.edit.savebtn'), :id => "saveWalkerAccountInfo", :class => "btn waves-effect waves-light right disabled" do %>
+                                                        <%= I18n.t('views.user.edit.savebtn') %><i class="mdi-content-save right"></i>
+                                                    <% end %>
                                                     </div>
                                                 </div>
                                             </div>
@@ -144,7 +325,7 @@
 
                             <div class="col s12 m12 l12">
                                 <div id="Security" class="card-panel section scrollspy">
-                                    <h4 class="header2">Security</h4>
+                                    <h4 class="header2"><%= I18n.t('views.user.edit.security') %></h4>
                                     <hr class="card-panel-header-line" />
                                     <div class="row">
                                         <% if flash.alert %>
@@ -158,28 +339,28 @@
                                                 <div class="input-field col s12 m6">
                                                     <!--<input id="old_password" type="password">-->
                                                     <%= password_field :current_password, params[:current_password] %>
-                                                    <label for="current_password">Current Password</label>
+                                                    <label for="current_password"><%= I18n.t('views.user.edit.currentpassword') %></label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="input-field col s12 m6">
                                                     <!--<input id="new_password" type="password">-->
                                                     <%= u.password_field :password %>
-                                                    <label for="password">New Password</label>
+                                                    <label for="password"><%= I18n.t('views.user.edit.newpassword') %></label>
                                                 </div>
 
                                                 <div class="input-field col s12 m6">
                                                     <!--<input id="confirm_new_password" type="password">-->
                                                     <%= u.password_field :password_confirmation %>
-                                                    <label for="password_confirmation">Confirm New Password</label>
+                                                    <label for="password_confirmation"><%= I18n.t('views.user.edit.confirmnewpassword') %></label>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="row">
                                                     <div class="input-field col s12" id="submitPasswordChange">
-                                                    <%= u.submit "Save", :id => "saveAccountInfo", :class => "btn waves-effect waves-light right disabled" do %>
-                                                        Save<i class="mdi-content-save right"></i>
+                                                    <%= u.submit I18n.t('views.user.edit.savebtn'), :id => "saveAccountInfo", :class => "btn waves-effect waves-light right disabled" do %>
+                                                        <%= I18n.t('views.user.edit.savebtn') %><i class="mdi-content-save right"></i>
                                                     <% end %>
                                                         <!--<button class="btn waves-effect waves-light right disabled" id="submitPasswordChange" type="submit" name="action">
                                                             Save
@@ -196,7 +377,7 @@
 
                             <div class="col s12 m12 l12">
                                 <div id="ContactInfo" class="card-panel section scrollspy">
-                                    <h4 class="header2">Contact Information</h4>
+                                    <h4 class="header2"><%= I18n.t('views.user.edit.contactinfo') %></h4>
                                     <hr class="card-panel-header-line" />
                                     <div class="row">
                                         <%= form_for(current_user, :url => update_contactinfo_path, :html => {class: 'col s12', :onchange => 'document.getElementById(\'submitContactInfo\').getElementsByTagName("i")[0].className = \'btn waves-effect waves-light right\''}) do |u| %>
@@ -204,32 +385,32 @@
                                                 <div class="row">
                                                     <div class="input-field col s12 m5">
                                                         <%= address_fields.text_field :street %>
-                                                        <label for="address" class="active">Address</label>
+                                                        <label for="address" class="active"><%= I18n.t('views.user.edit.address') %></label>
                                                     </div>
                                                     <div class="input-field col s6 m2">
                                                         <%= address_fields.text_field :number %>
-                                                        <label for="house_number" class="active">House number</label>
+                                                        <label for="house_number" class="active"><%= I18n.t('views.user.edit.housenumber') %></label>
                                                     </div>
                                                     <div class="input-field col s6 m2">
                                                         <%= address_fields.text_field :numberAddition %>
-                                                        <label for="busnummer">Bus</label>
+                                                        <label for="busnummer"><%= I18n.t('views.user.edit.bus') %></label>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <%= address_fields.fields_for :city, current_user.address.try(:city) || City.new do |city| %>  
                                                         <div class="input-field col s5 m2">
                                                         <%= city.text_field :postalcode %>
-                                                            <label for="zipcode" class="active">Zipcode</label>
+                                                            <label for="zipcode" class="active"><%= I18n.t('views.user.edit.zipcode') %></label>
                                                         </div>
                                                         <div class="input-field col s7 m5">
                                                         <%= city.text_field :name %>
-                                                            <label for="city" class="active">City</label>
+                                                            <label for="city" class="active"><%= I18n.t('views.user.edit.city') %></label>
                                                         </div>
                                                     <% end %>
                                                     <%= address_fields.fields_for :country, current_user.address.try(:country) || Country.new do |country| %> 
                                                         <div class="input-field col s12 m5">
                                                         <%= country.text_field :name %>
-                                                            <label for="country" class="active">Country</label>
+                                                            <label for="country" class="active"><%= I18n.t('views.user.edit.country') %></label>
                                                         </div>
                                                     <% end %>
                                                 </div>
@@ -238,15 +419,15 @@
                                             <div class="row">
                                                 <div class="input-field col s12 m6">
                                                     <%= u.phone_field :phone %>
-                                                    <label for="phone_number" class="active">Telephone number</label>
+                                                    <label for="phone_number" class="active"><%= I18n.t('views.user.edit.phone') %></label>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="row">
                                                     <div class="input-field col s12" id="submitContactInfo">
-                                                        <%= u.submit "Save", :id => "saveContactInfo", :class => "btn waves-effect waves-light right disabled" do %>
-                                                            Save<i class="mdi-content-save right"></i>
+                                                        <%= u.submit I18n.t('views.user.edit.savebtn'), :id => "saveContactInfo", :class => "btn waves-effect waves-light right disabled" do %>
+                                                            <%= I18n.t('views.user.edit.savebtn') %><i class="mdi-content-save right"></i>
                                                         <% end %>
                                                     </div>
                                                 </div>
@@ -264,9 +445,10 @@
                     <div class="col hide-on-small-only m3 l2 tableOfContents">
                         <div class="toc-wrapper pinned">
                             <ul class="section table-of-contents">
-                                <li><a href="#Profile">Profile</a></li>
-                                <li><a href="#Security">Security</a></li>
-                                <li><a href="#ContactInfo">Contact Information</a></li>
+                                <li><a href="#Profile"><%= I18n.t('views.user.edit.profile') %></a></li>
+                                <li><a href="#WalkerProfile"><%= I18n.t('views.user.edit.walkerprofile') %></a></li>
+                                <li><a href="#Security"><%= I18n.t('views.user.edit.security') %></a></li>
+                                <li><a href="#ContactInfo"><%= I18n.t('views.user.edit.contactinfo') %></a></li>
                             </ul>
                         </div>
                     </div>
@@ -281,20 +463,20 @@
     </main>
 
     <script type="text/javascript">
-    	$(document).ready(function(){
-			$(".button-collapse").sideNav();
-			$(".brand-logo").sideNav();
-			$('.scrollspy').scrollSpy();
-		})
-				
+        $(document).ready(function(){
+            $(".button-collapse").sideNav();
+            $(".brand-logo").sideNav();
+            $('.scrollspy').scrollSpy();
+        })
+                
 
-		$('.datepicker').pickadate({
-			selectMonths: true, // Creates a dropdown to control month
-			selectYears: 75, // Creates a dropdown of 15 years to control year
-			max: true
-		});
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 75, // Creates a dropdown of 15 years to control year
+            max: true
+        });
 
-		$(window).scroll(function(){
-		    $(".pinned").css("top",Math.max(75,450-$(this).scrollTop()));
-		});
+        $(window).scroll(function(){
+            $(".pinned").css("top",Math.max(75,450-$(this).scrollTop()));
+        });
     </script>

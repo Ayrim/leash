@@ -18,9 +18,9 @@
 				<% end %>
 
                 <!-- Unclear as to why the below line needs to be present for the next form to send a POST instead of GET. -->
-				<%= form_for(@user, url: password_reset_path(params[:id]), :html => {class: 'form-signin'}) do |u| %><% end %>
+				<%= form_for(@user, url: password_reset_path(params[:id]), :html => {class: 'form-signin') do |u| %><% end %>
 
-				<%= form_for(@user, url: password_reset_path(params[:id]), :html => {class: 'form-signin'}) do |u| %>
+				<%= form_for(@user, url: password_reset_path(params[:id]), :html => {class: 'form-signin', :onsubmit => "document.getElementById('ResetPassword').disabled=true; document.getElementById('ResetPassword').value=document.getElementById('resettingValue').innerHTML.replace(/^\s+|\s+$/g, ''); document.getElementById('resetPasswordSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";"}) do |u| %>
 					<% if @user.errors.any? %>
 					    <div id="error_explanation">
 							<p>
@@ -39,28 +39,28 @@
 	                    <i class="mdi-action-lock-outline prefix"></i>
 
 		                <%= u.password_field :password, :id => "inputPassword", :required => true  %>
-	                    <label for="inputPassword" class="center-align">New password</label>
+	                    <label for="inputPassword" class="center-align"><%= I18n.t('views.user.editpassword.newpassword') %></label>
 	                  </div>
 	                  <div class="input-field col s12">
 	                    <i class="mdi-action-lock-outline prefix"></i>
 		                <%= u.password_field :password_confirmation, :id => "inputPasswordConfirm", :required => true  %>
-	                    <label for="inputPasswordConfirm">Confirm new password</label>
+	                    <label for="inputPasswordConfirm"><%= I18n.t('views.user.editpassword.confirmnewpassword') %></label>
 	                  </div>
 	                </div>
 
 
 					<div class="row">
-					  <div class="input-field col s12">
-					  	<%= submit_tag "Reset password", :id => "ResetPassword", :class => "btn waves-effect waves-light col s12" %>
+					  <div class="input-field col s12" id="resetPasswordSubmitTag">
+					  	<%= submit_tag I18n.t('views.user.editpassword.resetpassword'), :id => "ResetPassword", :class => "btn waves-effect waves-light col s12" %>
 					  </div>
 					</div>
 				<% end %>
 				<div class="row">
 				  <div class="input-field col s6 m6 l6">
-					<p class="margin medium-small"><%= link_to "Sign in!", login_path %></p>
+					<p class="margin medium-small"><%= link_to I18n.t('views.user.signin'), login_path %></p>
 				  </div>
 				  <div class="input-field col s6 m6 l6">
-					<p class="margin right-align medium-small"><%= link_to "Register Now!", signup_path %></p>
+					<p class="margin right-align medium-small"><%= link_to I18n.t('views.user.registernow'), signup_path %></p>
 				  </div>          
 				</div>
 
@@ -68,3 +68,5 @@
 			</div>
 		</div>
 
+
+    <div id="resettingValue" class="hide"><%= I18n.t('views.user.newpassword.resetting') %></div>

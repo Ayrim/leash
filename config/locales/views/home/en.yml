@@ -1,0 +1,20 @@
+en:
+  views: 
+    home:
+      index:
+        header1: "Looking for someone to walk your dog?"
+        header2: "Looking for a dog to take for a walk?"
+        descriptionheader: "We've got what you need!"
+        descriptionline1: "Ever had the feeling that you do not have enough time to take    your dog out for a walk? Are you sometimes, after a long day's work, lacking the energy to take your dog out for a stroll, while it could use a decent walk to run off some of its own energy?"
+        descriptionline2: "Or are you in a situation where you would love to go out for a long walk with a friendly four-legged companion, but can't have a dog of your own because you are lacking the space in your house or appartment?"
+        descriptionline3: "Why not help each other out?"
+        descriptionline4: "Leash will help you to get in touch with the perfect companion for yourself or your dog."
+        getstarted: "Get Started!"
+      overview:
+        scheduleheader: "Schedule"
+        walkersheader: "Dog walkers"
+        walkerdistance: "Distance"
+        dogsheader: "Dogs"
+        routesheader: "Routes"
+        calendarheader: "Calendar"
+        blogsheader: "Active blog-threads"
