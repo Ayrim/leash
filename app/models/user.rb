@@ -17,10 +17,19 @@ class User < ActiveRecord::Base
 	belongs_to :preference
 	belongs_to :experience
 
+	has_many :user_1_connections, :foreign_key => :user_1_id, :class_name => 'Connection'
+	has_many :one_connections, :through => :user_1_connections, :source => :user_2
+	has_many :user_2_connections, :foreign_key => :user_2_id, :class_name => 'Connection'
+	has_many :two_connections, :through => :user_2_connections, :source => :user_1
+
   	accepts_nested_attributes_for :address
   	accepts_nested_attributes_for :availability
   	accepts_nested_attributes_for :preference
   	accepts_nested_attributes_for :experience
+
+  	def connections
+  		(one_connections + two_connections).flatten.uniq
+  	end
 
 	# Returns the hash digest of the given string.
 	def User.digest(string)
