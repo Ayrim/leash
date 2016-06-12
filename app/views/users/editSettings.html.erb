@@ -173,15 +173,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="input-field col s4">
-                                                        <%= u.text_field :experience %>
-                                                        <label for="experience" class="active"><%= I18n.t('views.user.experience') %></label>
+                                                    <div class="input-field col s6 m4" id="preferencefield">
+                                                        <%= u.select :experience, options_for_select(@experiences.collect {|e| [ e.value, e.id ]}, :selected => current_user.try(:experience).try(:id)), :id => "user_experience" %>
+                                                        <label for="user_experience" class="active" style="top: 10px;"><%= I18n.t('views.user.experience') %> (<%= I18n.t('views.user.year') %>)</label>
                                                     </div>
-                                                    <div class="input-field col s8 m4">
+                                                    <div class="input-field col s6 m4">
                                                         <%= u.text_field :pricing %>
                                                         <label for="pricing" class="active"><%= I18n.t('views.user.pricing') %></label>
                                                     </div>
-                                                    <div class="input-field col s12 m4" style="margin-top: 15px">
+                                                    <div class="input-field col s12 m4" style="margin-top: 15px; margin-bottom: 15px;">
                                                         <label class="active"><%= I18n.t('views.user.professional') %></label>
                                                         <%= u.check_box :professional, {}, true, false %>
                                                         <label for="user_professional" class="active" style="top:45px;"></label>
@@ -189,7 +189,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="input-field col m4 s6" id="preferencefield">
-                                                        <%= u.select :preference, options_for_select(@preferences.collect {|p| [ translate_preference(p.name), p.id ]}, :selected => current_user.preference.id), :id => "user_preference" %>
+                                                        <%= u.select :preference, options_for_select(@preferences.collect {|p| [ translate_preference(p.name), p.id ]}, :selected => current_user.try(:preference).try(:id)), :id => "user_preference" %>
                                                         <label for="user_preference" class="active" style="top: 10px;"><%= I18n.t('views.user.preference') %></label>
                                                     </div>
                                                 </div>

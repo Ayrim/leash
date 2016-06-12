@@ -15,10 +15,12 @@ class User < ActiveRecord::Base
 	has_many :animals
 	has_one :availability
 	belongs_to :preference
+	belongs_to :experience
 
   	accepts_nested_attributes_for :address
   	accepts_nested_attributes_for :availability
   	accepts_nested_attributes_for :preference
+  	accepts_nested_attributes_for :experience
 
 	# Returns the hash digest of the given string.
 	def User.digest(string)

@@ -55,7 +55,7 @@
           </li>
 
         </ul>
-        <ul class="side-nav collapsible" id="sideNavMenu"  data-collapsible="accordion">
+        <ul class="side-nav collapsible" id="sideNavMenu" style="min-height:524px; overflow-y: auto;"  data-collapsible="accordion">
             <% if logged_in? %>
               <% unless @hideHome %>
                 <li>
@@ -87,67 +87,68 @@
               </li>
               <li class="no-padding">
               <ul class="collapsible collapsible-accordion">
-              <li>
-              <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %></a>
-              <div class="collapsible-body">
-                <ul>
-                <li><a href="#!" class="navDogName">Blacky</a></li>
-                <li><a href="#!" class="navDogName">Zara</a></li>
-                <li><a href="#!" class="navDogName">Doggy</a></li>
-                </ul>
-              </div>
-              </li>
-            <% else %>
-              <!--<li><%= link_to "Sign In", login_path %></li>
-              <li><%= link_to "Sign Up", signup_path %></li>-->
-              <li><%= link_to I18n.t('views.layout.nav.signin'), login_path %></li>
-              <li><%= link_to I18n.t('views.layout.nav.signup'), signup_path %></li>
-              
-            <% end %> 
-          </ul>
+                <li>
+                  <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %></a>
+                  <div class="collapsible-body">
+                    <ul>
+                    <li><a href="#!" class="navDogName">Blacky</a></li>
+                    <li><a href="#!" class="navDogName">Zara</a></li>
+                    <li><a href="#!" class="navDogName">Doggy</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <% else %>
+                  <!--<li><%= link_to "Sign In", login_path %></li>
+                  <li><%= link_to "Sign Up", signup_path %></li>-->
+                  <li><%= link_to I18n.t('views.layout.nav.signin'), login_path %></li>
+                  <li><%= link_to I18n.t('views.layout.nav.signup'), signup_path %></li>
+                  
+                <% end %> 
+              </ul>
           </li>
-        
-          <li class="divider"/>
-          <li class="bottom left" style="
-            position: absolute;
-            bottom: 64px;
-            width: 100%;
-          ">
-           <!--<%= link_to "Afmelden", logout_path, :style => "line-height:35px; height:35px;" %>-->
-           <%= link_to logout_path, :style => "line-height:35px; height:35px;" do %>
-            <%= I18n.t('views.layout.nav.logoff') %>
-           <% end %>
-          </li>
-          <li class="bottom left" style="
-            position: absolute;
-            bottom: 100px;
-            width: 100%;
-          ">
-           <!--<%= link_to "Algemene voorwaarden", settings_path, :style => "line-height:35px; height:35px;" %>-->
-           <%= link_to "#termsModel", :style => "line-height:35px; height:35px;", :class => "modal-trigger" do %>
-            <%= I18n.t('views.layout.nav.terms') %>
-           <% end %>
-          </li>
-          <li class="bottom left" style="
-            position: absolute;
-            bottom: 135px;
-            width: 100%;
-          ">
-           <!--<%= link_to "Instellingen", settings_path, :style => "line-height:35px; height:35px;" %>-->
-           <%= link_to edit_settings_path, :style => "line-height:35px; height:35px;" do %>
-            <%= I18n.t('views.layout.nav.settings') %>
-           <% end %>
-          </li>
-          <li class="bottom left" style="
-            position: absolute;
-            bottom: 170px;
-            width: 100%;
-          ">
-           <!--<%= link_to "Help", settings_path, :style => "line-height:35px; height:35px;" %>-->
-           <%= link_to settings_path, :style => "line-height:35px; height:35px;" do %>
-            <%= I18n.t('views.layout.nav.help') %>
-           <% end %>
-          </li>
+          <div style="position: absolute;bottom: 0;left: 0;width: 100%;">
+            <li class="divider" style="position: absolute;bottom: 205px;width: 100%;"/>
+            <li class="bottom left" style="
+              position: absolute;
+              bottom: 64px;
+              width: 100%;
+            ">
+             <!--<%= link_to "Afmelden", logout_path, :style => "line-height:35px; height:35px;" %>-->
+             <%= link_to logout_path, :style => "line-height:35px; height:35px;" do %>
+              <%= I18n.t('views.layout.nav.logoff') %>
+             <% end %>
+            </li>
+            <li class="bottom left" style="
+              position: absolute;
+              bottom: 100px;
+              width: 100%;
+            ">
+             <!--<%= link_to "Algemene voorwaarden", settings_path, :style => "line-height:35px; height:35px;" %>-->
+             <%= link_to "#termsModel", :style => "line-height:35px; height:35px;", :class => "modal-trigger" do %>
+              <%= I18n.t('views.layout.nav.terms') %>
+             <% end %>
+            </li>
+            <li class="bottom left" style="
+              position: absolute;
+              bottom: 135px;
+              width: 100%;
+            ">
+             <!--<%= link_to "Instellingen", settings_path, :style => "line-height:35px; height:35px;" %>-->
+             <%= link_to edit_settings_path, :style => "line-height:35px; height:35px;" do %>
+              <%= I18n.t('views.layout.nav.settings') %>
+             <% end %>
+            </li>
+            <li class="bottom left" style="
+              position: absolute;
+              bottom: 170px;
+              width: 100%;
+            ">
+             <!--<%= link_to "Help", settings_path, :style => "line-height:35px; height:35px;" %>-->
+             <%= link_to settings_path, :style => "line-height:35px; height:35px;" do %>
+              <%= I18n.t('views.layout.nav.help') %>
+             <% end %>
+            </li>
+          </div>
         </ul>
         </div>
       </nav>

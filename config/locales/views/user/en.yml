@@ -29,6 +29,7 @@ en:
       connections: "Connections"
       pictures: "Photo's"
       experience: "Experience"
+      year: "years"
       preference: "Preference"
       pricing: "Pricing"
       professional: "Professional occupancy"
@@ -57,7 +58,6 @@ en:
         rating: "Rating"
         livingin: "Lives in"
         age: "Age"
-        year: "years"
       edit:
         walkingexperience: "Walking Experience"
         profile: "Profile"

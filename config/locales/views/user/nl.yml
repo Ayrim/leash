@@ -29,6 +29,7 @@ nl:
       pictures: "Afbeeldingen"
       skills: "Vaardigheden"
       experience: "Ervaring"
+      year: "jaar"
       preference: "Voorkeur"
       pricing: "Prijs"
       professional: "Beroepsmatige activiteit"
@@ -58,7 +59,6 @@ nl:
         rating: "Beoordeling"
         livingin: "Woonplaats"
         age: "Leeftijd"
-        year: "jaar"
       edit:
         walkingexperience: "Wandel ervaring"
         profile: "Profiel"
