@@ -1,0 +1,81 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "users", params[:controller], :media => "all" %>
+<!-- START CONTENT -->
+<section id="content" >
+
+    <!--start container-->
+    <div class="container">
+        <div id="profile-page" class="section">
+            <div id="profile-page-content" class="row">
+                <!-- messaging-page-sidebar-->
+                <div id="profile-page-sidebar" class="col s12 m3">
+                	<!-- Show overview of connections -->
+
+                    <ul class="collection z-depth-1 with-header hoverable">
+                        <li class="collection-header collection-PictureHeader">
+                            <div class="card amber darken-2" style="box-shadow: none; border: none;">
+                                <div class="card-content white-text center-align">
+                                    <p class="card-title"><i class="mdi-social-group-add"></i> <%= current_user.connections.count %></p>
+                                    <p><%= I18n.t('views.user.connections') %></p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <% current_user.connections.each do |conn| %>
+                            <% if conn.id != current_user.id %>
+		                        <li class="collection-item avatar messaging">
+                              		<%= link_to root_messaging_path + "/#{conn.id}", :remote => true do %>
+			                        	<div id="connectionPreview">
+				                            <img src="<%= conn.profile_picture %>" alt="" class="circle">
+				                            <span class="title truncate"><%= conn.firstname + " " + conn.lastname %></span>
+				                            <!--<span class="secondary-content planningDay">NEW</span>-->
+				                            <p class="truncate messagePreview_<%= conn.id %>">
+                                                <%= render template: "messaging/previewMessage", :locals => {:conn => conn} %>
+				                            </p>
+			                        	</div>
+		                        	<% end %>
+			                    </li>
+	                        <% end %>
+                        <% end %>
+                    </ul>
+                </div>
+
+                <div id="rightSection">
+                    <div class="col s12 m8">
+                        <!-- <div id="UpdateStatus" class="tab-content  grey lighten-4 row" style="margin-top:2px; padding:10px; padding-bottom:0px;">
+                            <%= form_for(:message, :url => create_message_path, :remote => true) do |w| %>
+                                <div class="row">
+                                    <div class="col s2 circle responsive-img valign profile-image-post" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 60px; height: 60px; background-size:cover; margin-left:10px;">
+                                    </div>
+                                    <div class="input-field col s10">
+                                        <%= w.text_area :content, :class => 'materialize-textarea', :length => '1000', :row => '2' %>
+                                        <label for="content" class="">Send a new message...</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="PostMessageButton" class="col s12 m6 offset-m6 right-align">
+                                        <%= render "messaging/postMessageButton" %>
+                                    </div>
+                                </div>
+                            <% end %>
+                        </div> -->
+                        <span id="showNewMessageForm">
+                            <%= render template: "messaging/postNewMessage", :locals => {:conn => nil} %>
+                        </span>
+
+
+                    	<div id="messages" class="row">
+                            <%= render template: "messaging/showMessages" %>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.pagination > a').attr('data-remote', 'true');
+    });
+</script>

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :animals
   resources :dog
   resources :wallpost
+  resources :messaging
 
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
   #post 'settings' => 'users#settings_post'
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview
+  get 'messaging' => 'messaging#index', :as => :root_messaging
 
   post 'new_dog' => 'dog#create', :as => :create_dog
   post 'new_post' => 'wallpost#create', :as => :create_wallpost
@@ -34,6 +36,7 @@ Rails.application.routes.draw do
   get 'extendPosts' => 'wallpost#showNewPosts', :as => :extend_wallpost
   get 'extendPostsAfterDelete/:id' => 'wallpost#showNewPosts', :as => :extendAfterDelete_wallpost
 
+  post 'new_message' => 'messaging#create_message', :as => :create_message
 
   #root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.

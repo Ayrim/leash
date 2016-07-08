@@ -23,3 +23,6 @@ nl:
   productname: "Leash"
   "true": "Ja"
   "false": "Nee"
+  will_paginate:
+    previous_label: "<<"
+    next_label: ">>"

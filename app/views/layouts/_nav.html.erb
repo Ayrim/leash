@@ -32,8 +32,11 @@
 
            <% if logged_in? %>
             <li>
-              <%= link_to settings_path, :style => "line-height: 50px;" do %>
+              <%= link_to root_messaging_path, :style => "line-height: 50px;" do %>
                 <i class="fa fa-comments-o fa-2 col s2 circle responsive-img valign" aria-hidden="true"></i>
+                <span id="unreadMessageMarker">
+                  <%= render "layouts/showNavUnreadMessages" %>
+                </span>
               <% end %>
             </li>
             <li>
@@ -55,7 +58,9 @@
           </li>
 
         </ul>
-        <ul class="side-nav collapsible" id="sideNavMenu" style="min-height:524px; overflow-y: auto;"  data-collapsible="accordion">
+        <div class="side-nav collapsible" id="sideNavMenu">
+         <div id="nav_sidebar_wrapper">
+          <ul style="min-height:324px; overflow-y: auto;"  data-collapsible="accordion">
             <% if logged_in? %>
               <% unless @hideHome %>
                 <li>
@@ -85,71 +90,90 @@
                   <i class="mdi-image-camera-alt material-icons"></i><%= I18n.t('views.layout.nav.photos') %>
                 <% end %>
               </li>
+              <li>
+                <%= link_to root_messaging_path, :class => 'no-padding collapsible-header' do %>
+                  <i class="fa fa-comments-o fa-2 material-icons"></i><%= I18n.t('views.layout.nav.messages') %>
+                <% end %>
+              </li>
               <li class="no-padding">
-              <ul class="collapsible collapsible-accordion">
-                <li>
-                  <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %></a>
-                  <div class="collapsible-body">
-                    <ul>
-                    <li><a href="#!" class="navDogName">Blacky</a></li>
-                    <li><a href="#!" class="navDogName">Zara</a></li>
-                    <li><a href="#!" class="navDogName">Doggy</a></li>
-                    </ul>
-                  </div>
+                <ul class="collapsible collapsible-accordion">
+                  <li>
+                    <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %></a>
+                    <div class="collapsible-body">
+                      <ul>
+                        <li><a href="#!" class="navDogName">Blacky</a></li>
+                        <li><a href="#!" class="navDogName">Zara</a></li>
+                        <li><a href="#!" class="navDogName">Doggy</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            <% else %>
+              <li><%= link_to I18n.t('views.layout.nav.signin'), login_path %></li>
+              <li><%= link_to I18n.t('views.layout.nav.signup'), signup_path %></li>        
+            <% end %> 
+          </ul>
+          <% if logged_in? %>
+            <div id="nav_sidebar_bottomSettings">
+              <ul>
+                <li class="divider"/>
+                <li class="bottom left">
+                  <%= link_to settings_path do %>
+                    <%= I18n.t('views.layout.nav.help') %>
+                  <% end %>
                 </li>
-                <% else %>
-                  <!--<li><%= link_to "Sign In", login_path %></li>
-                  <li><%= link_to "Sign Up", signup_path %></li>-->
-                  <li><%= link_to I18n.t('views.layout.nav.signin'), login_path %></li>
-                  <li><%= link_to I18n.t('views.layout.nav.signup'), signup_path %></li>
-                  
-                <% end %> 
+                <li class="bottom left">
+                  <%= link_to edit_settings_path do %>
+                    <%= I18n.t('views.layout.nav.settings') %>
+                  <% end %>
+                </li>
+                <li class="bottom left">
+                  <%= link_to "#termsModel", :class => "modal-trigger" do %>
+                    <%= I18n.t('views.layout.nav.terms') %>
+                  <% end %>
+                </li>
+                <li class="bottom left">
+                  <%= link_to logout_path do %>
+                    <%= I18n.t('views.layout.nav.logoff') %>
+                  <% end %>
+                </li>
+                <li class="divider hide-on-large-only"/>
+                <li class="bottom left hide-on-large-only">
+                  <% if current_language().to_s.exclude? "nl" %>
+                      <%= link_to params.merge({:locale => :nl}) do %>
+                         <img src="assets/flags/blank.png" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
+                      <% end %>
+                  <% end %>
+                  <% if current_language().to_s.exclude? "en" %>
+                      <%= link_to params.merge({:locale => :en}) do %>
+                        <img src="assets/flags/blank.png" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
+                      <% end %>
+                  <% end %>
+                </li>
               </ul>
-          </li>
-          <div style="position: absolute;bottom: 0;left: 0;width: 100%;">
-            <li class="divider" style="position: absolute;bottom: 205px;width: 100%;"/>
-            <li class="bottom left" style="
-              position: absolute;
-              bottom: 64px;
-              width: 100%;
-            ">
-             <!--<%= link_to "Afmelden", logout_path, :style => "line-height:35px; height:35px;" %>-->
-             <%= link_to logout_path, :style => "line-height:35px; height:35px;" do %>
-              <%= I18n.t('views.layout.nav.logoff') %>
-             <% end %>
-            </li>
-            <li class="bottom left" style="
-              position: absolute;
-              bottom: 100px;
-              width: 100%;
-            ">
-             <!--<%= link_to "Algemene voorwaarden", settings_path, :style => "line-height:35px; height:35px;" %>-->
-             <%= link_to "#termsModel", :style => "line-height:35px; height:35px;", :class => "modal-trigger" do %>
-              <%= I18n.t('views.layout.nav.terms') %>
-             <% end %>
-            </li>
-            <li class="bottom left" style="
-              position: absolute;
-              bottom: 135px;
-              width: 100%;
-            ">
-             <!--<%= link_to "Instellingen", settings_path, :style => "line-height:35px; height:35px;" %>-->
-             <%= link_to edit_settings_path, :style => "line-height:35px; height:35px;" do %>
-              <%= I18n.t('views.layout.nav.settings') %>
-             <% end %>
-            </li>
-            <li class="bottom left" style="
-              position: absolute;
-              bottom: 170px;
-              width: 100%;
-            ">
-             <!--<%= link_to "Help", settings_path, :style => "line-height:35px; height:35px;" %>-->
-             <%= link_to settings_path, :style => "line-height:35px; height:35px;" do %>
-              <%= I18n.t('views.layout.nav.help') %>
-             <% end %>
-            </li>
+             </div>
+            <% else %>
+            <div id="nav_sidebar_bottomSettings_notloggedin">
+              <ul>
+                <li class="divider hide-on-large-only"/>
+                <li class="bottom left hide-on-large-only">
+                  <% if current_language().to_s.exclude? "nl" %>
+                      <%= link_to params.merge({:locale => :nl}) do %>
+                         <img src="assets/flags/blank.png" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
+                      <% end %>
+                  <% end %>
+                  <% if current_language().to_s.exclude? "en" %>
+                      <%= link_to params.merge({:locale => :en}) do %>
+                        <img src="assets/flags/blank.png" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
+                      <% end %>
+                  <% end %>
+                </li>
+              </ul>
+             </div>
+            <% end %>
           </div>
-        </ul>
+         </div>
         </div>
       </nav>
     </div>

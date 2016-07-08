@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :require_login, except: [ :new, :create]
   #before_create :check_valid_email
-
+  
 	def index
 		#@users = User.all
 
@@ -98,6 +98,8 @@ class UsersController < ApplicationController
   end
 
   def update_profile
+    @preferences = Preference.all
+    @experiences = Experience.all
 
   #puts params
   # TO DO:
@@ -137,6 +139,8 @@ class UsersController < ApplicationController
   end
 
   def update_walker_profile
+    @preferences = Preference.all
+    @experiences = Experience.all
 
     if(!current_user.availability)
       current_user.availability = Availability.new(:monday_morning => ConvertToBooleanValue(params[:user][:availability_attributes][:monday_morning]),
@@ -175,6 +179,8 @@ class UsersController < ApplicationController
   end
 
   def update_contactinfo
+    @preferences = Preference.all
+    @experiences = Experience.all
     respond_to do |format|
       if(!current_user.address)
         @city = City.find_by(name: params[:user][:address_attributes][:city_attributes][:name]);

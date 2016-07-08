@@ -26,7 +26,7 @@
               <br />
                 <span class="center-align">
                     <% if logged_in? %>
-                        <%= link_to I18n.t('views.home.index.getstarted'), users_path, :class => "btn waves-effect waves-light col s2 offset-s5" %>
+                        <%= link_to I18n.t('views.home.index.getstarted'), overview_path, :class => "btn waves-effect waves-light col s2 offset-s5" %>
                     <% else %>
                         <%= link_to I18n.t('views.home.index.getstarted'), login_path, :class => "btn waves-effect waves-light col s2 offset-s5" %>
                     <% end %> 

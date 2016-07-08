@@ -1,0 +1,20 @@
+<div id="UpdateStatus" class="tab-content  grey lighten-4 row" style="margin-top:2px; padding:10px; padding-bottom:0px;">
+    <%= form_for(:message, :url => create_message_path, :remote => true) do |w| %>
+        <div class="row">
+            <div class="col s2 circle responsive-img valign profile-image-post" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 60px; height: 60px; background-size:cover; margin-left:10px;">
+            </div>
+            <div class="input-field col s10">
+                <%= w.text_area :content, :class => 'materialize-textarea', :length => '1000', :row => '2' %>
+                <label for="content" class="">Send a new message...</label>
+            </div>
+            <% if !conn.nil? %>
+                <%= w.hidden_field :to_user_id, :value => conn%>
+            <% end %>
+        </div>
+        <div class="row">
+            <div id="PostMessageButton" class="col s12 m6 offset-m6 right-align">
+                <%= render "messaging/postMessageButton" %>
+            </div>
+        </div>
+    <% end %>
+</div>

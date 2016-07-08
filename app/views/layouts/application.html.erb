@@ -19,7 +19,9 @@
 <body data-no-turbolink="true">
 
     <% unless @hideNav %>
+    <span id="navigationRefresh">
         <%= render "layouts/nav" %>
+      </span>
     <% end %>
 
     <%= yield %>

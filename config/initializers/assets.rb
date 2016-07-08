@@ -17,6 +17,6 @@ Rails.application.config.assets.version = '1.0'
 
 #Rails.application.config.assets.precompile += %w( dog.css )
 
-%w( home users user_sessions password_resets materialize.min authentication editSettings fullcalendar dog wallpost).each do |controller|
+%w( home users user_sessions password_resets materialize.min authentication editSettings fullcalendar dog wallpost messaging).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js.coffee", "#{controller}.css"]
 end

@@ -23,3 +23,6 @@ en:
   productname: "Leash"
   "true": "Yes"
   "false": "No"
+  will_paginate:
+    previous_label: "<<"
+    next_label: ">>"

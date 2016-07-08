@@ -30,12 +30,26 @@
         }
                 
         body{
-            display: flex !important;
+              display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+              display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+              display: -ms-flexbox;      /* TWEENER - IE 10 */
+              display: -webkit-flex;     /* NEW - Chrome */
+              display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            /*display: flex !important;*/
             min-height: 100vh !important;
-            flex-direction: column !important;
+            /*flex-direction: column !important;*/
+            -webkit-flex-direction: column;
+            -moz-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
         }
         main {
-            flex: 1 0 auto;
+            /*flex: 1 0 auto;*/
+              -webkit-box-flex: 1 0 auto;      /* OLD - iOS 6-, Safari 3.1-6 */
+              -moz-box-flex: 1 0 auto;         /* OLD - Firefox 19- */
+              -webkit-flex: 1 0 auto;          /* Chrome */
+              -ms-flex: 1;              /* IE 10 */
+              flex: 1 0 auto;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
         }
         
         @media only screen and (min-width: 993px){
@@ -54,6 +68,14 @@
             border-style: solid;
         }
         /* ------- FOOTER ------- */
+        #content{
+            /*flex: 1 0 auto;*/
+              -webkit-box-flex: 1 0 auto;      /* OLD - iOS 6-, Safari 3.1-6 */
+              -moz-box-flex: 1 0 auto;         /* OLD - Firefox 19- */
+              -webkit-flex: 1 0 auto;          /* Chrome */
+              -ms-flex: 1;              /* IE 10 */
+              flex: 1 0 auto;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+        }
         footer{
             margin-top: 100%;
             font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important;
@@ -192,6 +214,57 @@
 
         .flag.flag-be {background-position: -16px 0}
         .flag.flag-gb {background-position: 0 -11px}
+
+        
+
+        @media only screen and (max-width: 993px){
+            #nav_sidebar_wrapper{
+                box-sizing: border-box;
+                min-height: 100%;
+                padding: 0 0 176px;
+                position: relative;
+            }
+            #nav_sidebar_bottomSettings, #nav_sidebar_bottomSettings_notloggedin{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+            } 
+            #nav_sidebar_bottomSettings{
+                height: 176px;
+            }
+            #nav_sidebar_bottomSettings_notloggedin{
+                height: 36px;
+            }
+        }
+        @media only screen and (min-width: 993px){
+            #nav_sidebar_wrapper{
+                box-sizing: border-box;
+                min-height: 100%;
+                padding: 0 0 141px;
+                position: relative;
+            }
+            #nav_sidebar_bottomSettings, #nav_sidebar_bottomSettings_notloggedin{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+            }  
+            #nav_sidebar_bottomSettings{
+                height: 141px;
+            }  
+            #nav_sidebar_bottomSettings_notloggedin{
+                height: 36px;
+            }  
+        }
+
+        #nav_sidebar_bottomSettings ul li, #nav_sidebar_bottomSettings_notloggedin ul li{
+            width: 100%;
+        }
+        #nav_sidebar_bottomSettings ul li a, #nav_sidebar_bottomSettings_notloggedin ul li a{
+            line-height:35px; 
+            height:35px;
+        }
         /* ------- END NAVIGATION ------- */
         
         
@@ -340,6 +413,7 @@
         }
         #content{
             height:100%;
+            /*min-height: 70vh;*/
         }
         
         .btnProfilePost{

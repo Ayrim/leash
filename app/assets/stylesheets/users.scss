@@ -125,10 +125,16 @@
             margin: 0;
             border-bottom: 1px solid #e0e0e0
         }
-        .collection .collection-item.avatar{
-            height: 84px;
+        .collection .collection-item.avatar, .collection .collection-item.messaging{
             padding-left: 72px !important;
             position: relative;
+        }
+        .collection .collection-item.avatar{
+            height: 84px;
+        }
+        .collection .collection-item.avatar.messaging{
+            height: 100% !important;
+            min-height: 62px;
         }
 
         .collection-PictureHeader{
