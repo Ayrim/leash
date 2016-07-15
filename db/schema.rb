@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318182653) do
+ActiveRecord::Schema.define(version: 20160612185020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,35 @@ ActiveRecord::Schema.define(version: 20160318182653) do
 
   add_index "animals", ["user_id"], name: "index_animals_on_user_id", using: :btree
 
+  create_table "availabilities", force: :cascade do |t|
+    t.boolean  "monday_morning"
+    t.boolean  "monday_midday"
+    t.boolean  "monday_evening"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.boolean  "tuesday_morning"
+    t.boolean  "tuesday_midday"
+    t.boolean  "tuesday_evening"
+    t.boolean  "wednesday_morning"
+    t.boolean  "wednesday_midday"
+    t.boolean  "wednesday_evening"
+    t.boolean  "thursday_morning"
+    t.boolean  "thursday_midday"
+    t.boolean  "thursday_evening"
+    t.boolean  "friday_morning"
+    t.boolean  "friday_midday"
+    t.boolean  "friday_evening"
+    t.boolean  "saturday_morning"
+    t.boolean  "saturday_midday"
+    t.boolean  "saturday_evening"
+    t.boolean  "sunday_morning"
+    t.boolean  "sunday_midday"
+    t.boolean  "sunday_evening"
+  end
+
+  add_index "availabilities", ["user_id"], name: "index_availabilities_on_user_id", using: :btree
+
   create_table "blogs", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -70,6 +99,13 @@ ActiveRecord::Schema.define(version: 20160318182653) do
   create_table "cities", force: :cascade do |t|
     t.string   "name"
     t.string   "postalcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.integer  "user_1_id"
+    t.integer  "user_2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -94,6 +130,12 @@ ActiveRecord::Schema.define(version: 20160318182653) do
   end
 
   add_index "dogs", ["animal_id"], name: "index_dogs_on_animal_id", using: :btree
+
+  create_table "experiences", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "flocks", force: :cascade do |t|
     t.integer  "user_id"
@@ -138,6 +180,12 @@ ActiveRecord::Schema.define(version: 20160318182653) do
   end
 
   add_index "plannings", ["animal_id"], name: "index_plannings_on_animal_id", using: :btree
+
+  create_table "preferences", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tags", force: :cascade do |t|
     t.string   "name"
@@ -201,9 +249,17 @@ ActiveRecord::Schema.define(version: 20160318182653) do
     t.integer  "number_of_walks"
     t.string   "walking_region"
     t.string   "skills"
+    t.boolean  "is_premium"
+    t.string   "pricing"
+    t.boolean  "professional"
+    t.boolean  "is_walker"
+    t.integer  "preference_id"
+    t.integer  "experience_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["experience_id"], name: "index_users_on_experience_id", using: :btree
+  add_index "users", ["preference_id"], name: "index_users_on_preference_id", using: :btree
 
   create_table "wallposts", force: :cascade do |t|
     t.integer  "user_id"
@@ -225,6 +281,7 @@ ActiveRecord::Schema.define(version: 20160318182653) do
   add_foreign_key "addresses", "countries"
   add_foreign_key "addresses", "users"
   add_foreign_key "animals", "users"
+  add_foreign_key "availabilities", "users"
   add_foreign_key "blogs", "users"
   add_foreign_key "dogs", "animals"
   add_foreign_key "flocks", "animals"
@@ -237,6 +294,8 @@ ActiveRecord::Schema.define(version: 20160318182653) do
   add_foreign_key "user_relation_animals", "animals"
   add_foreign_key "user_relation_animals", "users"
   add_foreign_key "user_relations", "users"
+  add_foreign_key "users", "experiences"
+  add_foreign_key "users", "preferences"
   add_foreign_key "wallposts", "blogs"
   add_foreign_key "wallposts", "users"
 end
