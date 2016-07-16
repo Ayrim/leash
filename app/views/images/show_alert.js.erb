@@ -1,0 +1,4 @@
+<!-- Showing alerts  -->
+<% if @showModal %>
+		Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+<% end %>

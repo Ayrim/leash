@@ -16,14 +16,22 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
 
 </head>
-<body data-no-turbolink="true">
+<% unless @dontSetBodyHeight %>
+  <body id="setBodyHeight" data-no-turbolink="true">
+<% else %>
+  <body id="dontSetBodyHeight" data-no-turbolink="true">
+<% end %>
 
     <% unless @hideNav %>
+    <span id="navigationRefresh">
         <%= render "layouts/nav" %>
+      </span>
     <% end %>
 
     <%= yield %>
 
     <%= render "layouts/footer" %>
+
+    <div id="notificationContainer" />
 </body>
 </html>

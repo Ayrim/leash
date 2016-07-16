@@ -1,0 +1,20 @@
+nl:
+  views: 
+    home:
+      index:
+        header1: "Zoek je iemand om met jouw hond te wandelen?"
+        header2: "Op zoek naar een hond om mee te wandelen?"
+        descriptionheader: "Wij kunnen je verder helpen!"
+        descriptionline1: "Ooit al het gevoel gehad dat je niet genoeg tijd kan spenderen aan het wandelen met je hond? Komt het soms voor dat je, na een lange werkdag, niet meer genoeg energie hebt om met je hond naar buiten te gaan, terwijl deze wel een goede wandeling zou kunnen gebruiken om z'n eigen energie kwijt te geraken?"
+        descriptionline2: "Of bevind je jouw in de situatie waarbij je zeer graag een lange wandeling zou gaan maken met een viervoetige companion, maar kan je zelf geen hond houden door gebrek aan plaats in je huis of appartement?"
+        descriptionline3: "Waarom zou je elkaar niet helpen?"
+        descriptionline4: "Leash kan je helpen om in contact te komen met het perfecte gezelschap voor jezelf of voor je hond."
+        getstarted: "Start met zoeken!"
+      overview:
+        scheduleheader: "Planning"
+        walkersheader: "Wandelaars"
+        walkerdistance: "Afstand"
+        dogsheader: "Honden"
+        routesheader: "Wandelingen"
+        calendarheader: "Agenda"
+        blogsheader: "Actieve blogs"

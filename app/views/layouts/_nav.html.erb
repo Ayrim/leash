@@ -1,16 +1,26 @@
-
-    <ul id="dropdown2" class="dropdown-content">
-      <li><a href="#!">Dogs</a></li>
-      <li><a href="#!">Dog walkers</a></li>
-      <li class="divider"></li>
-      <li><a href="#!">Routes</a></li>
+    <ul id="dropdownMenu" class="dropdown-content">
+      <% if current_language().to_s.exclude? "nl" %>
+        <li class="liFlag">
+          <%= link_to params.merge({:locale => :nl}), :class => "languageFlagLink" do %>
+            <img src="assets/flags/blank.png" class="flag flag-be" alt="Belgium" /><span style="margin-left:15px">nl</span>
+          <% end %>
+        </li>
+      <% end %>
+      <% if current_language().to_s.exclude? "en" %>
+        <li class="liFlag">
+          <%= link_to params.merge({:locale => :en}), :class => "languageFlagLink" do %>
+            <img src="assets/flags/blank.png" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left:15px">en</span>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
+
     <div class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
           <% if logged_in? %>
-            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-med-and-down">Leash<i class="material-icons left">menu</i></a>
-            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-large-only">Leash</a>
+            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-med-and-down"><span style="float:right;">Leash</span><i class="material-icons left">menu</i></a>
+            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-large-only"><span style="float:right;">Leash</span></a>
             <a href="#" data-activates="sideNavMenu" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
           <% else %>
             <%= link_to "Leash", root_path, :class => 'brand-logo hide-on-med-and-down',  data: {activates: "sideNavMenu"} %>
@@ -22,13 +32,16 @@
 
            <% if logged_in? %>
             <li>
-              <%= link_to settings_path, :style => "line-height: 50px;" do %>
+              <%= link_to root_messaging_path, :style => "line-height: 50px;" do %>
                 <i class="fa fa-comments-o fa-2 col s2 circle responsive-img valign" aria-hidden="true"></i>
+                <span id="unreadMessageMarker">
+                  <%= render "layouts/showNavUnreadMessages" %>
+                </span>
               <% end %>
             </li>
             <li>
               <%= link_to settings_path do %>
-                <img class="col s2 circle responsive-img valign accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 35px; height: 35px; background-size:cover;" />
+                <img class="col s2 circle responsive-img valign accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 35px; height: 35px; background-size:cover; display:inline-block;" />
               <% end %>
             </li>
            <% else %>
@@ -38,52 +51,133 @@
               <% end %>
             </li>
            <% end %> 
+          <li style="border-left-width: 2px; border-left-style: solid; border-left-color: #36373B; margin-top: 5px; height: 54px;">
+            <a class="dropdown-button" href="#!" data-activates="dropdownMenu" style="line-height: 54px; font-size:1.2em;">
+              <%= current_language() %>
+            </a>
+          </li>
 
         </ul>
-        <ul class="side-nav collapsible" id="sideNavMenu"  data-collapsible="accordion">
+        <div class="side-nav collapsible" id="sideNavMenu">
+         <div id="nav_sidebar_wrapper">
+          <ul style="min-height:324px; overflow-y: auto;"  data-collapsible="accordion">
             <% if logged_in? %>
               <% unless @hideHome %>
                 <li>
                   <%= link_to overview_path, :class => 'no-padding collapsible-header' do %>
-                    Home<i class="material-icons left">home</i>
+                    <i class="fa fa-home material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.home') %>
                   <% end %>
                 </li>
                 <li class="divider"/>
               <% end %>
               <li>
                 <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
-                  Profile<i class="material-icons left">settings</i>
+                  <i class="fa fa-cog material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.profile') %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
+                  <i class="fa fa-calendar material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.agenda') %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
+                  <i class="fa fa-map-marker material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.routes') %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to images_path, :class => 'no-padding collapsible-header' do %>
+                  <i class="mdi-image-camera-alt material-icons"></i><%= I18n.t('views.layout.nav.photos') %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to root_messaging_path, :class => 'no-padding collapsible-header' do %>
+                  <i class="fa fa-comments-o fa-2 material-icons"></i><%= I18n.t('views.layout.nav.messages') %>
                 <% end %>
               </li>
               <li class="no-padding">
-              <ul class="collapsible collapsible-accordion">
-              <li>
-              <a class="collapsible-header">Search<i class="material-icons left" >search</i></a>
-              <div class="collapsible-body">
-                <ul>
-                <li><a href="#!">Dogs</a></li>
-                <li><a href="#!">Dog walkers</a></li>
-                <li><a href="#!">Routes</a></li>
+                <ul class="collapsible collapsible-accordion">
+                  <li>
+                    <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %></a>
+                    <div class="collapsible-body">
+                      <ul>
+                        <li><a href="#!" class="navDogName">Blacky</a></li>
+                        <li><a href="#!" class="navDogName">Zara</a></li>
+                        <li><a href="#!" class="navDogName">Doggy</a></li>
+                      </ul>
+                    </div>
+                  </li>
                 </ul>
-              </div>
               </li>
             <% else %>
-              <li><%= link_to "Sign In", login_path %></li>
-              <li><%= link_to "Sign Up", signup_path %></li>
+              <li><%= link_to I18n.t('views.layout.nav.signin'), login_path %></li>
+              <li><%= link_to I18n.t('views.layout.nav.signup'), signup_path %></li>        
             <% end %> 
           </ul>
-          </li>
-        
-  
-          <li class="bottom center-align" style="
-            position: absolute;
-            bottom: 64px;
-            width: 100%;
-          ">
-              <img class="circle accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; margin-top: 25px; width: 75px; height: 75px; background-size:cover;" />
-           <%= link_to "Sign Out", logout_path %>
-          </li>
-        </ul>
+          <% if logged_in? %>
+            <div id="nav_sidebar_bottomSettings">
+              <ul>
+                <li class="divider"/>
+                <li class="bottom left">
+                  <%= link_to settings_path do %>
+                    <%= I18n.t('views.layout.nav.help') %>
+                  <% end %>
+                </li>
+                <li class="bottom left">
+                  <%= link_to edit_settings_path do %>
+                    <%= I18n.t('views.layout.nav.settings') %>
+                  <% end %>
+                </li>
+                <li class="bottom left">
+                  <%= link_to "#termsModel", :class => "modal-trigger" do %>
+                    <%= I18n.t('views.layout.nav.terms') %>
+                  <% end %>
+                </li>
+                <li class="bottom left">
+                  <%= link_to logout_path do %>
+                    <%= I18n.t('views.layout.nav.logoff') %>
+                  <% end %>
+                </li>
+                <li class="divider hide-on-large-only"/>
+                <li class="bottom left hide-on-large-only">
+                  <% if current_language().to_s.exclude? "nl" %>
+                      <%= link_to params.merge({:locale => :nl}) do %>
+                         <img src="assets/flags/blank.png" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
+                      <% end %>
+                  <% end %>
+                  <% if current_language().to_s.exclude? "en" %>
+                      <%= link_to params.merge({:locale => :en}) do %>
+                        <img src="assets/flags/blank.png" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
+                      <% end %>
+                  <% end %>
+                </li>
+              </ul>
+             </div>
+            <% else %>
+            <div id="nav_sidebar_bottomSettings_notloggedin">
+              <ul>
+                <li class="divider hide-on-large-only"/>
+                <li class="bottom left hide-on-large-only">
+                  <% if current_language().to_s.exclude? "nl" %>
+                      <%= link_to params.merge({:locale => :nl}) do %>
+                         <img src="assets/flags/blank.png" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
+                      <% end %>
+                  <% end %>
+                  <% if current_language().to_s.exclude? "en" %>
+                      <%= link_to params.merge({:locale => :en}) do %>
+                        <img src="assets/flags/blank.png" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
+                      <% end %>
+                  <% end %>
+                </li>
+              </ul>
+             </div>
+            <% end %>
+          </div>
+         </div>
         </div>
       </nav>
     </div>
+
+
+    <!-- termsOfAgreement-section -->
+      <%= render "layouts/terms" %>

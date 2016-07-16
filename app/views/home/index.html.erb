@@ -5,30 +5,30 @@
                 <img src="assets/bench-sea-sunny-man.jpg">
             </div>
             <div class="parallax-header">
-                <h1>Looking for someone to walk your dog?</h1>
+                <h1><%= I18n.t('views.home.index.header1') %></h1>
                 <hr>
-                <h1>Looking for a dog to take for a walk?</h1>
+                <h1><%= I18n.t('views.home.index.header2') %></h1>
             </div>
         </div>
         <div class="section white homePageContent">
             <div class="row container center-align">
-              <h2 class="header">We've got what you need!</h2>
+              <h2 class="header"><%= I18n.t('views.home.index.descriptionheader') %></h2>
                 <hr>
-              <p class="grey-text text-darken-3 lighten-3">Ever had the feeling that you do not have enough time to take    your dog out for a walk? Are you sometimes, after a long day's work, lacking the energy to take your dog out for a stroll, while it could use a decent walk to run off some of its own energy? <br />
-              Or are you in a situation where you would love to go out for a long walk with a friendly four-legged companion, but can't have a dog of your own because you are lacking the space in your house or appartment?
+              <p class="grey-text text-darken-3 lighten-3"><%= I18n.t('views.home.index.descriptionline1') %> <br />
+              <%= I18n.t('views.home.index.descriptionline2') %>
               <br />
               <br />
-              Why not help each other out?
+              <%= I18n.t('views.home.index.descriptionline3') %>
               <br />
-              Leash will help you to get in touch with the perfect companion for yourself or your dog.
+              <%= I18n.t('views.home.index.descriptionline4') %>
               </p>
               <br />
               <br />
                 <span class="center-align">
                     <% if logged_in? %>
-                        <%= link_to "Get Started!", users_path, :class => "btn waves-effect waves-light col s2 offset-s5" %>
+                        <%= link_to I18n.t('views.home.index.getstarted'), overview_path, :class => "btn waves-effect waves-light col s2 offset-s5" %>
                     <% else %>
-                        <%= link_to "Get Started!", login_path, :class => "btn waves-effect waves-light col s2 offset-s5" %>
+                        <%= link_to I18n.t('views.home.index.getstarted'), login_path, :class => "btn waves-effect waves-light col s2 offset-s5" %>
                     <% end %> 
                 </span>
             </div>

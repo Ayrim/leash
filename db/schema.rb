@@ -161,14 +161,38 @@ ActiveRecord::Schema.define(version: 20160612185020) do
 
   add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
 
+  create_table "messages", force: :cascade do |t|
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
+    t.text     "content"
+    t.boolean  "is_read"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
+  add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
+
+  create_table "photoalbums", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "photoalbums", ["user_id"], name: "index_photoalbums_on_user_id", using: :btree
+
   create_table "pictures", force: :cascade do |t|
     t.string   "name"
     t.string   "comment"
     t.integer  "tag"
     t.string   "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "photoalbum_id"
   end
+
+  add_index "pictures", ["photoalbum_id"], name: "index_pictures_on_photoalbum_id", using: :btree
 
   create_table "plannings", force: :cascade do |t|
     t.date     "startDate"
@@ -289,6 +313,8 @@ ActiveRecord::Schema.define(version: 20160612185020) do
   add_foreign_key "flocks", "plannings"
   add_foreign_key "flocks", "users"
   add_foreign_key "groups", "users"
+  add_foreign_key "photoalbums", "users"
+  add_foreign_key "pictures", "photoalbums"
   add_foreign_key "plannings", "animals"
   add_foreign_key "user_group_relations", "users"
   add_foreign_key "user_relation_animals", "animals"

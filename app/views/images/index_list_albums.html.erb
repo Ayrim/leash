@@ -1,0 +1,37 @@
+<%if !@photoalbums.nil? %>
+	<% @photoalbums.each do |album| %>
+		<% if !@show_user.nil? %>
+			<%= link_to images_path + "/#{album.id}" + "?uid=" + @show_user.id.to_s, :remote => true do %>
+				<li class="messaging" style="min-height:1.6rem">
+					<div id="connectionPreview" style="position: absolute; z-index: 2; background: rgba(255, 255, 255, 0.6); width: 100%; height: 6.1rem;">
+						<span class="title truncate center" style="background: rgba(255,255,255,0.8)"><%= translate_photoalbum(album.name) %></span>
+					</div>
+					<div class="row">
+						<% CollectLastPictures(album.name, album.id).each do |photo| %>
+							<div class="" style="float: left; display: inline-table; width: 33%; margin-right:0.3%; margin-bottom:0.3%">
+							    <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= photo.url %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
+							    </div>
+							</div>
+						<% end %>
+					</div>
+				</li>
+			<% end %>	
+		<% else %>
+			<%= link_to images_path + "/#{album.id}", :remote => true do %>
+				<li class="messaging" style="min-height:1.6rem">
+					<div id="connectionPreview" style="position: absolute; z-index: 2; background: rgba(255, 255, 255, 0.6); width: 100%; height: 6.1rem;">
+						<span class="title truncate center" style="background: rgba(255,255,255,0.8)"><%= translate_photoalbum(album.name) %></span>
+					</div>
+					<div class="row">
+						<% CollectLastPictures(album.name, album.id).each do |photo| %>
+							<div class="" style="float: left; display: inline-table; width: 33%; margin-right:0.3%; margin-bottom:0.3%">
+							    <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= photo.url %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
+							    </div>
+							</div>
+						<% end %>
+					</div>
+				</li>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

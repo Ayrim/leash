@@ -2,12 +2,10 @@ class WallpostController < ApplicationController
 
 
 	def index
-		puts 'wallpost_index ========================================='
-		$wallposts = Wallpost.order(created_at: :desc).where({:user_id => current_user.id}).paginate(:page => params[:page], :per_page => 10)
+		$wallposts = Wallpost.order(created_at: :desc).where({:user_id => $show_user.id}).paginate(:page => params[:page], :per_page => 10)
 	end
 
 	def showNewPosts
-		puts 'showNewPosts ========================================='
 		$wallposts = Wallpost.order(created_at: :desc).where({:user_id => current_user.id}).paginate(:page => params[:page], :per_page => 10)
 
 	   	respond_to do |format|

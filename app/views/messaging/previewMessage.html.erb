@@ -1,0 +1,19 @@
+<% if @show_user %>
+	<% if !IsLastMessageRead(current_user.id, @show_user.id) %>
+		<i><b>"<%= GetLastMessageContent(current_user.id, @show_user.id) %>"</b></i>
+	<% else %>
+		<i>"<%= GetLastMessageContent(current_user.id, @show_user.id) %>"</i>
+	<% end %>
+<% elsif !(defined?(fromUserId)).nil?%>
+	<% if !IsLastMessageRead(current_user.id, fromUserId) %>
+		<i><b>"<%= GetLastMessageContent(current_user.id, fromUserId) %>"</b></i>
+	<% else %>
+		<i>"<%= GetLastMessageContent(current_user.id, fromUserId) %>"</i>
+	<% end %>
+<% else %>
+	<% if !IsLastMessageRead(current_user.id, conn.id) %>
+		<i><b>"<%= GetLastMessageContent(current_user.id, conn.id) %>"</b></i>
+	<% else %>
+		<i>"<%= GetLastMessageContent(current_user.id, conn.id) %>"</i>
+	<% end %>
+<% end %>

@@ -20,32 +20,35 @@
                 <!-- Unclear as to why the below line needs to be present for the next form to send a POST instead of GET. -->
 				<%= form_for(:password_reset, url: password_resets_path, :html => {class: 'form-signin'}) do |f| %><% end %>
 
-				<%= form_for(:password_reset, url: password_resets_path, :html => {class: 'form-signin', :onsubmit => "document.getElementById('SendPassword').disabled=true; document.getElementById('SendPassword').value=\"Resetting...\"; document.getElementById('resetPasswordSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";"}, :method => 'post' ) do |f| %>
+				<%= form_for(:password_reset, url: password_resets_path, :html => {class: 'form-signin', :onsubmit => "document.getElementById('SendPassword').disabled=true; document.getElementById('SendPassword').value=document.getElementById('resettingValue').innerHTML.replace(/^\s+|\s+$/g, ''); document.getElementById('resetPasswordSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";"}, :method => 'post' ) do |f| %>
 					<div class="row margin">
 					  <div class="input-field col s12">
 						<i class="mdi-social-person-outline prefix"></i>
 
 		                <%= f.email_field :email, :id => "inputEmail", :required => true %>
 						<!--<input id="email" type="text">-->
-						<label for="inputEmail" class="center-align">E-mail</label>
+						<label for="inputEmail" class="center-align"><%= I18n.t('views.user.email') %></label>
 					  </div>
 					</div>
 					<div class="row">
 					  <div class="input-field col s12" id="resetPasswordSubmitTag">
-					  	<%= submit_tag "Reset my password", :id => "SendPassword", :class => "btn waves-effect waves-light col s12" %>
+					  	<%= submit_tag I18n.t('views.user.newpassword.reset'), :id => "SendPassword", :class => "btn waves-effect waves-light col s12" %>
 						<!--<a href="login.html#password" class="btn waves-effect waves-light col s12">Send me my password.</a>-->
 					  </div>
 					</div>
 				<% end %>
 				<div class="row">
 				  <div class="input-field col s6 m6 l6">
-					<p class="margin medium-small"><%= link_to "Sign in!", login_path %></p>
+					<p class="margin medium-small"><%= link_to I18n.t('views.user.signin'), login_path %></p>
 				  </div>
 				  <div class="input-field col s6 m6 l6">
-					<p class="margin right-align medium-small"><%= link_to "Register Now!", signup_path %></p>
-				  </div>          
+					<p class="margin right-align medium-small"><%= link_to I18n.t('views.user.registernow'), signup_path %></p>
+				  </div>
 				</div>
 
 			  </form>
 			</div>
 		</div>
+
+
+    <div id="resettingValue" class="hide"><%= I18n.t('views.user.newpassword.resetting') %></div>

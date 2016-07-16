@@ -1,0 +1,37 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "users", params[:controller], :media => "all" %>
+
+
+<ul class="collection z-depth-1 with-header hoverable">
+	<li class="collection-header collection-PictureHeader">
+		<div class="card amber darken-2" style="box-shadow: none; border: none;">
+			<div class="card-content white-text center-align" style="padding: 5px">
+				Messages
+			</div>
+		</div>
+	</li>
+
+	<% @messages.each do |m| %>
+		<li class="collection-item avatar messaging">
+			<div>
+				<% if m.from_user_id == current_user.id %>
+					<img src="<%= current_user.profile_picture %>" alt="" class="circle right">
+				<% elsif m.from_user_id == @show_user.id %>
+					<img src="<%= @show_user.profile_picture %>" alt="" class="circle left">
+				<% end %>
+				<span class="title truncate" style="font-size:0.8em;">
+					<b><%= m.created_at.to_formatted_s(:long_ordinal) %></b>
+					<% if (m.from_user_id == current_user.id) and (m.is_read == false) %>
+						<i class="fa fa-eye-slash" style="margin-left:15px;" aria-hidden="true"></i>
+					<% end %>
+				</span>
+				<p>
+				    <%= simple_format h m.content %>
+				</p>
+			</div>
+		</li>
+	<% end %>
+</ul>
+<div class="center">
+	<%= will_paginate @messages %>
+</div>

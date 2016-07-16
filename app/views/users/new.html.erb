@@ -3,7 +3,7 @@
 
 	  	<div id="login-page" class="row">
 			<div class="col s12 z-depth-4 card-panel">
-			  <%= form_for(@user, :html => {class: 'login-form', :onsubmit => "document.getElementById('Register').disabled=true; document.getElementById('Register').value=\"Registering...\"; document.getElementById('registrationSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";"}) do |u| %>
+			  <%= form_for(@user, :html => {class: 'login-form', :onsubmit => "document.getElementById('Register').disabled=true; document.getElementById('Register').value=document.getElementById('registeringValue').innerHTML.replace(/^\s+|\s+$/g, ''); document.getElementById('registrationSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";"}) do |u| %>
 			    <!-- Showing alerts  -->
 		        <% if @showModal %>
 					<script type="text/javascript">
@@ -28,105 +28,48 @@
 				  <div class="input-field col s12">
 					<i class="mdi-social-person-outline prefix"></i>
 					<%= u.text_field :firstname, :id => "firstname", :required => true %>
-					<!--<input id="firstname" type="text" name="user[firstname]" required="required">-->
-					<label for="firstname" class="center-align">First name</label>
+					<label for="firstname" class="center-align"><%= I18n.t('views.user.firstname') %></label>
 				  </div>
 				  <div class="input-field col s12">
 					<i class="mdi-social-person-outline prefix"></i>
 		            <%= u.text_field :lastname, :id => "lastname", :required => true %>
-					<!--<input id="lastname" type="text" name="user[lastname]" required="required">-->
-					<label for="lastname" class="center-align">Last name</label>
+					<label for="lastname" class="center-align"><%= I18n.t('views.user.lastname') %></label>
 				  </div>
 				  <div class="input-field col s12">
 					<i class="mdi-content-mail prefix"></i>
 		            <%= u.text_field :email, :id => "email", :required => true %>
-					<!--<input id="email" type="text" name="user[email]" required="required">-->
-					<label for="email" class="center-align">E-mail</label>
+					<label for="email" class="center-align"><%= I18n.t('views.user.email') %></label>
 				  </div>
 				  <div class="input-field col s12">
 					<i class="mdi-action-lock-outline prefix"></i>
 		            <%= u.password_field :password, :id => "password", :required => true  %>
-					<!--<input id="password" type="password" name="user[password]" required="required">-->
-					<label for="password">Password</label>
+					<label for="password"><%= I18n.t('views.user.new.password') %></label>
 				  </div>
 				  <div class="input-field col s12">
 					<i class="mdi-action-lock-outline prefix"></i>
 		            <%= u.password_field :password_confirmation, :id => "password_confirmation", :required => true  %>
-					<!--<input id="password_confirmation" type="password" name="user[password_confirmation]" required="required">-->
-					<label for="password_confirmation">Confirm Password</label>
+					<label for="password_confirmation"><%= I18n.t('views.user.new.confirmpassword') %></label>
 				  </div>       
 				  <div class="input-field col s12 m12 l12  login-text">
-                      <!--<%= u.check_box :terms_of_service %>-->
                       <%= u.check_box :terms_of_service, :id => "terms_of_service" %> 
-					  <!--<input type="checkbox" id="terms_of_service" name="user[terms_of_service]" required="required">-->
-					  <label for="terms_of_service">I declare to have read and agree with the <a class="modal-trigger" href="#termsModel">terms of agreement.</a></label>
+					  <label for="terms_of_service"><%= I18n.t('views.user.new.declareterms') %><a class="modal-trigger" href="#termsModel"><%= I18n.t('views.user.new.termsofagreement') %></a></label>
 				  </div>
 				</div>
 				<div class="row">
 				  <div class="input-field col s12" id="registrationSubmitTag">
-		            <%= submit_tag "Register", :id => 'Register', :class => "btn waves-effect waves-light col s12" %>
+		            <%= submit_tag I18n.t('views.user.new.register'), :id => 'Register', :class => "btn waves-effect waves-light col s12" %>
 				  </div>
 				</div>
 				<div class="row">
-				  <p class="margin center medium-small sign-up">Already have an account? 
-				  	<%= link_to "Login", login_path %></p>     
+				  <p class="margin center medium-small sign-up"><%= I18n.t('views.user.new.alreadyaccount') %> 
+				  	<%= link_to I18n.t('views.user.new.login'), login_path %></p>     
 				</div>
 
 			  <% end %>
 			</div>
 		</div>
 
-		<!-- Modal Structure -->
-		<div id="termsModel" class="modal modal-fixed-footer">
-			<div class="modal-content">
-				<h4>Terms of agreement</h4>
-				<hr />
-				<p>This section will contain a complete list of legal information, expressing we will not be held accountable for anything happening to the animals.</p>
-				<ul>
-					<li>
-						<div class="row">
-				  			<div class="input-field col s2">
-				  				art. 100.1
-				  			</div>
-				  			<div class="input-field col s10">
-				  				Section regarding the privacy of the users.
-				  			</div>
-						</div>
-					</li>
-					<li>
-						<div class="row">
-				  			<div class="input-field col s2">
-				  				art. 450.1
-				  			</div>
-				  			<div class="input-field col s10">
-				  				Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings.
-				  			</div>
-						</div>
-					</li>
-					<li>
-						<div class="row">
-				  			<div class="input-field col s2">
-				  				art. 450.2
-				  			</div>
-				  			<div class="input-field col s10">
-				  				Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings.
-				  			</div>
-						</div>
-					</li>
-					<li>
-						<div class="row">
-				  			<div class="input-field col s2">
-				  				art. 450.3
-				  			</div>
-				  			<div class="input-field col s10">
-				  				Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings. Section regarding accountability of Leash towards any mishappenings.
-				  			</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-				<a id="disagreeTermsBtn" class="modal-action modal-close waves-effect waves-red btn-flat ">Disagree</a>
-				<a id="agreeTermsBtn" class="modal-action modal-close waves-effect waves-red btn-flat ">Agree</a>
-			</div>
-		</div>
+		<div id="registeringValue" class="hide"><%= I18n.t('views.user.new.registering') %></div>
+
+		<!-- termsOfAgreement-section -->
+    	<%= render "layouts/terms" %>

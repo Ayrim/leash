@@ -1,0 +1,27 @@
+// Place all the styles related to the images controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.file-path-wrapper{
+	padding-right: 10px;
+}
+
+.input-field{
+	margin-top:30px;
+}
+
+@media only screen and (max-width: 667px){
+	.imageInAlbum{
+		 height:6rem;
+	}
+}
+@media only screen and (min-width: 667px) and (max-width: 993px){
+	.imageInAlbum{
+		 height:10rem;
+	}
+}
+@media only screen and (min-width: 993px){
+	.imageInAlbum{
+		 height:14rem;
+	}
+}

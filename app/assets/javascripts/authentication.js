@@ -11,6 +11,10 @@
 				document.getElementById("terms_of_service").checked = false;
 				$('.lean-overlay').remove();
 			  });
+
+			  $('#closeTermsBtn').click(function(){
+				$('.lean-overlay').remove();
+			  })
 			  
 			/*if (window.location.pathname.endsWith('login.html')){*/
 				if (window.location.hash === '#activation') {ActivationToast();}

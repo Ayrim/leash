@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  monday_morning: false
+  monday_midday: false
+  monday_evening: false
+  references: 
+
+two:
+  monday_morning: false
+  monday_midday: false
+  monday_evening: false
+  references: 

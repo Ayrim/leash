@@ -1,0 +1,3 @@
+<script type="text/javascript">
+	document.getElementById('showNewMessageForm').html('<%= escape_javascript(render template: "messaging/postNewMessage", :locals => {:conn => @show_user.id}) %>');
+</script>

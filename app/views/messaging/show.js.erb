@@ -1,0 +1,9 @@
+$('#messages').html('<%= escape_javascript(render template: "messaging/showMessages") %>');
+$('#message_content').val('');
+$('.messagePreview_<%= @show_user.id %>').html('<%= escape_javascript(render template: "messaging/previewMessage") %>');
+$('.pagination').replaceWith('<%= escape_javascript will_paginate(@messages) %>');
+
+$('.pagination > a').attr('data-remote', 'true');
+$('#unreadMessageMarker').html('<%= escape_javascript(render "layouts/showNavUnreadMessages") %>');
+$('#PostMessageButton').html('<%= escape_javascript(render "messaging/postMessageButton") %>');
+$('#showNewMessageForm').html('<%= escape_javascript(render template: "messaging/postNewMessage", :locals => {:conn => @show_user.id}) %>');

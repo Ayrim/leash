@@ -13,19 +13,28 @@ Rails.application.routes.draw do
   resources :animals
   resources :dog
   resources :wallpost
+  resources :messaging
+  resources :images
+  resources :picture
 
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
   get 'signup'  => 'users#new', :as => :signup
   post 'signup' => 'users#create'
   patch 'update_profile' => 'users#update_profile', :as => :update_profile
+  patch 'update_walker_profile' => 'users#update_walker_profile', :as => :update_walker_profile
   patch 'update_contactinfo' => 'users#update_contactinfo', :as => :update_contactinfo
   patch 'update_password' => 'users#update_password', :as => :update_password
-  get 'profile' => 'users#settings', :as => :settings
+  get 'profile' => 'users#show', :as => :settings
   get 'edit_profile' => 'users#editSettings', :as => :edit_settings
   #post 'settings' => 'users#settings_post'
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview
+  get 'messaging' => 'messaging#index', :as => :root_messaging
+  get 'update_unreadmessages' => 'messaging#update_unreadMessages', :as => :update_unreadmessages
+
+  post 'create_picture' => 'picture#create', :as => :create_picture
+  post 'create_photoalbum' => 'images#create_photoalbum', :as => :create_photoalbum
 
   post 'new_dog' => 'dog#create', :as => :create_dog
   post 'new_post' => 'wallpost#create', :as => :create_wallpost
@@ -33,6 +42,7 @@ Rails.application.routes.draw do
   get 'extendPosts' => 'wallpost#showNewPosts', :as => :extend_wallpost
   get 'extendPostsAfterDelete/:id' => 'wallpost#showNewPosts', :as => :extendAfterDelete_wallpost
 
+  post 'new_message' => 'messaging#create_message', :as => :create_message
 
   #root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.

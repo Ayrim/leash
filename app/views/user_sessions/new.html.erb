@@ -3,7 +3,7 @@
 
         <div id="login-page" class="row">
             <div class="col s12 z-depth-4 card-panel">
-              <%= form_tag user_sessions_path, method: :post, :class => "login-form", :onsubmit => "document.getElementById('Login').disabled=true; document.getElementById('Login').value=\"Logging in...\"; document.getElementById('loginSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";" do %>
+              <%= form_tag user_sessions_path, method: :post, :class => "login-form", :onsubmit => "document.getElementById('Login').disabled=true; document.getElementById('Login').value=document.getElementById('loggingInValue').innerHTML.replace(/^\s+|\s+$/g, ''); document.getElementById('loginSubmitTag').getElementsByTagName('i')[0].className += \" disabled\";" do %>
 
                 <% if @showModal %>
                   <script type="text/javascript">
@@ -23,31 +23,31 @@
                     <i class="mdi-social-person-outline prefix"></i>
 
                     <input id="username" type="email" required="required" name="email">
-                    <label for="username" class="center-align">Username</label>
+                    <label for="username" class="center-align"><%= I18n.t('views.user.login.username') %></label>
                   </div>
                   <div class="input-field col s12">
                     <i class="mdi-action-lock-outline prefix"></i>
                     <input id="password" type="password" required="required" name="password">
-                    <label for="password">Password</label>
+                    <label for="password"><%= I18n.t('views.user.login.password') %></label>
                   </div>        
                   <div class="input-field col s12 m12 l12 login-text rememberMeField">
                       <input type="checkbox" id="remember-me" name="remember">
-                      <label for="remember-me">Remember me</label>
+                      <label for="remember-me"><%= I18n.t('views.user.login.rememberme') %></label>
                   </div>
                 </div>
                 <br/>
                 <div class="row">
                   <div class="input-field col s12" id="loginSubmitTag">
-                    <%= submit_tag "Login", :id => "Login", :class => "btn waves-effect waves-light col s12" %>
+                    <%= submit_tag I18n.t('views.user.login.login'), :id => "Login", :class => "btn waves-effect waves-light col s12" %>
                   </div>
                   <div class="input-field col s6 m6 l6">
                     <p class="margin medium-small">
-                        <%= link_to "Register Now!", signup_path %>
+                        <%= link_to I18n.t('views.user.registernow'), signup_path %>
                     </p>
                   </div>
                   <div class="input-field col s6 m6 l6">
                       <p class="margin right-align medium-small">
-                        <%= link_to "Forgot password?", new_reset_password_path, :class => 'forgot-password' %>
+                        <%= link_to I18n.t('views.user.login.forgotpwd'), new_reset_password_path, :class => 'forgot-password' %>
                       </p>
                   </div>          
                 </div>
@@ -55,4 +55,7 @@
               <% end %>
             </div>
         </div>
+
+    <div id="loggingInValue" class="hide"><%= I18n.t('views.user.login.loggingin') %></div>
+
       
