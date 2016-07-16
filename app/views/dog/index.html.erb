@@ -5,12 +5,13 @@
 <div class="container">
 
   <div class="row" >
+    <div class="col12 s12 m4" style="min-height: 600px; min-height: 600px;" >
     <% @dog.each do |dog| %>
         <%= link_to dog_path(dog) do %>
-    <div class="col s12 m3">
 
 
-      <ul class="collection z-depth-1 with-header hoverable card">
+
+      <ul class="collection z-depth-1 with-header hoverable card" style="min-height: 600px; min-height: 600px;">
         <li class="collection-header"><strong><%= dog.animal.name %></strong></li>
 
         <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle" style="height:275px;">
@@ -18,8 +19,7 @@
         <li class="collection-item avatar">
 
           <span class="title truncate"><%=dog.breed%></span>
-          <p class="truncate">Blankenberge <br>
-            Distance: 0.00 km
+          <p class="truncate">Thuis
           </p>
         </li>
 
