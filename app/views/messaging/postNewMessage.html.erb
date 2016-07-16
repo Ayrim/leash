@@ -8,7 +8,9 @@
                 <label for="content" class="">Send a new message...</label>
             </div>
             <% if !conn.nil? %>
-                <%= w.hidden_field :to_user_id, :value => conn%>
+                <%= w.hidden_field :to_user_id, :value => conn %>
+            <% else %>
+                <%= w.hidden_field :to_user_id %>
             <% end %>
         </div>
         <div class="row">
@@ -18,3 +20,19 @@
         </div>
     <% end %>
 </div>
+
+
+<script type="text/javascript">
+    if (document.getElementById("message_to_user_id").value === '')
+        document.getElementById("message_to_user_id").value = getParameterByName('notification');
+
+    function getParameterByName(name) {
+        url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+</script>

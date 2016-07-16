@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   def settings
+    @dontSetBodyHeight = true;
     w = WallpostController.new
     w.request = @_request
     w.index
@@ -53,6 +54,7 @@ class UsersController < ApplicationController
 	end
   	
   def edit
+    @dontSetBodyHeight = true;
   end
 
 	def create
@@ -60,11 +62,12 @@ class UsersController < ApplicationController
 		@showFooterSilhouette = true;
 		@user = User.new(user_params)
     @isRegistration = true
-
 		begin
 			ActiveRecord::Base.transaction do
 				respond_to do |format|
 					if @user.save
+            globalAlbum = Photoalbum.new(:user_id = @user.id, :name="No Album")
+            globalAlbum.save
 						@user.send_activation_email
 				        format.html { redirect_to login_path(:anchor => "activation"), alert: 'Please check your email to activate your account.' }
 				    else
@@ -93,11 +96,13 @@ class UsersController < ApplicationController
   end
 
   def editSettings
+    @dontSetBodyHeight = true;
     @preferences = Preference.all
     @experiences = Experience.all
   end
 
   def update_profile
+    @dontSetBodyHeight = true;
     @preferences = Preference.all
     @experiences = Experience.all
 
@@ -139,6 +144,7 @@ class UsersController < ApplicationController
   end
 
   def update_walker_profile
+    @dontSetBodyHeight = true;
     @preferences = Preference.all
     @experiences = Experience.all
 
@@ -179,6 +185,7 @@ class UsersController < ApplicationController
   end
 
   def update_contactinfo
+    @dontSetBodyHeight = true;
     @preferences = Preference.all
     @experiences = Experience.all
     respond_to do |format|
@@ -218,6 +225,7 @@ class UsersController < ApplicationController
   end
 
   def update_password
+    @dontSetBodyHeight = true;
     #respond_to do |format|
       puts params[:current_password]
       puts params[:user][:password]

@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 	has_many :user_2_connections, :foreign_key => :user_2_id, :class_name => 'Connection'
 	has_many :two_connections, :through => :user_2_connections, :source => :user_1
 
+	has_many :photoalbum
+
   	accepts_nested_attributes_for :address
   	accepts_nested_attributes_for :availability
   	accepts_nested_attributes_for :preference

@@ -1,0 +1,11 @@
+<% if HasUnreadMessagesWithinTimespan() > 0 %>
+	<% if current_page?(:controller => 'messaging') %>
+		<script type="text/javascript">
+			Materialize.toast('<a data-remote="true" href="/messaging/<%= GetLastMessageNotificationFromUserId() %>" style="color:white;"><p style="word-wrap: break-word;"><%= GetLastMessageNotification() %></p></a>', 10000);
+		</script>
+	<% else %>
+		<script type="text/javascript">
+			Materialize.toast('<a href="/messaging?notification=<%= GetLastMessageNotificationFromUserId() %>" style="color:white;"><p style="word-wrap: break-word;"><%= GetLastMessageNotification() %></p></a>', 10000);
+		</script>
+	<% end %>
+<% end %>

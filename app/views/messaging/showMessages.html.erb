@@ -19,8 +19,12 @@
 				<% elsif m.from_user_id == @show_user.id %>
 					<img src="<%= @show_user.profile_picture %>" alt="" class="circle left">
 				<% end %>
-				<span class="title truncate" style="font-size:0.8em;"><b><%= m.created_at.to_formatted_s(:long_ordinal) %></b></span>
-				<!--<span class="secondary-content planningDay">NEW</span>-->
+				<span class="title truncate" style="font-size:0.8em;">
+					<b><%= m.created_at.to_formatted_s(:long_ordinal) %></b>
+					<% if (m.from_user_id == current_user.id) and (m.is_read == false) %>
+						<i class="fa fa-eye-slash" style="margin-left:15px;" aria-hidden="true"></i>
+					<% end %>
+				</span>
 				<p>
 				    <%= simple_format h m.content %>
 				</p>

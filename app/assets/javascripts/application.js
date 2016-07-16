@@ -9,4 +9,14 @@ $(document).ready(function(){
 	$('.parallax').parallax();
 	$(".brand-logo").sideNav();
   $('select').material_select();
+ 
+
+    // will call refreshPartial every 30 seconds
+    setInterval(refreshPartial, 30*1000);
 })
+
+function refreshPartial() {
+  $.ajax({
+    url: "update_unreadmessages"
+ })
+}

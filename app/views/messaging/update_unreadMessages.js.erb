@@ -1,0 +1,6 @@
+
+
+$('#unreadMessageMarker').html('<%= escape_javascript(render "layouts/showNavUnreadMessages") %>');
+$('#notificationContainer').html('<%= escape_javascript(render "layouts/showNotification") %>');
+
+$('.messagePreview_<%= GetLastMessageNotificationFromUserId() %>').html('<%= escape_javascript(render template: "messaging/previewMessage", :locals => {:fromUserId => GetLastMessageNotificationFromUserId()}) %>');

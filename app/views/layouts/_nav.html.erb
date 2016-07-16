@@ -19,8 +19,8 @@
       <nav>
         <div class="nav-wrapper">
           <% if logged_in? %>
-            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-med-and-down">Leash<i class="material-icons left">menu</i></a>
-            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-large-only">Leash</a>
+            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-med-and-down"><span style="float:right;">Leash</span><i class="material-icons left">menu</i></a>
+            <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-large-only"><span style="float:right;">Leash</span></a>
             <a href="#" data-activates="sideNavMenu" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
           <% else %>
             <%= link_to "Leash", root_path, :class => 'brand-logo hide-on-med-and-down',  data: {activates: "sideNavMenu"} %>
@@ -41,7 +41,7 @@
             </li>
             <li>
               <%= link_to settings_path do %>
-                <img class="col s2 circle responsive-img valign accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 35px; height: 35px; background-size:cover;" />
+                <img class="col s2 circle responsive-img valign accountPicture" style="background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 35px; height: 35px; background-size:cover; display:inline-block;" />
               <% end %>
             </li>
            <% else %>

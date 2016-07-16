@@ -1,10 +1,12 @@
 class HomeController < ApplicationController
 	def index
 		@hideHome = true;
+    	@dontSetBodyHeight = true;
 	end
 
 	def overview
 		@hideHome = true;
+    	@dontSetBodyHeight = true;
 
 		# get the 10 most recent wallposts which contain a picture
 		# userIdQuery = "user_id != " + current_user.id.to_s
