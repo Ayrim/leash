@@ -1,0 +1,60 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "users", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "images", params[:controller], :media => "all" %>
+
+<!-- START CONTENT -->
+<section id="content" >
+    <!--start container-->
+    <div class="container">
+
+		<!-- Showing alerts  -->
+		<% if @showModal %>
+			<script type="text/javascript">
+				Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+			</script>
+		<% end %>
+
+        <div id="profile-page" class="section">
+            <div id="profile-page-content" class="row">
+                <!-- messaging-page-sidebar-->
+                <div id="profile-page-sidebar" class="col s12 m3">
+                	<!-- Show overview of connections -->
+
+                    <ul class="collection z-depth-1 with-header hoverable">
+                        <li class="collection-header collection-PictureHeader">
+                            <div class="card amber darken-2" style="box-shadow: none; border: none;">
+                                <div class="card-content white-text center-align">
+                                    <p class="card-title"><i class="mdi-image-camera-alt"></i> <%= @photoalbums.count %></p>
+                                    <p><%= I18n.t('views.images.albums') %></p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <div id="photoalbumList">
+                        	<%= render template: "images/index_list_albums" %>
+                    	</div>
+                    </ul>
+                </div>
+
+                <div id="rightSection">
+                    <div class="col s12 m8">
+                    	<% if !@show_user.nil? %>
+	                    	<% if current_user.id == @show_user.id %>
+		                        <span id="AddAlbumOrPhoto">
+		                        	<%= render "images/index_upload_section" %>
+		                        </span>
+	                        <% end %>
+                        <% end %>
+
+                    	<div id="picturesInAlbum" style="margin-top:10px;">
+                    		<%= render template: "images/show" %>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+	<!-- prepare modal to show image -->
+	<%= render "images/show_image" %>
+</section>

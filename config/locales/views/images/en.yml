@@ -1,0 +1,6 @@
+en:
+  views: 
+    images:
+      selectalbum: "Select a photo album."
+      albums: "Photo albums"
+      noalbum: "No Album"

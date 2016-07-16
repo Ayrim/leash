@@ -1,0 +1,7 @@
+
+$('#photoalbumList').html('<%= escape_javascript(render template: "images/index_list_albums") %>');
+$('#picturesInAlbum').html('<%= escape_javascript(render template: "images/show") %>');
+if ($('#picture_form').length > 0)
+	$('#picture_form')[0].reset();
+if ($('#album_form').length > 0)
+	$('#album_form')[0].reset();

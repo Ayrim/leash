@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :wallpost
   resources :messaging
   resources :images
+  resources :picture
 
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
@@ -31,6 +32,9 @@ Rails.application.routes.draw do
   get 'overview'=> 'home#overview', :as => :overview
   get 'messaging' => 'messaging#index', :as => :root_messaging
   get 'update_unreadmessages' => 'messaging#update_unreadMessages', :as => :update_unreadmessages
+
+  post 'create_picture' => 'picture#create', :as => :create_picture
+  post 'create_photoalbum' => 'images#create_photoalbum', :as => :create_photoalbum
 
   post 'new_dog' => 'dog#create', :as => :create_dog
   post 'new_post' => 'wallpost#create', :as => :create_wallpost

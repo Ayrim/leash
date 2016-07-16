@@ -315,18 +315,31 @@
 
                     <ul class="collection z-depth-1 with-header hoverable">
                         <li class="collection-header collection-PictureHeader">
-                            <div class="card amber darken-2" style="box-shadow: none; border: none;">
-                                <div class="card-content white-text center-align">
-                                    <p class="card-title"><i class="mdi-image-camera-alt"></i></p>
-                                    <p><%= I18n.t('views.user.pictures') %></p>
-                                </div>
-                            </div>
+                            <% if current_user.id == $show_user.id %>
+                                <%= link_to images_path do %>
+                                    <div class="card amber darken-2" style="box-shadow: none; border: none;">
+                                        <div class="card-content white-text center-align">
+                                            <p class="card-title"><i class="mdi-image-camera-alt"></i></p>
+                                            <p><%= I18n.t('views.user.pictures') %></p>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            <% else %>
+                                <%= link_to images_path(:uid => $show_user.id) do %>
+                                    <div class="card amber darken-2" style="box-shadow: none; border: none;">
+                                        <div class="card-content white-text center-align">
+                                            <p class="card-title"><i class="mdi-image-camera-alt"></i></p>
+                                            <p><%= I18n.t('views.user.pictures') %></p>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            <% end %>
                         </li>
                         <li class="collection-item">
                             <div class="row">
-                                <% @PicturePosts.each do |post| %>
+                                <% @Pictures.each do |post| %>
                                     <div class="" style="float: left; display: inline-table; width: 33%; margin-right:0.3%; margin-bottom:0.3%">
-                                        <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= collectWallpostPicture(post.picture) %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
+                                        <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= post.url %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
                                         </div>
                                     </div>
                                 <% end %>

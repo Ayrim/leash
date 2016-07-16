@@ -32,9 +32,16 @@ class UsersController < ApplicationController
     # get the 10 most recent wallposts which contain a picture
     # userIdQuery = "user_id != " + current_user.id.to_s
     # posts = Wallpost.order(created_at: :desc).where(userIdQuery).where("picture is not NULL").limit(10)
-    posts = Wallpost.order(created_at: :desc).where("picture is not NULL").limit(10)
+    #posts = Wallpost.order(created_at: :desc).where("picture is not NULL").limit(10)
     # take 3 random wallposts from these 10
-    @PicturePosts = posts.shuffle.take(6)
+    #@PicturePosts = posts.shuffle.take(6)
+
+    if (params.has_key?(:id))
+      show_user = User.find(params[:id])
+    else
+      show_user = current_user;
+    end
+    @Pictures = Picture.joins(:photoalbum).where('user_id = ?', show_user.id).order(created_at: :desc).limit(6)
   end
 
 	def new
@@ -66,8 +73,8 @@ class UsersController < ApplicationController
 			ActiveRecord::Base.transaction do
 				respond_to do |format|
 					if @user.save
-            globalAlbum = Photoalbum.new(:user_id = @user.id, :name="No Album")
-            globalAlbum.save
+            @globalAlbum = Photoalbum.new(:user_id => @user.id, :name => "No Album")
+            @globalAlbum.save
 						@user.send_activation_email
 				        format.html { redirect_to login_path(:anchor => "activation"), alert: 'Please check your email to activate your account.' }
 				    else
