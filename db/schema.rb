@@ -103,12 +103,11 @@ ActiveRecord::Schema.define(version: 20160715184313) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "connections", force: :cascade do |t|
-    t.integer  "user_1_id"
-    t.integer  "user_2_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "connections", id: false, force: :cascade do |t|
+    t.integer "user_id"
   end
+
+  add_index "connections", ["user_id", "user_id"], name: "index_connections_on_user_id_and_user_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
