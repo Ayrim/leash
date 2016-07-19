@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="Rails leash: development" uuid="980ac80a-3b1c-4672-b9ee-8a143fa36816">
-      <user-name>ayrton</user-name>
-      <schema-pattern>ayrton.pg_catalog ayrton.public</schema-pattern>
-      <default-schemas>ayrton.public</default-schemas>
-    </data-source>
-    <data-source name="Rails leash: test" uuid="d793fe04-45f2-48d4-963a-6e66049eb98c">
-      <user-name>ayrton</user-name>
-    </data-source>
-    <data-source name="Rails leash: production" uuid="29148588-6ee9-4f43-a49f-14dc19083caf">
-      <user-name>ayrton</user-name>
+    <data-source name="PostgreSQL - ayrton@localhost" uuid="9c80db78-a975-4648-9f80-733b5625b8ef">
+      <secret-storage>master_key</secret-storage>
+      <schema-pattern>ayrton.*</schema-pattern>
+      <default-schemas>ayrton.*</default-schemas>
     </data-source>
   </component>
 </project>
