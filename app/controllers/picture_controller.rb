@@ -30,9 +30,20 @@ class PictureController < ApplicationController
 			if(@picture.save)
 				#Save succeeded
 				LoadPhotoAlbums()
+				LoadPhotosWithoutAlbum()
 
-				respond_to do |format|
-					format.js { render 'images/create_upload_picture_album.js.erb' }
+				puts '-=-=-=-=-=-=-=-=-'
+				puts @photoswithoutalbum.to_json
+				puts '-=-=-=-=-=-=-=-=-'
+
+				if (params[:picture].has_key?(:existingAlbum))
+					respond_to do |format|
+						format.js { render 'images/show_upload_new_photo.js.erb' }
+					end
+				else
+					respond_to do |format|
+						format.js { render 'images/create_upload_picture_album.js.erb' }
+					end
 				end
 			else
 				#Save failed
@@ -47,6 +58,16 @@ class PictureController < ApplicationController
 
 	def LoadPhotoAlbums
 		@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)', current_user.id, "No Album").order(name: :asc)
+	end
+
+	def LoadPhotosWithoutAlbum
+		if (params[:picture].has_key?(:existingAlbum))
+			albumid = params[:picture][:photoalbum]
+			@current_album = Photoalbum.find_by(:id => albumid)
+		else
+			albumid = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album").pluck(:id)
+		end
+		@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
 	end
 
 	private

@@ -10,7 +10,7 @@ $(document).ready(function(){
 	$(".brand-logo").sideNav();
   $('select').material_select();
  
-
+	$('.slider').slider();
     // will call refreshPartial every 30 seconds
     setInterval(refreshPartial, 30*1000);
 })

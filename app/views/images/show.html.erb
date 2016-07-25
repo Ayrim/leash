@@ -1,14 +1,38 @@
-<div class="col s12">
-	<div class="row">
-		<% if !@albumphotos.nil? %>
-			<% @albumphotos.each do |photo| %>
-				<%= link_to "#showImage", :class => "modal-trigger" do %>                
-					<div class="" style="float: left; display: inline-table; width: 33%; margin-right:0.3%; margin-bottom:0.3%">
-						<div class="card-image waves-effect waves-block waves-light imageInAlbum" style="background:url(<%= photo.url %>) no-repeat center center; width:auto; background-size: cover; margin:0.6%">
-						</div>
-					</div>
-				<% end %>
-			<% end %>
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "users", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "images", params[:controller], :media => "all" %>
+
+<!-- START CONTENT -->
+<section id="content" >
+    <!--start container-->
+    <div class="container">
+
+		<!-- Showing alerts  -->
+		<% if @showModal %>
+			<script type="text/javascript">
+				Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+			</script>
 		<% end %>
-	</div>
-</div>
+        <!-- End Showing alerts  -->
+
+        <div id="photoNoAlbumList">
+            <%= render template: "images/index_list_photos" %>
+		</div>
+
+		
+                <!-- Add new photo/album -->
+                <div class="row">
+                    <div class="col s12 m12">
+                    	<% if !@show_user.nil? %>
+	                    	<% if current_user.id == @show_user.id %>
+		                        <span id="AddAlbumOrPhoto">
+		                        	<%= render "images/index_upload_section" %>
+		                        </span>
+	                        <% end %>
+                        <% end %>
+                    </div>
+                </div>
+                <!-- End Add new photo/album -->
+    </div>
+    <!--end container-->
+</section>
