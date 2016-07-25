@@ -5,21 +5,22 @@
 <div class="container">
 
   <div class="row" >
-    <div class="col12 s12 m4" style="min-height: 600px; min-height: 600px;" >
+    
     <% @dog.each do |dog| %>
         <%= link_to dog_path(dog) do %>
+        <div class="col" >
 
 
 
-      <ul class="collection z-depth-1 with-header hoverable card" style="min-height: 600px; min-height: 600px;">
+      <ul class="collection z-depth-1 with-header hoverable card" style="width: 280px; height: 400px;">
         <li class="collection-header"><strong><%= dog.animal.name %></strong></li>
 
-        <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle" style="height:275px;">
+        <img src="/assets/dog-silhouette.png" alt="" class="circle" style="width:250px;padding-top: 15px; padding-bottom: 15px;padding-left: 15px;">
 
         <li class="collection-item avatar">
 
           <span class="title truncate"><%=dog.breed%></span>
-          <p class="truncate">Thuis
+          <p>Home
           </p>
         </li>
 
@@ -32,9 +33,9 @@
     <div class="col s12 m3" style="width:300px;height: 600px !important;">
 
 
-      <ul class="collection z-depth-1 with-header hoverable card">
+      <ul class="collection z-depth-1 with-header hoverable card" style="width: 280px; height: 400px;">
         <li class="collection-header"><strong>Hond toevoegen </strong></li>
-        <img src="/assets/bigplus.png" alt="" class="circle" style="padding-top: 10px; padding-bottom: 10px;">
+        <img src="/assets/bigplus.png" style="width:250px;padding-top: 15px; padding-bottom: 15px;padding-left: 15px;">
 
         <li class="collection-item avatar">
           <span class="title truncate">Hond toevoegen</span>
