@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715184313) do
+ActiveRecord::Schema.define(version: 20160726164328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,8 +176,9 @@ ActiveRecord::Schema.define(version: 20160715184313) do
   create_table "photoalbums", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "description"
   end
 
   add_index "photoalbums", ["user_id"], name: "index_photoalbums_on_user_id", using: :btree
@@ -273,9 +274,9 @@ ActiveRecord::Schema.define(version: 20160715184313) do
     t.integer  "number_of_walks"
     t.string   "walking_region"
     t.string   "skills"
-    t.boolean  "is_premium"
+    t.boolean  "is_premium",        default: false
     t.string   "pricing"
-    t.boolean  "professional"
+    t.boolean  "professional",      default: false
     t.boolean  "is_walker"
     t.integer  "preference_id"
     t.integer  "experience_id"

@@ -8,7 +8,7 @@ $(document).ready(function(){
 	$(".button-collapse").sideNav();
 	$('.parallax').parallax();
 	$(".brand-logo").sideNav();
-  $('select').material_select();
+  	$('select').material_select();
  
 	$('.slider').slider();
     // will call refreshPartial every 30 seconds
@@ -20,3 +20,4 @@ function refreshPartial() {
     url: "update_unreadmessages"
  })
 }
+

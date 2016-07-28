@@ -57,6 +57,12 @@ class ImagesController < ApplicationController
 	end
 
 	def create_photoalbum
+		puts '-=-=-=-=-=-=-=-'
+		puts params.to_json
+		puts '-=-=-=-=-=-=-=-'
+
+		#TODO tags
+
 		@albumphotos = Array.new()
 		album = Photoalbum.new(photoalbum_params)
 		if Photoalbum.where(:name => album.name, :user_id => current_user.id).count > 0
@@ -136,6 +142,6 @@ class ImagesController < ApplicationController
 	private
 
 		def photoalbum_params
-			params.require(:photoalbum).permit(:name, :user_id)
+			params.require(:photoalbum).permit(:name, :user_id, :description)
 		end
 end
