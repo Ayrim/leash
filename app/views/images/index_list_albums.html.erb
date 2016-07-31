@@ -30,10 +30,12 @@
                                     <%= link_to images_path + "/#{album.id}" + "?uid=" + @show_user.id.to_s do %>
                                         <span>Show</span>
                                     <% end %>
-                                    <span style="margin-right:10px;"></span>
-                                    <%= link_to "Edit", edit_image_path(album), :remote => true %>
-                                    <span style="margin-right:10px;"></span>
-                                    <%= link_to "Delete", {:controller => :images, :action => 'destroy', :id => album.id }, :method => :delete, data: { confirm: "Are you sure?" }, :remote => true %>
+                                    <% if current_user.id == @show_user.id %>
+                                        <span style="margin-right:10px;"></span>
+                                        <%= link_to "Edit", edit_image_path(album), :remote => true %>
+                                        <span style="margin-right:10px;"></span>
+                                        <%= link_to "Delete", {:controller => :images, :action => 'destroy', :id => album.id }, :method => :delete, data: { confirm: "Are you sure?" }, :remote => true %>
+                                    <% end %>
                                 </p>
                             </div>
                         </div>
@@ -65,10 +67,12 @@
                                 <%= link_to images_path + "/#{album.id}" do %>
                                     <span>Show</span>
                                 <% end %>
-                                <span style="margin-right:10px;"></span>
-                                <%= link_to "Edit", edit_image_path(album), :remote => true %>
-                                <span style="margin-right:10px;"></span>
-                                <%= link_to "Delete", {:controller => :images, :action => 'destroy', :id => album.id }, :method => :delete, data: { confirm: "Are you sure?" }, :remote => true %>
+                                <% if current_user.id == @show_user.id %>
+                                    <span style="margin-right:10px;"></span>
+                                    <%= link_to "Edit", edit_image_path(album), :remote => true %>
+                                    <span style="margin-right:10px;"></span>
+                                    <%= link_to "Delete", {:controller => :images, :action => 'destroy', :id => album.id }, :method => :delete, data: { confirm: "Are you sure?" }, :remote => true %>
+                                <% end %>
                             </p>
                         </div>
                 	</div> 

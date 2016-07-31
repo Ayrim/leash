@@ -20,10 +20,12 @@
                                     <%= link_to picture_path(photo) do %>
                                         <span>Show</span>
                                     <% end %>
-                                    <span style="margin-right:10px;"></span>
-                                    <%= link_to "Edit", edit_picture_path(photo), :remote => true %>
-                                    <span style="margin-right:10px;"></span>
-                                    <%= link_to "Delete", {:controller => :picture, :action => 'destroy', :id => photo.id }, :method => :delete, data: { confirm: "Are you sure?" }, :remote => true %>
+                                    <% if current_user.id == @show_user.id %>
+                                        <span style="margin-right:10px;"></span>
+                                        <%= link_to "Edit", edit_picture_path(photo), :remote => true %>
+                                        <span style="margin-right:10px;"></span>
+                                        <%= link_to "Delete", {:controller => :picture, :action => 'destroy', :id => photo.id }, :method => :delete, data: { confirm: "Are you sure?" }, :remote => true %>
+                                    <% end %>
                                 </p>
                             </div>
                     </div>
