@@ -9,18 +9,31 @@
                                 <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= photo.url %>) no-repeat center center; background-size: cover; height:100%"></div>
                             </div>
                         </div>
-                        <div class="card-content">
-                            <p class="truncate"><%= photo.created_at.to_formatted_s(:long_ordinal) %></p>
-                        </div>
-                    </div>
                 <% end %>
+                        <div class="card-content">
+                            <p class="truncate activator" style="cursor: pointer;"><%= photo.created_at.to_formatted_s(:long_ordinal) %></p>
+                        </div>
+                            <div class="card-reveal">
+                                <p class="truncate activator card-title" style="cursor: pointer; font-size:1em;"><%= photo.created_at.to_formatted_s(:long_ordinal) %><i class="material-icons right">close</i></p>
+                                <p><%= photo.comment %></p>
+                                <p class="userInfo">
+                                    <%= link_to picture_path(photo) do %>
+                                        <span>Show</span>
+                                    <% end %>
+                                    <span style="margin-right:10px;"></span>
+                                    <%= link_to "Edit", edit_picture_path(photo), :remote => true %>
+                                    <span style="margin-right:10px;"></span>
+                                    <%= link_to "Delete", {:controller => :picture, :action => 'destroy', :id => photo.id }, :method => :delete, data: { confirm: "Are you sure?" }, :remote => true %>
+                                </p>
+                            </div>
+                    </div>
             </div>
         <% end %>
     <% end %>
 
     <% if !@show_user.nil? %>
         <% if current_user.id == @show_user.id %>
-            <a href="javascript:ShowHideUploadPhoto(true)">
+            <a href="#" onclick="javascript:ShowHideUploadPhoto(true)">
                 <div class="col s12 m4 l3">
                     <div class="card z-depth-1 hoverable">
                         <div class="card-image waves-effect waves-block waves-light"  style="max-height:20vh; height:400px;" >

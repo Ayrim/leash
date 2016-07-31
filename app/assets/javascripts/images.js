@@ -8,6 +8,9 @@ function ShowHideCreateAlbum(visible)
 	if (visible)
       {
         $("#createNewAlbum").show();
+        $("#updateAlbum").hide();
+        $("#uploadNewPhoto").hide();
+        $("#updatePicture").hide();
       }
       else
       {
@@ -19,6 +22,9 @@ function ShowHideUploadPhoto(visible)
   if (visible)
       {
         $("#uploadNewPhoto").show();
+        $("#createNewAlbum").hide();
+        $("#updateAlbum").hide();
+        $("#updatePicture").hide();
       }
       else
       {
@@ -26,10 +32,41 @@ function ShowHideUploadPhoto(visible)
       }
 }
 
+function ShowHideEditAlbum(visible)
+{
+  if (visible)
+      {
+        $("#updateAlbum").show();
+        $("#uploadNewPhoto").hide();
+        $("#createNewAlbum").hide();
+        $("#updatePicture").hide();
+      }
+      else
+      {
+        $("#updateAlbum").hide();
+      }
+}
+function ShowHideEditPicture(visible)
+{
+  if (visible)
+      {
+        $("#updatePicture").show();
+        $("#updateAlbum").hide();
+        $("#uploadNewPhoto").hide();
+        $("#createNewAlbum").hide();
+      }
+      else
+      {
+        $("#updatePicture").hide();
+      }
+}
+
 function resetTagsField()
 {
 	$('.chips').material_chip();
     $('.photoalbumChips').html("<input class='input' placeholder='' name='photoalbum[tag]' id='photoalbum_tag' onfocus='SetActiveLabelAlbum();' onfocusout='SetInActiveLabelAlbum()'><label for='photoalbum_tag' id='album_tag_label'>Want to add any tags to your album?</label>");
+
+    $('.editPhotoalbumChips').html("<input class='input' placeholder='' name='picture[tag]' id='picture_tag' onfocus='SetActiveLabelPhoto();' onfocusout='SetInActiveLabelPhoto()'><label for='picture_tag' id='picture_tag_label'>Want to add any tags to your album?</label>");
 
     $('.photoChips').html("<input class='input' placeholder='' name='picture[tag]' id='picture_tag' onfocus='SetActiveLabelPhoto();' onfocusout='SetInActiveLabelPhoto()'><label for='picture_tag' id='picture_tag_label'>Want to add any tags to your picture?</label>");
 

@@ -35,6 +35,8 @@ Rails.application.routes.draw do
 
   post 'create_picture' => 'picture#create', :as => :create_picture
   post 'create_photoalbum' => 'images#create_photoalbum', :as => :create_photoalbum
+  patch 'edit_photoalbum' => 'images#edit_photoalbum', :as => :edit_photoalbum
+  patch 'edit_picture' => 'picture#edit_picture', :as => :update_picture
 
   post 'new_dog' => 'dog#create', :as => :create_dog
   post 'new_post' => 'wallpost#create', :as => :create_wallpost

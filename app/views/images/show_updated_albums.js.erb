@@ -1,0 +1,8 @@
+
+$('#photoNoAlbumList').html('<%= escape_javascript(render template: "images/index_list_photos") %>');
+if ($('#edit_album_form').length > 0)
+	$('#edit_album_form')[0].reset();
+
+ShowHideEditAlbum(false);
+
+$('.slider').slider();

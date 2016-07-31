@@ -97,6 +97,36 @@ class ImagesController < ApplicationController
 		end
 	end
 
+	def edit
+		if (params.has_key?(:id))
+			@edit_album = Photoalbum.where("user_id = ? AND id = ?", current_user.id, params[:id]).first
+		end
+
+		respond_to do |format|
+		   	format.html { redirect_to :controller => "images" , :action => "index" }
+		 	format.js { render 'images/edit_show_form_album.js.erb' }
+		end
+
+	end
+
+	def edit_photoalbum
+		set_user()
+		if (params[:photoalbum].has_key?(:id))
+			@edit_album = Photoalbum.where("user_id = ? AND id = ?", current_user.id, params[:photoalbum][:id]).first
+			
+		    respond_to do |format|
+		      if @edit_album.update(photoalbum_params)
+					LoadPhotoAlbums()
+
+		      		format.js { render 'images/show_updated_albums.js.erb' }
+		      else
+		        format.html { render :edit }
+		        format.json { render json: @user.errors, status: :unprocessable_entity }
+		      end
+		    end
+	    end
+	end
+
 	def destroy
 		albumToRemove = Photoalbum.where("user_id = ? AND id = ?", current_user.id, params[:id]).first
 		

@@ -1,0 +1,37 @@
+<% if !@edit_album.nil? %>
+    <div id="updateAlbum" class="hidden tab-content row s12 grey lighten-4" style="padding-left:2em; padding-right:2em; padding-top:0.5em; display:none; margin-left:0px;margin-right:0px; ">
+        <%= form_for(@edit_album, :url => edit_photoalbum_path, :remote => true, :html => { :id => 'edit_album_form', :style => 'margin-bottom:15px;', :onsubmit => "document.getElementById('photoalbum_tags').value = GetChipsData();" }) do |album| %>
+            <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
+            <%= album.hidden_field :user_id, :value => current_user.id %>
+            <%= album.hidden_field :id, :value => @edit_album.id %>
+            <div class="col s12 m6">
+                <div class="input-field col s12" style="margin-top:15px">
+                    <%= album.text_field :name, :required => true %>
+                    <label for="photoalbum_name" class="active">Give your new album a name.</label>
+                </div>
+                <div class="input-field col s12" style="margin-top:15px">
+                    <%= album.text_area :description, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
+                    <% if !@edit_album.try(:description).blank? %>
+                        <label for="photoalbum_description" class="active">Give your new album a description.</label>
+                    <% else %>
+                        <label for="photoalbum_description">Give your new album a description.</label>
+                    <% end %>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="input-field col s12" style="margin-top:15px">
+                    <div class="chips editPhotoalbumChips">
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 offset-m6">
+                <div id="PostMessageButton" class="right-align">
+                    <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
+                        <input type="submit" name="commit" value="Save" id="editPhotoalbum" class="waves-button-input">
+                    </i>
+                    <a href="javascript:ShowHideEditAlbum(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                </div>
+            </div>
+        <% end %>
+    </div>
+<% end %>
