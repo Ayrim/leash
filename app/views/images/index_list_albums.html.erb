@@ -23,9 +23,23 @@
                                 <p class="truncate"><%= album.created_at.to_formatted_s(:long_ordinal) %></p>
                             </div>
                             <div class="card-reveal">
-                                <span class="card-title activator grey-text text-darken-4 truncate"><%= translate_photoalbum(album.name) %><i class="material-icons right">close</i></span>
-                                <p class="truncate"><%= album.created_at.to_formatted_s(:long_ordinal) %></p>
+                                <div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
+                                <span class="card-title activator grey-text text-darken-4 truncate"><%= translate_photoalbum(album.name) %></span>
+                                <p class="truncate smallCardHeader"><%= album.created_at.to_formatted_s(:long_ordinal) %></p>
+                                <% if current_user.id == @show_user.id %>
+                                    <p class="smallCardHeader">
+                                        <% if album.visibility.value == 'Public' %>
+                                            <i class="fa fa-unlock" aria-hidden="true"></i>
+                                        <% elsif album.visibility.value == 'Connections' %>
+                                            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                        <% else %>
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        <% end %>
+                                        <%= translate_visibility(album.visibility.value) %>
+                                    </p>
+                                <% end %>
                                 <p><%= album.description %></p>
+
                                 <p class="userInfo">
                                     <%= link_to images_path + "/#{album.id}" + "?uid=" + @show_user.id.to_s do %>
                                         <span>Show</span>
@@ -61,7 +75,19 @@
                         </div>
                         <div class="card-reveal">
                             <span class="card-title activator grey-text text-darken-4 truncate"><%= translate_photoalbum(album.name) %><i class="material-icons right">close</i></span>
-                            <p class="truncate"><%= album.created_at.to_formatted_s(:long_ordinal) %></p>
+                            <p class="truncate smallCardHeader"><%= album.created_at.to_formatted_s(:long_ordinal) %></p>
+                            <% if current_user.id == @show_user.id %>
+                                <p class="smallCardHeader">
+                                    <% if album.visibility.value == 'Public' %>
+                                        <i class="fa fa-unlock" aria-hidden="true"></i>
+                                    <% elsif album.visibility.value == 'Connections' %>
+                                        <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                    <% else %>
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                    <% end %>
+                                    <%= translate_visibility(album.visibility.value) %>
+                                </p>
+                            <% end %>
                             <p><%= album.description %></p>
                             <p class="userInfo">
                                 <%= link_to images_path + "/#{album.id}" do %>

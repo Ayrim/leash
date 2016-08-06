@@ -14,7 +14,20 @@
                             <p class="truncate activator" style="cursor: pointer;"><%= photo.created_at.to_formatted_s(:long_ordinal) %></p>
                         </div>
                             <div class="card-reveal">
-                                <p class="truncate activator card-title" style="cursor: pointer; font-size:1em;"><%= photo.created_at.to_formatted_s(:long_ordinal) %><i class="material-icons right">close</i></p>
+                                <div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
+                                <p class="truncate activator card-title" style="cursor: pointer; font-size:1em;margin-bottom:0"><%= photo.created_at.to_formatted_s(:long_ordinal) %></p>
+                                <% if current_user.id == @show_user.id %>
+                                    <p class="smallCardHeader">
+                                        <% if photo.visibility.value == 'Public' %>
+                                            <i class="fa fa-unlock" aria-hidden="true"></i>
+                                        <% elsif photo.visibility.value == 'Connections' %>
+                                            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                        <% else %>
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        <% end %>
+                                        <%= translate_visibility(photo.visibility.value) %>
+                                    </p>
+                                <% end %>
                                 <p><%= photo.comment %></p>
                                 <p class="userInfo">
                                     <%= link_to picture_path(photo) do %>

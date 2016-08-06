@@ -1,0 +1,81 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "wallpost", :media => "all" %>
+<%= stylesheet_link_tag "users", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "images", params[:controller], :media => "all" %>
+
+
+<!-- START CONTENT -->
+<section id="content" >
+    <!--start container-->
+    <div class="container">
+
+		<!-- Showing alerts  -->
+		<% if @showModal %>
+			<script type="text/javascript">
+				Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+			</script>
+		<% end %>
+        <!-- End Showing alerts  -->
+
+	    <% if !@show_picture.nil? %>
+	        <div class="row">
+	        	<div class="col s12 m2" style="margin-top:15px;">
+	        		side-navigation to other images
+	        	</div>
+		        <div class="col col s12 m8" style="padding:0; margin-top:15px;">
+					<img class="materialboxed responsive-img" max-height="512" data-caption="<%= @show_picture.comment %>" src="../assets/pictures/2/beach-984676_1920.jpg">
+		        </div>
+	        	<div class="col s12 m2" style="margin-top:15px;">
+	        		side-navigation to other images
+	        	</div>
+		    </div>
+		    <div class="row">
+		    	<div id="profile-page-wall-post" class="card col s12 m8 offset-m2">
+	                <div class="card-profile-title">
+				    	<div class="row" style="padding-top:5px;padding-bottom:10px;">
+							<div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(<%= load_user_avatar(@owner) %>) 50% 50% no-repeat; width: 50px; height: 50px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
+			                </div>
+			                <div class="col s10 profile-post-name">
+			                	<% if @owner.id == current_user.id %>
+									<%= link_to settings_path do %>
+			                			<p class="grey-text text-darken-4 margin" style="padding-top:10px;margin-bottom:0px;"><%= @owner.firstname + ' ' + @owner.lastname %></p>
+	                                <% end %>
+	                            <% else %>
+	                                <%= link_to @owner do %>
+			                			<p class="grey-text text-darken-4 margin" style="padding-top:10px;margin-bottom:0px;"><%= @owner.firstname + ' ' + @owner.lastname %></p>
+			                		<% end %>
+			                	<% end %>
+			                	<% if !@show_picture.nil? %>
+			                    	<span class="grey-text text-darken-1 ultra-small"><%= @show_picture.created_at.to_formatted_s(:long_ordinal) %></span>
+			                    <% end %>
+			                </div>
+			            </div>
+			        </div>
+	                <div class="card-action row" style="padding:15px">
+	                	<div class="col s12">
+	                    	<p>
+	                    		<%= @show_picture.comment %>
+	                    	</p>
+	                    </div>
+	                </div>
+		        </div>
+			</div>
+		<% else %>
+	        <div class="row">
+	        	<div clas="coll s12 m8 offset-m2" style="text-align:center;">
+	        		<h2>Woops!</h2>
+	        		<p>It appears you are not allowed to view this image.</p>
+	        	</div>
+	        </div>
+		<% end %>
+
+	</div>
+</section>
+
+<!-- Modal Structure -->
+		<div id="imageModal" class="modal">
+			<div class="modal-content">
+			    <div class="card-image waves-effect waves-block waves-light" style="background:url('../assets/pictures/2/beach-984676_1920.jpg') no-repeat center center; background-size: contain; width:100%; height:0; padding-top: 66.64%;">
+			    </div>
+		    </div>
+		</div>

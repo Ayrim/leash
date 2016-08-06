@@ -14,9 +14,38 @@ class PictureController < ApplicationController
 	end
 
 	def show
+		if(params.has_key?(:id))
+			if(params[:id] != 'update_unreadmessages')
+				begin
+					#define the owner of this picture
+					ownerId = Picture.joins(:photoalbum).where('pictures.id = ?', params[:id]).pluck(:user_id)
+					@owner = User.find_by(:id => ownerId)
+
+
+					#define if the current user is allowed to view this picture
+					if current_user.id == @owner.id
+						@show_picture = Picture.find_by(:id => params[:id])
+					elsif (current_user.connections.include?(@owner))
+						@show_picture = Picture.where('id = ? AND (visibility_id = ? OR visibility_id = ?)', params[:id], '2', '1').first
+					else
+						#not a connection
+						#check visibility-level of the picture if access is granted
+						@show_picture = Picture.where('id = ? AND (visibility_id = ?)', params[:id], '1').first
+					end
+				rescue PG::InvalidTextRepresentation
+					@showModal = true;
+					flash.now.alert = "Something went while retrieving the image. Please, try again later."
+					render action: :new
+			  	end
+		  	end
+		end
 	end
 
 	def create
+		puts '-=-=-=-=-=-=-=-=-=-'
+		puts params
+		puts '-=-=-=-=-=-=-=-=-=-'
+
 		set_user()
 		@picture = Picture.new(picture_params)
 		if (params[:picture].has_key?(:photoalbum))
@@ -71,6 +100,7 @@ class PictureController < ApplicationController
 			@current_album = Photoalbum.find_by(:id => @edit_picture.photoalbum_id)
 		end
 
+				LoadPhotoAlbums()
 		LoadPhotoAlbums()
 
 		respond_to do |format|
@@ -79,15 +109,19 @@ class PictureController < ApplicationController
 	end
 
 	def edit_picture
+		puts '-=-=-=-=-=-=-=-=-=-'
+		puts params
+		puts '-=-=-=-=-=-=-=-=-=-'
+
 		set_user()
 		if (params[:picture].has_key?(:id))
 			@edit_picture = Picture.find_by(:id => params[:picture][:id])
-
+			orig_album_id = @edit_picture.try(:photoalbum_id)
 		    respond_to do |format|
 		    	# TODO: update tags as well.
-		      if [(@edit_picture.update_attribute(:comment, params[:picture][:comment]) if params[:picture][:comment])] 
-				
-				LoadPhotosByAlbum(@edit_picture.photoalbum_id)
+		      if ([(@edit_picture.update_attribute(:comment, params[:picture][:comment]) if params[:picture][:comment])] && [(@edit_picture.update_attribute(:photoalbum_id, params[:picture][:photoalbum]) if params[:picture][:photoalbum])] && [(@edit_picture.update_attribute(:visibility_id, params[:picture][:visibility_id]) if params[:picture][:visibility_id])] )
+
+				LoadPhotosByAlbum(orig_album_id)
 
 				format.js { render 'images/show_updated_picture.js.erb' }
 		      else
@@ -125,7 +159,7 @@ class PictureController < ApplicationController
 
 	def LoadPhotosWithoutAlbum
 		if (params[:picture].has_key?(:existingAlbum))
-			albumid = params[:picture][:photoalbum]
+			albumid = params[:picture][:existingAlbum]
 			@current_album = Photoalbum.find_by(:id => albumid)
 		else
 			albumid = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album").pluck(:id)
@@ -149,6 +183,6 @@ class PictureController < ApplicationController
 	private
 
 		def picture_params
-			params.require(:picture).permit(:user_id, :comment, photoalbum: :string)
+			params.require(:picture).permit(:user_id, :comment, :visibility_id, photoalbum: :string)
 		end
 end

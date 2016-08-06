@@ -34,3 +34,7 @@ Experience.create('7 - 8')
 Experience.create('8 - 9')
 Experience.create('9 - 10')
 Experience.create('10+')
+
+Visibility.create('Public')
+Visibility.create('Connections')
+Visibility.create('Private')

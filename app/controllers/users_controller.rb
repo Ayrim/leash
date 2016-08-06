@@ -41,7 +41,14 @@ class UsersController < ApplicationController
     else
       show_user = current_user;
     end
-    @Pictures = Picture.joins(:photoalbum).where('user_id = ?', show_user.id).order(created_at: :desc).limit(6)
+    if current_user.id == show_user.id
+      @Pictures = Picture.joins(:photoalbum).where('user_id = ?', show_user.id).order(created_at: :desc).limit(6)
+    elsif (current_user.connections.include?(show_user))
+      @Pictures = Picture.joins(:photoalbum).where('(user_id = ? AND (photoalbums.visibility_id = ? OR photoalbums.visibility_id = ?)) AND (pictures.visibility_id = ? OR pictures.visibility_id = ?)', show_user.id, '2', '1', '2', '1').order(created_at: :desc).limit(6)
+    else
+      @Pictures = Picture.joins(:photoalbum).where('(user_id = ? AND (photoalbums.visibility_id = ? = ?)) AND (pictures.visibility_id = ?)', show_user.id, '1', '1').order(created_at: :desc).limit(6)
+    end
+        
   end
 
 	def new

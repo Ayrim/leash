@@ -5,3 +5,5 @@ en:
       selectcurrentalbum: "The photo will be added to the current album."
       albums: "Photo albums"
       noalbum: "No Album"
+      selectvisibilityalbum: "Who is allowed to view this album?"
+      selectvisibilitypicture: "Who is allowed to view this picture?"

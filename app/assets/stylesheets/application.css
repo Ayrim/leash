@@ -416,3 +416,16 @@
             margin-bottom: 12px;
         }
         /* ------- END PROFILE ------- */
+
+
+        /* ------- GENERIC ------- */
+        .closingIcon i{
+            margin-right: -10px;
+            margin-top: -10px;
+            font-size:0.8em;
+        }
+
+        .closingIcon i:hover{
+            color: #FF5B45;
+        }
+        /* ------- END GENERIC ------- */

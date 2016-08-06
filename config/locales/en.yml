@@ -21,6 +21,9 @@
 
 en:
   productname: "Leash"
+  public: "Public"
+  connections: "Connections"
+  private: "Private"
   "true": "Yes"
   "false": "No"
   will_paginate:

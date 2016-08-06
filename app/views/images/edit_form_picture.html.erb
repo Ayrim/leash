@@ -1,30 +1,25 @@
 <% if !@edit_picture.nil? %>
 	<div id="updatePicture" class="tab-content col s12  grey lighten-4" style="padding-left:2em; padding-right:2em; padding-top:0.5em; display:none; margin-left:0px;margin-right:0px; ">
-        <%= form_for(@edit_picture, :url => update_picture_path, :remote => true, :html => { :id => 'edit_album_form' }) do |pic| %>
+        <%= form_for(@edit_picture, :url => update_picture_path, :remote => true, :html => { :id => 'edit_album_form', :onkeypress => "return event.keyCode != 13;" }) do |pic| %>
             <%= pic.hidden_field :id, :value => @edit_picture.id %>
-            <div class="input-field col s12 m6">
-            	<div class="file-field input-field" style="margin-top: 0;">
-                	<div class="btn" style="display:inline-block; float:right;">
-                    	<span>...</span>
-                        <%= pic.file_field :picture, :accept => "image/png,image/gif,image/jpeg" %>
-                    </div>
-                    <div class="file-path-wrapper">
-                    	<input id="upload_picture" class="file-path validate" type="text">
-                        <label for="upload_picture" class="">Select the photo to upload.</label>
-                    </div>
-                </div>
-                <div class="input-field col s12" id="preferencefield">
+            <div class="col s12 m6">
+                <div class="input-field col s12" id="preferencefield" style="margin-top:15px">
                 	<% if @current_album.nil? %>
-                    	<%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}), :id => "photoalbum_id" %>
+                        <%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}), :id => "photoalbum_id" %>
+                        <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectalbum') %></label>
+                    <% elsif GetAlbumName(@edit_picture.photoalbum_id) == 'No Album' %>
+                        <%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}), :id => "photoalbum_id" %>
                         <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectalbum') %></label>
                     <% else %>
-                    	<%= pic.hidden_field :photoalbum, :value => @current_album.id %>
-                        <%= pic.hidden_field :existingAlbum, :value => 1 %>
-                        <label id="photoalbum_id"><%= translate_photoalbum(@current_album.name) %></label>
+                        <!--<%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}, :selected => @edit_picture.try(:photoalbum_id)), {}, :disabled => true, :id => "photoalbum_id" %>
                         <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectcurrentalbum') %></label>
+                    	<%= pic.hidden_field :photoalbum, :value => @current_album.id %>
+                        <%= pic.hidden_field :existingAlbum, :value => 1 %> -->
+                        <%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}, :selected => @edit_picture.try(:photoalbum_id)), :id => "photoalbum_id" %>
+                        <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectalbum') %></label>
                     <% end %>
                 </div>
-                <div class="input-field col s12" id="preferencefield" style="margin-top:45px">
+                <div class="input-field col s12" id="preferencefield" style="margin-top:30px">
                 	<%= pic.text_area :comment, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
                 	<% if !@edit_picture.try(:comment).blank? %>
                    		<label for="photoalbum_description" class="active">Add some comments to your new picture.</label>
@@ -34,9 +29,13 @@
                 </div>
             </div>
 
-            <div class="col s12 m6">
+            <div class="col s12 m6" id="preferencefield">
+                <div class="input-field col s12" style="margin-top:15px">
+                    <%= pic.select :visibility_id, options_for_select(Visibility.all.collect {|vis| [ translate_visibility(vis.value), vis.id ]}, :selected => @edit_picture.try(:visibility_id)), {}, :disabled => true, :id => "visibility_id" %>
+                    <label for="visibility_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectvisibilitypicture') %></label>
+                </div>
             	<div class="input-field col s12" style="margin-top:27px">
-                	<div class="chips photoChips">
+                	<div class="chips editPhotoChips">
                     </div>
                 </div>
             </div>

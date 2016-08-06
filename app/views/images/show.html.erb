@@ -18,7 +18,7 @@
         <div class="row" style="margin-top:15px;">
             <ul class="tabs tab-profile z-depth-1 light-blue">
                 <li class="tab col s3">
-                    <a class="white-text waves-effect waves-light active" href="#AlbumPhotos"><i class="mdi-file-folder"></i> <%= @current_album.name %></a>
+                    <a class="white-text waves-effect waves-light active" href="#AlbumPhotos"><i class="mdi-file-folder"></i> <%= @current_album.try(:name) %></a>
                 </li>
             </ul>
 
@@ -27,7 +27,7 @@
                 <% if !@show_user.nil? %>
                     <% if current_user.id == @show_user.id %>
                         <div id="uploadNewPhoto" class="tab-content col s12  grey lighten-4" style="padding-left:2em; padding-right:2em; padding-top:0.5em; display:none; margin-left:0px;margin-right:0px; ">
-                            <%= form_for(:picture, :url => create_picture_path, :remote => true, :html => { :id => 'picture_form' }) do |pic| %>
+                            <%= form_for(:picture, :url => create_picture_path, :remote => true, :html => { :id => 'picture_form', :onkeypress => "return event.keyCode != 13;" }) do |pic| %>
                             <div class="input-field col s12 m6">
                                 <div class="file-field input-field" style="margin-top: 0;">
                                     <div class="btn" style="display:inline-block; float:right;">
@@ -44,10 +44,10 @@
                                         <%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}), :id => "photoalbum_id" %>
                                         <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectalbum') %></label>
                                     <% else %>
-                                        <%= pic.hidden_field :photoalbum, :value => @current_album.id %>
-                                        <%= pic.hidden_field :existingAlbum, :value => 1 %>
-                                        <label id="photoalbum_id"><%= translate_photoalbum(@current_album.name) %></label>
+                                        <%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}, :selected => @current_album.try(:id)), {}, :disabled => true, :id => "photoalbum_id" %>
                                         <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectcurrentalbum') %></label>
+                                        <%= pic.hidden_field :photoalbum, :value => @current_album.try(:id) %>
+                                        <%= pic.hidden_field :existingAlbum, :value => @current_album.try(:id) %>
                                     <% end %>
                                 </div>
                                 <div class="input-field col s12" id="preferencefield" style="margin-top:45px;">
@@ -56,9 +56,14 @@
                                 </div>
                             </div>
 
-                            <div class="col s12 m6">
+                            <div class="col s12 m6" id="preferencefield">
+                                <div class="input-field col s12">
+                                    <%= pic.select :visibility_id, options_for_select(Visibility.all.collect {|vis| [ translate_visibility(vis.value), vis.id ]}, :selected => @current_album.try(:visibility_id)), {}, :disabled => true, :id => "visibility_id" %>
+                                    <label for="visibility_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectvisibilitypicture') %></label>
+                                    <%= pic.hidden_field :visibility_id, :value => @current_album.try(:visibility_id) %>
+                                </div>
                                 <div class="input-field col s12" style="margin-top:27px">
-                                    <div class="chips photoChips">
+                                    <div class="chips editPhotoChips">
                                     </div>
                                     <%= pic.hidden_field :tags %>
                                 </div>
