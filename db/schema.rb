@@ -278,9 +278,9 @@ ActiveRecord::Schema.define(version: 20160803121813) do
     t.integer  "number_of_walks"
     t.string   "walking_region"
     t.string   "skills"
-    t.boolean  "is_premium",        default: false
+    t.boolean  "is_premium"
     t.string   "pricing"
-    t.boolean  "professional",      default: false
+    t.boolean  "professional"
     t.boolean  "is_walker"
     t.integer  "preference_id"
     t.integer  "experience_id"
