@@ -45,13 +45,13 @@ class ImagesController < ApplicationController
 				
 		begin
 			@hideCreateAlbum = true
+			LoadPhotoAlbums()
 			if(params.has_key?(:id))
 				if(params[:id] != 'update_unreadmessages')
 					albumid = params[:id]
 					@current_album = Photoalbum.find_by(:id => albumid)
 					@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
 					
-					LoadPhotoAlbums()
 					#LoadPhotoAlbums()
 					#LoadPhotosWithoutAlbum()
 

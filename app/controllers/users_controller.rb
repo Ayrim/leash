@@ -125,24 +125,33 @@ class UsersController < ApplicationController
   # Save pictures to Azure Blob Storage or Amazon S3
   # Save the link towards the uploaded picture for this user.
     puts "COPYING PICTURE"
-    directory = "app/assets/images"
-    save_directory = "assets"
     save_banner_picture_path = ""
     save_profile_picture_path = ""
     if(params[:user][:profile_picture])
-      profile_picture_name = params[:user][:profile_picture].original_filename.gsub('[', '_').gsub(']', '_')
-      profile_picture_path = File.join(Rails.root, directory, profile_picture_name)
-      save_profile_picture_path = File.join(save_directory, profile_picture_name)
-      File.open(profile_picture_path, "wb") { |f| f.write(params[:user][:profile_picture].read) }
+      # Blob Container exists => move on!
+      fileExtension = File.extname(params[:user][:profile_picture].original_filename)
+
+      fileName = current_user.id.to_s + '_' + SecureRandom.uuid + fileExtension
+      blobs = Azure::Blob::BlobService.new
+      content = File.open(params[:user][:profile_picture].tempfile.path, 'rb') { |file| file.read }
+      blob = blobs.create_block_blob("images", fileName, content)
+
+      #Blob has been uploaded
+      save_profile_picture_path = 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
     end
 
     if(params[:user][:banner_picture])
-      banner_picture_name = params[:user][:banner_picture].original_filename.gsub('[', '_').gsub(']', '_')
-      banner_picture_path = File.join(Rails.root, directory, banner_picture_name)
-      save_banner_picture_path = File.join(save_directory, banner_picture_name)
-      File.open(banner_picture_path, "wb") { |f| f.write(params[:user][:banner_picture].read) }
+      # Blob Container exists => move on!
+      fileExtension = File.extname(params[:user][:banner_picture].original_filename)
+
+      fileName = current_user.id.to_s + '_' + SecureRandom.uuid + fileExtension
+      blobs = Azure::Blob::BlobService.new
+      content = File.open(params[:user][:banner_picture].tempfile.path, 'rb') { |file| file.read }
+      blob = blobs.create_block_blob("images", fileName, content)
+
+      #Blob has been uploaded
+      save_banner_picture_path = 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
     end
-    puts save_banner_picture_path
     puts "END COPYING PICTURE"
 
 

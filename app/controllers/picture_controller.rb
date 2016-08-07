@@ -42,30 +42,24 @@ class PictureController < ApplicationController
 	end
 
 	def create
-		puts '-=-=-=-=-=-=-=-=-=-'
-		puts params
-		puts '-=-=-=-=-=-=-=-=-=-'
-
 		set_user()
 		@picture = Picture.new(picture_params)
 		if (params[:picture].has_key?(:photoalbum))
 			@picture.photoalbum_id = params[:picture][:photoalbum]
 		end
 
-		directory = "app/assets/images/pictures/" + current_user.id.to_s
-		
-		#Check if the directory exists and create it if it doesn't.
-		Dir.mkdir(directory) unless File.exists?(directory)	
-	    
-	    save_directory = "assets/pictures/" + current_user.id.to_s
-	    picture_path = ""
-	    save_picture_path = ""
 		if(params[:picture][:picture])
-      		picture_name = params[:picture][:picture].original_filename.gsub('[', '_').gsub(']', '_').gsub(' ', '_')
-     		picture_path = File.join(Rails.root, directory, picture_name)
-      		save_picture_path = File.join(save_directory, picture_name)
-      		File.open(picture_path, "wb") { |f| f.write(params[:picture][:picture].read) }
+		  	# Container exists => move on!
+		  	fileExtension = File.extname(params[:picture][:picture].original_filename)
 
+		  	fileName = current_user.id.to_s + '_' + SecureRandom.uuid + fileExtension
+			blobs = Azure::Blob::BlobService.new
+			content = File.open(params[:picture][:picture].tempfile.path, 'rb') { |file| file.read }
+			blob = blobs.create_block_blob("images", fileName, content)
+
+			#Blob has been uploaded
+			save_picture_path = 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
+			
 			@picture.url = save_picture_path
 
 			if(@picture.save)
