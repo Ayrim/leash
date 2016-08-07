@@ -19,7 +19,7 @@
 	                            </div>
                             <% end %>
                             <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4 truncate"><%= translate_photoalbum(album.name) %></span>
+                                <span class="card-title activator grey-text text-darken-4 truncate"><%= translate_photoalbum(album.name) %><i class="material-icons right">more_vert</i></span>
                                 <p class="truncate"><%= album.created_at.to_formatted_s(:long_ordinal) %></p>
                             </div>
                             <div class="card-reveal">
