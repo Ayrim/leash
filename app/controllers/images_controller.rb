@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
   before_action :set_user, only: [:index, :show, :LoadPhotoAlbums]
+  before_action :require_login
 
     def set_user		
     	# check if the page is being loaded for the current user or for a different user

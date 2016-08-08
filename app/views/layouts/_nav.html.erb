@@ -2,14 +2,14 @@
       <% if current_language().to_s.exclude? "nl" %>
         <li class="liFlag">
           <%= link_to params.merge({:locale => :nl}), :class => "languageFlagLink" do %>
-            <img src="assets/flags/blank.png" class="flag flag-be" alt="Belgium" /><span style="margin-left:15px">nl</span>
+            <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-be" alt="Belgium" /><span style="margin-left:15px">nl</span>
           <% end %>
         </li>
       <% end %>
       <% if current_language().to_s.exclude? "en" %>
         <li class="liFlag">
           <%= link_to params.merge({:locale => :en}), :class => "languageFlagLink" do %>
-            <img src="assets/flags/blank.png" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left:15px">en</span>
+            <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left:15px">en</span>
           <% end %>
         </li>
       <% end %>
@@ -142,12 +142,12 @@
                 <li class="bottom left hide-on-large-only">
                   <% if current_language().to_s.exclude? "nl" %>
                       <%= link_to params.merge({:locale => :nl}) do %>
-                         <img src="assets/flags/blank.png" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
+                         <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
                       <% end %>
                   <% end %>
                   <% if current_language().to_s.exclude? "en" %>
                       <%= link_to params.merge({:locale => :en}) do %>
-                        <img src="assets/flags/blank.png" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
+                        <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
                       <% end %>
                   <% end %>
                 </li>
@@ -160,12 +160,12 @@
                 <li class="bottom left hide-on-large-only">
                   <% if current_language().to_s.exclude? "nl" %>
                       <%= link_to params.merge({:locale => :nl}) do %>
-                         <img src="assets/flags/blank.png" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
+                         <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
                       <% end %>
                   <% end %>
                   <% if current_language().to_s.exclude? "en" %>
                       <%= link_to params.merge({:locale => :en}) do %>
-                        <img src="assets/flags/blank.png" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
+                        <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
                       <% end %>
                   <% end %>
                 </li>

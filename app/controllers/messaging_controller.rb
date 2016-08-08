@@ -1,4 +1,5 @@
 class MessagingController < ApplicationController
+  before_action :require_login
 
 	def index
 		if (params.has_key?(:notification))
@@ -7,13 +8,6 @@ class MessagingController < ApplicationController
 			update_message_array()
 			#set is_read-flag to true
 			set_messages_as_read()
-
-
-			# respond_to do |format|
-  	# 			response.content_type = :js
-			#  	format.html {render 'show.js.erb', :content_type => 'application/javascript' }
-		 #     	format.js { render 'show.js.erb' }
-			# end
 		else
 			@messages = Message.order(created_at: :desc).where("id = -1").paginate(:page => params[:page], :per_page => 10)
 		end
@@ -63,12 +57,6 @@ class MessagingController < ApplicationController
 	def create_message
 		message = Message.new(message_params)
 		message.from_user_id = current_user.id
-
-		# TO DO
-		# ATTEMPT TO RETRIEVE QUERYSTRING-value to get id of user to send message to!!!!
-		puts '-=-=-=-=-=-=-=-=-=-=-=-=-'
-		puts message.to_user_id
-		puts '-=-=-=-=-=-=-=-=-=-=-=-=-'
 
 		if @show_user.nil?
 			if message.to_user_id.nil?

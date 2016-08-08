@@ -428,4 +428,10 @@
         .closingIcon i:hover{
             color: #FF5B45;
         }
+
+        .bigplus-button{
+            background:url(bigplus.png) no-repeat center center; 
+            background-size: contain; 
+            height:100%
+        }
         /* ------- END GENERIC ------- */

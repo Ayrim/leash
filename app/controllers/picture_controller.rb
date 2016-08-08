@@ -1,4 +1,5 @@
 class PictureController < ApplicationController
+  before_action :require_login
 	
 
 	def set_user		
@@ -49,18 +50,8 @@ class PictureController < ApplicationController
 		end
 
 		if(params[:picture][:picture])
-		  	# Container exists => move on!
-		  	fileExtension = File.extname(params[:picture][:picture].original_filename)
-
-		  	fileName = current_user.id.to_s + '_' + SecureRandom.uuid + fileExtension
-			blobs = Azure::Blob::BlobService.new
-			content = File.open(params[:picture][:picture].tempfile.path, 'rb') { |file| file.read }
-			blob = blobs.create_block_blob("images", fileName, content)
-
-			#Blob has been uploaded
-			save_picture_path = 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
-			
-			@picture.url = save_picture_path
+      		# Upload image to Azure Blob Storage
+			@picture.url = uploadImageToAzure(params[:picture][:picture])
 
 			if(@picture.save)
 				#Save succeeded
@@ -79,7 +70,7 @@ class PictureController < ApplicationController
 			else
 				#Save failed
 				@showModal = true;
-				flash.now.alert = "Something went wrong uploaading the album. Please, try again later."
+				flash.now.alert = "Something went wrong uploading the album. Please, try again later."
 				respond_to do |format|
 					format.js { render 'images/show_alert.js.erb' }
 				end
@@ -87,6 +78,17 @@ class PictureController < ApplicationController
 		end	
 	end
 
+  	def uploadImageToAzure(param)
+	    fileExtension = File.extname(param.original_filename)
+
+	    fileName = current_user.id.to_s.to_s.rjust(3, "0") + '/' + SecureRandom.uuid + fileExtension
+	    blobs = Azure::Blob::BlobService.new
+	    content = File.open(param.tempfile.path, 'rb') { |file| file.read }
+	    blob = blobs.create_block_blob("images", fileName, content)
+
+	    #Blob has been uploaded
+	    return 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
+  	end
 
 	def edit
 		if (params.has_key?(:id))
@@ -94,7 +96,6 @@ class PictureController < ApplicationController
 			@current_album = Photoalbum.find_by(:id => @edit_picture.photoalbum_id)
 		end
 
-				LoadPhotoAlbums()
 		LoadPhotoAlbums()
 
 		respond_to do |format|
@@ -103,10 +104,6 @@ class PictureController < ApplicationController
 	end
 
 	def edit_picture
-		puts '-=-=-=-=-=-=-=-=-=-'
-		puts params
-		puts '-=-=-=-=-=-=-=-=-=-'
-
 		set_user()
 		if (params[:picture].has_key?(:id))
 			@edit_picture = Picture.find_by(:id => params[:picture][:id])
@@ -131,6 +128,17 @@ class PictureController < ApplicationController
 		picToRemove = Picture.find_by(:id =>params[:id])
 	
 	    if picToRemove.destroy
+	    	# remove picture from Azure:
+	    	begin
+		    	blobname = picToRemove.url.gsub('https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/', '')
+
+		    	azure_blob_service = Azure::Blob::BlobService.new
+		    	azure_blob_service.delete_blob("images", blobname)
+	    	rescue Exception => ex
+	    		puts " --- Failed to remove picture from Azure Blob Storage"
+	    		puts ex.message
+	    	end
+
 			LoadPhotosByAlbum(picToRemove.photoalbum_id)
 
 		    respond_to do |format|
@@ -152,26 +160,15 @@ class PictureController < ApplicationController
 	end
 
 	def LoadPhotosWithoutAlbum
-		if (params[:picture].has_key?(:existingAlbum))
-			albumid = params[:picture][:existingAlbum]
-			@current_album = Photoalbum.find_by(:id => albumid)
+		if(params[:picture].has_key?(:existingAlbum))
+			@photoswithoutalbum = Picture.joins(:photoalbum).where('photoalbums.id = ?', params[:picture][:existingAlbum]).order(created_at: :desc)
 		else
-			albumid = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album").pluck(:id)
+			@photoswithoutalbum = Picture.joins(:photoalbum).where('(user_id = ? and name = ?)', current_user.id, "No Album").order(created_at: :desc)
 		end
-		@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
 	end
 
 	def LoadPhotosByAlbum(albumid)
-		if(!albumid.nil?)
-			update_album = Photoalbum.find_by(:id => albumid)
-			if update_album.name == 'No Album'
-				@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
-			else
-				@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
-			end
-		else
-			@photoswithoutalbum = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)', current_user.id, "No Album").order(name: :asc)
-		end
+		@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
 	end
 
 	private
