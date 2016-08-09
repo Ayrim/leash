@@ -146,9 +146,26 @@ class ImagesController < ApplicationController
 	end
 
 	def destroy
+		set_user()
 		albumToRemove = Photoalbum.where("user_id = ? AND id = ?", current_user.id, params[:id]).first
 		
 		#TODO: remove the pictures from this album before removing the actual album
+		@picsToRemove = Picture.where(:photoalbum_id => albumToRemove.id)
+		@picsToRemove.each do |pic|
+			# remove picture from Azure:
+			if pic.destroy
+		    	begin
+			    	blobname = pic.url.gsub('https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/', '')
+
+			    	azure_blob_service = Azure::Blob::BlobService.new
+			    	azure_blob_service.delete_blob("images", blobname)
+
+		    	rescue Exception => ex
+		    		puts " --- Failed to remove picture from Azure Blob Storage"
+		    		puts ex.message
+		    	end
+	    	end
+		end
 
 	    if albumToRemove.destroy
 
@@ -157,7 +174,7 @@ class ImagesController < ApplicationController
 
 		    respond_to do |format|
 		      	format.html { redirect_to :controller => "images" , :action => "index" }
-			 	format.js { render 'images/create_upload_picture_album.js.erb' }
+			 	format.js { render 'images/show_updated_albums.js.erb' }
 		    end
 		else
 			#save failed

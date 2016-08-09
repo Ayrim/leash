@@ -22,16 +22,27 @@ class PictureController < ApplicationController
 					ownerId = Picture.joins(:photoalbum).where('pictures.id = ?', params[:id]).pluck(:user_id)
 					@owner = User.find_by(:id => ownerId)
 
-
 					#define if the current user is allowed to view this picture
 					if current_user.id == @owner.id
 						@show_picture = Picture.find_by(:id => params[:id])
+
+						#Retreive newer/older pictures of the same album and visibility-settings
+						@newerPictures = Picture.where('photoalbum_id = ? AND created_at > ?', @show_picture.photoalbum_id, @show_picture.created_at).order(created_at: :asc).limit(4)
+						@olderPictures = Picture.where('photoalbum_id = ? AND created_at < ?', @show_picture.photoalbum_id, @show_picture.created_at).order(created_at: :desc).limit(4)
 					elsif (current_user.connections.include?(@owner))
 						@show_picture = Picture.where('id = ? AND (visibility_id = ? OR visibility_id = ?)', params[:id], '2', '1').first
+
+						#Retreive newer/older pictures of the same album and visibility-settings
+						@newerPictures = Picture.where('(photoalbum_id = ? AND created_at > ?) AND (visibility_id = ? OR visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '2', '1').order(created_at: :asc).limit(4)
+						@olderPictures = Picture.where('(photoalbum_id = ? AND created_at < ?) AND (visibility_id = ? OR visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '2', '1').order(created_at: :desc).limit(4)
 					else
 						#not a connection
 						#check visibility-level of the picture if access is granted
 						@show_picture = Picture.where('id = ? AND (visibility_id = ?)', params[:id], '1').first
+
+						#Retreive newer/older pictures of the same album and visibility-settings
+						@newerPictures = Picture.where('(photoalbum_id = ? AND created_at > ?) AND (visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '1').order(created_at: :asc).limit(4)
+						@olderPictures = Picture.where('(photoalbum_id = ? AND created_at < ?) AND (visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '1').order(created_at: :desc).limit(4)
 					end
 				rescue PG::InvalidTextRepresentation
 					@showModal = true;
@@ -163,7 +174,7 @@ class PictureController < ApplicationController
 		if(params[:picture].has_key?(:existingAlbum))
 			@photoswithoutalbum = Picture.joins(:photoalbum).where('photoalbums.id = ?', params[:picture][:existingAlbum]).order(created_at: :desc)
 		else
-			@photoswithoutalbum = Picture.joins(:photoalbum).where('(user_id = ? and name = ?)', current_user.id, "No Album").order(created_at: :desc)
+			@photoswithoutalbum = Picture.joins(:photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?)', current_user.id, "No Album").order(created_at: :desc)
 		end
 	end
 

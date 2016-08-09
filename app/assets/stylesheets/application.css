@@ -419,13 +419,13 @@
 
 
         /* ------- GENERIC ------- */
-        .closingIcon i{
+        .closingIcon i, .moreInfoIcon i{
             margin-right: -10px;
             margin-top: -10px;
             font-size:0.8em;
         }
 
-        .closingIcon i:hover{
+        .closingIcon i:hover, .moreInfoIcon i:hover{
             color: #FF5B45;
         }
 

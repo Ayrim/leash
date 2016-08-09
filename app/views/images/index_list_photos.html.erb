@@ -1,7 +1,7 @@
 <div class="row">
     <% if !@photoswithoutalbum.nil? %>
         <% @photoswithoutalbum.each do |photo| %>
-            <div class="col s12 m4 l3">
+            <div class="col s6 m4 l3">
                 <%= link_to picture_path(photo) do %>
                     <div class="card z-depth-1 hoverable">
                         <div class="card-image waves-effect waves-block waves-light slider" style="max-height:20vh;">
@@ -11,7 +11,8 @@
                         </div>
                 <% end %>
                         <div class="card-content">
-                            <p class="truncate activator" style="cursor: pointer;"><%= photo.created_at.to_formatted_s(:long_ordinal) %><i class="material-icons right">more_vert</i></p>
+                            <div class="moreInfoIcon activator card-title"><i class="material-icons right">more_vert</i></div>
+                            <p class="truncate activator" style="cursor: pointer;"><%= photo.created_at.to_formatted_s(:long_ordinal) %></p>
                         </div>
                             <div class="card-reveal">
                                 <div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
@@ -49,7 +50,7 @@
     <% if !@show_user.nil? %>
         <% if current_user.id == @show_user.id %>
             <a href="#" onclick="javascript:ShowHideUploadPhoto(true)">
-                <div class="col s12 m4 l3">
+                <div class="col s6 m4 l3">
                     <div class="card z-depth-1 hoverable">
                         <div class="card-image waves-effect waves-block waves-light"  style="max-height:20vh; height:400px;" >
                             <div style="height:100%; width:auto;">

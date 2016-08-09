@@ -19,14 +19,46 @@
 
 	    <% if !@show_picture.nil? %>
 	        <div class="row">
-	        	<div class="col s12 m2" style="margin-top:15px;">
-	        		side-navigation to other images
+	        	<div id="mediumAndUpBeforeImages" class="col s12 m2 hide-on-small-only" style="margin-top:15px;">
+                    <% @newerPictures.each do |pic| %>
+	        			<%= link_to picture_path(pic) do %>
+			        		<div class="card-image waves-effect waves-block waves-light" style="background:url(<%= pic.url %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
+		                    </div>
+		                <% end %>
+	                <% end %>
+				</div>
+	        	<div id="smallBeforeImages" class="col s12 m2 hide-on-med-and-up" style="margin-top:15px; margin-bottom:-10px; padding:0; padding-right:1px;">
+	        		<% @newerPictures.each do |pic| %>
+	        			<%= link_to picture_path(pic) do %>
+				        	<div class="" style="float: right; display: inline-table; width: 24.7%; margin-right:0.3%; margin-bottom:0.3%">
+			                    <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= pic.url %>) no-repeat center center; height:4rem; width:auto; background-size: cover; margin:0.6%">
+			                	</div>
+			                </div>
+		                <% end %>
+	                <% end %>
 	        	</div>
-		        <div class="col col s12 m8" style="padding:0; margin-top:15px;">
-					<img class="materialboxed responsive-img" max-height="512" data-caption="<%= @show_picture.comment %>" src="<%= @show_picture.url %>">
+		        <div class="col col s12 m8 card" style="padding:0; margin-top:15px; margin-bottom:5px;text-align:center;">
+		        	<div style="display:inline-block;margin-bottom:-6px;">
+						<img class="materialboxed responsive-img" max-height="512" data-caption="<%= @show_picture.try(:comment) + ' ' %>" src="<%= @show_picture.url %>">
+					</div>
 		        </div>
-	        	<div class="col s12 m2" style="margin-top:15px;">
-	        		side-navigation to other images
+	        	<div id="mediumAndUpAfterImages" class="col s12 m2 hide-on-small-only" style="margin-top:15px;">
+	        		<% @olderPictures.each do |pic| %>
+	        			<%= link_to picture_path(pic) do %>
+			        		<div class="card-image waves-effect waves-block waves-light" style="background:url(<%= pic.url %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
+		                    </div>
+		                <% end %>
+	                <% end %>
+				</div>
+	        	<div id="smallAfterImages" class="col s12 m2 hide-on-med-and-up" style="margin-top:3px; padding:0;padding-left:1px;">
+		        	<% @olderPictures.each do |pic| %>
+	        			<%= link_to picture_path(pic) do %>
+				        	<div class="" style="float: left; display: inline-table; width: 24.7%; margin-right:0.3%; margin-bottom:0.3%">
+			                    <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= pic.url %>) no-repeat center center; height:4rem; width:auto; background-size: cover; margin:0.6%">
+			                	</div>
+			                </div>
+		                <% end %>
+	                <% end %>
 	        	</div>
 		    </div>
 		    <div class="row">
@@ -51,13 +83,33 @@
 			                </div>
 			            </div>
 			        </div>
-	                <div class="card-action row" style="padding:15px">
-	                	<div class="col s12">
-	                    	<p>
-	                    		<%= @show_picture.comment %>
-	                    	</p>
-	                    </div>
-	                </div>
+			        <% if !@show_picture.comment.blank? %>
+		                <div class="card-action row" style="padding:15px">
+		                	<div class="col s12">
+		                    	<p>
+		                    		<%= @show_picture.comment %>
+		                    	</p>
+		                    </div>
+		                </div>
+	                <% end %>
+	                <% if (current_user.id == @owner.id) || (current_user.connections.include?(@owner)) %>
+						<div class="card-action row" style="padding:5px">
+			            	<div class="col s12">
+			                	<p style="margin:0; font-size:0.9em;">
+			                		Album: 	
+		                    		<% if GetAlbumName(@show_picture.photoalbum_id) == 'No Album' %>
+		                    			<%= link_to images_path + "#Photos" do %>
+		                    				<%= GetAlbumName(@show_picture.photoalbum_id) %>
+		                    			<% end %>
+		                    		<% else %>
+		                    			<%= link_to images_path + "/" + @show_picture.photoalbum_id.to_s + "?uid=" + current_user.id.to_s do %>
+		                    				<%= GetAlbumName(@show_picture.photoalbum_id) %>
+		                    			<% end %>
+		                    		<% end %>
+			                    </p>
+			                </div>
+			            </div>
+		            <% end %>
 		        </div>
 			</div>
 		<% else %>
@@ -71,3 +123,9 @@
 
 	</div>
 </section>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+</script>
