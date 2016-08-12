@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="Rails leash: development" uuid="980ac80a-3b1c-4672-b9ee-8a143fa36816">
+    <data-source name="PostgreSQL - ayrton@localhost" uuid="ec912881-903f-45bc-9300-75382e1b8c87">
+      <secret-storage>master_key</secret-storage>
       <user-name>ayrton</user-name>
+      <introspection-scope>ayrton:public,pg_catalog,ayrton</introspection-scope>
+      <resolve-scope>ayrton:public,ayrton</resolve-scope>
     </data-source>
   </component>
 </project>
