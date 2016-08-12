@@ -41,7 +41,14 @@ class UsersController < ApplicationController
     else
       show_user = current_user;
     end
-    @Pictures = Picture.joins(:photoalbum).where('user_id = ?', show_user.id).order(created_at: :desc).limit(6)
+    if current_user.id == show_user.id
+      @Pictures = Picture.joins(:photoalbum).where('user_id = ?', show_user.id).order(created_at: :desc).limit(6)
+    elsif (current_user.connections.include?(show_user))
+      @Pictures = Picture.joins(:photoalbum).where('(user_id = ? AND (photoalbums.visibility_id = ? OR photoalbums.visibility_id = ?)) AND (pictures.visibility_id = ? OR pictures.visibility_id = ?)', show_user.id, '2', '1', '2', '1').order(created_at: :desc).limit(6)
+    else
+      @Pictures = Picture.joins(:photoalbum).where('(user_id = ? AND (photoalbums.visibility_id = ? = ?)) AND (pictures.visibility_id = ?)', show_user.id, '1', '1').order(created_at: :desc).limit(6)
+    end
+        
   end
 
 	def new
@@ -113,30 +120,17 @@ class UsersController < ApplicationController
     @preferences = Preference.all
     @experiences = Experience.all
 
-  #puts params
-  # TO DO:
-  # Save pictures to Azure Blob Storage or Amazon S3
-  # Save the link towards the uploaded picture for this user.
-    puts "COPYING PICTURE"
-    directory = "app/assets/images"
-    save_directory = "assets"
     save_banner_picture_path = ""
     save_profile_picture_path = ""
     if(params[:user][:profile_picture])
-      profile_picture_name = params[:user][:profile_picture].original_filename.gsub('[', '_').gsub(']', '_')
-      profile_picture_path = File.join(Rails.root, directory, profile_picture_name)
-      save_profile_picture_path = File.join(save_directory, profile_picture_name)
-      File.open(profile_picture_path, "wb") { |f| f.write(params[:user][:profile_picture].read) }
+      # Upload image to Azure Blob Storage
+      save_profile_picture_path = uploadImageToAzure(params[:user][:banner_picture])
     end
 
     if(params[:user][:banner_picture])
-      banner_picture_name = params[:user][:banner_picture].original_filename.gsub('[', '_').gsub(']', '_')
-      banner_picture_path = File.join(Rails.root, directory, banner_picture_name)
-      save_banner_picture_path = File.join(save_directory, banner_picture_name)
-      File.open(banner_picture_path, "wb") { |f| f.write(params[:user][:banner_picture].read) }
+      # Upload image to Azure Blob Storage
+      save_banner_picture_path = uploadImageToAzure(params[:user][:banner_picture])
     end
-    puts save_banner_picture_path
-    puts "END COPYING PICTURE"
 
 
     respond_to do |format|
@@ -148,6 +142,18 @@ class UsersController < ApplicationController
         format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def uploadImageToAzure(param)
+    fileExtension = File.extname(param.original_filename)
+
+    fileName = current_user.id.to_s.to_s.rjust(3, "0") + '/' + SecureRandom.uuid + fileExtension
+    blobs = Azure::Blob::BlobService.new
+    content = File.open(param.tempfile.path, 'rb') { |file| file.read }
+    blob = blobs.create_block_blob("images", fileName, content)
+
+    #Blob has been uploaded
+    return 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
   end
 
   def update_walker_profile
@@ -197,8 +203,8 @@ class UsersController < ApplicationController
     @experiences = Experience.all
     respond_to do |format|
       if(!current_user.address)
-        @city = City.find_by(name: params[:user][:address_attributes][:city_attributes][:name]);
-        @country = Country.find_by(name: params[:user][:address_attributes][:country_attributes][:name]);
+        @city = create_city(params[:user][:address_attributes][:city_attributes]);
+        @country = create_country(params[:user][:address_attributes][:country_attributes]);
         current_user.address = Address.new(:street => params[:user][:address_attributes][:street], 
                                             :number => params[:user][:address_attributes][:number],
                                             :numberAddition => params[:user][:address_attributes][:numberAddition],
@@ -208,17 +214,8 @@ class UsersController < ApplicationController
         current_user.update_attribute(:phone, params[:user][:phone]);
         format.html { render :editSettings }
       else
-        @city = City.find_by(name: params[:user][:address_attributes][:city_attributes][:name]);
-        if(!@city)
-          @city = City.new(:name => params[:user][:address_attributes][:city_attributes][:name],
-                            :postalcode => params[:user][:address_attributes][:city_attributes][:postalcode]);
-          @city.save
-        end
-        @country = Country.find_by(name: params[:user][:address_attributes][:country_attributes][:name]);
-        if(!@country)
-          @country = Country.new(:name => params[:user][:address_attributes][:country_attributes][:name]);
-          @country.save
-        end
+        @city = create_city(params[:user][:address_attributes][:city_attributes]);
+        @country = create_country(params[:user][:address_attributes][:country_attributes]);
 
         if ((current_user.update_attribute(:phone, params[:user][:phone]) if params[:user][:phone]) && (current_user.address.update_attribute(:street, params[:user][:address_attributes][:street]) if params[:user][:address_attributes][:street]) && (current_user.address.update_attribute(:number, params[:user][:address_attributes][:number]) if params[:user][:address_attributes][:number]) && (current_user.address.update_attribute(:numberAddition, params[:user][:address_attributes][:numberAddition]) if params[:user][:address_attributes][:numberAddition]) && (current_user.address.update_attribute(:city, @city) if @city) && (current_user.address.update_attribute(:country, @country) if @country))
           format.html { redirect_to edit_settings_path, notice: 'User was successfully updated.' }
@@ -231,12 +228,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def create_city(cityParams)
+    city = City.find_by(name: cityParams[:name]);
+    if(!city)
+      city = City.new(:name => cityParams[:name],
+                      :postalcode => cityParams[:postalcode]);
+      city.save
+    end
+    return city
+  end
+
+  def create_country(countryParams)
+    country = Country.find_by(name: countryParams[:name]);
+    if(!country)
+      country = Country.new(:name => countryParams[:name]);
+      country.save
+    end
+    return country
+  end
+
   def update_password
     @dontSetBodyHeight = true;
     #respond_to do |format|
-      puts params[:current_password]
-      puts params[:user][:password]
-      puts params[:user][:password_confirmation]
+      
       if(login(current_user.email, params[:current_password]))
         if(current_user.update_attributes(user_password_params))
           @showModal = true;

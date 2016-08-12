@@ -5,3 +5,5 @@ nl:
       selectcurrentalbum: "De foto zal worden toegevoegd aan het huidige album."
       albums: "Fotoalbums"
       noalbum: "Geen album"
+      selectvisibilityalbum: "Wie mag dit album bekijken?"
+      selectvisibilitypicture: "Wie mag deze afbeelding bekijken?"

@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
   before_action :set_user, only: [:index, :show, :LoadPhotoAlbums]
+  before_action :require_login
 
     def set_user		
     	# check if the page is being loaded for the current user or for a different user
@@ -42,27 +43,40 @@ class ImagesController < ApplicationController
 
 	def show
 		set_user()
-		@hideCreateAlbum = true
-		albumid = params[:id]
-		@current_album = Photoalbum.find_by(:id => albumid)
-		@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
+				
+		begin
+			@hideCreateAlbum = true
+			LoadPhotoAlbums()
+			if(params.has_key?(:id))
+				if(params[:id] != 'update_unreadmessages')
+					albumid = params[:id]
+					@current_album = Photoalbum.find_by(:id => albumid)
+					@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
+					
+					#LoadPhotoAlbums()
+					#LoadPhotosWithoutAlbum()
 
-		#LoadPhotoAlbums()
-		#LoadPhotosWithoutAlbum()
-
-		respond_to do |format|
-			format.html
-			format.js { render 'images/show_picturesInAlbum.js.erb' }
-		end
+					respond_to do |format|
+						format.html
+						format.js { render 'images/show_picturesInAlbum.js.erb' }
+					end
+				end
+			end
+		rescue PG::InvalidTextRepresentation
+			@showModal = true;
+			flash.now.alert = "Something went while retrieving the image. Please, try again later."
+			render action: :new
+	  	end
 	end
 
 	def create_photoalbum
-		puts '-=-=-=-=-=-=-=-'
-		puts params.to_json
-		puts '-=-=-=-=-=-=-=-'
+		#puts '-=-=-=-=-=-=-=-'
+		#puts params.to_json
+		#puts '-=-=-=-=-=-=-=-'
 
 		#TODO tags
 
+		set_user()
 		@albumphotos = Array.new()
 		album = Photoalbum.new(photoalbum_params)
 		if Photoalbum.where(:name => album.name, :user_id => current_user.id).count > 0
@@ -84,7 +98,8 @@ class ImagesController < ApplicationController
 				LoadPhotosWithoutAlbum()
 			 	
 			 	respond_to do |format|
-			 		format.js { render 'images/create_upload_picture_album.js.erb' }
+			 		#format.js { render 'images/create_upload_picture_album.js.erb' }
+			 		format.js { render 'images/show_updated_albums.js.erb' }
 			 	end
 			else
 				#save failed
@@ -113,9 +128,12 @@ class ImagesController < ApplicationController
 		set_user()
 		if (params[:photoalbum].has_key?(:id))
 			@edit_album = Photoalbum.where("user_id = ? AND id = ?", current_user.id, params[:photoalbum][:id]).first
-			
+
+			# Update the pictures in this album to match the visibility_id
+			@pictures_in_edit_album = Picture.joins(:photoalbum).where("user_id = ? AND photoalbums.id = ?", current_user.id, params[:photoalbum][:id]).first
+				
 		    respond_to do |format|
-		      if @edit_album.update(photoalbum_params)
+		      if (@edit_album.update(photoalbum_params) and (@pictures_in_edit_album.update_attribute(:visibility_id, params[:photoalbum][:visibility_id]) if params[:photoalbum][:visibility_id]))
 					LoadPhotoAlbums()
 
 		      		format.js { render 'images/show_updated_albums.js.erb' }
@@ -128,9 +146,26 @@ class ImagesController < ApplicationController
 	end
 
 	def destroy
+		set_user()
 		albumToRemove = Photoalbum.where("user_id = ? AND id = ?", current_user.id, params[:id]).first
 		
 		#TODO: remove the pictures from this album before removing the actual album
+		@picsToRemove = Picture.where(:photoalbum_id => albumToRemove.id)
+		@picsToRemove.each do |pic|
+			# remove picture from Azure:
+			if pic.destroy
+		    	begin
+			    	blobname = pic.url.gsub('https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/', '')
+
+			    	azure_blob_service = Azure::Blob::BlobService.new
+			    	azure_blob_service.delete_blob("images", blobname)
+
+		    	rescue Exception => ex
+		    		puts " --- Failed to remove picture from Azure Blob Storage"
+		    		puts ex.message
+		    	end
+	    	end
+		end
 
 	    if albumToRemove.destroy
 
@@ -139,7 +174,7 @@ class ImagesController < ApplicationController
 
 		    respond_to do |format|
 		      	format.html { redirect_to :controller => "images" , :action => "index" }
-			 	format.js { render 'images/create_upload_picture_album.js.erb' }
+			 	format.js { render 'images/show_updated_albums.js.erb' }
 		    end
 		else
 			#save failed
@@ -153,7 +188,13 @@ class ImagesController < ApplicationController
 
 	def LoadPhotoAlbums
 		if(params.has_key?(:uid))
-			@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)', @show_user.id, "No Album").order(name: :asc)
+			if current_user.id == @show_user.id
+				@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)', @show_user.id, "No Album").order(name: :asc)
+			elsif (current_user.connections.include?(@show_user))
+				@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)  AND (visibility_id = ? OR visibility_id = ?)', @show_user.id, "No Album", '2', '1').order(name: :asc)
+			else
+				@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)  AND (visibility_id = ?)', @show_user.id, "No Album", '1').order(name: :asc)
+			end
 		else
 			@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)', current_user.id, "No Album").order(name: :asc)
 		end
@@ -161,8 +202,13 @@ class ImagesController < ApplicationController
 
 	def LoadPhotosWithoutAlbum
 		if(params.has_key?(:uid))
-			albumid = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album").pluck(:id)
-			@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
+			if current_user.id == @show_user.id
+	    		@photoswithoutalbum = Picture.joins(:photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?)', @show_user.id, "No Album", ).order(created_at: :desc)
+			elsif (current_user.connections.include?(@show_user))
+				@photoswithoutalbum = Picture.joins(:photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?) AND (pictures.visibility_id = ? OR pictures.visibility_id = ?)', @show_user.id, "No Album", '2', '1').order(created_at: :desc)
+			else 
+	      		@photoswithoutalbum = Picture.joins(:photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?) AND (pictures.visibility_id = ?)', @show_user.id, "No Album", '1').order(created_at: :desc)
+			end
 		else
 			albumid = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album").pluck(:id)
 			@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
@@ -172,6 +218,6 @@ class ImagesController < ApplicationController
 	private
 
 		def photoalbum_params
-			params.require(:photoalbum).permit(:name, :user_id, :description)
+			params.require(:photoalbum).permit(:name, :user_id, :description, :visibility_id)
 		end
 end

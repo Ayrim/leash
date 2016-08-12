@@ -21,6 +21,9 @@
 
 nl:
   productname: "Leash"
+  public: "Publiek"
+  connections: "Enkel connecties"
+  private: "Privé"
   "true": "Ja"
   "false": "Nee"
   will_paginate:

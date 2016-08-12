@@ -1,4 +1,5 @@
 class PictureController < ApplicationController
+  before_action :require_login
 	
 
 	def set_user		
@@ -14,6 +15,42 @@ class PictureController < ApplicationController
 	end
 
 	def show
+		if(params.has_key?(:id))
+			if(params[:id] != 'update_unreadmessages')
+				begin
+					#define the owner of this picture
+					ownerId = Picture.joins(:photoalbum).where('pictures.id = ?', params[:id]).pluck(:user_id)
+					@owner = User.find_by(:id => ownerId)
+
+					#define if the current user is allowed to view this picture
+					if current_user.id == @owner.id
+						@show_picture = Picture.find_by(:id => params[:id])
+
+						#Retreive newer/older pictures of the same album and visibility-settings
+						@newerPictures = Picture.where('photoalbum_id = ? AND created_at > ?', @show_picture.photoalbum_id, @show_picture.created_at).order(created_at: :asc).limit(4)
+						@olderPictures = Picture.where('photoalbum_id = ? AND created_at < ?', @show_picture.photoalbum_id, @show_picture.created_at).order(created_at: :desc).limit(4)
+					elsif (current_user.connections.include?(@owner))
+						@show_picture = Picture.where('id = ? AND (visibility_id = ? OR visibility_id = ?)', params[:id], '2', '1').first
+
+						#Retreive newer/older pictures of the same album and visibility-settings
+						@newerPictures = Picture.where('(photoalbum_id = ? AND created_at > ?) AND (visibility_id = ? OR visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '2', '1').order(created_at: :asc).limit(4)
+						@olderPictures = Picture.where('(photoalbum_id = ? AND created_at < ?) AND (visibility_id = ? OR visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '2', '1').order(created_at: :desc).limit(4)
+					else
+						#not a connection
+						#check visibility-level of the picture if access is granted
+						@show_picture = Picture.where('id = ? AND (visibility_id = ?)', params[:id], '1').first
+
+						#Retreive newer/older pictures of the same album and visibility-settings
+						@newerPictures = Picture.where('(photoalbum_id = ? AND created_at > ?) AND (visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '1').order(created_at: :asc).limit(4)
+						@olderPictures = Picture.where('(photoalbum_id = ? AND created_at < ?) AND (visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '1').order(created_at: :desc).limit(4)
+					end
+				rescue PG::InvalidTextRepresentation
+					@showModal = true;
+					flash.now.alert = "Something went while retrieving the image. Please, try again later."
+					render action: :new
+			  	end
+		  	end
+		end
 	end
 
 	def create
@@ -23,21 +60,9 @@ class PictureController < ApplicationController
 			@picture.photoalbum_id = params[:picture][:photoalbum]
 		end
 
-		directory = "app/assets/images/pictures/" + current_user.id.to_s
-		
-		#Check if the directory exists and create it if it doesn't.
-		Dir.mkdir(directory) unless File.exists?(directory)	
-	    
-	    save_directory = "assets/pictures/" + current_user.id.to_s
-	    picture_path = ""
-	    save_picture_path = ""
 		if(params[:picture][:picture])
-      		picture_name = params[:picture][:picture].original_filename.gsub('[', '_').gsub(']', '_').gsub(' ', '_')
-     		picture_path = File.join(Rails.root, directory, picture_name)
-      		save_picture_path = File.join(save_directory, picture_name)
-      		File.open(picture_path, "wb") { |f| f.write(params[:picture][:picture].read) }
-
-			@picture.url = save_picture_path
+      		# Upload image to Azure Blob Storage
+			@picture.url = uploadImageToAzure(params[:picture][:picture])
 
 			if(@picture.save)
 				#Save succeeded
@@ -56,7 +81,7 @@ class PictureController < ApplicationController
 			else
 				#Save failed
 				@showModal = true;
-				flash.now.alert = "Something went wrong uploaading the album. Please, try again later."
+				flash.now.alert = "Something went wrong uploading the album. Please, try again later."
 				respond_to do |format|
 					format.js { render 'images/show_alert.js.erb' }
 				end
@@ -64,6 +89,17 @@ class PictureController < ApplicationController
 		end	
 	end
 
+  	def uploadImageToAzure(param)
+	    fileExtension = File.extname(param.original_filename)
+
+	    fileName = current_user.id.to_s.to_s.rjust(3, "0") + '/' + SecureRandom.uuid + fileExtension
+	    blobs = Azure::Blob::BlobService.new
+	    content = File.open(param.tempfile.path, 'rb') { |file| file.read }
+	    blob = blobs.create_block_blob("images", fileName, content)
+
+	    #Blob has been uploaded
+	    return 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
+  	end
 
 	def edit
 		if (params.has_key?(:id))
@@ -82,12 +118,12 @@ class PictureController < ApplicationController
 		set_user()
 		if (params[:picture].has_key?(:id))
 			@edit_picture = Picture.find_by(:id => params[:picture][:id])
-
+			orig_album_id = @edit_picture.try(:photoalbum_id)
 		    respond_to do |format|
 		    	# TODO: update tags as well.
-		      if [(@edit_picture.update_attribute(:comment, params[:picture][:comment]) if params[:picture][:comment])] 
-				
-				LoadPhotosByAlbum(@edit_picture.photoalbum_id)
+		      if ([(@edit_picture.update_attribute(:comment, params[:picture][:comment]) if params[:picture][:comment])] && [(@edit_picture.update_attribute(:photoalbum_id, params[:picture][:photoalbum]) if params[:picture][:photoalbum])] && [(@edit_picture.update_attribute(:visibility_id, params[:picture][:visibility_id]) if params[:picture][:visibility_id])] )
+
+				LoadPhotosByAlbum(orig_album_id)
 
 				format.js { render 'images/show_updated_picture.js.erb' }
 		      else
@@ -103,6 +139,17 @@ class PictureController < ApplicationController
 		picToRemove = Picture.find_by(:id =>params[:id])
 	
 	    if picToRemove.destroy
+	    	# remove picture from Azure:
+	    	begin
+		    	blobname = picToRemove.url.gsub('https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/', '')
+
+		    	azure_blob_service = Azure::Blob::BlobService.new
+		    	azure_blob_service.delete_blob("images", blobname)
+	    	rescue Exception => ex
+	    		puts " --- Failed to remove picture from Azure Blob Storage"
+	    		puts ex.message
+	    	end
+
 			LoadPhotosByAlbum(picToRemove.photoalbum_id)
 
 		    respond_to do |format|
@@ -124,31 +171,20 @@ class PictureController < ApplicationController
 	end
 
 	def LoadPhotosWithoutAlbum
-		if (params[:picture].has_key?(:existingAlbum))
-			albumid = params[:picture][:photoalbum]
-			@current_album = Photoalbum.find_by(:id => albumid)
+		if(params[:picture].has_key?(:existingAlbum))
+			@photoswithoutalbum = Picture.joins(:photoalbum).where('photoalbums.id = ?', params[:picture][:existingAlbum]).order(created_at: :desc)
 		else
-			albumid = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album").pluck(:id)
+			@photoswithoutalbum = Picture.joins(:photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?)', current_user.id, "No Album").order(created_at: :desc)
 		end
-		@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
 	end
 
 	def LoadPhotosByAlbum(albumid)
-		if(!albumid.nil?)
-			update_album = Photoalbum.find_by(:id => albumid)
-			if update_album.name == 'No Album'
-				@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
-			else
-				@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
-			end
-		else
-			@photoswithoutalbum = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)', current_user.id, "No Album").order(name: :asc)
-		end
+		@photoswithoutalbum = Picture.where('(photoalbum_id = ?)', albumid).order(created_at: :desc)
 	end
 
 	private
 
 		def picture_params
-			params.require(:picture).permit(:user_id, :comment, photoalbum: :string)
+			params.require(:picture).permit(:user_id, :comment, :visibility_id, photoalbum: :string)
 		end
 end

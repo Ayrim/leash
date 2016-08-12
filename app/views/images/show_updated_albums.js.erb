@@ -1,8 +1,11 @@
 
-$('#photoNoAlbumList').html('<%= escape_javascript(render template: "images/index_list_photos") %>');
+$('#photoalbumList').html('<%= escape_javascript(render template: "images/index_list_albums") %>');
 if ($('#edit_album_form').length > 0)
 	$('#edit_album_form')[0].reset();
+if ($('#picture_form').length > 0)
+	$('#picture_form')[0].reset();
 
+ShowHideCreateAlbum(false);
 ShowHideEditAlbum(false);
 
 $('.slider').slider();

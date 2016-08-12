@@ -55,3 +55,7 @@ gem 'remotipart', '~> 1.2'
 
 #endless scrolling wallposts
 gem 'will_paginate', '~> 3.0.7'
+
+#required to save to blob storage
+gem 'azure'
+#perform gem install azure to install on the machine

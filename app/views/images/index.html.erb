@@ -33,7 +33,7 @@
                     <% if current_user.id == @show_user.id %>
                         <% if @current_album.nil? %>
                             <div id="createNewAlbum" class="hidden tab-content row s12 grey lighten-4" style="padding-left:2em; padding-right:2em; padding-top:0.5em; display:none; margin-left:0px;margin-right:0px; ">
-                                <%= form_for(:photoalbum, :url => create_photoalbum_path, :remote => true, :html => { :id => 'album_form', :style => 'margin-bottom:15px;', :onsubmit => "document.getElementById('photoalbum_tags').value = GetChipsData();" }) do |album| %>
+                                <%= form_for(:photoalbum, :url => create_photoalbum_path, :remote => true, :html => { :id => 'album_form', :style => 'margin-bottom:15px;', :onsubmit => "document.getElementById('photoalbum_tags').value = GetChipsData();", :onkeypress => "return event.keyCode != 13;" }) do |album| %>
                                     <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
                                     <%= album.hidden_field :user_id, :value => current_user.id %>
                                     <div class="col s12 m6">
@@ -46,8 +46,12 @@
                                             <label for="photoalbum_description">Give your new album a description.</label>
                                         </div>
                                     </div>
-                                    <div class="col s12 m6">
+                                    <div class="col s12 m6" id="preferencefield">
                                         <div class="input-field col s12" style="margin-top:15px">
+                                            <%= album.select :visibility_id, options_for_select(Visibility.all.collect {|vis| [ translate_visibility(vis.value), vis.id ]}), :id => "visibility_id" %>
+                                            <label for="visibility_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectvisibilityalbum') %></label>
+                                        </div>
+                                        <div class="input-field col s12">
                                             <div class="chips photoalbumChips">
                                             </div>
                                             <%= album.hidden_field :tags %>
@@ -83,7 +87,7 @@
                 <% if !@show_user.nil? %>
                     <% if current_user.id == @show_user.id %>
                         <div id="uploadNewPhoto" class="tab-content col s12  grey lighten-4" style="padding-left:2em; padding-right:2em; padding-top:0.5em; display:none; margin-left:0px;margin-right:0px; ">
-                            <%= form_for(:picture, :url => create_picture_path, :remote => true, :html => { :id => 'picture_form' }) do |pic| %>
+                            <%= form_for(:picture, :url => create_picture_path, :remote => true, :html => { :id => 'picture_form', :onkeypress => "return event.keyCode != 13;" }) do |pic| %>
                             <div class="input-field col s12 m6">
                                 <div class="file-field input-field" style="margin-top: 0;">
                                     <div class="btn" style="display:inline-block; float:right;">
@@ -95,7 +99,7 @@
                                         <label for="upload_picture" class="">Select the photo to upload.</label>
                                     </div>
                                 </div>
-                                <div class="input-field col s12" id="preferencefield">
+                                <div class="input-field col s12" id="preferencefield" style="margin-top: 15px;">
                                     <% if @current_album.nil? %>
                                         <%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}), :id => "photoalbum_id" %>
                                         <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectalbum') %></label>
@@ -112,7 +116,11 @@
                                 </div>
                             </div>
 
-                            <div class="col s12 m6">
+                            <div class="col s12 m6" id="preferencefield">
+                                <div class="input-field col s12">
+                                    <%= pic.select :visibility_id, options_for_select(Visibility.all.collect {|vis| [ translate_visibility(vis.value), vis.id ]}, :selected => @edit_picture.try(:visibility_id)), :id => "visibility_id" %>
+                                    <label for="visibility_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectvisibilitypicture') %></label>
+                                </div>
                                 <div class="input-field col s12" style="margin-top:27px">
                                     <div class="chips photoChips">
                                     </div>

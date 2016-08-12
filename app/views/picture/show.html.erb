@@ -1,0 +1,131 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "wallpost", :media => "all" %>
+<%= stylesheet_link_tag "users", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "images", params[:controller], :media => "all" %>
+
+
+<!-- START CONTENT -->
+<section id="content" >
+    <!--start container-->
+    <div class="container">
+
+		<!-- Showing alerts  -->
+		<% if @showModal %>
+			<script type="text/javascript">
+				Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+			</script>
+		<% end %>
+        <!-- End Showing alerts  -->
+
+	    <% if !@show_picture.nil? %>
+	        <div class="row">
+	        	<div id="mediumAndUpBeforeImages" class="col s12 m2 hide-on-small-only" style="margin-top:15px;">
+                    <% @newerPictures.each do |pic| %>
+	        			<%= link_to picture_path(pic) do %>
+			        		<div class="card-image waves-effect waves-block waves-light" style="background:url(<%= pic.url %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
+		                    </div>
+		                <% end %>
+	                <% end %>
+				</div>
+	        	<div id="smallBeforeImages" class="col s12 m2 hide-on-med-and-up" style="margin-top:15px; margin-bottom:-10px; padding:0; padding-right:1px;">
+	        		<% @newerPictures.each do |pic| %>
+	        			<%= link_to picture_path(pic) do %>
+				        	<div class="" style="float: right; display: inline-table; width: 24.7%; margin-right:0.3%; margin-bottom:0.3%">
+			                    <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= pic.url %>) no-repeat center center; height:4rem; width:auto; background-size: cover; margin:0.6%">
+			                	</div>
+			                </div>
+		                <% end %>
+	                <% end %>
+	        	</div>
+		        <div class="col col s12 m8 card" style="padding:0; margin-top:15px; margin-bottom:5px;text-align:center;">
+		        	<div style="display:inline-block;margin-bottom:-6px;">
+						<img class="materialboxed responsive-img" max-height="512" data-caption="<%= @show_picture.try(:comment) + ' ' %>" src="<%= @show_picture.url %>">
+					</div>
+		        </div>
+	        	<div id="mediumAndUpAfterImages" class="col s12 m2 hide-on-small-only" style="margin-top:15px;">
+	        		<% @olderPictures.each do |pic| %>
+	        			<%= link_to picture_path(pic) do %>
+			        		<div class="card-image waves-effect waves-block waves-light" style="background:url(<%= pic.url %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
+		                    </div>
+		                <% end %>
+	                <% end %>
+				</div>
+	        	<div id="smallAfterImages" class="col s12 m2 hide-on-med-and-up" style="margin-top:3px; padding:0;padding-left:1px;">
+		        	<% @olderPictures.each do |pic| %>
+	        			<%= link_to picture_path(pic) do %>
+				        	<div class="" style="float: left; display: inline-table; width: 24.7%; margin-right:0.3%; margin-bottom:0.3%">
+			                    <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= pic.url %>) no-repeat center center; height:4rem; width:auto; background-size: cover; margin:0.6%">
+			                	</div>
+			                </div>
+		                <% end %>
+	                <% end %>
+	        	</div>
+		    </div>
+		    <div class="row">
+		    	<div id="profile-page-wall-post" class="card col s12 m8 offset-m2">
+	                <div class="card-profile-title">
+				    	<div class="row" style="padding-top:5px;padding-bottom:10px;">
+							<div class="col s1 circle responsive-img valign profile-post-uer-image" style="background: url(<%= load_user_avatar(@owner) %>) 50% 50% no-repeat; width: 50px; height: 50px; background-size:cover; margin-left: 10px; margin-top:5px;">                        
+			                </div>
+			                <div class="col s10 profile-post-name">
+			                	<% if @owner.id == current_user.id %>
+									<%= link_to settings_path do %>
+			                			<p class="grey-text text-darken-4 margin" style="padding-top:10px;margin-bottom:0px;"><%= @owner.firstname + ' ' + @owner.lastname %></p>
+	                                <% end %>
+	                            <% else %>
+	                                <%= link_to @owner do %>
+			                			<p class="grey-text text-darken-4 margin" style="padding-top:10px;margin-bottom:0px;"><%= @owner.firstname + ' ' + @owner.lastname %></p>
+			                		<% end %>
+			                	<% end %>
+			                	<% if !@show_picture.nil? %>
+			                    	<span class="grey-text text-darken-1 ultra-small"><%= @show_picture.created_at.to_formatted_s(:long_ordinal) %></span>
+			                    <% end %>
+			                </div>
+			            </div>
+			        </div>
+			        <% if !@show_picture.comment.blank? %>
+		                <div class="card-action row" style="padding:15px">
+		                	<div class="col s12">
+		                    	<p>
+		                    		<%= @show_picture.comment %>
+		                    	</p>
+		                    </div>
+		                </div>
+	                <% end %>
+	                <% if (current_user.id == @owner.id) || (current_user.connections.include?(@owner)) %>
+						<div class="card-action row" style="padding:5px">
+			            	<div class="col s12">
+			                	<p style="margin:0; font-size:0.9em;">
+			                		Album: 	
+		                    		<% if GetAlbumName(@show_picture.photoalbum_id) == 'No Album' %>
+		                    			<%= link_to images_path + "#Photos" do %>
+		                    				<%= GetAlbumName(@show_picture.photoalbum_id) %>
+		                    			<% end %>
+		                    		<% else %>
+		                    			<%= link_to images_path + "/" + @show_picture.photoalbum_id.to_s + "?uid=" + current_user.id.to_s do %>
+		                    				<%= GetAlbumName(@show_picture.photoalbum_id) %>
+		                    			<% end %>
+		                    		<% end %>
+			                    </p>
+			                </div>
+			            </div>
+		            <% end %>
+		        </div>
+			</div>
+		<% else %>
+	        <div class="row">
+	        	<div clas="coll s12 m8 offset-m2" style="text-align:center;">
+	        		<h2>Woops!</h2>
+	        		<p>It appears you are not allowed to view this image.</p>
+	        	</div>
+	        </div>
+		<% end %>
+
+	</div>
+</section>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+</script>

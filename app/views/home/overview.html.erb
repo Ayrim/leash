@@ -68,7 +68,8 @@
 				  <a href="#!" class="activator secondary-content"><i class="material-icons">view_headline</i></a>
 				</li>
 					<li class="card-reveal addition">
-					  <span class="card-title grey-text text-darken-4">Ayrton Vercruysse<i class="material-icons right">close</i></span>
+                                <div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
+					  <span class="card-title grey-text text-darken-4">Ayrton Vercruysse</span>
 					  <p>
 						<i style="line-height:24px;">Premium user</i><i class="material-icons right" style=" color:#ffc107;">star star star star_half star_border</i>
 						<br />
@@ -124,7 +125,8 @@
 				  <a href="#!" class="activator secondary-content"><i class="material-icons">view_headline</i></a>
 				</li>
 					<li class="card-reveal addition">
-					  <span class="card-title grey-text text-darken-4">Zara<i class="material-icons right">close</i></span>
+                      <div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
+					  <span class="card-title grey-text text-darken-4">Zara</span>
 					  <p><i>Unknown</i></p>
 						<div class="col s6 m6 offset-s3 offset-m3">
 							<img class="responsive-img" src="assets/lake-animals-dogs-pets.jpg" />
@@ -174,7 +176,8 @@
 				  <a href="#!" class="activator secondary-content"><i class="material-icons">view_headline</i></a>
 				</li>
 					<li class="card-reveal addition">
-					  <span class="card-title grey-text text-darken-4">Strand wandeling<i class="material-icons right">close</i></span>
+                      <div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
+					  <span class="card-title grey-text text-darken-4">Strand wandeling</span>
 					  <p>Google maps route.</p>
 					  <p class="routeInfo">
 						<i>Blankenberge</i><br />
@@ -197,7 +200,8 @@
 							  <p class="truncate"><%= post.message %></p>
 							</div>
 							<div class="card-reveal">
-							  <span class="card-title grey-text text-darken-4"><%= post.user.firstname + ' ' + post.user.lastname %><i class="material-icons right">close</i></span>
+                              <div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
+							  <span class="card-title grey-text text-darken-4"><%= post.user.firstname + ' ' + post.user.lastname %></span>
 							  <p><%= post.message %></p>
 							  <p class="userInfo">
 								<i><%= post.user.address.try(:city).name %></i><br />
@@ -209,66 +213,7 @@
 					</div>
 				<% end %>
 			</div>
-			<!-- <div class="col s12 m4">
-				<div class="card z-depth-1 hoverable">
-					<div class="card-image waves-effect waves-block waves-light">
-					  <img class="activator" src="assets/pexels-photo-10517.jpg">
-					</div>
-					<div class="card-content">
-					  <span class="card-title activator grey-text text-darken-4 truncate">Florence Compernolle<i class="material-icons right">more_vert</i></span>
-					  <p class="truncate">Description with the image. Look at this man, walking his dog.</p>
-					</div>
-					<div class="card-reveal">
-					  <span class="card-title grey-text text-darken-4">Florence Compernolle<i class="material-icons right">close</i></span>
-					  <p>Description with the image. Look at this man, walking his dog.</p>
-					  <p class="userInfo">
-						<i>Blankenberge</i><br />
-						<a href="#!" class="secondary-content"><i class="material-icons">view_headline</i></a>
-						<strong>Dog walker</strong>
-					  </p>
-					</div>
-				</div>
-			</div>
-			<div class="col s12 m4 hide-on-small-only">
-				<div class="card z-depth-1 hoverable">
-					<div class="card-image waves-effect waves-block waves-light">
-					  <img class="activator" src="assets/light-person-woman-night.jpg">
-					</div>
-					<div class="card-content">
-					  <span class="card-title activator grey-text text-darken-4 truncate">Maxim Braekman<i class="material-icons right">more_vert</i></span>
-					  <p class="truncate">Hey, isn't this the girl that is located at the login-screen as well??</p>
-					</div>
-					<div class="card-reveal">
-					  <span class="card-title grey-text text-darken-4">Maxim Braekman<i class="material-icons right">close</i></span>
-					  <p>Hey, isn't this the girl that is located at the login-screen as well??</p>
-					  <p class="userInfo">
-						<i>Blankenberge</i><br />
-						<a href="#!" class="secondary-content"><i class="material-icons">view_headline</i></a>
-						<strong>Dog owner/walker</strong>
-					  </p>
-					</div>
-				</div>
-			</div>
-			<div class="col s12 m4 hide-on-small-only">
-				<div class="card z-depth-1 hoverable">
-					<div class="card-image waves-effect waves-block waves-light">
-					  <img class="activator" src="assets/sunrise-666524_1920.jpg">
-					</div>
-					<div class="card-content">
-					  <span class="card-title activator grey-text text-darken-4 truncate">Ayrton Vercruysse<i class="material-icons right">more_vert</i></span>
-					  <p class="truncate">Lookie lookie, walking the dog on the beach.</p>
-					</div>
-					<div class="card-reveal">
-					  <span class="card-title grey-text text-darken-4">Ayrton Vercruysse<i class="material-icons right">close</i></span>
-					  <p>Lookie lookie, walking the dog on the beach.</p>
-					  <p class="userInfo">
-						<i>Blankenberge</i><br />
-						<a href="#!" class="secondary-content"><i class="material-icons">view_headline</i></a>
-						<strong>Dog owner</strong>
-					  </p>
-					</div>
-				</div>
-			</div> -->
+			
 			<div class="col s12 m12 l6">
 				<div class="card z-depth-1 hoverable">
 					<!--<div class="card-content">

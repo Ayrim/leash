@@ -28,8 +28,9 @@ Rails.application.configure do
     :port           => 587,
     :authentication => :plain,
     :user_name      => 'leashayrim@gmail.com',
-    :password       => 'Le@sh1989',
+    :password       => '**********',
     :domain         => 'gmail.com',
+      :authentication => :plain,
     :enable_starttls_auto => true
   }
 
@@ -57,4 +58,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  #Configuration for Azure Blob Storage
+  Azure.config.storage_account_name = "<your azure storage account>"
+  Azure.config.storage_access_key = "<your azure storage access key>"
 end

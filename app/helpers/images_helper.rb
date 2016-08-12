@@ -10,4 +10,8 @@ module ImagesHelper
 	def CollectLastPictures(albumname, albumId)
 		return Picture.where('(photoalbum_id = ?)', albumId).order(created_at: :desc).limit(3);
 	end
+
+	def GetAlbumName(albumId)
+		return Photoalbum.find_by(:id => albumId).name;
+	end
 end
