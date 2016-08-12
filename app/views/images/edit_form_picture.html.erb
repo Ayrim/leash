@@ -1,0 +1,54 @@
+<% if !@edit_picture.nil? %>
+	<div id="updatePicture" class="tab-content col s12  grey lighten-4" style="padding-left:2em; padding-right:2em; padding-top:0.5em; display:none; margin-left:0px;margin-right:0px; ">
+        <%= form_for(@edit_picture, :url => update_picture_path, :remote => true, :html => { :id => 'edit_album_form' }) do |pic| %>
+            <%= pic.hidden_field :id, :value => @edit_picture.id %>
+            <div class="input-field col s12 m6">
+            	<div class="file-field input-field" style="margin-top: 0;">
+                	<div class="btn" style="display:inline-block; float:right;">
+                    	<span>...</span>
+                        <%= pic.file_field :picture, :accept => "image/png,image/gif,image/jpeg" %>
+                    </div>
+                    <div class="file-path-wrapper">
+                    	<input id="upload_picture" class="file-path validate" type="text">
+                        <label for="upload_picture" class="">Select the photo to upload.</label>
+                    </div>
+                </div>
+                <div class="input-field col s12" id="preferencefield">
+                	<% if @current_album.nil? %>
+                    	<%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}), :id => "photoalbum_id" %>
+                        <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectalbum') %></label>
+                    <% else %>
+                    	<%= pic.hidden_field :photoalbum, :value => @current_album.id %>
+                        <%= pic.hidden_field :existingAlbum, :value => 1 %>
+                        <label id="photoalbum_id"><%= translate_photoalbum(@current_album.name) %></label>
+                        <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectcurrentalbum') %></label>
+                    <% end %>
+                </div>
+                <div class="input-field col s12" id="preferencefield" style="margin-top:45px">
+                	<%= pic.text_area :comment, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
+                	<% if !@edit_picture.try(:comment).blank? %>
+                   		<label for="photoalbum_description" class="active">Add some comments to your new picture.</label>
+                    <% else %>
+                   		<label for="photoalbum_description">Add some comments to your new picture.</label>
+                    <% end %>
+                </div>
+            </div>
+
+            <div class="col s12 m6">
+            	<div class="input-field col s12" style="margin-top:27px">
+                	<div class="chips photoChips">
+                    </div>
+                </div>
+            </div>
+
+        	<div class="col s12 m6 offset-m6">
+            	<div id="PostMessageButton" class="right-align">
+                	<i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
+                    	<input type="submit" name="commit" value="Save" id="updatePicture" class="waves-button-input">
+                    </i>
+                  	<a href="javascript:ShowHideEditPicture(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                </div>
+        	</div>
+    	<% end %>
+	</div>
+<% end %>

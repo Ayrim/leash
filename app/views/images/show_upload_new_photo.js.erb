@@ -1,0 +1,5 @@
+
+$('#photoNoAlbumList').html('<%= escape_javascript(render template: "images/index_list_photos") %>');
+ShowHideUploadPhoto(false);
+if ($('#picture_form').length > 0)
+	$('#picture_form')[0].reset();

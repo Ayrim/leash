@@ -1,14 +1,91 @@
-<div class="col s12">
-	<div class="row">
-		<% if !@albumphotos.nil? %>
-			<% @albumphotos.each do |photo| %>
-				<%= link_to "#showImage", :class => "modal-trigger" do %>                
-					<div class="" style="float: left; display: inline-table; width: 33%; margin-right:0.3%; margin-bottom:0.3%">
-						<div class="card-image waves-effect waves-block waves-light imageInAlbum" style="background:url(<%= photo.url %>) no-repeat center center; width:auto; background-size: cover; margin:0.6%">
-						</div>
-					</div>
-				<% end %>
-			<% end %>
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "users", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "images", params[:controller], :media => "all" %>
+
+<!-- START CONTENT -->
+<section id="content" >
+    <!--start container-->
+    <div class="container">
+
+		<!-- Showing alerts  -->
+		<% if @showModal %>
+			<script type="text/javascript">
+				Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+			</script>
 		<% end %>
-	</div>
-</div>
+        <!-- End Showing alerts  -->
+        
+        <div class="row" style="margin-top:15px;">
+            <ul class="tabs tab-profile z-depth-1 light-blue">
+                <li class="tab col s3">
+                    <a class="white-text waves-effect waves-light active" href="#AlbumPhotos"><i class="mdi-file-folder"></i> <%= @current_album.name %></a>
+                </li>
+            </ul>
+
+            <div id="AlbumPhotos">
+                <!-- Upload Photo-->
+                <% if !@show_user.nil? %>
+                    <% if current_user.id == @show_user.id %>
+                        <div id="uploadNewPhoto" class="tab-content col s12  grey lighten-4" style="padding-left:2em; padding-right:2em; padding-top:0.5em; display:none; margin-left:0px;margin-right:0px; ">
+                            <%= form_for(:picture, :url => create_picture_path, :remote => true, :html => { :id => 'picture_form' }) do |pic| %>
+                            <div class="input-field col s12 m6">
+                                <div class="file-field input-field" style="margin-top: 0;">
+                                    <div class="btn" style="display:inline-block; float:right;">
+                                        <span>...</span>
+                                        <%= pic.file_field :picture, :accept => "image/png,image/gif,image/jpeg" %>
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input id="upload_picture" class="file-path validate" type="text">
+                                        <label for="upload_picture" class="">Select the photo to upload.</label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12" id="preferencefield">
+                                    <% if @current_album.nil? %>
+                                        <%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}), :id => "photoalbum_id" %>
+                                        <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectalbum') %></label>
+                                    <% else %>
+                                        <%= pic.hidden_field :photoalbum, :value => @current_album.id %>
+                                        <%= pic.hidden_field :existingAlbum, :value => 1 %>
+                                        <label id="photoalbum_id"><%= translate_photoalbum(@current_album.name) %></label>
+                                        <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectcurrentalbum') %></label>
+                                    <% end %>
+                                </div>
+                                <div class="input-field col s12" id="preferencefield" style="margin-top:45px;">
+                                    <%= pic.text_area :comment, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
+                                    <label for="photoalbum_description">Add some comments to your new picture.</label>
+                                </div>
+                            </div>
+
+                            <div class="col s12 m6">
+                                <div class="input-field col s12" style="margin-top:27px">
+                                    <div class="chips photoChips">
+                                    </div>
+                                    <%= pic.hidden_field :tags %>
+                                </div>
+                            </div>
+
+                            <div class="col s12 m6 offset-m6">
+                                <div id="PostMessageButton" class="right-align">
+                                    <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
+                                        <input type="submit" name="commit" value="Upload" id="sendWallPost" class="waves-button-input">
+                                    </i>
+                                    <a href="javascript:ShowHideUploadPhoto(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                                </div>
+                            </div>
+                            <% end %>
+                        </div>
+                        <div id="EditPictureFormPlaceholder">
+                            <%= render template: "images/edit_form_picture" %>
+                        </div>
+                    <% end %>
+                <% end %>
+                
+                
+                <div id="photoNoAlbumList">
+                    <%= render template: "images/index_list_photos" %>
+        		</div>
+            </div>
+        </div>
+    </div>
+    <!--end container-->
+</section>

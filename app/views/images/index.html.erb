@@ -13,48 +13,138 @@
 				Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
 			</script>
 		<% end %>
+        <!-- End Showing alerts  -->
 
-        <div id="profile-page" class="section">
-            <div id="profile-page-content" class="row">
-                <!-- messaging-page-sidebar-->
-                <div id="profile-page-sidebar" class="col s12 m3">
-                	<!-- Show overview of connections -->
+        <div class="row" style="margin-top:15px;">
+            <ul class="tabs tab-profile z-depth-1 light-blue">
+                <li class="tab col s3">
+                    <a class="white-text waves-effect waves-light active" href="#Albums"><i class="mdi-file-folder"></i> Albums</a>
+                </li>
+                <% if @current_album.nil? %>
+                    <li class="tab col s3">
+                        <a class="white-text waves-effect waves-light" href="#Photos"><i class="mdi-image-camera-alt"></i> Foto's</a>
+                    </li>
+                <% end %>
+            </ul>
 
-                    <ul class="collection z-depth-1 with-header hoverable">
-                        <li class="collection-header collection-PictureHeader">
-                            <div class="card amber darken-2" style="box-shadow: none; border: none;">
-                                <div class="card-content white-text center-align">
-                                    <p class="card-title"><i class="mdi-image-camera-alt"></i> <%= @photoalbums.count %></p>
-                                    <p><%= I18n.t('views.images.albums') %></p>
+            <div id="Albums" class="tab-content col s12" style="padding-left:0px;padding-right:0px;">
+                <!-- Create album -->
+                <% if !@show_user.nil? %>
+                    <% if current_user.id == @show_user.id %>
+                        <% if @current_album.nil? %>
+                            <div id="createNewAlbum" class="hidden tab-content row s12 grey lighten-4" style="padding-left:2em; padding-right:2em; padding-top:0.5em; display:none; margin-left:0px;margin-right:0px; ">
+                                <%= form_for(:photoalbum, :url => create_photoalbum_path, :remote => true, :html => { :id => 'album_form', :style => 'margin-bottom:15px;', :onsubmit => "document.getElementById('photoalbum_tags').value = GetChipsData();" }) do |album| %>
+                                    <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
+                                    <%= album.hidden_field :user_id, :value => current_user.id %>
+                                    <div class="col s12 m6">
+                                        <div class="input-field col s12" style="margin-top:15px">
+                                            <%= album.text_field :name, :required => true %>
+                                            <label for="photoalbum_name">Give your new album a name.</label>
+                                        </div>
+                                        <div class="input-field col s12" style="margin-top:15px">
+                                            <%= album.text_area :description, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
+                                            <label for="photoalbum_description">Give your new album a description.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6">
+                                        <div class="input-field col s12" style="margin-top:15px">
+                                            <div class="chips photoalbumChips">
+                                            </div>
+                                            <%= album.hidden_field :tags %>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6 offset-m6">
+                                        <div id="PostMessageButton" class="right-align">
+                                            <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
+                                                <input type="submit" name="commit" value="Create" id="createPhotoalbum" class="waves-button-input">
+                                            </i>
+                                            <a href="javascript:ShowHideCreateAlbum(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                        <% end %>
+                        <div id="EditAlbumFormPlaceholder">
+                            <%= render template: "images/edit_form_album" %>
+                        </div>
+                    <% end %>
+                <% end %>
+
+
+                <!-- Showing albums  -->
+                <div id="photoalbumList">
+                    <%= render template: "images/index_list_albums" %>
+                </div>
+                <!-- End Showing albums  -->
+            </div>
+
+            <div id="Photos" class="tab-content col s12" style="padding-left:0px;padding-right:0px;">
+                <!-- Upload Photo-->
+                <% if !@show_user.nil? %>
+                    <% if current_user.id == @show_user.id %>
+                        <div id="uploadNewPhoto" class="tab-content col s12  grey lighten-4" style="padding-left:2em; padding-right:2em; padding-top:0.5em; display:none; margin-left:0px;margin-right:0px; ">
+                            <%= form_for(:picture, :url => create_picture_path, :remote => true, :html => { :id => 'picture_form' }) do |pic| %>
+                            <div class="input-field col s12 m6">
+                                <div class="file-field input-field" style="margin-top: 0;">
+                                    <div class="btn" style="display:inline-block; float:right;">
+                                        <span>...</span>
+                                        <%= pic.file_field :picture, :accept => "image/png,image/gif,image/jpeg" %>
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input id="upload_picture" class="file-path validate" type="text">
+                                        <label for="upload_picture" class="">Select the photo to upload.</label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12" id="preferencefield">
+                                    <% if @current_album.nil? %>
+                                        <%= pic.select :photoalbum, options_for_select(@photoalbums.collect {|album| [ translate_photoalbum(album.name), album.id ]}), :id => "photoalbum_id" %>
+                                        <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectalbum') %></label>
+                                    <% else %>
+                                        <%= pic.hidden_field :photoalbum, :value => @current_album.id %>
+                                        <%= pic.hidden_field :existingAlbum, :value => 1 %>
+                                        <label id="photoalbum_id"><%= translate_photoalbum(@current_album.name) %></label>
+                                        <label for="photoalbum_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectcurrentalbum') %></label>
+                                    <% end %>
+                                </div>
+                                <div class="input-field col s12" id="preferencefield">
+                                    <%= pic.text_area :comment, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
+                                    <label for="photoalbum_description">Add some comments to your new picture.</label>
                                 </div>
                             </div>
-                        </li>
 
-                        <div id="photoalbumList">
-                        	<%= render template: "images/index_list_albums" %>
-                    	</div>
-                    </ul>
+                            <div class="col s12 m6">
+                                <div class="input-field col s12" style="margin-top:27px">
+                                    <div class="chips photoChips">
+                                    </div>
+                                    <%= pic.hidden_field :tags %>
+                                </div>
+                            </div>
+
+                            <div class="col s12 m6 offset-m6">
+                                <div id="PostMessageButton" class="right-align">
+                                    <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
+                                        <input type="submit" name="commit" value="Upload" id="sendWallPost" class="waves-button-input">
+                                    </i>
+                                    <a href="javascript:ShowHideUploadPhoto(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                                </div>
+                            </div>
+                            <% end %>
+                        </div>
+                        <div id="EditPictureFormPlaceholder">
+                            <%= render template: "images/edit_form_picture" %>
+                        </div>
+                    <% end %>
+                <% end %>
+
+                <!-- Showing Photos without album  -->
+                <div id="photoNoAlbumList">
+                    <%= render template: "images/index_list_photos" %>
                 </div>
-
-                <div id="rightSection">
-                    <div class="col s12 m8">
-                    	<% if !@show_user.nil? %>
-	                    	<% if current_user.id == @show_user.id %>
-		                        <span id="AddAlbumOrPhoto">
-		                        	<%= render "images/index_upload_section" %>
-		                        </span>
-	                        <% end %>
-                        <% end %>
-
-                    	<div id="picturesInAlbum" style="margin-top:10px;">
-                    		<%= render template: "images/show" %>
-                    	</div>
-                    </div>
-                </div>
+                <!-- End Showing Photos without album  -->
             </div>
-        </div>
-	</div>
 
-	<!-- prepare modal to show image -->
-	<%= render "images/show_image" %>
+        </div>
+
+	</div>
+    <!--end container-->
 </section>

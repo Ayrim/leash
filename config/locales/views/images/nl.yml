@@ -2,5 +2,6 @@ nl:
   views: 
     images:
       selectalbum: "Selecteer een fotoalbum."
+      selectcurrentalbum: "De foto zal worden toegevoegd aan het huidige album."
       albums: "Fotoalbums"
       noalbum: "Geen album"
