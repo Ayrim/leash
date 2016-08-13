@@ -8,7 +8,7 @@
 
         <div id="profile-page" class="section">
             <!-- profile-page-header -->
-            <div id="profile-page-header" class="card">
+            <div id="profile-page-header" class="card hide-on-med-and-down">
                 <div class="card-image waves-effect waves-block waves-light showProfileDetails">
                     <% if $show_user.id != current_user.id %>
                         <% if !current_user.is_premium %>
@@ -108,6 +108,121 @@
                                 </div>
                                 <div class="card-content" style="padding: 10px; margin-top:-60px;">
                                     <a class="btn-floating btn-move-up waves-effect waves-light darken-2 right" href="javascript:ShowGeoLocation()" onclick="javascript:ShowGeoLocation()">
+                                        <i class="mdi-maps-pin-drop"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile version below -->
+            <div id="profile-page-header" class="card hide-on-large-only">
+                <div class="card-image waves-effect waves-block waves-light showProfileDetails" style="height:auto;max-height:250px;padding-bottom:40px;">
+                    <% if $show_user.id != current_user.id %>
+                        <% if !current_user.is_premium %>
+                            <% if current_user.connections.count >= 1 %>
+                                <% if !current_user.connections.include?($show_user) %>
+                                    <div class="center-align" style="position: absolute; top: 10px; right:10px; border-radius: 20px; width: auto; height: 37px; background-color:white; color:#36373B; z-index: 1; line-height:37px; margin-right: 2px;padding-left:20px; padding-right: 45px; box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); cursor:default;">
+                                        <%= I18n.t('views.user.show.becomepremium') %>
+                                    </div>
+                                    <div style="position: absolute; top: 10px; right:10px;">
+                                        <a class="btn-floating waves-effect waves-light grey lighten-1 right" style="margin: 0px !important;">
+                                            <i class="mdi-content-add"></i>
+                                        </a>
+                                    </div>
+                                <% end %>
+                            <% else %>
+                                <% if !current_user.connections.include?($show_user) %>
+                                    <div style="position: absolute; top: 10px; right:10px;">
+                                        <%= link_to "#{}", :class => 'btn-floating waves-effect waves-light darken-2 right', :style => 'margin: 0px !important;' do %>
+                                            <i class="mdi-content-add"></i>
+                                        <% end %>
+                                    </div>
+                                <% end %>
+                            <% end %>
+                        <% else %>
+                            <% if !current_user.connections.include?($show_user) %>
+                                <div style="position: absolute; top: 10px; right:10px;">
+                                    <%= link_to "#{}", :class => 'btn-floating waves-effect waves-light darken-2 right', :style => 'margin: 0px !important;' do %>
+                                        <i class="mdi-content-add"></i>
+                                    <% end %>
+                                </div>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                        <div class="col s1 center-align" style="position: absolute; bottom: 22px; right: 15px; z-index: 1;">
+                            <a class="btn-floating activator waves-effect waves-light darken-2 right showProfileDetails" style="margin:0px !important;">
+                                <i class="mdi-action-perm-identity"></i>
+                            </a>
+                        </div>
+                        <% if $show_user.id == current_user.id %>
+                            <div class="col s1 right-align editBtnHeader" style="position: absolute; bottom: 22px; right: 65px; z-index: 1;">
+                                <%= link_to edit_settings_path, :class => 'btn-floating waves-effect waves-light darken-2 right', :style => 'margin:0px !important;' do %>
+                                    <i class="mdi-image-edit"></i>
+                                <% end %>
+                            </div>
+                        <% end %>
+                    <figure class="card-profile-image circle z-depth-2 responsive-img activator showProfileDetails" style="background: url(<%= load_user_avatar($show_user) %>) 50% 50% no-repeat; width: 110px; height: 110px; background-size:cover; bottom: 20px !important; top:auto !important;">
+                    </figure>
+                    <img class="activator showProfileDetails" style="height:150px;" src="<%= load_user_banner($show_user) %>" alt="user background">
+                </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s7 personName" style="margin-left: 0px !important;">
+                            <h4 class="card-title grey-text text-darken-4" style="line-height:30px;">
+                                <%= $show_user.firstname + ' ' + $show_user.lastname %>
+                            </h4>
+                        </div>
+                        <div class="col s2 center-align">
+                            <h4 class="card-title grey-text text-darken-4" style="margin-bottom:0px;">0</h4>
+                            <p class="medium-small grey-text">Dogs</p>
+                        </div>
+                        <div class="col s2 center-align">
+                            <h4 class="card-title grey-text text-darken-4" style="margin-bottom:0px;">10+</h4>
+                            <p class="medium-small grey-text">Walking Experience</p>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left:10px; padding-top:10px;">
+                        <% if $show_user.is_premium %>
+                            <p class="medium-small grey-text"><%= I18n.t('views.user.show.premiumuser') %></p>
+                        <% elsif ($show_user.id == current_user.id) %>
+                            <p class="medium-small grey-text"><%= I18n.t('views.user.show.becomepremium1') %><a href="#"><%= I18n.t('views.user.show.becomepremium2') %></a><%= I18n.t('views.user.show.becomepremium3') %></p>
+                        <% end %>
+                    </div>
+                </div>
+                <div class="card-reveal" style="top: 99%">
+                    <div>
+                        <p>
+                            <span class="card-title grey-text text-darken-4 HideGoogleMapsTitle"><%= $show_user.firstname + ' ' + $show_user.lastname %> <i class="mdi-navigation-close right"></i></span>
+                            <% if $show_user.is_premium %>
+                                <span><i class="mdi-action-perm-identity cyan-text text-darken-2"></i> <%= I18n.t('views.user.show.premiumuser') %></span>
+                            <% end %>
+                        </p>
+                        <div>
+                            <p><%= $show_user.description %></p>
+                            <% if current_user.id == $show_user.id %>
+                                <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> <%= $show_user.phone %></p>
+                                <p><i class="mdi-communication-email cyan-text text-darken-2"></i> <%= $show_user.email %></p>
+                            <% end %>
+                            <% if current_user.id == $show_user.id || current_user.connections.include?($show_user) %>
+                            <p>
+                                <i class="mdi-social-cake cyan-text text-darken-2"></i>
+                                <% if $show_user.birthdate %>
+                                    <%= $show_user.birthdate.to_formatted_s(:long_ordinal) %>
+                                <% end %>
+                            </p>
+                            <% end %>
+                        </div>
+
+                        <div id="GoogleMapsDiv">
+                            <div class="card">
+                                <div class="card-image waves-block waves-light">
+                                    <div id="map-canvas-small" data-lat="51.312374" data-lng="3.132768" style="height:100%;"></div>
+                                </div>
+                                <div class="card-content" style="padding: 10px; margin-top:-60px;">
+                                    <a class="btn-floating btn-move-up waves-effect waves-light darken-2 right" style="margin:0px !important;" href="javascript:ShowGeoLocation()" onclick="javascript:ShowGeoLocation()">
                                         <i class="mdi-maps-pin-drop"></i>
                                     </a>
                                 </div>
@@ -259,12 +374,12 @@
                                     <div class="" style="float: left; display: inline-table; width: 33%; margin-right:0.3%; margin-bottom:0.3%">
                                         <% if conn.id == current_user.id %>
                                             <%= link_to settings_path do %>
-                                                <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= conn.profile_picture %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
+                                                <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= load_user_avatar(conn) %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
                                                 </div>
                                             <% end %>
                                         <% else %>
                                             <%= link_to conn do %>
-                                                <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= conn.profile_picture %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
+                                                <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= load_user_avatar(conn) %>) no-repeat center center; height:6rem; width:auto; background-size: cover; margin:0.6%">
                                                 </div>
                                             <% end %>
                                         <% end %>
@@ -547,25 +662,51 @@
         }
         var geocoder = new google.maps.Geocoder();
 
-        var map = new google.maps.Map(document.getElementById('map-canvas'), {
-            zoom: 13,
-            center: { lat: 51.309553, lng: 3.132350 },
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControl: false,
-            scrollwheel: true,
-            draggable: true,
-            zoomControl: true,
-            zoomControlOptions: {
-                position: google.maps.ControlPosition.RIGHT_TOP
-            },
-            streetViewControl: false,
-            styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
-            mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
-            navigationControl: false,
-            navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
-        });
+        if(document.getElementById('map-canvas') != undefined)
+        {
+            var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                zoom: 13,
+                center: { lat: 51.309553, lng: 3.132350 },
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                scrollwheel: true,
+                draggable: true,
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
+                streetViewControl: false,
+                styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
+                mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
+                navigationControl: false,
+                navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
+            });
 
-        geocodeAddress(address, geocoder, map);
+            geocodeAddress(address, geocoder, map);
+        }
+
+        if(document.getElementById('map-canvas-small') != undefined)
+        {
+            var smallMap = new google.maps.Map(document.getElementById('map-canvas-small'), {
+                zoom: 13,
+                center: { lat: 51.309553, lng: 3.132350 },
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                scrollwheel: true,
+                draggable: true,
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
+                streetViewControl: false,
+                styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
+                mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
+                navigationControl: false,
+                navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
+            });
+
+            geocodeAddress(address, geocoder, smallMap);
+        }
     };
 
 

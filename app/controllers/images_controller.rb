@@ -191,9 +191,9 @@ class ImagesController < ApplicationController
 			if current_user.id == @show_user.id
 				@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)', @show_user.id, "No Album").order(name: :asc)
 			elsif (current_user.connections.include?(@show_user))
-				@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)  AND (visibility_id = ? OR visibility_id = ?)', @show_user.id, "No Album", '2', '1').order(name: :asc)
+				@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album") + Photoalbum.joins(:visibility).where('(user_id = ? and name != ?)  AND (visibilities.value = ? OR visibilities.value = ?)', @show_user.id, "No Album", 'Connections', 'Public').order(name: :asc)
 			else
-				@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)  AND (visibility_id = ?)', @show_user.id, "No Album", '1').order(name: :asc)
+				@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', @show_user.id, "No Album") + Photoalbum.joins(:visibility).where('(user_id = ? and name != ?)  AND (visibilities.value = ?)', @show_user.id, "No Album", 'Public').order(name: :asc)
 			end
 		else
 			@photoalbums = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album") + Photoalbum.where('(user_id = ? and name != ?)', current_user.id, "No Album").order(name: :asc)
@@ -205,9 +205,9 @@ class ImagesController < ApplicationController
 			if current_user.id == @show_user.id
 	    		@photoswithoutalbum = Picture.joins(:photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?)', @show_user.id, "No Album", ).order(created_at: :desc)
 			elsif (current_user.connections.include?(@show_user))
-				@photoswithoutalbum = Picture.joins(:photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?) AND (pictures.visibility_id = ? OR pictures.visibility_id = ?)', @show_user.id, "No Album", '2', '1').order(created_at: :desc)
+				@photoswithoutalbum = Picture.joins(:visibility, :photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?) AND (visibilities.value = ? OR visibilities.value = ?)', @show_user.id, "No Album", 'Connections', 'Public').order("pictures.created_at desc")
 			else 
-	      		@photoswithoutalbum = Picture.joins(:photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?) AND (pictures.visibility_id = ?)', @show_user.id, "No Album", '1').order(created_at: :desc)
+	      		@photoswithoutalbum = Picture.joins(:visibility, :photoalbum).where('(photoalbums.user_id = ? and photoalbums.name = ?) AND (visibilities.value = ?)', @show_user.id, "No Album", 'Public').order("pictures.created_at desc")
 			end
 		else
 			albumid = Photoalbum.where('(user_id = ? and name = ?)', current_user.id, "No Album").pluck(:id)

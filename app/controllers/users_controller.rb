@@ -44,9 +44,9 @@ class UsersController < ApplicationController
     if current_user.id == show_user.id
       @Pictures = Picture.joins(:photoalbum).where('user_id = ?', show_user.id).order(created_at: :desc).limit(6)
     elsif (current_user.connections.include?(show_user))
-      @Pictures = Picture.joins(:photoalbum).where('(user_id = ? AND (photoalbums.visibility_id = ? OR photoalbums.visibility_id = ?)) AND (pictures.visibility_id = ? OR pictures.visibility_id = ?)', show_user.id, '2', '1', '2', '1').order(created_at: :desc).limit(6)
+      @Pictures = Picture.joins(:visibility).joins(:photoalbum).joins(:photoalbum => :visibility).where('(user_id = ? AND (visibilities_photoalbums.value = ? OR visibilities_photoalbums.value = ?)) AND (visibilities.value = ? OR visibilities.value = ?)', show_user.id, 'Connections', 'Public', 'Connections', 'Public').order("pictures.created_at desc").limit(6)
     else
-      @Pictures = Picture.joins(:photoalbum).where('(user_id = ? AND (photoalbums.visibility_id = ? = ?)) AND (pictures.visibility_id = ?)', show_user.id, '1', '1').order(created_at: :desc).limit(6)
+      @Pictures = Picture.joins(:visibility).joins(:photoalbum).joins(:photoalbum => :visibility).where('(user_id = ? AND (visibilities_photoalbums.value = ?)) AND (visibilities.value = ?)', show_user.id, 'Public', 'Public').order("pictures.created_at desc").limit(6)
     end
         
   end

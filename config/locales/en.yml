@@ -24,6 +24,10 @@ en:
   public: "Public"
   connections: "Connections"
   private: "Private"
+  cancel: "Cancel"
+  upload: "Upload"
+  create: "Create"
+  save: "Save"
   "true": "Yes"
   "false": "No"
   will_paginate:

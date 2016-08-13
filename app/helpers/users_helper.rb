@@ -9,11 +9,11 @@ module UsersHelper
 
 	def user_avatar()
 		if(!current_user)
-			return "assets/avatar_2x.png";
+			return asset_url("/assets/avatar_2x.png");
 		elsif(!current_user.profile_picture)
-			return "assets/avatar_2x.png";
+			return asset_url("/assets/avatar_2x.png");
 		elsif(current_user.profile_picture == "")
-			return "assets/avatar_2x.png";
+			return asset_url("/assets/avatar_2x.png");
 		else
 			return current_user.profile_picture;
 		end
@@ -21,11 +21,11 @@ module UsersHelper
 
 	def load_user_avatar(show_user)
 		if(!show_user)
-			return "../assets/avatar_2x.png";
+			return asset_url("/assets/avatar_2x.png");
 		elsif(!show_user.profile_picture)
-			return "../assets/avatar_2x.png";
+			return asset_url("/assets/avatar_2x.png");
 		elsif(show_user.profile_picture == "")
-			return "../assets/avatar_2x.png";
+			return asset_url("/assets/avatar_2x.png");
 		else
 			return show_user.profile_picture;
 		end
@@ -33,11 +33,11 @@ module UsersHelper
 
 	def user_banner()
 		if(!current_user)
-			return "assets/user-profile-bg.jpg";
+			return asset_url("assets/user-profile-bg.jpg");
 		elsif(!current_user.banner_picture)
-			return "assets/user-profile-bg.jpg";
+			return asset_url("assets/user-profile-bg.jpg");
 		elsif(current_user.banner_picture == "")
-			return "assets/user-profile-bg.jpg";
+			return asset_url("assets/user-profile-bg.jpg");
 		else
 			return current_user.banner_picture;
 		end
@@ -45,11 +45,11 @@ module UsersHelper
 
 	def load_user_banner(show_user)
 		if(!show_user)
-			return "../assets/user-profile-bg.jpg";
+			return asset_url("/assets/user-profile-bg.jpg");
 		elsif(!show_user.banner_picture)
-			return "../assets/user-profile-bg.jpg";
+			return asset_url("/assets/user-profile-bg.jpg");
 		elsif(show_user.banner_picture == "")
-			return "../assets/user-profile-bg.jpg";
+			return asset_url("/assets/user-profile-bg.jpg");
 		else
 			return show_user.banner_picture;
 		end

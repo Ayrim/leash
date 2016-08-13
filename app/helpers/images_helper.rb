@@ -14,4 +14,12 @@ module ImagesHelper
 	def GetAlbumName(albumId)
 		return Photoalbum.find_by(:id => albumId).name;
 	end
+
+	def GetCurrentLanguageTagHeader(albumOrPicture)
+		if (albumOrPicture == "Album")
+			return I18n.t('views.images.addalbumtags');
+		else 
+			return I18n.t('views.images.addpicturetags');
+		end
+	end
 end

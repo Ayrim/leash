@@ -64,16 +64,23 @@ function ShowHideEditPicture(visible)
 function resetTagsField()
 {
 	$('.chips').material_chip();
-    $('.photoalbumChips').html("<input class='input' placeholder='' name='photoalbum[tag]' id='photoalbum_tag' onfocus='SetActiveLabelAlbum();' onfocusout='SetInActiveLabelAlbum()'><label for='photoalbum_tag' id='album_tag_label'>Want to add any tags to your album?</label>");
+    $('.photoalbumChips').html("<input class='input' placeholder='' name='photoalbum[tag]' id='photoalbum_tag' onfocus='SetActiveLabelAlbum();' onfocusout='SetInActiveLabelAlbum()'><label for='photoalbum_tag' id='album_tag_label'>" + getAlbumTagHeader() + "</label>");
 
-    $('.editPhotoalbumChips').html("<input class='input' placeholder='' name='photoalbum[tag]' id='edit_photoalbum_tag' onfocus='SetActiveLabelEditAlbum();' onfocusout='SetInActiveLabelEditAlbum()'><label for='edit_photoalbum_tag' id='edit_album_tag_label'>Want to add any tags to your album?</label>");
+    $('.editPhotoalbumChips').html("<input class='input' placeholder='' name='photoalbum[tag]' id='edit_photoalbum_tag' onfocus='SetActiveLabelEditAlbum();' onfocusout='SetInActiveLabelEditAlbum()'><label for='edit_photoalbum_tag' id='edit_album_tag_label'>" + getAlbumTagHeader() + "</label>");
 
-    $('.photoChips').html("<input class='input' placeholder='' name='picture[tag]' id='picture_tag' onfocus='SetActiveLabelPhoto();' onfocusout='SetInActiveLabelPhoto()'><label for='picture_tag' id='picture_tag_label'>Want to add any tags to your picture?</label>");
+    $('.photoChips').html("<input class='input' placeholder='' name='picture[tag]' id='picture_tag' onfocus='SetActiveLabelPhoto();' onfocusout='SetInActiveLabelPhoto()'><label for='picture_tag' id='picture_tag_label'>" + getPictureTagHeader() + "</label>");
 
-    $('.editPhotoChips').html("<input class='input' placeholder='' name='picture[tag]' id='edit_picture_tag' onfocus='SetActiveLabelEditPhoto();' onfocusout='SetInActiveLabelEditPhoto()'><label for='edit_picture_tag' id='edit_picture_tag_label'>Want to add any tags to your picture?</label>");
-
+    $('.editPhotoChips').html("<input class='input' placeholder='' name='picture[tag]' id='edit_picture_tag' onfocus='SetActiveLabelEditPhoto();' onfocusout='SetInActiveLabelEditPhoto()'><label for='edit_picture_tag' id='edit_picture_tag_label'>" + getPictureTagHeader() + "</label>");
 }
 
+function getAlbumTagHeader()
+{
+    return '';
+}
+function getPictureTagHeader()
+{
+    return '';
+}
 function GetChipsData()
 {
 	return JSON.stringify($('.chips').material_chip('data'));

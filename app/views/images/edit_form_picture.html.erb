@@ -22,9 +22,9 @@
                 <div class="input-field col s12" id="preferencefield" style="margin-top:30px">
                 	<%= pic.text_area :comment, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
                 	<% if !@edit_picture.try(:comment).blank? %>
-                   		<label for="photoalbum_description" class="active">Add some comments to your new picture.</label>
+                   		<label for="photoalbum_description" class="active"><%= I18n.t('views.images.addphotocomment') %></label>
                     <% else %>
-                   		<label for="photoalbum_description">Add some comments to your new picture.</label>
+                   		<label for="photoalbum_description"><%= I18n.t('views.images.addphotocomment') %></label>
                     <% end %>
                 </div>
             </div>
@@ -43,9 +43,9 @@
         	<div class="col s12 m6 offset-m6">
             	<div id="PostMessageButton" class="right-align">
                 	<i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
-                    	<input type="submit" name="commit" value="Save" id="updatePicture" class="waves-button-input">
+                    	<input type="submit" name="commit" value="<%= I18n.t('save') %>" id="updatePicture" class="waves-button-input">
                     </i>
-                  	<a href="javascript:ShowHideEditPicture(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                  	<a href="javascript:ShowHideEditPicture(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style=""><%= I18n.t('cancel') %></a>
                 </div>
         	</div>
     	<% end %>

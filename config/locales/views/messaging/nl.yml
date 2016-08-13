@@ -1,0 +1,6 @@
+nl:
+  views: 
+    messaging:
+      post: "Verzenden"
+      sendnewmessage: "Zend een nieuw bericht..."
+      messages: "Berichten"

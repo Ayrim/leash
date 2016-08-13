@@ -32,13 +32,13 @@
                                 <p><%= photo.comment %></p>
                                 <p class="userInfo">
                                     <%= link_to picture_path(photo) do %>
-                                        <span>Show</span>
+                                        <span><%= I18n.t('views.images.showpicture') %></span>
                                     <% end %>
                                     <% if current_user.id == @show_user.id %>
                                         <span style="margin-right:10px;"></span>
-                                        <%= link_to "Edit", edit_picture_path(photo), :onclick => "document.body.scrollTop = document.documentElement.scrollTop = 0;", :remote => true %>
+                                        <%= link_to I18n.t('views.images.editpicture'), edit_picture_path(photo), :onclick => "document.body.scrollTop = document.documentElement.scrollTop = 0;", :remote => true %>
                                         <span style="margin-right:10px;"></span>
-                                        <%= link_to "Delete", {:controller => :picture, :action => 'destroy', :id => photo.id }, :method => :delete, data: { confirm: "Are you sure?" }, :remote => true %>
+                                        <%= link_to I18n.t('views.images.deletepicture'), {:controller => :picture, :action => 'destroy', :id => photo.id }, :method => :delete, data: { confirm: I18n.t('views.images.deletepicturesure') }, :remote => true %>
                                     <% end %>
                                 </p>
                             </div>
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="card-content">
-                            <p class="truncate">Foto toevoegen</p>
+                            <p class="truncate center"><%= I18n.t('views.images.addpicture') %></p>
                         </div>
                     </div>
                 </div>

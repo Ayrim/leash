@@ -30,19 +30,19 @@ class PictureController < ApplicationController
 						@newerPictures = Picture.where('photoalbum_id = ? AND created_at > ?', @show_picture.photoalbum_id, @show_picture.created_at).order(created_at: :asc).limit(4)
 						@olderPictures = Picture.where('photoalbum_id = ? AND created_at < ?', @show_picture.photoalbum_id, @show_picture.created_at).order(created_at: :desc).limit(4)
 					elsif (current_user.connections.include?(@owner))
-						@show_picture = Picture.where('id = ? AND (visibility_id = ? OR visibility_id = ?)', params[:id], '2', '1').first
+						@show_picture = Picture.joins(:visibility).where('pictures.id = ? AND (visibilities.value = ? OR visibilities.value = ?)', params[:id], 'Connections', 'Public').first
 
 						#Retreive newer/older pictures of the same album and visibility-settings
-						@newerPictures = Picture.where('(photoalbum_id = ? AND created_at > ?) AND (visibility_id = ? OR visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '2', '1').order(created_at: :asc).limit(4)
-						@olderPictures = Picture.where('(photoalbum_id = ? AND created_at < ?) AND (visibility_id = ? OR visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '2', '1').order(created_at: :desc).limit(4)
+						@newerPictures = Picture.joins(:visibility).where('(photoalbum_id = ? AND pictures.created_at > ?) AND (visibilities.value = ? OR visibilities.value = ?)', @show_picture.photoalbum_id, @show_picture.created_at, 'Connections', 'Public').order("pictures.created_at asc").limit(4)
+						@olderPictures = Picture.joins(:visibility).where('(photoalbum_id = ? AND pictures.created_at < ?) AND (visibilities.value = ? OR visibilities.value = ?)', @show_picture.photoalbum_id, @show_picture.created_at, 'Connections', 'Public').order("pictures.created_at desc").limit(4)
 					else
 						#not a connection
 						#check visibility-level of the picture if access is granted
-						@show_picture = Picture.where('id = ? AND (visibility_id = ?)', params[:id], '1').first
+						@show_picture = Picture.joins(:visibility).where('pictures.id = ? AND (visibilities.value = ?)', params[:id], 'Public').first
 
 						#Retreive newer/older pictures of the same album and visibility-settings
-						@newerPictures = Picture.where('(photoalbum_id = ? AND created_at > ?) AND (visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '1').order(created_at: :asc).limit(4)
-						@olderPictures = Picture.where('(photoalbum_id = ? AND created_at < ?) AND (visibility_id = ?)', @show_picture.photoalbum_id, @show_picture.created_at, '1').order(created_at: :desc).limit(4)
+						@newerPictures = Picture.joins(:visibility).where('(photoalbum_id = ? AND pictures.created_at > ?) AND (visibilities.value = ?)', @show_picture.photoalbum_id, @show_picture.created_at, 'Public').order("pictures.created_at asc").limit(4)
+						@olderPictures = Picture.joins(:visibility).where('(photoalbum_id = ? AND pictures.created_at < ?) AND (visibilities.value = ?)', @show_picture.photoalbum_id, @show_picture.created_at, 'Public').order("pictures.created_at desc").limit(4)
 					end
 				rescue PG::InvalidTextRepresentation
 					@showModal = true;

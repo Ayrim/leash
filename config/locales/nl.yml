@@ -24,6 +24,10 @@ nl:
   public: "Publiek"
   connections: "Enkel connecties"
   private: "Privé"
+  cancel: "Annuleren"
+  upload: "Uploaden"
+  create: "Aanmaken"
+  save: "Opslaan"
   "true": "Ja"
   "false": "Nee"
   will_paginate:

@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input id="upload_picture" class="file-path validate" type="text">
-                                        <label for="upload_picture" class="">Select the photo to upload.</label>
+                                        <label for="upload_picture" class=""><%= I18n.t('views.images.selectphoto') %></label>
                                     </div>
                                 </div>
                                 <div class="input-field col s12" id="preferencefield">
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="input-field col s12" id="preferencefield" style="margin-top:45px;">
                                     <%= pic.text_area :comment, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
-                                    <label for="photoalbum_description">Add some comments to your new picture.</label>
+                                    <label for="photoalbum_description"><%= I18n.t('views.images.addphotocomment') %></label>
                                 </div>
                             </div>
 
@@ -72,9 +72,9 @@
                             <div class="col s12 m6 offset-m6">
                                 <div id="PostMessageButton" class="right-align">
                                     <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
-                                        <input type="submit" name="commit" value="Upload" id="sendWallPost" class="waves-button-input">
+                                        <input type="submit" name="commit" value="<%= I18n.t('upload') %>" id="sendWallPost" class="waves-button-input">
                                     </i>
-                                    <a href="javascript:ShowHideUploadPhoto(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                                    <a href="javascript:ShowHideUploadPhoto(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style=""><%= I18n.t('cancel') %></a>
                                 </div>
                             </div>
                             <% end %>
@@ -94,3 +94,15 @@
     </div>
     <!--end container-->
 </section>
+
+
+<script type="text/javascript">
+function getAlbumTagHeader()
+{
+    return '<%= GetCurrentLanguageTagHeader("Album").to_s %>';
+}
+function getPictureTagHeader()
+{
+    return '<%= GetCurrentLanguageTagHeader("Picture").to_s %>';
+}
+</script>

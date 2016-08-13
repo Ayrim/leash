@@ -7,14 +7,14 @@
             <div class="col s12 m6">
                 <div class="input-field col s12" style="margin-top:15px">
                     <%= album.text_field :name, :required => true %>
-                    <label for="photoalbum_name" class="active">Give your new album a name.</label>
+                    <label for="photoalbum_name" class="active"><%= I18n.t('views.images.newalbumname') %></label>
                 </div>
                 <div class="input-field col s12" style="margin-top:15px">
                     <%= album.text_area :description, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
                     <% if !@edit_album.try(:description).blank? %>
-                        <label for="photoalbum_description" class="active">Give your new album a description.</label>
+                        <label for="photoalbum_description" class="active"><%= I18n.t('views.images.newalbumdescription') %></label>
                     <% else %>
-                        <label for="photoalbum_description">Give your new album a description.</label>
+                        <label for="photoalbum_description"><%= I18n.t('views.images.newalbumdescription') %></label>
                     <% end %>
                 </div>
             </div>
@@ -31,9 +31,9 @@
             <div class="col s12 m6 offset-m6">
                 <div id="PostMessageButton" class="right-align">
                     <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
-                        <input type="submit" name="commit" value="Save" id="editPhotoalbum" class="waves-button-input">
+                        <input type="submit" name="commit" value="<%= I18n.t('save') %>" id="editPhotoalbum" class="waves-button-input">
                     </i>
-                    <a href="javascript:ShowHideEditAlbum(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                    <a href="javascript:ShowHideEditAlbum(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style=""><%= I18n.t('cancel') %></a>
                 </div>
             </div>
         <% end %>

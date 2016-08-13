@@ -18,11 +18,11 @@
         <div class="row" style="margin-top:15px;">
             <ul class="tabs tab-profile z-depth-1 light-blue">
                 <li class="tab col s3">
-                    <a class="white-text waves-effect waves-light active" href="#Albums"><i class="mdi-file-folder"></i> Albums</a>
+                    <a class="white-text waves-effect waves-light active" href="#Albums"><i class="mdi-file-folder"></i> <%= I18n.t('views.images.albumsheader') %></a>
                 </li>
                 <% if @current_album.nil? %>
                     <li class="tab col s3">
-                        <a class="white-text waves-effect waves-light" href="#Photos"><i class="mdi-image-camera-alt"></i> Foto's</a>
+                        <a class="white-text waves-effect waves-light" href="#Photos"><i class="mdi-image-camera-alt"></i> <%= I18n.t('views.images.photosheader') %></a>
                     </li>
                 <% end %>
             </ul>
@@ -39,11 +39,11 @@
                                     <div class="col s12 m6">
                                         <div class="input-field col s12" style="margin-top:15px">
                                             <%= album.text_field :name, :required => true %>
-                                            <label for="photoalbum_name">Give your new album a name.</label>
+                                            <label for="photoalbum_name"><%= I18n.t('views.images.newalbumname') %></label>
                                         </div>
                                         <div class="input-field col s12" style="margin-top:15px">
                                             <%= album.text_area :description, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
-                                            <label for="photoalbum_description">Give your new album a description.</label>
+                                            <label for="photoalbum_description"><%= I18n.t('views.images.newalbumdescription') %></label>
                                         </div>
                                     </div>
                                     <div class="col s12 m6" id="preferencefield">
@@ -60,9 +60,9 @@
                                     <div class="col s12 m6 offset-m6">
                                         <div id="PostMessageButton" class="right-align">
                                             <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
-                                                <input type="submit" name="commit" value="Create" id="createPhotoalbum" class="waves-button-input">
+                                                <input type="submit" name="commit" value="<%= I18n.t('create') %>" id="createPhotoalbum" class="waves-button-input">
                                             </i>
-                                            <a href="javascript:ShowHideCreateAlbum(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                                            <a href="javascript:ShowHideCreateAlbum(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style=""><%= I18n.t('cancel') %></a>
                                         </div>
                                     </div>
                                 <% end %>
@@ -96,7 +96,7 @@
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input id="upload_picture" class="file-path validate" type="text">
-                                        <label for="upload_picture" class="">Select the photo to upload.</label>
+                                        <label for="upload_picture" class=""><%= I18n.t('views.images.selectphoto') %></label>
                                     </div>
                                 </div>
                                 <div class="input-field col s12" id="preferencefield" style="margin-top: 15px;">
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="input-field col s12" id="preferencefield">
                                     <%= pic.text_area :comment, :class => 'materialize-textarea', :length => '255', :maxlength => '255', :style => 'padding-top:0.5em' %>
-                                    <label for="photoalbum_description">Add some comments to your new picture.</label>
+                                    <label for="photoalbum_description"><%= I18n.t('views.images.addphotocomment') %></label>
                                 </div>
                             </div>
 
@@ -131,9 +131,9 @@
                             <div class="col s12 m6 offset-m6">
                                 <div id="PostMessageButton" class="right-align">
                                     <i class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">
-                                        <input type="submit" name="commit" value="Upload" id="sendWallPost" class="waves-button-input">
+                                        <input type="submit" name="commit" value="<%= I18n.t('upload') %>" id="sendWallPost" class="waves-button-input">
                                     </i>
-                                    <a href="javascript:ShowHideUploadPhoto(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style="">Cancel</a>
+                                    <a href="javascript:ShowHideUploadPhoto(false)" class="waves-effect waves-light btn btnProfilePost waves-input-wrapper" style=""><%= I18n.t('cancel') %></a>
                                 </div>
                             </div>
                             <% end %>
@@ -156,3 +156,15 @@
 	</div>
     <!--end container-->
 </section>
+
+
+<script type="text/javascript">
+function getAlbumTagHeader()
+{
+    return '<%= GetCurrentLanguageTagHeader("Album").to_s %>';
+}
+function getPictureTagHeader()
+{
+    return '<%= GetCurrentLanguageTagHeader("Picture").to_s %>';
+}
+</script>

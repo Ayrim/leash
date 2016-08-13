@@ -1,0 +1,6 @@
+en:
+  views: 
+    messaging:
+      post: "Post"
+      sendnewmessage: "Send a new message..."
+      messages: "Messages"
