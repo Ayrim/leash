@@ -434,4 +434,7 @@
             background-size: contain; 
             height:100%
         }
+        .card-reveal{
+            margin-top:-1px;
+        }
         /* ------- END GENERIC ------- */

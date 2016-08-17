@@ -1,0 +1,83 @@
+<% @pending_connections.each do |conn| %>
+	<div class="col s6 m4 l3">
+	    <div class="card z-depth-1 hoverable">
+	        <%= link_to conn do %>
+		        <div class="card-image waves-effect waves-block waves-light slider" style="max-height:20vh;">
+		            <div style="height:100%; width:auto;">
+		                <div class="card-image waves-effect waves-block waves-light" style="background:url(<%= load_user_avatar(conn) %>) no-repeat center center; background-size: cover; height:100%;">
+		                </div>
+		            </div>
+
+		        </div>
+	        <% end %>
+
+
+	        <div class="card-content" style="position:relative">
+				<%= link_to conn, :class => 'btn-floating waves-effect waves-light darken-2 right', :style => 'margin-top: -40px !important;float: left !important;' do %>
+					<% if @pending_outgoing_connections.include?(conn) %>
+						<i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+					<% elsif @pending_incoming_connections.include?(conn) %>
+						<i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+					<% end %>
+				<% end %>
+	            <div class="moreInfoIcon activator card-title"><i class="material-icons right">more_vert</i></div>
+	            <span class="card-title activator grey-text text-darken-4 truncate" style="font-size:1.6em;"><%= conn.firstname + ' ' + conn.lastname %></span>
+	            <% if @pending_outgoing_connections.include?(conn) %>
+	            	<p class="truncate">Your invitation has not yet been accepted.</p>
+	            <% elsif @pending_incoming_connections.include?(conn) %>
+	            	<p class="truncate">You have not yet accepted the invitation.</p>
+	            <% end %>
+	        </div>
+
+	        <div class="card-reveal">
+	            <div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
+	            <span class="card-title grey-text text-darken-4" style="font-size:1.3em;"><%= conn.firstname + ' ' + conn.lastname %></span>
+
+	            <p class="hide-on-med-and-up" style="margin-top:0px;">
+	                <i class="material-icons" style="color:#ffc107; font-size:1.3em;">star star star star_half star_border</i>
+	            </p>
+	            <p class="hide-on-small-only" style="margin-top:-8px">
+	                <% if conn.is_premium %>
+	                	<i style="line-height:24px;">Premium user</i>
+	                <% end %>
+	                <i class="material-icons" style="color:#ffc107; margin-top:10px;">star star star star_half star_border</i>
+	            </p>
+
+	            <% if @pending_outgoing_connections.include?(conn) %>
+	            	<p><i>Your invitation has not yet been accepted.</i></p>
+	            <% elsif @pending_incoming_connections.include?(conn) %>
+	            	<p><i>You have not yet accepted the invitation.</i></p>
+	            <% end %>
+
+	            <p class="connectionInfo hide-on-small-only">
+	                <i><%= conn.address.try(:city).name %></i><br />
+	                <%= link_to conn, :class => "secondary-content" do %>
+	                	<i class="material-icons">view_headline</i>
+	                <% end %>
+	                <strong>Distance: 0.23 km</strong>
+	                <% if current_user.id == @show_user.id %>
+		                <br />
+		                <% if @pending_outgoing_connections.include?(conn) %>
+		                	<%= link_to "Retract invitation", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to retract this invitation?' }, :remote => true %>
+		                <% elsif @pending_incoming_connections.include?(conn) %>
+		                	<%= link_to "Accept", accept_invitation_path(conn) %>
+		                	<span style="margin-right:10px;"></span>
+		                	<%= link_to "Refuse", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to retract this invitation?' }, :remote => true %>
+		                <% end %>
+	                <% end %>
+	            </p>
+	            <p class="connectionInfoSmall hide-on-med-and-up center-align">
+	                <% if current_user.id == @show_user.id %>
+		                <% if @pending_outgoing_connections.include?(conn) %>
+		                	<%= link_to "Withdraw", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to withdraw this invitation?' }, :class => "waves-effect waves-light btn", :remote => true %>
+		                <% elsif @pending_incoming_connections.include?(conn) %>
+		                	<%= link_to "Accept", accept_invitation_path(conn), :class => "waves-effect waves-light btn", :style => "margin-bottom:5px;", :remote => true %>
+
+		                	<%= link_to "Refuse", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to refus this invitation?' }, :class => "waves-effect waves-light btn", :remote => true %>
+		                <% end %>
+	                <% end %>
+	            </p>
+	        </div>
+	    </div>
+	</div>
+<% end %>

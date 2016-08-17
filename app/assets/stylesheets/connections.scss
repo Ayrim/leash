@@ -1,0 +1,13 @@
+// Place all the styles related to the connections controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.connectionInfo, .connectionInfoSmall{
+	position:absolute;
+	bottom:0px;
+	left:20px;
+	width:85%;
+}
+.connectionInfoSmall{
+	left:15px;
+}

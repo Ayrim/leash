@@ -24,9 +24,18 @@
                                     </div>
                                 <% end %>
                             <% else %>
-                                <% if !current_user.connections.include?($show_user) %>
+                                <% if current_user.pending_connections.include?($show_user) %>
+                                    <div class="center-align" style="position: absolute; top: 10px; right:10px; border-radius: 20px; width: auto; height: 37px; background-color:white; color:#36373B; z-index: 1; line-height:37px; margin-right: 2px;padding-left:20px; padding-right: 45px; box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); cursor:default;">
+                                        An invitation with this user is pending.
+                                    </div>
                                     <div style="position: absolute; top: 10px; right:10px;">
-                                        <%= link_to "#{}", :class => 'btn-floating waves-effect waves-light darken-2 right' do %>
+                                        <a class="btn-floating waves-effect waves-light grey lighten-1 right">
+                                            <i class="mdi-content-add"></i>
+                                        </a>
+                                    </div>
+                                <% elsif !current_user.connections.include?($show_user) %>
+                                    <div style="position: absolute; top: 10px; right:10px;">
+                                        <%= link_to send_invitation_path($show_user), :class => 'btn-floating waves-effect waves-light darken-2 right', :remote => true do %>
                                             <i class="mdi-content-add"></i>
                                         <% end %>
                                     </div>
@@ -35,7 +44,7 @@
                         <% else %>
                             <% if !current_user.connections.include?($show_user) %>
                                 <div style="position: absolute; top: 10px; right:10px;">
-                                    <%= link_to "#{}", :class => 'btn-floating waves-effect waves-light darken-2 right' do %>
+                                    <%= link_to send_invitation_path($show_user), :class => 'btn-floating waves-effect waves-light darken-2 right', :remote => true do %>
                                         <i class="mdi-content-add"></i>
                                     <% end %>
                                 </div>
@@ -134,9 +143,18 @@
                                     </div>
                                 <% end %>
                             <% else %>
-                                <% if !current_user.connections.include?($show_user) %>
+                                <% if current_user.pending_connections.include?($show_user) %>
+                                    <div class="center-align" style="position: absolute; top: 10px; right:10px; border-radius: 20px; width: auto; height: 37px; background-color:white; color:#36373B; z-index: 1; line-height:37px; margin-right: 2px;padding-left:20px; padding-right: 45px; box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); cursor:default;">
+                                        An invitation with this user is pending.
+                                    </div>
                                     <div style="position: absolute; top: 10px; right:10px;">
-                                        <%= link_to "#{}", :class => 'btn-floating waves-effect waves-light darken-2 right', :style => 'margin: 0px !important;' do %>
+                                        <a class="btn-floating waves-effect waves-light grey lighten-1 right" style="margin: 0px !important;">
+                                            <i class="mdi-content-add"></i>
+                                        </a>
+                                    </div>
+                                <% elsif !current_user.connections.include?($show_user) %>
+                                    <div style="position: absolute; top: 10px; right:10px;">
+                                        <%= link_to send_invitation_path($show_user), :class => 'btn-floating waves-effect waves-light darken-2 right', :style => 'margin: 0px !important;' do %>
                                             <i class="mdi-content-add"></i>
                                         <% end %>
                                     </div>
@@ -145,7 +163,7 @@
                         <% else %>
                             <% if !current_user.connections.include?($show_user) %>
                                 <div style="position: absolute; top: 10px; right:10px;">
-                                    <%= link_to "#{}", :class => 'btn-floating waves-effect waves-light darken-2 right', :style => 'margin: 0px !important;' do %>
+                                    <%= link_to send_invitation_path($show_user), :class => 'btn-floating waves-effect waves-light darken-2 right', :style => 'margin: 0px !important;' do %>
                                         <i class="mdi-content-add"></i>
                                     <% end %>
                                 </div>
@@ -361,12 +379,25 @@
                     <!-- Connections  -->
                     <ul class="collection z-depth-1 with-header hoverable">
                         <li class="collection-header collection-PictureHeader">
-                            <div class="card amber darken-2" style="box-shadow: none; border: none;">
-                                <div class="card-content white-text center-align">
-                                    <p class="card-title"><i class="mdi-social-group-add"></i> <%= $show_user.connections.count %></p>
-                                    <p><%= I18n.t('views.user.connections') %></p>
-                                </div>
-                            </div>
+                            <% if current_user.id == $show_user.id %>
+                                <%= link_to connections_path do %>
+                                    <div class="card amber darken-2" style="box-shadow: none; border: none;">
+                                        <div class="card-content white-text center-align">
+                                            <p class="card-title"><i class="mdi-social-group-add"></i> <%= $show_user.connections.count %></p>
+                                            <p><%= I18n.t('views.user.connections') %></p>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            <% else %>
+                                <%= link_to connections_show_path(:uid => $show_user.id) do %>
+                                    <div class="card amber darken-2" style="box-shadow: none; border: none;">
+                                        <div class="card-content white-text center-align">
+                                            <p class="card-title"><i class="mdi-social-group-add"></i> <%= $show_user.connections.count %></p>
+                                            <p><%= I18n.t('views.user.connections') %></p>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            <% end %>
                         </li>
                         <li class="collection-item">
                             <div class="row">

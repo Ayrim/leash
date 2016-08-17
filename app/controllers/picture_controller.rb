@@ -46,7 +46,7 @@ class PictureController < ApplicationController
 					end
 				rescue PG::InvalidTextRepresentation
 					@showModal = true;
-					flash.now.alert = "Something went while retrieving the image. Please, try again later."
+					flash.now.alert = "Something went wrong while retrieving the image. Please, try again later."
 					render action: :new
 			  	end
 		  	end

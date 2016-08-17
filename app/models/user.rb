@@ -17,10 +17,16 @@ class User < ActiveRecord::Base
 	belongs_to :preference
 	belongs_to :experience
 
-	has_many :user_1_connections, :foreign_key => :user_1_id, :class_name => 'Connection'
+	has_many :user_1_connections, -> { where "connections.is_pending = false" }, :foreign_key => :user_1_id, :class_name => 'Connection'
 	has_many :one_connections, :through => :user_1_connections, :source => :user_2
-	has_many :user_2_connections, :foreign_key => :user_2_id, :class_name => 'Connection'
+	has_many :user_2_connections, -> { where "connections.is_pending = false" }, :foreign_key => :user_2_id, :class_name => 'Connection'
 	has_many :two_connections, :through => :user_2_connections, :source => :user_1
+
+	has_many :user_1_pending_connections, -> { where "connections.is_pending = true" }, :foreign_key => :user_1_id, :class_name => 'Connection'
+	has_many :one_pending_connections, :through => :user_1_pending_connections, :source => :user_2
+	has_many :user_2_pending_connections, -> { where "connections.is_pending = true" }, :foreign_key => :user_2_id, :class_name => 'Connection'
+	has_many :two_pending_connections, :through => :user_2_pending_connections, :source => :user_1
+
 
 	has_many :photoalbum
 
@@ -31,6 +37,17 @@ class User < ActiveRecord::Base
 
   	def connections
   		(one_connections + two_connections).flatten.uniq
+  	end
+
+  	def pending_connections
+  		(one_pending_connections + two_pending_connections).flatten.uniq
+  	end
+
+  	def pending_outgoing_connections
+  		(one_pending_connections).flatten.uniq
+  	end
+  	def pending_incoming_connections
+  		(two_pending_connections).flatten.uniq
   	end
 
 	# Returns the hash digest of the given string.

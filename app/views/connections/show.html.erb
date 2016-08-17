@@ -1,0 +1,52 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "connections", :media => "all" %>
+<%= stylesheet_link_tag "users", params[:controller], :media => "all" %>
+
+
+<!-- START CONTENT -->
+<section id="content" >
+    <!--start container-->
+    <div class="container">
+
+		<!-- Showing alerts  -->
+		<% if @showModal %>
+			<script type="text/javascript">
+				Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+			</script>
+		<% end %>
+        <!-- End Showing alerts  -->
+
+        <% if !@show_user.nil? %>
+	        <div class="row" style="margin-top:15px;">
+	            <ul class="tabs tab-profile z-depth-1 light-blue">
+	                <li class="tab col s3">
+	                    <a class="white-text waves-effect waves-light active" href="#ExistingConnections"><i class="fa fa-users"></i> Connections</a>
+	                </li>
+					<li class="tab col s3">
+	                	<a class="white-text waves-effect waves-light" href="#PendingConnections"><i class="fa fa-user-plus"></i> <span id="pendingConnectionsTitle">Pending
+	                		<% if @pending_connections.count > 0 %> (<%= @pending_connections.count %>)<% end %></span>
+	                	</a>
+	                </li>
+	            </ul>
+
+	            <div id="ExistingConnections" class="tab-content row" style="padding-left:0px;padding-right:0px;">
+	            	<%= render template: "connections/show_connections" %>
+	            </div>
+
+	            <div id="PendingConnections" class="tab-content row" style="padding-left:0px;padding-right:0px;">
+	            	<%= render template: "connections/show_pending_connections" %>
+	            </div>
+            <% else %>
+		        <div class="row">
+		        	<div clas="coll s12 m8 offset-m2" style="text-align:center;">
+		        		<h2>Woops!</h2>
+		        		<p>
+		        			It appears we were unable to retrieve this user's connections.<br /> 
+		        			If this problems keeps returning, please give us a bark!
+		        		</p>
+		        	</div>
+		        </div>
+            <% end %>
+        </div>
+	</div>
+</section>

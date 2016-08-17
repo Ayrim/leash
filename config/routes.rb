@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'connections/show'
+
   get 'password_resets' => 'password_resets#new', :as => :new_reset_password
   get 'password_resets' => 'password_resets#edit', :as => :edit_reset_password
 
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
   resources :messaging
   resources :images
   resources :picture
+  resources :connections
 
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
@@ -27,11 +30,15 @@ Rails.application.routes.draw do
   patch 'update_password' => 'users#update_password', :as => :update_password
   get 'profile' => 'users#show', :as => :settings
   get 'edit_profile' => 'users#editSettings', :as => :edit_settings
+  get 'send_invitation/:id' => 'users#send_invitation', :as => :send_invitation
   #post 'settings' => 'users#settings_post'
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview
   get 'messaging' => 'messaging#index', :as => :root_messaging
   get 'update_unreadmessages' => 'messaging#update_unreadMessages', :as => :update_unreadmessages
+
+  get 'remove_connection/:id' => 'connections#remove_connection', :as => :remove_connection
+  get 'accept_invitation/:id' => 'connections#accept_invitation', :as => :accept_invitation
 
   post 'create_picture' => 'picture#create', :as => :create_picture
   post 'create_photoalbum' => 'images#create_photoalbum', :as => :create_photoalbum

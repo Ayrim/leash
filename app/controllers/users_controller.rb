@@ -124,7 +124,7 @@ class UsersController < ApplicationController
     save_profile_picture_path = ""
     if(params[:user][:profile_picture])
       # Upload image to Azure Blob Storage
-      save_profile_picture_path = uploadImageToAzure(params[:user][:banner_picture])
+      save_profile_picture_path = uploadImageToAzure(params[:user][:profile_picture])
     end
 
     if(params[:user][:banner_picture])
@@ -273,6 +273,31 @@ class UsersController < ApplicationController
     #end
   end
 
+
+  def send_invitation
+    set_user()
+
+    connection = Connection.new()
+    connection.user_1_id = current_user.id;
+    connection.user_2_id = @user.id;
+
+    if(connection.save)
+
+      #TO DO: send a notification mail containing the invitation
+
+      settings();
+      @showModal = true;
+      flash.now.alert = "An invitation has been sent."
+      respond_to do |format|
+        format.js { render 'images/show_alert.js.erb' }
+      end
+      
+    else
+      @showModal = true;
+      flash.now.alert = "Something went wrong while sending the invitation. Please, try again later."
+      render action: :new
+    end
+  end
 
 
   def destroy

@@ -1,0 +1,55 @@
+<% @connections.each do |conn| %>
+	<div class="col s6 m4 l3">
+		<%= link_to conn do %>
+			<div class="card z-depth-1 hoverable">
+				<div class="card-image waves-effect waves-block waves-light slider" style="max-height:20vh;">
+			    	<div style="height:100%; width:auto;">
+			        	<div class="card-image waves-effect waves-block waves-light" style="background:url(<%= load_user_avatar(conn) %>) no-repeat center center; background-size: cover; height:100%" />
+			        </div>
+			    </div>
+			</div>
+		<% end %>
+		<div class="card-content">
+	    	<div class="moreInfoIcon activator card-title"><i class="material-icons right">more_vert</i></div>
+	        <span class="card-title activator grey-text text-darken-4 truncate" style="font-size:1.6em;"><%= conn.firstname + ' ' + conn.lastname %></span>
+	        <p class="truncate"><%= conn.address.try(:city).name %></p>
+		</div>
+		<div class="card-reveal">
+			<div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
+			<span class="card-title grey-text text-darken-4" style="font-size:1.3em;"><%= conn.firstname + ' ' + conn.lastname %></span>
+								
+			<p class="hide-on-med-and-up" style="margin-top:0px;">
+				<i class="material-icons left" style="color:#ffc107; font-size:1.3em;">star star star star_half star_border</i>
+			</p>
+			<p class="hide-on-small-only" style="margin-top:-8px">
+				<% if conn.is_premium %>
+					<i style="line-height:24px;">Premium user</i>
+				<% end %> 
+				<i class="material-icons left" style="color:#ffc107; margin-top:10px;">star star star star_half star_border</i>
+			</p>
+
+			<p class="connectionInfo hide-on-small-only">
+				<i><%= conn.address.try(:city).name %></i><br />
+				<%= link_to conn, :class => "secondary-content" do %>
+					<i class="material-icons">view_headline</i>
+				<% end %>
+				<strong>Distance: 0.23 km</strong>
+				<% if current_user.id == @show_user.id %>
+					<br />
+                    <%= link_to "Remove this connection", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to remove this connection?' }, :remote => true %>
+				<% end %>
+			</p>
+			<p class="connectionInfoSmall hide-on-med-and-up">
+				<i><%= conn.address.try(:city).name %></i><br />
+				<%= link_to conn, :class => "secondary-content" do %>
+					<i class="material-icons">view_headline</i>
+				<% end %>
+				<strong>Distance: 0.23 km</strong>
+				<% if current_user.id == @show_user.id %>
+					<br />
+                    	<%= link_to "Remove connection", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to remove this connection?' }, :remote => true %>
+				<% end %>
+			</p>
+		</div>
+	</div>
+<% end %>
