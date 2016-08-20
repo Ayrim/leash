@@ -97,6 +97,15 @@ class User < ActiveRecord::Base
     	reset_sent_at < 2.hours.ago
   	end
 
+	# Sends mail to indicate invite has been accepted
+	def send_accept_invitation_mail(current_user)
+		UserMailer.invitation_accepted(self, current_user).deliver_now
+	end
+
+	def send_invitation_mail(current_user)
+		UserMailer.invitation_sent(self, current_user).deliver_now
+	end
+
 	private
     	# Converts email to all lower-case.
 		def downcase_email

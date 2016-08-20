@@ -22,4 +22,19 @@ class UserMailer < ApplicationMailer
 
     mail to: user.email, subject: "Password reset"
   end
+
+
+  def invitation_accepted(user, current_user)
+    @user = user
+    @acceptedBy = current_user
+    mail to: user.email, subject: "Invitation has been accepted."
+  end
+
+  def invitation_sent(user, current_user)
+    @user = user
+    @invitedBy = current_user
+    mail to: user.email, subject: "You have received an invitation to create a new connection."
+  end
+
+
 end

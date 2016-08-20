@@ -16,26 +16,30 @@
 		<% end %>
         <!-- End Showing alerts  -->
 
-        <% if !@show_user.nil? %>
-	        <div class="row" style="margin-top:15px;">
+	    <div class="row" style="margin-top:15px;">
+        	<% if !@show_user.nil? %>
 	            <ul class="tabs tab-profile z-depth-1 light-blue">
 	                <li class="tab col s3">
 	                    <a class="white-text waves-effect waves-light active" href="#ExistingConnections"><i class="fa fa-users"></i> Connections</a>
 	                </li>
-					<li class="tab col s3">
-	                	<a class="white-text waves-effect waves-light" href="#PendingConnections"><i class="fa fa-user-plus"></i> <span id="pendingConnectionsTitle">Pending
-	                		<% if @pending_connections.count > 0 %> (<%= @pending_connections.count %>)<% end %></span>
-	                	</a>
-	                </li>
+	                <% if current_user.id == @show_user.id %>
+						<li class="tab col s3">
+		                	<a class="white-text waves-effect waves-light" href="#PendingConnections"><i class="fa fa-user-plus"></i> <span id="pendingConnectionsTitle">Pending
+		                		<% if @pending_connections.count > 0 %> (<%= @pending_connections.count %>)<% end %></span>
+		                	</a>
+		                </li>
+	                <% end %>
 	            </ul>
 
 	            <div id="ExistingConnections" class="tab-content row" style="padding-left:0px;padding-right:0px;">
 	            	<%= render template: "connections/show_connections" %>
 	            </div>
 
-	            <div id="PendingConnections" class="tab-content row" style="padding-left:0px;padding-right:0px;">
-	            	<%= render template: "connections/show_pending_connections" %>
-	            </div>
+	            <% if current_user.id == @show_user.id %>
+	            	<div id="PendingConnections" class="tab-content row" style="padding-left:0px;padding-right:0px;">
+	            		<%= render template: "connections/show_pending_connections" %>
+	            	</div>
+	            <% end %>
             <% else %>
 		        <div class="row">
 		        	<div clas="coll s12 m8 offset-m2" style="text-align:center;">

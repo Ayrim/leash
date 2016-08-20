@@ -11,7 +11,9 @@ class UsersController < ApplicationController
 
 	def show
     if (params.has_key?(:id))
-      $show_user = User.find(params[:id])
+      if(params[:id] != 'update_unreadmessages')
+        $show_user = User.find(params[:id])
+      end
     else
       $show_user = current_user;
     end
@@ -37,7 +39,9 @@ class UsersController < ApplicationController
     #@PicturePosts = posts.shuffle.take(6)
 
     if (params.has_key?(:id))
-      show_user = User.find(params[:id])
+      if(params[:id] != 'update_unreadmessages')
+        show_user = User.find(params[:id])
+      end
     else
       show_user = current_user;
     end
@@ -283,13 +287,14 @@ class UsersController < ApplicationController
 
     if(connection.save)
 
-      #TO DO: send a notification mail containing the invitation
+      # send a mail to the connection indicating that you would like to become a connection
+      @user.send_invitation_mail(current_user)
 
       settings();
       @showModal = true;
       flash.now.alert = "An invitation has been sent."
       respond_to do |format|
-        format.js { render 'images/show_alert.js.erb' }
+        format.js { render 'users/show_add_connection_refresh.js.erb' }
       end
       
     else
@@ -311,7 +316,9 @@ class UsersController < ApplicationController
 	private 
     	def set_user
         if (params.has_key?(:id))
-          @user = User.find(params[:id])
+          if(params[:id] != 'update_unreadmessages')
+            @user = User.find(params[:id])
+          end
         else
           @user = current_user;
         end

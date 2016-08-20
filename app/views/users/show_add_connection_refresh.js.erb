@@ -1,0 +1,7 @@
+<!-- Showing alerts  -->
+<% if @showModal %>
+		Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %></p>', 10000);
+<% end %>
+
+
+	$('#add_connection_button_large').html('<%= escape_javascript(render template: "users/show_add_connection") %>');
