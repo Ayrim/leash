@@ -17,7 +17,6 @@ class UsersController < ApplicationController
     else
       $show_user = current_user;
     end
-
     settings();
   end
 
@@ -45,14 +44,20 @@ class UsersController < ApplicationController
     else
       show_user = current_user;
     end
-    if current_user.id == show_user.id
-      @Pictures = Picture.joins(:photoalbum).where('user_id = ?', show_user.id).order(created_at: :desc).limit(6)
-    elsif (current_user.connections.include?(show_user))
-      @Pictures = Picture.joins(:visibility).joins(:photoalbum).joins(:photoalbum => :visibility).where('(user_id = ? AND (visibilities_photoalbums.value = ? OR visibilities_photoalbums.value = ?)) AND (visibilities.value = ? OR visibilities.value = ?)', show_user.id, 'Connections', 'Public', 'Connections', 'Public').order("pictures.created_at desc").limit(6)
-    else
-      @Pictures = Picture.joins(:visibility).joins(:photoalbum).joins(:photoalbum => :visibility).where('(user_id = ? AND (visibilities_photoalbums.value = ?)) AND (visibilities.value = ?)', show_user.id, 'Public', 'Public').order("pictures.created_at desc").limit(6)
+
+    if(show_user.nil?)
+      show_user = $show_user
     end
-        
+
+    if !show_user.nil?
+      if current_user.id == show_user.id
+        @Pictures = Picture.joins(:photoalbum).where('user_id = ?', show_user.id).order(created_at: :desc).limit(6)
+      elsif (current_user.connections.include?(show_user))
+        @Pictures = Picture.joins(:visibility).joins(:photoalbum).joins(:photoalbum => :visibility).where('(user_id = ? AND (visibilities_photoalbums.value = ? OR visibilities_photoalbums.value = ?)) AND (visibilities.value = ? OR visibilities.value = ?)', show_user.id, 'Connections', 'Public', 'Connections', 'Public').order("pictures.created_at desc").limit(6)
+      else
+        @Pictures = Picture.joins(:visibility).joins(:photoalbum).joins(:photoalbum => :visibility).where('(user_id = ? AND (visibilities_photoalbums.value = ?)) AND (visibilities.value = ?)', show_user.id, 'Public', 'Public').order("pictures.created_at desc").limit(6)
+      end
+    end
   end
 
 	def new

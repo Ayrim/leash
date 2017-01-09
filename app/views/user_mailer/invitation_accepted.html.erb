@@ -1,13 +1,84 @@
-<h1>Invitation accepted</h1>
+<html>
+  <body>
+    <style>
+		body { font-family: 'Helvetica Neue',Arial,sans-serif; max-width: 1200px; margin-left:auto; margin-right:auto; }
+		.header, .footer {min-height:50px; width:100%; margin: 0 auto; background-color:#36373B; color: #FF5B45; letter-spacing: 4px; }
+		.header { background-color:#FF5B45; }
+		.header .logo { float:right; display:inline; color:white; line-height: 20px; padding: 15px 15px; }
+		.header h1   {color: white; font-weight: lighter; font-size: 18px; line-height: 20px; padding: 15px 15px; }
+		.content{ width: 95%; margin: 0 auto; padding-top: 25px; min-height: 250px; padding-bottom:25px; }
+		.content a {padding-left: 15px;}
+		.Copyright { padding-top: 15px; padding-bottom: 10px; color:#777; font-size: 0.7em; text-align: center;}
+		.footer .headers { width:33%; text-align:center; font-size: 18px; padding-top:10px; padding-bottom: 10px; }
+		.footerContent p { font-size: 10px; padding-left: 5px;}
+		.footerContent { margin: 0 auto; color:#777; line-height: 15px; width:33%; text-align:center; padding-bottom:0px; vertical-align:top;}
+		.footerlink{ color: #777; text-decoration: none; line-height: 15px; }
+		.footerlink:hover, .footerlink:focus, .footerlink.focus, .footerlink:active, .footerlink.active{ color: #FF5B45; text-decoration: none; }
+	</style>
 
-<p>Hi <%= @user.firstname %>,</p>
+	<%= link_to overview_url, :style => "text-decoration:none !important;" do %>
+		<div class="header">
+			<span class="logo">logo</span>
+			<h1>Leash</h1>
+		</div>
+	<% end %>
+	<div class="content">
+		<h3>Your invitation has been accepted!</h3>	
+		<p>Hi <%= @user.firstname %>,</p>
+		<br />
+		<p>your invitation to become a connection has been accepted by <%= @acceptedBy.firstname %>.<br />
+		The two of you are now able to make appointments.</p>
+		<br />
+		<p>	
+			Kind regards,
+			<br />
+			<br />
+			The Leash-team.
+		</p>
+	</div>
+	<table class="footer" style="color: white;">
+		<tr>
+			<th class="headers">Leash-logo</th>
+			<th style="headers">Follow us</th>
+			<th style="headers">Contact us</th>
+		</tr>
+		<tr>
+			<td class="footerContent">
+				<p>
+					The favourite community of dog-lovers.
+					<br /><br />
+					Find someone in your neighbourhood to walk your dog or find a dog to take for a walk. 
+				</p>
+			</td>
+			<td class="footerContent">
+				<p>
+					<a class="footerlink" href="#" target="blank">
+						Facebook
+					</a><br>
+					<a class="footerlink" href="#" target="blank">
+						Twitter
+					</a><br>
+					<a class="footerlink" href="#" target="blank">
+						Google Plus
+					</a><br> 
+				</p>
+			</td>
+			<td class="footerContent">
+				<p>
+					Questions or advice? <br />
+					Feel free to send us a mail! <br /><br />
+					<a class="footerlink" href="mailto:leashayrim@gmail.com">
+						Send us a mail
+					</a>  
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="width:100%; text-align:center;">
+				<p class="Copyright">Copyright &#169; 2016</p>
+			</td>
+		<tr>
+	<table>
 
-<p>your invitation to become a connection has been accepted by <%= @acceptedBy.firstname %>.<br />
-The two of you are now able to make appointments.</p>
-
-<p>	
-	Kind regards,
-	<br />
-	<br />
-	The Leash-team.
-</p>
+  </body>
+</html>

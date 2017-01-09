@@ -36,11 +36,11 @@ class User < ActiveRecord::Base
   	accepts_nested_attributes_for :experience
 
   	def connections
-  		(one_connections + two_connections).flatten.uniq
+  		(one_connections + two_connections).flatten.uniq.sort_by{|e| e[:updated_at]}.reverse
   	end
 
   	def pending_connections
-  		(one_pending_connections + two_pending_connections).flatten.uniq
+  		(one_pending_connections + two_pending_connections).flatten.uniq.sort_by{|e| e[:created_at]}.reverse
   	end
 
   	def pending_outgoing_connections

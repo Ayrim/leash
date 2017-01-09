@@ -1,72 +1,90 @@
-<style>
-	body { font-family: 'Helvetica Neue',Arial,sans-serif; }
-	.header, .footer {min-height:50px; width:100%; margin: 0 auto; background-color:#36373B; color: #FF5B45; letter-spacing: 4px; }
-	h1   {color: #FF5B45; font-weight: lighter; font-size: 18px; line-height: 20px; padding: 15px 15px;}
-	.content{ width: 95%; margin: 0 auto; padding-top: 25px; min-height: 250px; }
-	.content a {padding-left: 15px;}
-	.Copyright { padding-top: 25px; padding-bottom: 15px; color:#777; font-size: 0.7em; text-align: center;}
-	.footerContent h3 { color: white; font-size: 18px; }
-	.footerContent p { font-size: 10px; padding-left: 5px;}
-	.footerContent { max-width: 1200px; margin: 0 auto; color:#777; line-height: 15px;}
-	.footerBox { width: 33%; float:left; text-align: center; }
-	.footerlink{ color: #777; text-decoration: none; line-height: 15px; }
-	.footerlink:hover, .footerlink:focus, .footerlink.focus, .footerlink:active, .footerlink.active{ color: #FF5B45; text-decoration: none; }
-</style>
+<html>
+  <body>
+    <style>
+		body { font-family: 'Helvetica Neue',Arial,sans-serif; max-width: 1200px; margin-left:auto; margin-right:auto; }
+		.header, .footer {min-height:50px; width:100%; margin: 0 auto; background-color:#36373B; color: #FF5B45; letter-spacing: 4px; }
+		.header { background-color:#FF5B45; }
+		.header .logo { float:right; display:inline; color:white; line-height: 20px; padding: 15px 15px; }
+		h1   {color: white; font-weight: lighter; font-size: 18px; line-height: 20px; padding: 15px 15px; }
+		.content{ width: 95%; margin: 0 auto; padding-top: 25px; min-height: 250px; padding-bottom:25px; }
+		.content a {padding-left: 15px;}
+		.Copyright { padding-top: 15px; padding-bottom: 10px; color:#777; font-size: 0.7em; text-align: center;}
+		.footer .headers { width:33%; text-align:center; font-size: 18px; padding-top:10px; padding-bottom: 10px; }
+		.footerContent p { font-size: 10px; padding-left: 5px;}
+		.footerContent { margin: 0 auto; color:#777; line-height: 15px; width:33%; text-align:center; padding-bottom:0px; vertical-align:top;}
+		.footerlink{ color: #777; text-decoration: none; line-height: 15px; }
+		.footerlink:hover, .footerlink:focus, .footerlink.focus, .footerlink:active, .footerlink.active{ color: #FF5B45; text-decoration: none; }
+	</style>
 
-
-<div class="header">
-	<h1>Leash</h1>
-</div>
-<div class="content">
-	<p>Hi <%= @user.firstname %>,</p>
-	<br />
-	<p>
-		Welcome to Leash!
-	</p>
-	<p>
-		As soon as you have clicked the link below your account will be activated and you will be able to join the community.<br />
-		<%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
-	</p>
-	<br/>
-	<p>
-		The Leash-team
-	</p>
-	<br />
-</div>
-<div class="footer">
-	<div class="footerContent">
-		<div class="footerBox">
-			<h3>Leash-logo</h3>
-			<p>
-				The favourite community of dog-lovers.
-				<br /><br />
- 				Find someone in your neighbourhood to walk your dog or find a dog to take for a walk. 
-			</p>
+	<%= link_to overview_url, :style => "text-decoration:none !important;" do %>
+		<div class="header">
+			<span class="logo">logo</span>
+			<h1>Leash</h1>
 		</div>
-		<div class="footerBox">
-			<h3>Follow us</h3>
-			<p>
-				<a class="footerlink" href="#" target="blank">
-					Facebook
-				</a><br>
-				<a class="footerlink" href="#" target="blank">
-					Twitter
-				</a><br>
-				<a class="footerlink" href="#" target="blank">
-					Google Plus
-				</a><br> 
-			</p>
-		</div>
-		<div class="footerBox">
-			<h3>Contact us</h3>
-			<p>
-				Questions or advice? <br />
-				Feel free to send us a mail! <br /><br />
-				<a class="footerlink" href="mailto:leashayrim@gmail.com">
-					Send us a mail
-				</a>  
-			</p>
-		</div>
-	<p class="Copyright">Copyright &#169; 2016</p>
+	<% end %>
+	<div class="content">
+		<p>Hi <%= @user.firstname %>,</p>
+		<br />
+		<p>
+			Welcome to Leash!
+		</p>
+		<p>
+			As soon as you have clicked the link below your account will be activated and you will be able to join the community.<br />
+			<%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
+		</p>
+		<p style="padding-top:15px; margin-left: 50px;">
+			<%= link_to edit_account_activation_url(@user.activation_token, email: @user.email), :style => "text-decoration:none !important;" do %>
+				<span style="padding: 15px 30px; color:white; background-color:#FF5B45; border-radius:3px; ">Activate</span>
+			<% end %>
+		</p>
+		<br/>
+		<p>
+			The Leash-team
+		</p>
+		<br />
 	</div>
-</div>
+	<table class="footer" style="color: white;">
+		<tr>
+			<th class="headers">Leash-logo</th>
+			<th style="headers">Follow us</th>
+			<th style="headers">Contact us</th>
+		</tr>
+		<tr>
+			<td class="footerContent">
+				<p>
+					The favourite community of dog-lovers.
+					<br /><br />
+					Find someone in your neighbourhood to walk your dog or find a dog to take for a walk. 
+				</p>
+			</td>
+			<td class="footerContent">
+				<p>
+					<a class="footerlink" href="#" target="blank">
+						Facebook
+					</a><br>
+					<a class="footerlink" href="#" target="blank">
+						Twitter
+					</a><br>
+					<a class="footerlink" href="#" target="blank">
+						Google Plus
+					</a><br> 
+				</p>
+			</td>
+			<td class="footerContent">
+				<p>
+					Questions or advice? <br />
+					Feel free to send us a mail! <br /><br />
+					<a class="footerlink" href="mailto:leashayrim@gmail.com">
+						Send us a mail
+					</a>  
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="width:100%; text-align:center;">
+				<p class="Copyright">Copyright &#169; 2016</p>
+			</td>
+		<tr>
+	<table>
+  </body>
+</html>

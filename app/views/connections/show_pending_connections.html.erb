@@ -33,7 +33,7 @@
 	            <div class="closingIcon activator card-title"><i class="material-icons right">close</i></div>
 	            <span class="card-title grey-text text-darken-4" style="font-size:1.3em;"><%= conn.firstname + ' ' + conn.lastname %></span>
 
-	            <p class="hide-on-med-and-up" style="margin-top:0px;">
+	            <p class="hide-on-med-and-up" style="margin-top:0px; margin-bottom:0px;">
 	                <i class="material-icons" style="color:#ffc107; font-size:1.3em;">star star star star_half star_border</i>
 	            </p>
 	            <p class="hide-on-small-only" style="margin-top:-8px">
@@ -44,9 +44,19 @@
 	            </p>
 
 	            <% if @pending_outgoing_connections.include?(conn) %>
-	            	<p><i>Your invitation has not yet been accepted.</i></p>
+					<p class="hide-on-med-and-up" style="margin-top:0px">
+	            		<i>Your invitation has not yet been accepted.</i>
+	            	</p>
+					<p class="hide-on-small-only">
+	            		<i>Your invitation has not yet been accepted.</i>
+	            	</p>
 	            <% elsif @pending_incoming_connections.include?(conn) %>
-	            	<p><i>You have not yet accepted the invitation.</i></p>
+					<p class="hide-on-med-and-up" style="margin-top:0px">
+	            		<i>You have not yet accepted the invitation.</i>
+	            	</p>
+					<p class="hide-on-small-only">
+	            		<i>You have not yet accepted the invitation.</i>
+	            	</p>
 	            <% end %>
 
 	            <p class="connectionInfo hide-on-small-only">
@@ -58,22 +68,30 @@
 	                <% if current_user.id == @show_user.id %>
 		                <br />
 		                <% if @pending_outgoing_connections.include?(conn) %>
-		                	<%= link_to "Retract invitation", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to retract this invitation?' }, :remote => true %>
+		                	<%= link_to "Retract invitation", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, :onclick => "javascript:disableWithdrawLinks(#{conn.id}", :id => "WithdrawLink#{conn.id}", :remote => true %>
+		                	<label id="<%= 'RetractingLabel' + conn.id.to_s %>" class="hide" style="font-size: 14px !important; margin-left:-10px;">Retracting...</label>
 		                <% elsif @pending_incoming_connections.include?(conn) %>
-		                	<%= link_to "Accept", accept_invitation_path(conn) %>
+		                	<%= link_to "Accept", accept_invitation_path(conn), :onclick => "javascript:disableAcceptanceLinks(#{conn.id}, 'Accept')", :id => "AcceptLink#{conn.id}", :remote => true %>
 		                	<span style="margin-right:10px;"></span>
-		                	<%= link_to "Refuse", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to retract this invitation?' }, :remote => true %>
+		                	<%= link_to "Refuse", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, :onclick => "javascript:disableAcceptanceLinks(#{conn.id}, 'Reject')", :id => "RejectLink#{conn.id}", :remote => true %>
+		                	<label id="<%= 'AcceptingLabel' + conn.id.to_s %>" class="hide" style="font-size: 14px !important; margin-left:-10px;">Accepting...</label>
+		                	<label id="<%= 'RejectingLabel' + conn.id.to_s %>" class="hide" style="font-size: 14px !important; margin-left:-10px;">Refusing...</label>
 		                <% end %>
 	                <% end %>
 	            </p>
 	            <p class="connectionInfoSmall hide-on-med-and-up center-align">
 	                <% if current_user.id == @show_user.id %>
 		                <% if @pending_outgoing_connections.include?(conn) %>
-		                	<%= link_to "Withdraw", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to withdraw this invitation?' }, :class => "waves-effect waves-light btn", :remote => true %>
+		                	<%= link_to "Withdraw", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, :class => "waves-effect waves-light btn", :onclick => "javascript:disableWithdrawButton(#{conn.id})", :id => "WithdrawButton#{conn.id}", :remote => true %>
+		                	<label id="<%= 'WithdrawButtonLabel' + conn.id.to_s %>" class="waves-effect waves-light btn disabled hide">Withdrawing...</label>
 		                <% elsif @pending_incoming_connections.include?(conn) %>
-		                	<%= link_to "Accept", accept_invitation_path(conn), :class => "waves-effect waves-light btn", :style => "margin-bottom:5px;", :remote => true %>
+		                	<%= link_to "Accept", accept_invitation_path(conn), :class => "waves-effect waves-light btn", :style => "margin-bottom:5px;", :remote => true, :onclick => "javascript:disableAcceptanceButtons(#{conn.id}, 'Accept')", :id => "AcceptButton#{conn.id}" %>
 
-		                	<%= link_to "Refuse", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to refus this invitation?' }, :class => "waves-effect waves-light btn", :remote => true %>
+		                	<%= link_to "Refuse", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, :class => "waves-effect waves-light btn", :id => "RejectButton#{conn.id}", :onclick => "javascript:disableAcceptanceButtons(#{conn.id}, 'Reject')", :remote => true %>
+		                	<label id="<%= 'AcceptingButtonLabel' + conn.id.to_s %>" class="waves-effect waves-light btn disabled hide" style="font-size:14px; margin-bottom:5px;">Accepting...</label>
+		                	<label id="<%= 'AcceptButtonLabel' + conn.id.to_s %>" class="waves-effect waves-light btn disabled hide" style="font-size:14px; margin-bottom:5px;">Accept</label>
+		                	<label id="<%= 'RejectingButtonLabel' + conn.id.to_s %>" class="waves-effect waves-light btn disabled hide" style="font-size:14px;">Refusing...</label>
+		                	<label id="<%= 'RejectButtonLabel' + conn.id.to_s %>" class="waves-effect waves-light btn disabled hide" style="font-size:14px;">Refuse</label>
 		                <% end %>
 	                <% end %>
 	            </p>
@@ -81,3 +99,144 @@
 	    </div>
 	</div>
 <% end %>
+
+<script type="text/javascript">
+	function disableAcceptanceLinks(connId, acceptOrReject)
+	{
+		if(acceptOrReject == 'Accept')
+		{
+			addClass(document.getElementById('AcceptLink' + connId), 'hide');
+			addClass(document.getElementById('RejectLink' + connId), 'hide');
+			removeClass(document.getElementById('AcceptingLabel' + connId), 'hide');
+			addClass(document.getElementById('RejectingLabel' + connId), 'hide');
+		}
+		else
+		{
+			if(window.confirm("Are you sure you wish to refuse this invitation?"))
+			{
+				addClass(document.getElementById('AcceptLink' + connId), 'hide');
+				addClass(document.getElementById('RejectLink' + connId), 'hide');
+				removeClass(document.getElementById('RejectingLabel' + connId), 'hide');
+				addClass(document.getElementById('AcceptingLabel' + connId), 'hide');
+			}
+			else
+			{
+				cancelEvent(window.event);
+			}
+		}
+	}
+	function enableAcceptanceLinks(connId)
+	{
+		if($('#AcceptLink' + connId).length > 0)
+			removeClass(document.getElementById('AcceptLink' + connId), 'hide');
+		if($('#RejectLink' + connId).length > 0)
+			removeClass(document.getElementById('RejectLink' + connId), 'hide');
+		if($('#AcceptingLabel' + connId).length > 0)
+			addClass(document.getElementById('AcceptingLabel' + connId), 'hide');
+		if($('#RejectingLabel' + connId).length > 0)
+			addClass(document.getElementById('RejectingLabel' + connId), 'hide');
+	}
+
+	function disableAcceptanceButtons(connId, acceptOrReject)
+	{
+		if(acceptOrReject == 'Accept')
+		{
+			addClass(document.getElementById('AcceptButton' + connId), 'hide');
+			addClass(document.getElementById('RejectButton' + connId), 'hide');
+			removeClass(document.getElementById('AcceptingButtonLabel' + connId), 'hide');
+			removeClass(document.getElementById('RejectButtonLabel' + connId), 'hide');
+			addClass(document.getElementById('AcceptButtonLabel' + connId), 'hide');
+			addClass(document.getElementById('RejectingButtonLabel' + connId), 'hide');
+		}else{
+			if(window.confirm("Are you sure you wish to refuse this invitation?"))
+			{
+				addClass(document.getElementById('AcceptButton' + connId), 'hide');
+				addClass(document.getElementById('RejectButton' + connId), 'hide');
+				addClass(document.getElementById('AcceptingButtonLabel' + connId), 'hide');
+				addClass(document.getElementById('RejectButtonLabel' + connId), 'hide');
+				removeClass(document.getElementById('AcceptButtonLabel' + connId), 'hide');
+				removeClass(document.getElementById('RejectingButtonLabel' + connId), 'hide');
+			}
+			else
+			{
+				cancelEvent(window.event);
+			}
+		}
+	}
+
+	function enableAcceptanceButtons(connId)
+	{
+
+		if($('#AcceptButton' + connId).length > 0)
+			removeClass(document.getElementById('AcceptButton' + connId), 'hide');
+		if($('#RejectButton' + connId).length > 0)
+			removeClass(document.getElementById('RejectButton' + connId), 'hide');
+		if($('#AcceptingButtonLabel' + connId).length > 0)
+			addClass(document.getElementById('AcceptingButtonLabel' + connId), 'hide');
+		if($('#RejectingButtonLabel' + connId).length > 0)
+			addClass(document.getElementById('RejectingButtonLabel' + connId), 'hide');
+		if($('#AcceptButtonLabel' + connId).length > 0)
+			addClass(document.getElementById('AcceptButtonLabel' + connId), 'hide');
+		if($('#RejectButtonLabel' + connId).length > 0)
+			addClass(document.getElementById('RejectButtonLabel' + connId), 'hide');
+	}
+
+	function disableWithdrawLinks(connId)
+	{
+		if(window.confirm("Are you sure you wish to withdraw this invitation?"))
+		{
+			addClass(document.getElementById('WithdrawLink' + connId), 'hide');
+			removeClass(document.getElementById('RetractingLabel' + connId), 'hide');
+		}
+		else{
+			cancelEvent(window.event);
+		}
+	}
+
+	function enableWithdrawLinks(connId)
+	{
+		removeClass(document.getElementById('WithdrawLink' + connId), 'hide');
+		addClass(document.getElementById('RetractingLabel' + connId), 'hide');
+	}
+
+	function disableWithdrawButton(connId)
+	{
+		if(window.confirm("Are you sure you wish to withdraw this invitation?"))
+		{
+			addClass(document.getElementById('WithdrawButton' + connId), 'hide');
+			removeClass(document.getElementById('WithdrawButtonLabel' + connId), 'hide');
+		}
+		else{
+			cancelEvent(window.event);
+		}
+	}
+
+	function enableWithdrawButton(connId)
+	{
+		removeClass(document.getElementById('WithdrawButton' + connId), 'hide');
+		addClass(document.getElementById('WithdrawButtonLabel' + connId), 'hide');
+	}
+
+	function cancelEvent(event)
+	{
+		event.preventDefault();
+		event.stopPropagation();
+		window.event.cancelBubble = true;
+		return false;
+	}
+
+	function addClass(el, className) {
+	  	if (el.classList)
+	    	el.classList.add(className)
+	  	else if (!hasClass(el, className)) el.className += " " + className
+	}
+
+	function removeClass(el, className) {
+	  	if (el.classList)
+	    	el.classList.remove(className)
+	  	else if (hasClass(el, className)) {
+	    	var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
+	    	el.className=el.className.replace(reg, ' ')
+	  }
+	}
+</script>

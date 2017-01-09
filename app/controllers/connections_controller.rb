@@ -21,13 +21,13 @@ class ConnectionsController < ApplicationController
 
     		if(params.has_key?(:id))
     			  if(params[:id] != 'update_unreadmessages')
-      			   	@delete_connection = Connection.where('(user_1_id = ? AND user_2_id = ?) OR (user_1_id = ? AND user_2_id = ?)', current_user.id, @show_user.id, @show_user.id, current_user.id).first
-
-      				  #TODO: remove this connection
+                @connId = params[:id]
+      			   	@delete_connection = Connection.where('(user_1_id = ? AND user_2_id = ?) OR (user_1_id = ? AND user_2_id = ?)', current_user.id, params[:id], params[:id], current_user.id).first
 
         				if @delete_connection.destroy
           					@connections = @show_user.connections
 
+                    set_connections()
           					respond_to do |format|
         				    	  format.html { redirect_to :controller => "connections" , :action => "show" }
         				  	 	  format.js { render 'connections/show_update_connections.js.erb' }
@@ -35,13 +35,13 @@ class ConnectionsController < ApplicationController
         				else
         				    @showModal = true;
         				    flash.now.alert = "Something went wrong when attempting to remove this connection. Please, try again later."
-        				    render action: :new
+                    render 'connections/show_update_connections.js.erb'
         				end
       			end
     		else
       			@showModal = true;
       			flash.now.alert = "Something went wrong when attempting to remove this connection. Please, try again later."
-      			render action: :new
+            render 'connections/show_update_connections.js.erb'
     		end
   	end
 
@@ -50,33 +50,42 @@ class ConnectionsController < ApplicationController
 
     		if(params.has_key?(:id))
       			if(params[:id] != 'update_unreadmessages')
-        				update_connection = Connection.where('(user_1_id = ? AND user_2_id = ?) OR (user_1_id = ? AND user_2_id = ?)', current_user.id, params[:id], params[:id], current_user.id).first
-        				if(!update_connection.nil?)
-                    if (update_connection.update_attributes(:is_pending => false))
+                @connId = params[:id]
+          			update_connection = Connection.where('(user_1_id = ? AND user_2_id = ?) OR (user_1_id = ? AND user_2_id = ?)', current_user.id, params[:id], params[:id], current_user.id).first
+          			begin
+                    ActiveRecord::Base.transaction do
+                      	if(!update_connection.nil?)
+                            if (update_connection.update_attributes(:is_pending => false))
 
-                        set_connections()
+                                set_connections()
 
-                        userConnection = User.find_by(:id => params[:id])
-                        if(!userConnection.nil?)
-                            # send a mail to indicate that the invitation has been accepted.
-                            userConnection.send_accept_invitation_mail(current_user)
+                                userConnection = User.find_by(:id => params[:id])
+                                if(!userConnection.nil?)
+                                    # send a mail to indicate that the invitation has been accepted.
+                                    userConnection.send_accept_invitation_mail(current_user)
 
-                            respond_to do |format|
-                                format.html { redirect_to :controller => "connections" , :action => "show" }
-                                format.js { render 'connections/show_update_connections.js.erb' }
-                            end
-                        end
-          				  end
-        		  	else
-          					@showModal = true;
-          					flash.now.alert = "Something went wrong when attempting to accept the invitation. Please, try again later."
-          					render action: :new
-        				end
+                                    respond_to do |format|
+                                        format.html { redirect_to :controller => "connections" , :action => "show" }
+                                        format.js { render 'connections/show_update_connections.js.erb' }
+                                    end
+                                end
+                  				  end
+                		  	else
+                  					@showModal = true;
+                  					flash.now.alert = "Something went wrong when attempting to accept the invitation. Please, try again later."
+                            render 'connections/show_acceptance_alert.js.erb'
+                				end
+                    end
+                rescue Net::OpenTimeout
+                  @showModal = true;
+                  flash.now.alert = "Something went wrong when attempting to accept the invitation. Please, try again later."
+                  render 'connections/show_acceptance_alert.js.erb'
+                end
       			end
     		else
       			@showModal = true;
       			flash.now.alert = "Something went wrong when attempting to accept the invitation. Please, try again later."
-      			render action: :new
+            render 'connections/show_acceptance_alert.js.erb'
   		  end
   	end
 
