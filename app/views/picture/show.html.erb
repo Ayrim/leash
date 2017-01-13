@@ -98,8 +98,14 @@
 			                	<p style="margin:0; font-size:0.9em;">
 			                		Album: 	
 		                    		<% if GetAlbumName(@show_picture.photoalbum_id) == 'No Album' %>
-		                    			<%= link_to images_path + "#Photos" do %>
-		                    				<%= GetAlbumName(@show_picture.photoalbum_id) %>
+		                    			<% if @owner.id == current_user.id %>
+			                    			<%= link_to images_path + "#Photos" do %>
+			                    				<%= GetAlbumName(@show_picture.photoalbum_id) %>
+			                    			<% end %>
+		                    			<% else %>
+		                    				<%= link_to images_path + "?uid=" + @owner.id.to_s + "#Photos" do %>
+			                    				<%= GetAlbumName(@show_picture.photoalbum_id) %>
+		                    				<% end %>
 		                    			<% end %>
 		                    		<% else %>
 		                    			<%= link_to images_path + "/" + @show_picture.photoalbum_id.to_s + "?uid=" + current_user.id.to_s do %>

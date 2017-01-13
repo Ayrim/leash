@@ -22,12 +22,20 @@
             <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-med-and-down"><span style="float:right;">Leash</span><i class="material-icons left">menu</i></a>
             <a href="#!" data-activates="sideNavMenu" class="brand-logo hide-on-large-only"><span style="float:right;">Leash</span></a>
             <a href="#" data-activates="sideNavMenu" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
+            <div class="searchBar hide-on-med-and-down">
+              <form>
+                <div class="input-field">
+                  <input id="search" type="search" required placeholder="Postcode of Plaats">
+                  <label for="search" style="margin-top:-16px;"><i class="material-icons">search</i></label>
+                  <i class="material-icons" style="margin-top:-16px;">close</i>
+                </div>
+              </form>
+            </div>
           <% else %>
             <%= link_to "Leash", root_path, :class => 'brand-logo hide-on-med-and-down',  data: {activates: "sideNavMenu"} %>
             <%= link_to "Leash", root_path, :class => 'brand-logo hide-on-large-only',  data: {activates: "sideNavMenu"} %>
             <a href="#" data-activates="sideNavMenu" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
           <% end %> 
-
         <ul class="right hide-on-med-and-down">
 
            <% if logged_in? %>
@@ -47,7 +55,7 @@
            <% else %>
             <li>
               <%= link_to login_path do %>
-                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" class="circle accountPicture" />
+                <img src="<%= user_avatar() %>" alt="" class="circle accountPicture" />
               <% end %>
             </li>
            <% end %> 
@@ -62,13 +70,18 @@
          <div id="nav_sidebar_wrapper">
           <ul style="min-height:324px; overflow-y: auto;"  data-collapsible="accordion">
             <% if logged_in? %>
+              <li style="height:64px;">
+                <a class="no-padding collapsible-header" style="text-align: center;"><span style="font-size: 2.1rem; letter-spacing:4px; color: #FF5B45;">Leash</span>
+                </a>
+              </li>
+              <li class="divider" />
               <% unless @hideHome %>
                 <li>
                   <%= link_to overview_path, :class => 'no-padding collapsible-header' do %>
                     <i class="fa fa-home material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.home') %>
                   <% end %>
                 </li>
-                <li class="divider"/>
+                <!--<li class="divider"/>-->
               <% end %>
               <li>
                 <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>

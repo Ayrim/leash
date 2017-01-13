@@ -1,21 +1,16 @@
-class UsersController < ApplicationController
+class UsersController < Api::V1::UsersController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :require_login, except: [ :new, :create]
   #before_create :check_valid_email
   
-	def index
-		#@users = User.all
-
-
-	end
+  # API
+  # The methods available through the API are located in the base-class Api::V1::UsersController
+  # This gives a better overview of the methods that will be available through the API
+  # also provides a way of versioning the API 
 
 	def show
-    if (params.has_key?(:id))
-      if(params[:id] != 'update_unreadmessages')
-        $show_user = User.find(params[:id])
-      end
-    else
-      $show_user = current_user;
+    if(params[:id] != 'update_unreadmessages')
+      $show_user = get_user(false)
     end
     settings();
   end
@@ -37,12 +32,8 @@ class UsersController < ApplicationController
     # take 3 random wallposts from these 10
     #@PicturePosts = posts.shuffle.take(6)
 
-    if (params.has_key?(:id))
-      if(params[:id] != 'update_unreadmessages')
-        show_user = User.find(params[:id])
-      end
-    else
-      show_user = current_user;
+    if(params[:id] != 'update_unreadmessages')
+      show_user = get_user(false)
     end
 
     if(show_user.nil?)
@@ -54,6 +45,7 @@ class UsersController < ApplicationController
         @Pictures = Picture.joins(:photoalbum).where('user_id = ?', show_user.id).order(created_at: :desc).limit(6)
       elsif (current_user.connections.include?(show_user))
         @Pictures = Picture.joins(:visibility).joins(:photoalbum).joins(:photoalbum => :visibility).where('(user_id = ? AND (visibilities_photoalbums.value = ? OR visibilities_photoalbums.value = ?)) AND (visibilities.value = ? OR visibilities.value = ?)', show_user.id, 'Connections', 'Public', 'Connections', 'Public').order("pictures.created_at desc").limit(6)
+        #@Pictures = Picture.joins(:visibility).joins(:photoalbum).where('(user_id = ? AND (visibilities.value = ? OR visibilities.value = ?))', show_user.id, 'Connections', 'Public').order("pictures.created_at desc").limit(6)
       else
         @Pictures = Picture.joins(:visibility).joins(:photoalbum).joins(:photoalbum => :visibility).where('(user_id = ? AND (visibilities_photoalbums.value = ?)) AND (visibilities.value = ?)', show_user.id, 'Public', 'Public').order("pictures.created_at desc").limit(6)
       end
@@ -89,7 +81,7 @@ class UsersController < ApplicationController
 			ActiveRecord::Base.transaction do
 				respond_to do |format|
 					if @user.save
-            @globalAlbum = Photoalbum.new(:user_id => @user.id, :name => "No Album")
+            @globalAlbum = Photoalbum.new(:user_id => @user.id, :name => "No Album", :visibility => "Public")
             @globalAlbum.save
 						@user.send_activation_email
 				        format.html { redirect_to login_path(:anchor => "activation"), alert: 'Please check your email to activate your account.' }
@@ -320,13 +312,7 @@ class UsersController < ApplicationController
 
 	private 
     	def set_user
-        if (params.has_key?(:id))
-          if(params[:id] != 'update_unreadmessages')
-            @user = User.find(params[:id])
-          end
-        else
-          @user = current_user;
-        end
+        @user = get_user(false)
     	end
 
 		def user_params

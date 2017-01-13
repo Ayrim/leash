@@ -18,8 +18,11 @@ class MessagingController < ApplicationController
 	end
 
 	def update_unreadMessages
-		respond_to do |format|
-			format.js { render 'update_unreadMessages.js.erb' }
+		if !current_user.nil?
+			respond_to do |format|
+				format.js { render 'update_unreadMessages.js.erb' }
+				format.html { redirect_back_or_to(overview_path)  }
+			end
 		end
 	end
 

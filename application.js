@@ -16,8 +16,9 @@ $(document).ready(function(){
 })
 
 function refreshPartial() {
-  	$.ajax({
-    	url: "update_unreadmessages"
- 	})
+	if current_user()
+  		$.ajax({
+    		url: "update_unreadmessages"
+ 		})
 }
 

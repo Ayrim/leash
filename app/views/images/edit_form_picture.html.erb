@@ -31,8 +31,13 @@
 
             <div class="col s12 m6" id="preferencefield">
                 <div class="input-field col s12" style="margin-top:15px">
-                    <%= pic.select :visibility_id, options_for_select(Visibility.all.collect {|vis| [ translate_visibility(vis.value), vis.id ]}, :selected => @edit_picture.try(:visibility_id)), {}, :disabled => true, :id => "visibility_id" %>
-                    <label for="visibility_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectvisibilitypicture') %></label>
+                    <% if GetAlbumName(@edit_picture.photoalbum_id) == 'No Album' %>
+                        <%= pic.select :visibility_id, options_for_select(Visibility.all.collect {|vis| [ translate_visibility(vis.value), vis.id ]}, :selected => @edit_picture.try(:visibility_id)), {}, :disabled => false, :id => "visibility_id" %>
+                        <label for="visibility_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectvisibilitypicture') %></label>
+                    <% else %>
+                        <%= pic.select :visibility_id, options_for_select(Visibility.all.collect {|vis| [ translate_visibility(vis.value), vis.id ]}, :selected => @edit_picture.try(:visibility_id)), {}, :disabled => true, :id => "visibility_id" %>
+                        <label for="visibility_id" class="active" style="top: 10px;"><%= I18n.t('views.images.selectvisibilitypicture') %></label>
+                    <% end %>
                 </div>
             	<div class="input-field col s12" style="margin-top:27px">
                 	<div class="chips editPhotoChips">

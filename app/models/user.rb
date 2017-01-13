@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 	has_one :availability
 	belongs_to :preference
 	belongs_to :experience
+	has_one :api_key
 
 	has_many :user_1_connections, -> { where "connections.is_pending = false" }, :foreign_key => :user_1_id, :class_name => 'Connection'
 	has_many :one_connections, :through => :user_1_connections, :source => :user_2
@@ -106,6 +107,22 @@ class User < ActiveRecord::Base
 		UserMailer.invitation_sent(self, current_user).deliver_now
 	end
 
+  	# Overwrite as_json method to define the fields to be returned in JSON
+  	def as_json(options={})
+  		super(:only => [:firstname,:lastname,:email, :language, :nationality, :birthdate, :phone, :description, :profile_picture, :banner_picture, :number_of_walks, :walking_region, :skills, :is_premium, :pricing, :professional, :is_walker],
+        	:include => {
+          		:preference => {:only => [:name]},
+          		:experience => {:only => [:value]},
+          		:address => {:only => [:street, :number, :numberAddition],
+          			:include => {
+          					:city => {:only => [:name]},
+          					:country => {:only => [:name]},
+          				}
+          			}
+        	}
+  		)
+	end
+
 	private
     	# Converts email to all lower-case.
 		def downcase_email
@@ -117,4 +134,6 @@ class User < ActiveRecord::Base
 			self.activation_token = User.new_token
 			self.activation_digest = User.digest(activation_token)
 		end
+
+
 end

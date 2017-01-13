@@ -20,6 +20,19 @@ Rails.application.routes.draw do
   resources :picture
   resources :connections
 
+
+  post 'api/signin' => 'user_sessions#sign_in'
+  get 'api/signout' => 'user_sessions#sign_out'
+
+  namespace :api do
+    scope module: :v1 do
+      get 'users' => 'users#index'
+      get 'users/:id' => 'users#get_user'
+
+      #post 'signin' => 'user_sessions#sign_in'
+    end
+  end
+
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
   get 'signup'  => 'users#new', :as => :signup

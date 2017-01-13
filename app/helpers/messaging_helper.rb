@@ -28,7 +28,7 @@ module MessagingHelper
 	end
 
 	def GetLastMessageNotificationFromUserId()
-		lastMessageId = Message.where(is_read:false).where("to_user_id = ?", current_user.id).where("created_at > (now() at time zone 'utc') - INTERVAL '30 seconds'").order(created_at: :desc).limit(1).pluck(:id)
+		lastMessageId = Message.where(is_read:false).where("to_user_id = ?", current_user.id).where("created_at > (now() at time zone 'utc') - INTERVAL '5 seconds'").order(created_at: :desc).limit(1).pluck(:id)
 		if !(defined?(lastMessageId)).nil?
 			if !Message.find_by(id: lastMessageId).nil?
 				#Retrieve name of the user sending you a message
@@ -42,6 +42,6 @@ module MessagingHelper
 	end
 
 	def HasUnreadMessagesWithinTimespan()
-		return Message.where(is_read:false).where("(to_user_id = ?)", current_user.id).where("created_at > (now() at time zone 'utc') - INTERVAL '30 seconds'").count
+		return Message.where(is_read:false).where("(to_user_id = ?)", current_user.id).where("created_at > (now() at time zone 'utc') - INTERVAL '5 seconds'").count
 	end
 end

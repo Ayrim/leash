@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160817115224) do
+ActiveRecord::Schema.define(version: 20170112182140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 20160817115224) do
   end
 
   add_index "animals", ["user_id"], name: "index_animals_on_user_id", using: :btree
+
+  create_table "api_keys", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "access_token"
+    t.datetime "expires_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
 
   create_table "availabilities", force: :cascade do |t|
     t.boolean  "monday_morning"
@@ -323,6 +333,7 @@ ActiveRecord::Schema.define(version: 20160817115224) do
   add_foreign_key "addresses", "countries"
   add_foreign_key "addresses", "users"
   add_foreign_key "animals", "users"
+  add_foreign_key "api_keys", "users"
   add_foreign_key "availabilities", "users"
   add_foreign_key "blogs", "users"
   add_foreign_key "dogs", "animals"
