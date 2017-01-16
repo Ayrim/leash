@@ -229,14 +229,8 @@ ActiveRecord::Schema.define(version: 20170112182140) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "created_by_id"
-    t.integer  "user_id"
-    t.integer  "animal_id"
-    t.integer  "activity_id"
-    t.integer  "route_id"
-    t.integer  "blog_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_group_relations", force: :cascade do |t|
@@ -263,14 +257,17 @@ ActiveRecord::Schema.define(version: 20170112182140) do
   add_index "user_relation_animals", ["user_id"], name: "index_user_relation_animals_on_user_id", using: :btree
 
   create_table "user_relations", force: :cascade do |t|
-    t.integer  "user_id"
+    t.integer  "user_1_id"
+    t.integer  "user_2_id"
     t.string   "name"
     t.date     "start_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "is_pending", default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "user_relations", ["user_id"], name: "index_user_relations_on_user_id", using: :btree
+  add_index "user_relations", ["user_1_id"], name: "index_user_relations_on_user_1_id", using: :btree
+  add_index "user_relations", ["user_2_id"], name: "index_user_relations_on_user_2_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "firstname",                         null: false
@@ -295,9 +292,9 @@ ActiveRecord::Schema.define(version: 20170112182140) do
     t.integer  "number_of_walks"
     t.string   "walking_region"
     t.string   "skills"
-    t.boolean  "is_premium"
+    t.boolean  "is_premium",        default: false
     t.string   "pricing"
-    t.boolean  "professional"
+    t.boolean  "professional",      default: false
     t.boolean  "is_walker"
     t.integer  "preference_id"
     t.integer  "experience_id"
@@ -350,7 +347,6 @@ ActiveRecord::Schema.define(version: 20170112182140) do
   add_foreign_key "user_group_relations", "users"
   add_foreign_key "user_relation_animals", "animals"
   add_foreign_key "user_relation_animals", "users"
-  add_foreign_key "user_relations", "users"
   add_foreign_key "users", "experiences"
   add_foreign_key "users", "preferences"
   add_foreign_key "wallposts", "blogs"

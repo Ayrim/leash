@@ -304,7 +304,7 @@
                     <ul class="collection z-depth-1 with-header hoverable">
                         <li class="collection-header collection-PictureHeader">
                             <% if current_user.id == $show_user.id %>
-                                <%= link_to connections_path do %>
+                                <%= link_to user_relation_path(:id => current_user.id) do %>
                                     <div class="card amber darken-2" style="box-shadow: none; border: none;">
                                         <div class="card-content white-text center-align">
                                             <p class="card-title"><i class="mdi-social-group-add"></i> <%= $show_user.connections.count %></p>
@@ -313,7 +313,7 @@
                                     </div>
                                 <% end %>
                             <% else %>
-                                <%= link_to connections_show_path(:uid => $show_user.id) do %>
+                                <%= link_to user_relation_show_path(:uid => $show_user.id) do %>
                                     <div class="card amber darken-2" style="box-shadow: none; border: none;">
                                         <div class="card-content white-text center-align">
                                             <p class="card-title"><i class="mdi-social-group-add"></i> <%= $show_user.connections.count %></p>

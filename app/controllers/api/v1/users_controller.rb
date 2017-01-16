@@ -3,8 +3,7 @@ module Api
     class UsersController < AuthenticationController
       before_action :require_login, except: [:index, :get_user]
       
-      # API - START
-      # /api/users
+      # [GET] /api/users
     	def index(api = true)
         if(authorization_required(api))
           if(api)
@@ -15,31 +14,41 @@ module Api
         end
     	end
 
-      # /api/users/:id
+      # [GET] /api/users/:id
       def get_user(api = true)    
         # check if the page is being loaded for the current user or for a different user
-        if (params.has_key?(:id))
-          if(params[:id] != 'update_unreadmessages')
-            user = User.find(params[:id])
-          end
-        elsif(params.has_key?(:uid))
-          user = User.find_by(:id => params[:uid])
-        else
-          user = current_user
-        end
+        begin
+          if(authorization_required(api))
+            if (params.has_key?(:id))
+              if(params[:id] != 'update_unreadmessages')
+                user = User.find(params[:id])
+              end
+            elsif(params.has_key?(:uid))
+              user = User.find_by(:id => params[:uid])
+            else
+              user = current_user
+            end
 
-        if(api)
-          render json: user, status: :ok
-        else
-          if !user.nil?
-            return user
+            if(api)
+              if(!user.nil?)
+                render json: user, status: :ok
+              else
+                render json: nil, status: :not_found
+              end
+            else
+              if !user.nil?
+                return user
+              end
+            end
+          end
+        rescue ActiveRecord::RecordNotFound
+          if(api)
+            render json: nil, status: :not_found
+          else
+            return nil
           end
         end
       end
-
-      # API - END
-
-
     end
   end
 end

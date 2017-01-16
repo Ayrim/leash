@@ -1,0 +1,5 @@
+
+$('#ExistingConnections').html('<%= escape_javascript(render template: "user_relation/show_connections") %>');
+$('#PendingConnections').html('<%= escape_javascript(render template: "user_relation/show_pending_connections") %>');
+
+$('#pendingConnectionsTitle').html('Pending <% if @pending_connections.count > 0 %> (<%= @pending_connections.count %>)<% end %>');

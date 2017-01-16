@@ -81,7 +81,8 @@ class UsersController < Api::V1::UsersController
 			ActiveRecord::Base.transaction do
 				respond_to do |format|
 					if @user.save
-            @globalAlbum = Photoalbum.new(:user_id => @user.id, :name => "No Album", :visibility => "Public")
+            visibility = Visibility.find_by(:value => "Public")
+            @globalAlbum = Photoalbum.new(:user_id => @user.id, :name => "No Album", :visibility => visibility)
             @globalAlbum.save
 						@user.send_activation_email
 				        format.html { redirect_to login_path(:anchor => "activation"), alert: 'Please check your email to activate your account.' }
@@ -204,19 +205,19 @@ class UsersController < Api::V1::UsersController
     @experiences = Experience.all
     respond_to do |format|
       if(!current_user.address)
-        @city = create_city(params[:user][:address_attributes][:city_attributes]);
-        @country = create_country(params[:user][:address_attributes][:country_attributes]);
-        current_user.address = Address.new(:street => params[:user][:address_attributes][:street], 
-                                            :number => params[:user][:address_attributes][:number],
-                                            :numberAddition => params[:user][:address_attributes][:numberAddition],
-                                            :city => @city,
-                                            :country => @country
-                                            );
+        @city = AddressController.new.create_city(params[:user][:address_attributes][:city_attributes]);
+        @country = AddressController.new.create_country(params[:user][:address_attributes][:country_attributes]);
+        current_user.address = AddressController.new.create_address(:street => params[:user][:address_attributes][:street], 
+                                                                :number => params[:user][:address_attributes][:number],
+                                                                :numberAddition => params[:user][:address_attributes][:numberAddition],
+                                                                :city => @city,
+                                                                :country => @country
+                                                                );
         current_user.update_attribute(:phone, params[:user][:phone]);
         format.html { render :editSettings }
       else
-        @city = create_city(params[:user][:address_attributes][:city_attributes]);
-        @country = create_country(params[:user][:address_attributes][:country_attributes]);
+        @city = AddressController.new.create_city(params[:user][:address_attributes][:city_attributes]);
+        @country = AddressController.new.create_country(params[:user][:address_attributes][:country_attributes]);
 
         if ((current_user.update_attribute(:phone, params[:user][:phone]) if params[:user][:phone]) && (current_user.address.update_attribute(:street, params[:user][:address_attributes][:street]) if params[:user][:address_attributes][:street]) && (current_user.address.update_attribute(:number, params[:user][:address_attributes][:number]) if params[:user][:address_attributes][:number]) && (current_user.address.update_attribute(:numberAddition, params[:user][:address_attributes][:numberAddition]) if params[:user][:address_attributes][:numberAddition]) && (current_user.address.update_attribute(:city, @city) if @city) && (current_user.address.update_attribute(:country, @country) if @country))
           format.html { redirect_to edit_settings_path, notice: 'User was successfully updated.' }
@@ -227,25 +228,6 @@ class UsersController < Api::V1::UsersController
         end
       end
     end
-  end
-
-  def create_city(cityParams)
-    city = City.find_by(name: cityParams[:name]);
-    if(!city)
-      city = City.new(:name => cityParams[:name],
-                      :postalcode => cityParams[:postalcode]);
-      city.save
-    end
-    return city
-  end
-
-  def create_country(countryParams)
-    country = Country.find_by(name: countryParams[:name]);
-    if(!country)
-      country = Country.new(:name => countryParams[:name]);
-      country.save
-    end
-    return country
   end
 
   def update_password
@@ -278,7 +260,7 @@ class UsersController < Api::V1::UsersController
   def send_invitation
     set_user()
 
-    connection = Connection.new()
+    connection = UserRelation.new()
     connection.user_1_id = current_user.id;
     connection.user_2_id = @user.id;
 

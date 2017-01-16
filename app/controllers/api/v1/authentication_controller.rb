@@ -7,7 +7,7 @@ module Api
 			        if(api)
 
 			        	###
-			         	# To do: validate if caller is logged in.
+			         	# Validate if caller is logged in.
 			         	# 1. Check if there is a authentication-header present
 			         	if !request.headers["Auth-Token"]
 			         		# 1.A if not - return unauthorized
@@ -19,6 +19,11 @@ module Api
 			         		apiKey = ApiKey.where("access_token = ? and expires_at > (now() at time zone 'utc')", access_token).order(created_at: :asc).first
 
 			         		if !apiKey.nil?
+			         			#update the expiration_date to set expiration to 2 hours after latest contact
+								apiKey.expires_at = DateTime.now + (2/24.0)
+								apiKey.save
+								
+			         			current_user = User.find_by(:id => apiKey.user_id)
 			         			return true
 			         		else
 			         			if(ApiKey.where("access_token = ?", access_token).first.nil?)

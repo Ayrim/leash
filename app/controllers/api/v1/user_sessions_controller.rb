@@ -3,6 +3,7 @@ module Api
     	class UserSessionsController < AuthenticationController
       		before_action :require_login, except: [:sign_in]
 
+      		# [POST] /api/signin
       		def sign_in(api = true, remember = false)
 				user = User.find_by(email: params[:email])
 
@@ -45,6 +46,7 @@ module Api
 				end
 			end
 
+      		# [GET] /api/signout
       		def sign_out(api = true)
 				if api
 					if request.headers['Auth-Token']

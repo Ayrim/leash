@@ -18,14 +18,14 @@ class User < ActiveRecord::Base
 	belongs_to :experience
 	has_one :api_key
 
-	has_many :user_1_connections, -> { where "connections.is_pending = false" }, :foreign_key => :user_1_id, :class_name => 'Connection'
+	has_many :user_1_connections, -> { where "user_relations.is_pending = false" }, :foreign_key => :user_1_id, :class_name => 'UserRelation'
 	has_many :one_connections, :through => :user_1_connections, :source => :user_2
-	has_many :user_2_connections, -> { where "connections.is_pending = false" }, :foreign_key => :user_2_id, :class_name => 'Connection'
+	has_many :user_2_connections, -> { where "user_relations.is_pending = false" }, :foreign_key => :user_2_id, :class_name => 'UserRelation'
 	has_many :two_connections, :through => :user_2_connections, :source => :user_1
 
-	has_many :user_1_pending_connections, -> { where "connections.is_pending = true" }, :foreign_key => :user_1_id, :class_name => 'Connection'
+	has_many :user_1_pending_connections, -> { where "user_relations.is_pending = true" }, :foreign_key => :user_1_id, :class_name => 'UserRelation'
 	has_many :one_pending_connections, :through => :user_1_pending_connections, :source => :user_2
-	has_many :user_2_pending_connections, -> { where "connections.is_pending = true" }, :foreign_key => :user_2_id, :class_name => 'Connection'
+	has_many :user_2_pending_connections, -> { where "user_relations.is_pending = true" }, :foreign_key => :user_2_id, :class_name => 'UserRelation'
 	has_many :two_pending_connections, :through => :user_2_pending_connections, :source => :user_1
 
 
@@ -105,6 +105,10 @@ class User < ActiveRecord::Base
 
 	def send_invitation_mail(current_user)
 		UserMailer.invitation_sent(self, current_user).deliver_now
+	end
+
+	def send_rejection_mail(current_user)
+		UserMailer.invitation_rejected(self, current_user).deliver_now
 	end
 
   	# Overwrite as_json method to define the fields to be returned in JSON

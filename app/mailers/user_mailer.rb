@@ -36,5 +36,11 @@ class UserMailer < ApplicationMailer
     mail to: user.email, subject: "You have received an invitation to create a new connection."
   end
 
+  def invitation_rejected(user, current_user)
+    @user = user
+    @rejectedBy = current_user
+    mail to: user.email, subject: "Your invitation has been rejected."
+  end
+
 
 end

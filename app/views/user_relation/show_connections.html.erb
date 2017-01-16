@@ -36,7 +36,7 @@
 					<strong>Distance: 0.23 km</strong>
 					<% if current_user.id == @show_user.id %>
 						<br />
-	                    <%= link_to "Remove this connection", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to remove this connection?' }, :remote => true %>
+	                    <%= link_to "Remove this connection", {:controller => :user_relation, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to remove this connection?' }, :remote => true %>
 					<% end %>
 				</p>
 				<p class="connectionInfoSmall hide-on-med-and-up">
@@ -47,7 +47,7 @@
 					<strong>Distance: 0.23 km</strong>
 					<% if current_user.id == @show_user.id %>
 						<br />
-			                <%= link_to "Disconnect", {:controller => :connections, :action => 'destroy', :id => conn.id }, :class => "waves-effect waves-light btn", :style => "margin-bottom:5px;", :method => :delete, data: { confirm: 'Are you sure you wish to remove this connection?' }, :remote => true %>
+			                <%= link_to "Disconnect", {:controller => :user_relation, :action => 'destroy', :id => conn.id }, :class => "waves-effect waves-light btn", :style => "margin-bottom:5px;", :method => :delete, data: { confirm: 'Are you sure you wish to remove this connection?' }, :remote => true %>
 	                    	<!-- link_to "Remove connection", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, data: { confirm: 'Are you sure you wish to remove this connection?' }, :remote => true -->
 					<% end %>
 				</p>

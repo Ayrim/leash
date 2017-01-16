@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  
-  get 'connections/show'
+
+  get 'user_relation/show'
 
   get 'password_resets' => 'password_resets#new', :as => :new_reset_password
   get 'password_resets' => 'password_resets#edit', :as => :edit_reset_password
@@ -18,18 +18,30 @@ Rails.application.routes.draw do
   resources :messaging
   resources :images
   resources :picture
-  resources :connections
-
-
-  post 'api/signin' => 'user_sessions#sign_in'
-  get 'api/signout' => 'user_sessions#sign_out'
+  resources :user_relation
 
   namespace :api do
     scope module: :v1 do
+      # User_Session
+      post 'signin' => 'user_sessions#sign_in'
+      post 'signout' => 'user_sessions#sign_in'
+
+      # Users
       get 'users' => 'users#index'
       get 'users/:id' => 'users#get_user'
 
-      #post 'signin' => 'user_sessions#sign_in'
+      # Address
+      get 'address' => 'address#get_addresses'
+      get 'address/:id' => 'address#get_address'
+      post 'address' => 'address#create_address'
+
+      get 'city' => 'address#get_cities'
+      get 'city/:id' => 'address#get_city'
+      post 'city' => 'address#create_city'
+
+      get 'country' => 'address#get_countries'
+      get 'country/:id' => 'address#get_country'
+      post 'country' => 'address#create_country'
     end
   end
 
@@ -50,8 +62,9 @@ Rails.application.routes.draw do
   get 'messaging' => 'messaging#index', :as => :root_messaging
   get 'update_unreadmessages' => 'messaging#update_unreadMessages', :as => :update_unreadmessages
 
-  get 'remove_connection/:id' => 'connections#remove_connection', :as => :remove_connection
-  get 'accept_invitation/:id' => 'connections#accept_invitation', :as => :accept_invitation
+  get 'remove_connection/:id' => 'user_relation#remove_connection', :as => :remove_connection
+  get 'accept_invitation/:id' => 'user_relation#accept_invitation', :as => :accept_invitation
+
 
   post 'create_picture' => 'picture#create', :as => :create_picture
   post 'create_photoalbum' => 'images#create_photoalbum', :as => :create_photoalbum

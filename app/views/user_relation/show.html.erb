@@ -1,5 +1,5 @@
 <%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
-<%= stylesheet_link_tag "connections", :media => "all" %>
+<%= stylesheet_link_tag "user_relation", :media => "all" %>
 <%= stylesheet_link_tag "users", params[:controller], :media => "all" %>
 
 
@@ -32,12 +32,12 @@
 	            </ul>
 
 	            <div id="ExistingConnections" class="tab-content row" style="padding-left:0px;padding-right:0px;">
-	            	<%= render template: "connections/show_connections" %>
+	            	<%= render template: "user_relation/show_connections" %>
 	            </div>
 
 	            <% if current_user.id == @show_user.id %>
 	            	<div id="PendingConnections" class="tab-content row" style="padding-left:0px;padding-right:0px;">
-	            		<%= render template: "connections/show_pending_connections" %>
+	            		<%= render template: "user_relation/show_pending_connections" %>
 	            	</div>
 	            <% end %>
             <% else %>

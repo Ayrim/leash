@@ -68,12 +68,12 @@
 	                <% if current_user.id == @show_user.id %>
 		                <br />
 		                <% if @pending_outgoing_connections.include?(conn) %>
-		                	<%= link_to "Retract invitation", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, :onclick => "javascript:disableWithdrawLinks(#{conn.id}", :id => "WithdrawLink#{conn.id}", :remote => true %>
+		                	<%= link_to "Retract invitation", {:controller => :user_relation, :action => 'destroy', :id => conn.id }, :method => :delete, :onclick => "javascript:disableWithdrawLinks(#{conn.id}", :id => "WithdrawLink#{conn.id}", :remote => true %>
 		                	<label id="<%= 'RetractingLabel' + conn.id.to_s %>" class="hide" style="font-size: 14px !important; margin-left:-10px;">Retracting...</label>
 		                <% elsif @pending_incoming_connections.include?(conn) %>
 		                	<%= link_to "Accept", accept_invitation_path(conn), :onclick => "javascript:disableAcceptanceLinks(#{conn.id}, 'Accept')", :id => "AcceptLink#{conn.id}", :remote => true %>
 		                	<span style="margin-right:10px;"></span>
-		                	<%= link_to "Refuse", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, :onclick => "javascript:disableAcceptanceLinks(#{conn.id}, 'Reject')", :id => "RejectLink#{conn.id}", :remote => true %>
+		                	<%= link_to "Refuse", {:controller => :user_relation, :action => 'destroy', :id => conn.id }, :method => :delete, :onclick => "javascript:disableAcceptanceLinks(#{conn.id}, 'Reject')", :id => "RejectLink#{conn.id}", :remote => true %>
 		                	<label id="<%= 'AcceptingLabel' + conn.id.to_s %>" class="hide" style="font-size: 14px !important; margin-left:-10px;">Accepting...</label>
 		                	<label id="<%= 'RejectingLabel' + conn.id.to_s %>" class="hide" style="font-size: 14px !important; margin-left:-10px;">Refusing...</label>
 		                <% end %>
@@ -82,12 +82,12 @@
 	            <p class="connectionInfoSmall hide-on-med-and-up center-align">
 	                <% if current_user.id == @show_user.id %>
 		                <% if @pending_outgoing_connections.include?(conn) %>
-		                	<%= link_to "Withdraw", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, :class => "waves-effect waves-light btn", :onclick => "javascript:disableWithdrawButton(#{conn.id})", :id => "WithdrawButton#{conn.id}", :remote => true %>
+		                	<%= link_to "Withdraw", {:controller => :user_relation, :action => 'destroy', :id => conn.id }, :method => :delete, :class => "waves-effect waves-light btn", :onclick => "javascript:disableWithdrawButton(#{conn.id})", :id => "WithdrawButton#{conn.id}", :remote => true %>
 		                	<label id="<%= 'WithdrawButtonLabel' + conn.id.to_s %>" class="waves-effect waves-light btn disabled hide">Withdrawing...</label>
 		                <% elsif @pending_incoming_connections.include?(conn) %>
 		                	<%= link_to "Accept", accept_invitation_path(conn), :class => "waves-effect waves-light btn", :style => "margin-bottom:5px;", :remote => true, :onclick => "javascript:disableAcceptanceButtons(#{conn.id}, 'Accept')", :id => "AcceptButton#{conn.id}" %>
 
-		                	<%= link_to "Refuse", {:controller => :connections, :action => 'destroy', :id => conn.id }, :method => :delete, :class => "waves-effect waves-light btn", :id => "RejectButton#{conn.id}", :onclick => "javascript:disableAcceptanceButtons(#{conn.id}, 'Reject')", :remote => true %>
+		                	<%= link_to "Refuse", {:controller => :user_relation, :action => 'destroy', :id => conn.id }, :method => :delete, :class => "waves-effect waves-light btn", :id => "RejectButton#{conn.id}", :onclick => "javascript:disableAcceptanceButtons(#{conn.id}, 'Reject')", :remote => true %>
 		                	<label id="<%= 'AcceptingButtonLabel' + conn.id.to_s %>" class="waves-effect waves-light btn disabled hide" style="font-size:14px; margin-bottom:5px;">Accepting...</label>
 		                	<label id="<%= 'AcceptButtonLabel' + conn.id.to_s %>" class="waves-effect waves-light btn disabled hide" style="font-size:14px; margin-bottom:5px;">Accept</label>
 		                	<label id="<%= 'RejectingButtonLabel' + conn.id.to_s %>" class="waves-effect waves-light btn disabled hide" style="font-size:14px;">Refusing...</label>
