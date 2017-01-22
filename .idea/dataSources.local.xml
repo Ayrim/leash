@@ -4,8 +4,14 @@
     <data-source name="PostgreSQL - ayrton@localhost" uuid="ec912881-903f-45bc-9300-75382e1b8c87">
       <secret-storage>master_key</secret-storage>
       <user-name>ayrton</user-name>
-      <introspection-scope>ayrton:public,pg_catalog,ayrton</introspection-scope>
-      <resolve-scope>ayrton:public,ayrton</resolve-scope>
+      <introspection-scope>ayrton:ayrton,pg_catalog,public</introspection-scope>
+      <resolve-scope>ayrton:ayrton,public</resolve-scope>
+    </data-source>
+    <data-source name="PostgreSQL - ayrton@localhost [2]" uuid="974abaeb-b717-4377-b9a3-d4c03bcfb634">
+      <secret-storage>master_key</secret-storage>
+      <user-name>ayrton</user-name>
+      <introspection-scope>ayrton:ayrton,pg_catalog,public</introspection-scope>
+      <resolve-scope>ayrton:ayrton,public</resolve-scope>
     </data-source>
   </component>
 </project>

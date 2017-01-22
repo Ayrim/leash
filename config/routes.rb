@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :messaging
   resources :images
   resources :picture
+  resources :tag
 
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
   patch 'edit_photoalbum' => 'images#edit_photoalbum', :as => :edit_photoalbum
   patch 'edit_picture' => 'picture#edit_picture', :as => :update_picture
 
+
   post 'new_dog' => 'dog#create', :as => :create_dog
   post 'new_post' => 'wallpost#create', :as => :create_wallpost
   post 'index_post' => 'wallpost#index', :as => :index_wallpost
@@ -45,6 +47,8 @@ Rails.application.routes.draw do
   get 'extendPostsAfterDelete/:id' => 'wallpost#showNewPosts', :as => :extendAfterDelete_wallpost
 
   post 'new_message' => 'messaging#create_message', :as => :create_message
+
+  post 'new_tag' => 'tag#create', :as => :create_tag
 
   #root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.

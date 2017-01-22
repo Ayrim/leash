@@ -1,0 +1,50 @@
+<div class="row">
+
+  <div class="col s12 m9 l10">
+    <div class="row">
+
+      <div class="col s12 m12 l12">
+        <div id="Profile" class="card-panel section scrollspy">
+          <h4 class="header2">Tag toevoegen</h4>
+          <hr class="card-panel-header-line" />
+          <% if current_user.errors.any? %>
+              <div id="error_explanation" class="row s12" style="padding-left:25px; padding-top:5px; margin-left:10px; margin-right:10px; border-radius:5px; border-style: solid; border-color:red; border-width:1px;">
+                <h5><%= pluralize(current_user.errors.count, "error") %> prohibited this user from being saved:</h5>
+                <ul>
+                  <% current_user.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+          <div class="row">
+            <%= render 'form' %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".button-collapse").sideNav();
+    $(".brand-logo").sideNav();
+    $('.scrollspy').scrollSpy();
+  })
+
+
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 75, // Creates a dropdown of 15 years to control year
+    max: true
+  });
+
+  $(window).scroll(function(){
+    $(".pinned").css("top",Math.max(75,450-$(this).scrollTop()));
+  });
+</script>

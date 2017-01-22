@@ -178,7 +178,6 @@ ActiveRecord::Schema.define(version: 20160806160817) do
     t.string   "name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.string   "description"
     t.integer  "visibility_id"
   end
 

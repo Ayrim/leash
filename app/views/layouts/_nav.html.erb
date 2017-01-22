@@ -62,14 +62,12 @@
          <div id="nav_sidebar_wrapper">
           <ul style="min-height:324px; overflow-y: auto;"  data-collapsible="accordion">
             <% if logged_in? %>
-              <% unless @hideHome %>
                 <li>
                   <%= link_to overview_path, :class => 'no-padding collapsible-header' do %>
                     <i class="fa fa-home material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.home') %>
                   <% end %>
                 </li>
                 <li class="divider"/>
-              <% end %>
               <li>
                 <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
                   <i class="fa fa-cog material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.profile') %>
@@ -87,7 +85,7 @@
               </li>
               <li>
                 <%= link_to images_path, :class => 'no-padding collapsible-header' do %>
-                  <i class="mdi-image-camera-alt material-icons"></i><%= I18n.t('views.layout.nav.photos') %>
+                  <i class="fa fa-camera material-icons"></i><%= I18n.t('views.layout.nav.photos') %>
                 <% end %>
               </li>
               <li>
@@ -96,7 +94,7 @@
                 <% end %>
               </li>
               <li class="no-padding">
-                <ul class="collapsible collapsible-accordion">
+                <ul>
                   <li>
                     <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %></a>
                     <div class="collapsible-body">
