@@ -75,14 +75,12 @@
                 </a>
               </li>
               <li class="divider" />
-              <% unless @hideHome %>
                 <li>
                   <%= link_to overview_path, :class => 'no-padding collapsible-header' do %>
                     <i class="fa fa-home material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.home') %>
                   <% end %>
                 </li>
                 <!--<li class="divider"/>-->
-              <% end %>
               <li>
                 <%= link_to settings_path, :class => 'no-padding collapsible-header' do %>
                   <i class="fa fa-cog material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.profile') %>

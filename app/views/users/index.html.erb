@@ -1,0 +1,111 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "authentication", :media => "all" %>
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
+<script type="text/javascript">
+	var map;
+    var marker;
+    function createMarker(latitude, longitude, title){
+    	alert('Marker not showing yet!')
+    	marker = new google.maps.Marker({
+    		position: {lat: latitude, lng: longitude},
+    		map: map,
+    		title: title,
+    		visible: true
+  		});
+  	}
+
+</script>
+
+
+<!-- START CONTENT -->
+<section id="content"  style="background-color:white;">
+    <!--start container-->
+    <div class="container">
+    	<div class="row">
+	    	<ul class="collection filterBox card with-header">
+	    		<li class="collection-header">filter</li>
+	    		<li class="collection-item">
+	    			<p>Wandelaars of honden<br />Radius</p>
+	    		</li>
+	    	</ul>
+    	</div>
+		<div class="row">
+			<div class="col m4 hoverable card hide-on-small-only">
+				<div id="map-canvas2" data-lat="51.312374" data-lng="3.132768" style="height:450px; margin: 10px 0px;"></div>
+			</div>
+	  		<div class="col s12 m8" style="padding-right:0;">
+	  			<ul class="collection z-depth-1 with-header hoverable card">
+					<% @nearbyUsers.each do |user| %>
+						<li class="collection-item avatar">
+							 <img src="<%= load_user_avatar(user) %>" alt="" class="circle">
+							 <span class="title"><%= user.firstname + ' ' + user.lastname %></span>
+							 <p>
+							 	<%= user.try(:address).try(:city).name %>
+							 	<br/>
+							 	<%= I18n.t('views.home.overview.walkerdistance') + ': ' + '%.2f' % (user.address.distance_to [current_user.address.latitude, current_user.address.longitude]) + ' km' %>
+
+								<%= javascript_tag "createMarker(#{user.address.latitude} ,#{user.address.longitude}, '#{user.firstname}')" %>
+							 </p>
+						</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+<script type="text/javascript">
+    ShowGeoLocation();
+
+    function ShowGeoLocation() {
+        var street = "<%= $show_user.address.try(:street) %>" + "";
+        var city = "<%= $show_user.address.try(:city).try(:name) %>" + "";
+        var country = "<%= $show_user.address.try(:country).try(:name) %>" + "";
+        var address = street + ', ' + city + ', ' + country;
+        if (address === "0, 0, 0") {
+            address = "Brussel, Belgium";
+        }
+        var geocoder = new google.maps.Geocoder();
+
+        if(document.getElementById('map-canvas2') != undefined)
+        {
+            map = new google.maps.Map(document.getElementById('map-canvas2'), {
+                zoom: 13,
+                center: { lat: 51.309553, lng: 3.132350 },
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                scrollwheel: true,
+                draggable: true,
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
+                streetViewControl: false,
+                styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
+                mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
+                navigationControl: false,
+                navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
+            });
+
+        }
+    };
+
+    function geocodeAddress(address, geocoder, resultsMap) {
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        })
+    };
+</script>

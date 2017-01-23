@@ -8,6 +8,24 @@ class UsersController < Api::V1::UsersController
   # This gives a better overview of the methods that will be available through the API
   # also provides a way of versioning the API 
 
+  def index
+    # show overview of users (both walkers and non-walkers)
+    # allow user to filter on (non-)walkers
+    # position of these people should be shown on a map (aprox. not exact)
+
+    # start with 10 users
+    # radius = 10km
+    addresses = Address.near(current_user.address.full_address, 10, order: 'distance').where('user_id != ?', current_user.id)
+    #puts addresses.to_json
+    addresses.each do |address|
+      address.distance = address[:distance]
+    end
+    if !addresses.nil?
+      @nearbyUsers = User.includes(:address).references(:address).merge(addresses)
+      puts @nearbyUsers.to_json
+    end
+  end
+
 	def show
     if(params[:id] != 'update_unreadmessages')
       $show_user = get_user(false)

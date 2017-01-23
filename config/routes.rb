@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   get 'profile' => 'users#show', :as => :settings
   get 'edit_profile' => 'users#editSettings', :as => :edit_settings
   get 'send_invitation/:id' => 'users#send_invitation', :as => :send_invitation
+
   #post 'settings' => 'users#settings_post'
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview

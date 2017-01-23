@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
 	validates :terms_of_service, :acceptance => true
 
-	before_save :downcase_email
+	before_save :downcase_email#, :addGeocoding
 	before_create :create_activation_digest
 
   	attr_accessor :password, :password_confirmation, :activation_token, :reset_token
@@ -35,6 +35,13 @@ class User < ActiveRecord::Base
   	accepts_nested_attributes_for :availability
   	accepts_nested_attributes_for :preference
   	accepts_nested_attributes_for :experience
+
+  	#def addGeocoding
+  	#	puts '-------------------------------------'
+  	#	puts 'called'
+  	#	puts '-------------------------------------'
+  	#	self.address.geocode
+  	#end
 
   	def connections
   		(one_connections + two_connections).flatten.uniq.sort_by{|e| e[:updated_at]}.reverse
@@ -117,7 +124,7 @@ class User < ActiveRecord::Base
         	:include => {
           		:preference => {:only => [:name]},
           		:experience => {:only => [:value]},
-          		:address => {:only => [:street, :number, :numberAddition],
+          		:address => {:only => [:street, :number, :numberAddition, :latitude, :longitude, :distance],
           			:include => {
           					:city => {:only => [:name]},
           					:country => {:only => [:name]},
