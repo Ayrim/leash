@@ -17,12 +17,12 @@ class UsersController < Api::V1::UsersController
     # radius = 10km
     addresses = Address.near(current_user.address.full_address, 10, order: 'distance').where('user_id != ?', current_user.id)
     #puts addresses.to_json
-    addresses.each do |address|
-      address.distance = address[:distance]
-    end
+    #addresses.each do |address|
+    #  address.distance = address[:distance]
+    #end
     if !addresses.nil?
       @nearbyUsers = User.includes(:address).references(:address).merge(addresses)
-      puts @nearbyUsers.to_json
+      #puts @nearbyUsers.to_json
     end
   end
 

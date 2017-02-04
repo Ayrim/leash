@@ -4,13 +4,14 @@
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
 <script type="text/javascript">
-	var map;
-    var marker;
+
+    var walkerMap;
+	var marker;
     function createMarker(latitude, longitude, title){
-    	alert('Marker not showing yet!')
+
     	marker = new google.maps.Marker({
     		position: {lat: latitude, lng: longitude},
-    		map: map,
+    		map: walkerMap,
     		title: title,
     		visible: true
   		});
@@ -24,18 +25,70 @@
     <!--start container-->
     <div class="container">
     	<div class="row">
-	    	<ul class="collection filterBox card with-header">
-	    		<li class="collection-header">filter</li>
-	    		<li class="collection-item">
-	    			<p>Wandelaars of honden<br />Radius</p>
-	    		</li>
-	    	</ul>
     	</div>
 		<div class="row">
 			<div class="col m4 hoverable card hide-on-small-only">
-				<div id="map-canvas2" data-lat="51.312374" data-lng="3.132768" style="height:450px; margin: 10px 0px;"></div>
+				<div id="map-canvas2" data-lat="#{current_user.address.latitude}" data-lng="#{current_user.address.longitude}" style="height:450px; margin: 10px 0px;"></div>
 			</div>
 	  		<div class="col s12 m8" style="padding-right:0;">
+            <ul id="collapsibleFilter" class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header">
+                        <i class="fa fa-filter" aria-hidden="true"></i>Filter
+                    </div>
+                    <div class="collapsible-body">
+                        <form action="#">
+                                <p class="range-field" style="padding-bottom:0;">
+                                    <label for="walkerRadius" class="active" style="font-size:1em;">Toon wandelaars in een straal van: <span id="rangefield">10</span> [km]</label>
+                                    <input type="range" id="walkerRadius" min="0" max="100" value="10" onchange="updateTextInput(this.value);" />
+                                </p>
+                                
+                            <div  style="margin-left: 28px; margin-right:28px;">
+                                  <input name="filterAddress" type="radio" id="myAddress" checked onchange="javascript:OtherAddressChanged(false);"/>
+                                  <label for="myAddress">Rond mijn woonplaats</label>
+                                  <br />
+                                  <input name="filterAddress" type="radio" id="otherAddress" onchange="javascript:OtherAddressChanged(true);" />
+                                  <label for="otherAddress">Op basis van een ander adres</label>
+                                  <div id="otherAddressInputFields" class="hide" style="margin-left: 35px; border-style: solid; border-width: 1px; border-color: #FF5B45; padding-right:15px;">
+                                    <div class="row" style="margin-left:10px;">
+                                       <div class="input-field col s6">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">Street</label>
+                                        </div>
+                                       <div class="input-field col s2">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-left:10px;">
+                                       <div class="input-field col s2">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">PostalCode</label>
+                                        </div>
+                                       <div class="input-field col s5">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">City</label>
+                                        </div>
+                                       <div class="input-field col s5">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">Country</label>
+                                        </div>
+                                    </div>
+                                  </div>
+
+                                   <div class="row">
+                                        <div class="row">
+                                            <div class="input-field col s12" id="submitAccountInfo">
+                                                <a class="btn waves-effect waves-light right">Update</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
 	  			<ul class="collection z-depth-1 with-header hoverable card">
 					<% @nearbyUsers.each do |user| %>
 						<li class="collection-item avatar">
@@ -44,7 +97,7 @@
 							 <p>
 							 	<%= user.try(:address).try(:city).name %>
 							 	<br/>
-							 	<%= I18n.t('views.home.overview.walkerdistance') + ': ' + '%.2f' % (user.address.distance_to [current_user.address.latitude, current_user.address.longitude]) + ' km' %>
+							 	<%= I18n.t('views.home.overview.walkerdistance') + ': ' + '%.2f' % (user.try(:address).distance_to [current_user.address.latitude, current_user.address.longitude]) + ' km' %>
 
 								<%= javascript_tag "createMarker(#{user.address.latitude} ,#{user.address.longitude}, '#{user.firstname}')" %>
 							 </p>
@@ -60,23 +113,48 @@
 
 
 <script type="text/javascript">
+    $(document).ready(function(){
+        $('#collapsibleFilter').collapsible();
+    });
+
     ShowGeoLocation();
 
+    function OtherAddressChanged(showInputFields)
+    {
+        if(!showInputFields)
+        {
+            addClass(document.getElementById('otherAddressInputFields'), 'hide');
+        }
+        else
+        {
+            removeClass(document.getElementById('otherAddressInputFields'), 'hide');
+        }
+    }
+
+    function updateTextInput(val) {
+        document.getElementById('rangefield').textContent=val;
+    }
+
     function ShowGeoLocation() {
-        var street = "<%= $show_user.address.try(:street) %>" + "";
-        var city = "<%= $show_user.address.try(:city).try(:name) %>" + "";
-        var country = "<%= $show_user.address.try(:country).try(:name) %>" + "";
+        var street = "<%= current_user.try(:address).try(:street) %>" + "";
+        var city = "<%= current_user.try(:address).try(:city).try(:name) %>" + "";
+        var country = "<%= current_user.try(:address).try(:country).try(:name) %>" + "";
+
+        var latitude = Number("<%= current_user.try(:address).try(:latitude) %>");
+        var longitude = Number("<%= current_user.try(:address).try(:longitude) %>");
+
         var address = street + ', ' + city + ', ' + country;
         if (address === "0, 0, 0") {
             address = "Brussel, Belgium";
         }
+
         var geocoder = new google.maps.Geocoder();
 
         if(document.getElementById('map-canvas2') != undefined)
         {
-            map = new google.maps.Map(document.getElementById('map-canvas2'), {
+            walkerMap = new google.maps.Map(document.getElementById('map-canvas2'), {
                 zoom: 13,
-                center: { lat: 51.309553, lng: 3.132350 },
+                center: { lat: latitude, lng: longitude },
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControl: false,
                 scrollwheel: true,
@@ -92,6 +170,7 @@
                 navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
             });
 
+            //geocodeAddress(address, geocoder, walkerMap);
         }
     };
 
@@ -108,4 +187,21 @@
             }
         })
     };
+
+
+
+    function addClass(el, className) {
+        if (el.classList)
+            el.classList.add(className)
+        else if (!hasClass(el, className)) el.className += " " + className
+    }
+
+    function removeClass(el, className) {
+        if (el.classList)
+            el.classList.remove(className)
+        else if (hasClass(el, className)) {
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
+            el.className=el.className.replace(reg, ' ')
+      }
+    }
 </script>
