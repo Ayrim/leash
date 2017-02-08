@@ -45,6 +45,11 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'about-us' => 'home#about_us', :as => :about_us
+  get 'pricing' => 'home#pricing', :as => :pricing
+  get 'how-and-why' => 'home#how_and_why', :as => :how_and_why
+  get 'contact-us' => 'home#contact_us', :as => :contact_us
+
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
   get 'signup'  => 'users#new', :as => :signup

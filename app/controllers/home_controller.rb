@@ -16,4 +16,16 @@ class HomeController < ApplicationController
 		@RandomPictures = Picture.joins(:visibility).joins(:photoalbum).where('(visibilities.value = ?) AND photoalbums.user_id != ?', 'Public', current_user.id).order("pictures.created_at desc").limit(10).shuffle.take(3)
 						
 	end
+
+	def pricing
+	end
+
+	def about_us
+	end
+
+	def contact_us
+	end
+
+	def how_and_why
+	end
 end

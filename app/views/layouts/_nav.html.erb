@@ -54,6 +54,26 @@
             </li>
            <% else %>
             <li>
+              <%= link_to how_and_why_path do %>
+                How and why?
+              <% end %></li>
+            <li>
+              <%= link_to pricing_path do %>
+                Pricing
+              <% end %>
+            </li>
+            <li> 
+              <%= link_to about_us_path do %>
+                About us
+              <% end %>
+            </li>
+            <li>
+              <%= link_to contact_us_path do %>
+                Contact
+              <% end %>
+            </li>
+
+            <li>
               <%= link_to login_path do %>
                 <img src="<%= user_avatar() %>" alt="" class="circle accountPicture" />
               <% end %>

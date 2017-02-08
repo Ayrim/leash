@@ -84,3 +84,53 @@
 .picturePostColumn{
 	padding: 0 !important;
 }
+
+
+.white-text{
+	text-align: center;
+}
+h5.white-text{
+	font-size: 1.2em;
+}
+h4.white-text .amount{
+	margin-right: -15px;
+}
+.pricing{
+	font-family: 'Aspergit','Open Sans','Helvetica Neue',Arial,sans-serif !important
+}
+.pricing .price{
+	padding: 15px 0
+}
+.pricing .price span.currency, .pricing .price span.period
+{
+	font-size: 16px;
+}
+.pricing .price span.currency{
+	letter-spacing: -6px;
+    top: -13px;
+}
+.pricing .price span, .pricing .plan-title span{
+	display: inline-block;
+    position: relative;
+}
+
+.pricing .collection li.collection-item:hover{
+	background: #f5f5f5
+}
+.pricing ul.collection li{
+	position: relative;	
+}
+.collection .collection-item{
+	background-color: #fff;
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+.pricingInfoIcon{
+	float: right !important;
+    display: inline;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
