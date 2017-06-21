@@ -1,42 +1,42 @@
 <%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
 
-<div class="container" style="display: table">
+<div class="container" style="display: table;  max-width:550px;">
 	<div class="row" style="display: table-cell; vertical-align: middle;">
-		<h4>Contacteer ons!</h4>
-		<p>Zit je met vragen of heb je tips voor ons, dan horen we het graag!</p>
-		<div class="row">
-		    <form class="col s12">
-			    <div class="row">
-			        <div class="input-field col s4">
-			          	<i class="material-icons prefix">account_circle</i>
-			          	<input id="icon_prefix" type="text" class="validate">
-			          	<label for="icon_prefix">First Name</label>
-			        </div>
-			        <div class="input-field col s4">
-			          	<i class="material-icons prefix">account_circle</i>
-			          	<input id="icon_prefix" type="text" class="validate">
-			          	<label for="icon_prefix">Last Name</label>
-			        </div>
-			    <div class="row">
-			    </div>
-			        <div class="input-field col s5">
-			          	<i class="material-icons prefix">email</i>
-			          	<input id="email" type="email" class="validate">
-			          	<label for="email" data-error="wrong" data-success="right">Email</label>
-			        </div>
-			    </div>
-			    <div class="row">
-			    	<div class="input-field col s12">
-          				<textarea id="textarea1" class="materialize-textarea"></textarea>
-          				<label for="textarea1">Message</label>
-        			</div>
-			    </div>
-                <div class="plan-signup-btn">
-              		<%= link_to signup_path, :class => 'btn waves-effect waves-block waves-light no-margin white-text' do %>
-			          	Send
-					<% end %>
-				</div>
-		    </form>
+		<div class="contactUs z-depth-4 card-panel" style="background-color:#fff;padding:25px;">
+			<h4 style="font-size:1.7em;">Contacteer ons!</h4>
+			<p>Zit je met vragen of heb je tips voor ons, dan horen we het graag!</p>
+			<div class="row">
+			    <form class="col s12">
+				    <div class="row">
+				        <div class="input-field col s10">
+				          	<i class="material-icons prefix">account_circle</i>
+				          	<input id="icon_prefix" type="text" class="validate">
+				          	<label for="icon_prefix">First Name</label>
+				        </div>
+				        <div class="input-field col s10">
+				          	<i class="material-icons prefix">account_circle</i>
+				          	<input id="icon_prefix" type="text" class="validate">
+				          	<label for="icon_prefix">Last Name</label>
+				        </div>
+				        <div class="input-field col s10">
+				          	<i class="material-icons prefix">email</i>
+				          	<input id="email" type="email" class="validate">
+				          	<label for="email" data-error="invalid" data-success="valid">Email</label>
+				        </div>
+				    </div>
+				    <div class="row">
+				    	<div class="input-field col s12">
+	          				<textarea id="textarea1" class="materialize-textarea"></textarea>
+	          				<label for="textarea1">Message</label>
+	        			</div>
+				    </div>
+	                <div class="plan-signup-btn">
+	              		<%= link_to signup_path, :class => 'btn waves-effect waves-block waves-light no-margin white-text' do %>
+				          	Send
+						<% end %>
+					</div>
+			    </form>
+		  </div>
 	  </div>
 	</div>
 </div>

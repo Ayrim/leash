@@ -40,6 +40,8 @@ en:
         login: "Login"
         loggingin: "Logging in..."
         forgotpwd: "Forgot password?"
+      index:
+        refresh: "Refresh"
       new:
         password: "Password"
         confirmpassword: "Confirm password"

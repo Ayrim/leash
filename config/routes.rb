@@ -29,6 +29,9 @@ Rails.application.routes.draw do
       # Users
       get 'users' => 'users#index'
       get 'users/:id' => 'users#get_user'
+      get 'users/nearby/:id' => 'users#LoadNearbyUsers'
+      post 'user/update' => 'users#update_user'
+      post 'user/update_walker/:id' => 'users#update_walker'
 
       # Address
       get 'address' => 'address#get_addresses'
@@ -58,6 +61,7 @@ Rails.application.routes.draw do
   patch 'update_walker_profile' => 'users#update_walker_profile', :as => :update_walker_profile
   patch 'update_contactinfo' => 'users#update_contactinfo', :as => :update_contactinfo
   patch 'update_password' => 'users#update_password', :as => :update_password
+  patch 'refresh_users' => 'users#refresh_users', :as => :refresh_users
   get 'profile' => 'users#show', :as => :settings
   get 'edit_profile' => 'users#editSettings', :as => :edit_settings
   get 'send_invitation/:id' => 'users#send_invitation', :as => :send_invitation
