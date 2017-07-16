@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  
+
+  get 'user_relation/show'
+
   get 'password_resets' => 'password_resets#new', :as => :new_reset_password
   get 'password_resets' => 'password_resets#edit', :as => :edit_reset_password
 
@@ -16,8 +18,34 @@ Rails.application.routes.draw do
   resources :messaging
   resources :images
   resources :picture
-  resources :tag
+  resources :user_relation
 
+  namespace :api do
+    scope module: :v1 do
+      # User_Session
+      post 'signin' => 'user_sessions#sign_in'
+      post 'signout' => 'user_sessions#sign_in'
+
+      # Users
+      get 'users' => 'users#index'
+      get 'users/:id' => 'users#get_user'
+
+      # Address
+      get 'address' => 'address#get_addresses'
+      get 'address/:id' => 'address#get_address'
+      post 'address' => 'address#create_address'
+
+      get 'city' => 'address#get_cities'
+      get 'city/:id' => 'address#get_city'
+      post 'city' => 'address#create_city'
+
+      get 'country' => 'address#get_countries'
+      get 'country/:id' => 'address#get_country'
+      post 'country' => 'address#create_country'
+    end
+  end
+
+  # Users
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
   get 'signup'  => 'users#new', :as => :signup
@@ -28,26 +56,39 @@ Rails.application.routes.draw do
   patch 'update_password' => 'users#update_password', :as => :update_password
   get 'profile' => 'users#show', :as => :settings
   get 'edit_profile' => 'users#editSettings', :as => :edit_settings
+  get 'send_invitation/:id' => 'users#send_invitation', :as => :send_invitation
   #post 'settings' => 'users#settings_post'
+
+  # Home
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview
+
+  # Messages
   get 'messaging' => 'messaging#index', :as => :root_messaging
   get 'update_unreadmessages' => 'messaging#update_unreadMessages', :as => :update_unreadmessages
+  post 'new_message' => 'messaging#create_message', :as => :create_message
 
+  # Relations
+  get 'remove_connection/:id' => 'user_relation#remove_connection', :as => :remove_connection
+  get 'accept_invitation/:id' => 'user_relation#accept_invitation', :as => :accept_invitation
+
+  # Photo albums
   post 'create_picture' => 'picture#create', :as => :create_picture
   post 'create_photoalbum' => 'images#create_photoalbum', :as => :create_photoalbum
   patch 'edit_photoalbum' => 'images#edit_photoalbum', :as => :edit_photoalbum
   patch 'edit_picture' => 'picture#edit_picture', :as => :update_picture
 
-
+  # Dogs
   post 'new_dog' => 'dog#create', :as => :create_dog
+  
+
+  # Wallposts
   post 'new_post' => 'wallpost#create', :as => :create_wallpost
   post 'index_post' => 'wallpost#index', :as => :index_wallpost
   get 'extendPosts' => 'wallpost#showNewPosts', :as => :extend_wallpost
   get 'extendPostsAfterDelete/:id' => 'wallpost#showNewPosts', :as => :extendAfterDelete_wallpost
 
-  post 'new_message' => 'messaging#create_message', :as => :create_message
-
+  # Tags
   post 'new_tag' => 'tag#create', :as => :create_tag
 
   #root 'users#index'
