@@ -80,7 +80,7 @@ Rails.application.routes.draw do
 
   # Dogs
   post 'new_dog' => 'dog#create', :as => :create_dog
-  
+
 
   # Wallposts
   post 'new_post' => 'wallpost#create', :as => :create_wallpost
