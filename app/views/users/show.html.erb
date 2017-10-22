@@ -609,9 +609,10 @@
 
     function ShowGeoLocation() {
         var street = "<%= $show_user.address.try(:street) %>" + "";
+        var number = "<%= $show_user.address.try(:number) %>" + "";
         var city = "<%= $show_user.address.try(:city).try(:name) %>" + "";
         var country = "<%= $show_user.address.try(:country).try(:name) %>" + "";
-        var address = street + ', ' + city + ', ' + country;
+        var address = street + ' ' + number + ', ' + city + ', ' + country;
         if (address === "0, 0, 0") {
             address = "Brussel, Belgium";
         }

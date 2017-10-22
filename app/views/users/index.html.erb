@@ -40,17 +40,19 @@
 			<div class="col m4 hoverable card hide-on-small-only">
 				<div id="map-canvas2" data-lat="#{current_user.address.latitude}" data-lng="#{current_user.address.longitude}" style="height:450px; margin: 10px 0px;"></div>
 			</div>
-	  		<div class="col s12 m8" style="padding-right:0;">
+	  		<div class="col s12 m8 UserOverviewList" style="padding-right:0;">
             <ul id="collapsibleFilter" class="collapsible" data-collapsible="accordion">
                 <li>
                     <div class="collapsible-header">
                         <i class="fa fa-filter" aria-hidden="true"></i>Filter
                     </div>
                     <div class="collapsible-body">
+                        <div style="overflow:overlay;">
                         <%= form_for(current_user, :url => refresh_users_path, :remote => true, :html => {class: 'col s12'}) do |u| %>
-                                <p class="range-field" style="padding-bottom:0;">
+                                <p style="padding-bottom: 0px; margin-bottom: -15px;">
                                     <label for="walkerRadius" class="active" style="font-size:1em;">Toon wandelaars in een straal van: <span id="rangefield">10</span> [km]</label>
-                                    
+                                </p>
+                                <p class="range-field" style="padding-bottom:0; padding-bottom:0;padding-top: 10px;">
                                     <%= u.range_field :address, :id => "walkerRadius", :min => 0, :max => 100, :value => 10, :onchange => "updateTextInput(this.value);"%>
                                 </p>
                                 
@@ -100,6 +102,7 @@
                                     <br/>
                             </div>
                         <% end %>
+                        </div>
                     </div>
                 </li>
             </ul>

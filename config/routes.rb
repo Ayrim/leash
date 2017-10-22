@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :user_relation
 
   namespace :api do
-    scope module: :v1 do
+    scope module: :v1 do  #if versionNumber should be added to URL, replace 'scope module:' by 'namespace'
       # User_Session
       post 'signin' => 'user_sessions#sign_in'
       post 'signout' => 'user_sessions#sign_in'

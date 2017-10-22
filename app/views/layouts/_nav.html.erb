@@ -142,7 +142,7 @@
               </li>
             <% else %>
               <li><%= link_to I18n.t('views.layout.nav.signin'), login_path %></li>
-              <li><%= link_to I18n.t('views.layout.nav.signup'), signup_path %></li>        
+              <li><%= link_to I18n.t('views.layout.nav.signup'), signup_path %></li>
             <% end %> 
           </ul>
           <% if logged_in? %>
@@ -188,6 +188,11 @@
             <div id="nav_sidebar_bottomSettings_notloggedin">
               <ul>
                 <li class="divider hide-on-large-only"/>
+              <li class="hide-on-large-only"><%= link_to 'How and why?', how_and_why_path%></li>
+              <li class="hide-on-large-only"><%= link_to 'Pricing', pricing_path%></li>
+              <li class="hide-on-large-only"><%= link_to 'About us', about_us_path%></li>
+              <li class="hide-on-large-only"><%= link_to 'Contact', contact_us_path%></li>
+                <li class="divider hide-on-large-only"/>  
                 <li class="bottom left hide-on-large-only">
                   <% if current_language().to_s.exclude? "nl" %>
                       <%= link_to params.merge({:locale => :nl}) do %>
