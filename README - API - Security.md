@@ -14,7 +14,7 @@ These headers should be added to the request in order to successfully log in:
 	Authentication: Token
 
 The BODY of the request should contain the credentials in JSON-format:
-	{"email":"maxim.braekman@hotmail.com","password":"abc"}
+	{"email":"abc@hotmail.com","password":"abc"}
 
 If the credentials are incorrect, this response will be returned:
 	BODY:
