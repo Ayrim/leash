@@ -15,11 +15,11 @@ class UsersController < Api::V1::UsersController
 
     # start with 10 users
     # radius = 10km
-    LoadNearbyUsers(10, false);
+    LoadNearbyUsers(10, false, current_user.id);
   end
 
   def refresh_users
-    LoadNearbyUsers(params[:user][:address].to_i, false);
+    LoadNearbyUsers(params[:user][:address].to_i, false, current_user.id);
 
     respond_to do |format|
       format.html { render :index }
