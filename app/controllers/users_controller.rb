@@ -94,28 +94,25 @@ class UsersController < Api::V1::UsersController
 	def create
 		@hideNav = true;
 		@showFooterSilhouette = true;
-		@user = User.new(user_params)
+		@user = sign_up(user_params, false);
     @isRegistration = true
+
 		begin
 			ActiveRecord::Base.transaction do
 				respond_to do |format|
-					if @user.save
-            visibility = Visibility.find_by(:value => "Public")
-            @globalAlbum = Photoalbum.new(:user_id => @user.id, :name => "No Album", :visibility => visibility)
-            @globalAlbum.save
-						@user.send_activation_email
-				        format.html { redirect_to login_path(:anchor => "activation"), alert: 'Please check your email to activate your account.' }
-				    else
-				        format.html { render :new }
-				        format.json { render json: @user.errors, status: :unprocessable_entity }
-				    end
+          if !@user.nil?
+              format.html { redirect_to login_path(:anchor => "activation"), alert: 'Please check your email to activate your account.' }
+				  else
+              format.html { render :new }
+              format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
 			  	end
 		  	end
 		rescue Net::OpenTimeout
 			@showModal = true;
 			flash.now.alert = "Something went wrong during registration. Please, try again later."
 			render action: :new
-	  	end
+	  end
 	end
 
   def update

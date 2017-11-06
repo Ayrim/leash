@@ -1,7 +1,7 @@
 module Api
   	module V1
     	class UserSessionsController < AuthenticationController
-      		before_action :require_login, except: [:sign_in]
+      		before_action :require_login, except: [:sign_in, :sign_out]
 
       		# [POST] /api/signin
       		def sign_in(api = true, remember = false)

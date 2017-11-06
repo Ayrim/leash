@@ -4,6 +4,70 @@ module Api
       #before_action :require_login, except: [:index, :get_user, :LoadNearbyUsers]
       skip_before_filter :verify_authenticity_token
       
+      def verify_user_exists()
+        user = User.find_by(email: params[:email])
+        if !user.nil?
+          return true;
+        else
+          return false;
+        end
+      end
+
+      # [POST] /api/signup
+      def sign_up(user_parameters = nil, api = true)
+        if(api)
+          user_parameters = params.require(:user).permit(:firstname, :lastname, :email, :password, :password_confirmation, :terms_of_service)
+        end
+
+        if(!verify_user_exists())
+          @newUser = User.new(user_parameters)
+          begin
+            ActiveRecord::Base.transaction do
+                if @newUser.save
+                  visibility = Visibility.find_by(:value => "Public")
+                  @globalAlbum = Photoalbum.new(:user_id => @newUser.id, :name => "No Album", :visibility => visibility)
+                  @globalAlbum.save
+                  @newUser.send_activation_email
+
+                  if(api)
+                    output = {'message' => 'Please check your email to activate your account.'}.to_json
+                    render json: output, status: :created
+                  else
+                    if !@newUser.nil?
+                      return @newUser;
+                    end
+                  end
+                else
+                  if(api)
+                    output = {'message' => 'Please check your email to activate your account.'}.to_json
+                    render json: @newUser.errors, status: :unprocessable_entity
+                  else
+                    if !@newUser.nil?
+                      return @newUser.errors;
+                    end
+                  end
+                end
+            end
+          rescue Net::OpenTimeout
+            if(api)
+              output = {'message' => 'Something went wrong during registration. Please, try again later.'}.to_json
+              render json: output, status: :internal_server_error
+            else
+              flash.now.alert = "Something went wrong during registration. Please, try again later."
+              render action: :new
+              return nil;
+            end
+          end
+        else
+          if(api)
+              output = {'message' => 'It seems this e-mailaddress is already in use.'}.to_json
+              render json: output, status: :conflict
+          else
+              return nil;
+          end
+        end
+      end
+
       # [GET] /api/users
     	def index(api = true)
         if(authorization_required(api))
@@ -119,7 +183,7 @@ module Api
           end
 
 
-          if ([(current_user.update_attribute(:banner_picture, save_banner_picture_path) if userparams[:user][:banner_picture])] && [(current_user.update_attribute(:profile_picture, save_profile_picture_path) if userparams[:user][:profile_picture])] && (current_user.update_attribute(:firstname, userparams[:user][:firstname]) if userparams[:user][:firstname]) && (current_user.update_attribute(:lastname, userparams[:user][:lastname]) if userparams[:user][:lastname]) && (current_user.update_attribute(:email, userparams[:user][:email]) if userparams[:user][:email]) && (current_user.update_attribute(:birthdate, userparams[:user][:birthdate]) if userparams[:user][:birthdate]) && (current_user.update_attribute(:description, userparams[:user][:description]) if userparams[:user][:description]))
+          if ([(current_user.update_attribute(:banner_picture, save_banner_picture_path) if userparams[:user][:banner_picture])] && [(current_user.update_attribute(:profile_picture, save_profile_picture_path) if userparams[:user][:profile_picture])] && (current_user.update_attribute(:firstname, userparams[:user][:firstname]) if userparams[:user][:firstname]) && (current_user.update_attribute(:lastname, userparams[:user][:lastname]) if userparams[:user][:lastname]) && (current_user.update_attribute(:email, userparams[:user][:email]) if userparams[:user][:email]) && (current_user.update_attribute(:birthdate, userparams[:user][:birthdate]) if userparams[:user][:birthdate]) && (current_user.update_attribute(:description, userparams[:user][:description]) if userparams[:user][:description]) && (current_user.update_attribute(:language, userparams[:user][:language]) if userparams[:user][:language]) && (current_user.update_attribute(:nationality, userparams[:user][:nationality]) if userparams[:user][:nationality]))
             if(api)
               render json: current_user, status: :ok
             else
@@ -216,5 +280,13 @@ module Api
       #   return 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
       # end
     end
+
+    private
+
+      def user_parameters
+        params.require(:user).permit(:firstname, :lastname, :email, :password, :password_confirmation, :terms_of_service)
+      end
+
   end
+
 end
