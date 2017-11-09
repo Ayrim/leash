@@ -5,369 +5,66 @@
 
   <!--start container-->
   <div class="container">
-
-    <div id="profile-page" class="section">
-      
-      <!-- profile-page-content -->
+    <div id="dog-profile-page" class="section">
+      <div id="profile-page-content" class="row">
+        <div id="profile-page-sidebar" class="col s12 m12">
+          <ul class="collection z-depth-1 with-header hoverable">
+            <li class="collection-header"><h4><strong><%= @dog.name %></strong></h4></li>
+        </ul>
+        </div>
+      </div>
 
       <div id="profile-page-content" class="row">
-        <!-- profile-page-sidebar-->
-        <div id="profile-page-sidebar" class="col s12 m8">
-
-          <!-- Profile About Details  -->
-          <ul id="profile-page-about-details" class="collection z-depth-1 hoverable">
-            <% if $show_user.is_walker %>
-                <li class="collection-item">
-                  <div class="row">
-                    <div class="col s7 grey-text darken-1"><i class="fa fa-star" aria-hidden="true"></i> <%= I18n.t('views.user.show.rating') %> [1]</div>
-                    <div class="col s5 grey-text text-darken-4 right-align">
-                      <i class="material-icons right" style=" color:#ffc107;">star&zwnj;star&zwnj;star&zwnj;star_half&zwnj;star_border</i>
-                    </div>
-                  </div>
-                </li>
-            <% end %>
-            <% if $show_user.is_walker %>
-                <li class="collection-item">
-                  <div class="row">
-                    <div class="col s5 grey-text darken-1"><i class="mdi-action-wallet-travel"></i> <%= I18n.t('views.user.experience') %></div>
-                    <div class="col s7 grey-text text-darken-4 right-align">
-                      <% if $show_user.try(:experience).try(:value) %>
-                          <%= $show_user.try(:experience).try(:value) %> <%= I18n.t('views.user.year') %>
-                      <% else %>
-                          n/a
-                      <% end %>
-                    </div>
-                  </div>
-                </li>
-            <% end %>
-            <li class="collection-item">
-              <div class="row">
-                <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> <%= I18n.t('views.user.show.livingin') %></div>
-                <div class="col s7 grey-text text-darken-4 right-align">
-                  <%= $show_user.address.try(:city).try(:name) %>
-                  <% if $show_user.address.try(:country).try(:ISO)%>,<% end %>
-                  <%= $show_user.address.try(:country).try(:ISO) %>
-                </div>
-              </div>
-            </li>
-            <% if $show_user.is_walker %>
-                <li class="collection-item">
-                  <div class="row">
-                    <div class="col s6 grey-text darken-1"><i class="mdi-social-poll"></i> <%= I18n.t('views.user.skills') %></div>
-                    <div class="col s6 grey-text text-darken-4 right-align"> Dog walking/training</div>
-                  </div>
-                </li>
-            <% end %>
-            <li class="collection-item">
-              <div class="row">
-                <div class="col s5 grey-text darken-1"><i class="mdi-social-cake"></i> <%= I18n.t('views.user.show.age') %></div>
-                <div class="col s7 grey-text text-darken-4 right-align">
-                  <% if $show_user.birthdate %>
-                      <%= calculateAge($show_user.birthdate) %> <%= I18n.t('views.user.year') %>
-                  <% end %>
-                </div>
-              </div>
-            </li>
-            <% if $show_user.is_walker %>
-                <li class="collection-item">
-                  <div class="row">
-                    <div class="col s5 grey-text darken-1"><i class="fa fa-eur" aria-hidden="true"></i> <%= I18n.t('views.user.pricing') %></div>
-                    <div class="col s7 grey-text text-darken-4 right-align">
-                      <% if $show_user.pricing %>
-                          <% if $show_user.pricing == 'Free' %>
-                              Free
-                          <% elsif $show_user.pricing == 'TBD' %>
-                              TBD
-                          <% else %>
-                              <%= number_to_euro($show_user.pricing) %>
-                          <% end %>
-                      <% else %>
-                          TBD
-                      <% end %>
-                    </div>
-                  </div>
-                </li>
-            <% end %>
-            <% if $show_user.is_walker %>
-                <li class="collection-item">
-                  <div class="row">
-                    <div class="col s8 grey-text darken-1"><i class="fa fa-briefcase" aria-hidden="true"></i> <%= I18n.t('views.user.professional') %></div>
-                    <div class="col s4 grey-text text-darken-4 right-align">
-                      <%= t $show_user.professional?.to_s %>
-                    </div>
-                  </div>
-                </li>
-            <% end %>
-            <% if $show_user.is_walker %>
-                <li class="collection-item">
-                  <div class="row">
-                    <div class="col s5 grey-text darken-1"><i class="fa fa-heart" aria-hidden="true"></i> <%= I18n.t('views.user.preference') %></div>
-                    <div class="col s7 grey-text text-darken-4 right-align">
-                      <%= translate_preference($show_user.try(:preference).try(:name)) %>
-                    </div>
-                  </div>
-                </li>
-            <% end %>
-
-          </ul>
-          <!--/ Profile About Details  -->
-          <!-- Profile feed  -->
-          <ul class="collection z-depth-1 with-header hoverable">
-            <li class="collection-header"><strong>Planning</strong></li>
-            <li class="collection-item avatar">
+      <div id="profile-page-sidebar" class="col s12 m8">
+      <ul class="collection z-depth-1 with-header hoverable">
+          <!-- <li class="collection-header"><strong><%= @dog.name %></strong></li> -->
+          <li class="collection-item avatar">
               <img src="assets/lake-animals-dogs-pets.jpg" alt="" class="circle">
               <img src="https://www.peepl.be/static/images/team/ayrton.jpg" class="circle top-circle font-size:0.5em;" style="position:absolute; left:40px; top: 3px; color:#ffc107;">
               <span class="title truncate"><strong>Coming</strong> for a walk with Zara</span>
               <p class="truncate">
-                <i>Ayrton Vercruysse</i><br>
-                18:00 - 19:00
+                  <i>Ayrton Vercruysse</i><br>
+                  18:00 - 19:00
               </p>
               <a href="#!" class="secondary-content planningDay">Today</a>
-            </li>
-            <li class="collection-item avatar">
+          </li>
+          <li class="collection-item avatar">
               <img src="http://bebusinessed.com/wp-content/uploads/2014/03/734899052_13956580111.jpg" alt="" class="circle">
               <span class="title truncate"><strong>Going</strong> for a walk with Blacky</span>
               <p class="truncate">
-                <i>@ Aaron Bakker</i><br>
-                10:00 - 11:00
+                  <i>@ Aaron Bakker</i><br>
+                  10:00 - 11:00
               </p>
               <a href="#!" class="secondary-content planningDay">Saturday</a>
-            </li>
-          </ul>
-
-          <!-- Profile feed  -->
-
-
-        </div>
-        <!-- profile-page-sidebar-->
-
-        <div id="rightSection">
-          <% if $show_user.is_walker %>
-              <!-- General Availability Details  -->
-              <div class="col s12 m4">
-                <ul id="profile-page-availability-details" class="collection with-header z-depth-1 hoverable">
-                  <li class="collection-header">
-                    <div class="row">
-                      <div class="col s12 grey-text darken-1">
-                        <i class="fa fa-calendar" aria-hidden="true"></i> <%= I18n.t('views.user.generalavailability') %>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="collection-item">
-                    <div class="row">
-                      <table>
-                        <tr>
-                          <td class="col l2 m2 s2 grey-text darken-1">&zwnj;</td>
-                          <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.monday') %></td>
-                          <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.tuesday') %></td>
-                          <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.wednesday') %></td>
-                          <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.thursday') %></td>
-                          <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.friday') %></td>
-                          <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.saturday') %></td>
-                          <td class="availabilityHeader center grey-text darken-1"><%= I18n.t('views.user.sunday') %></td>
-                        </tr>
-                        <tr>
-                          <td class="col l2 m2 s2 center grey-text darken-1"><%= I18n.t('views.user.morning') %></td>
-                          <% if $show_user.try(:availability).try(:monday_morning) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:tuesday_morning) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:wednesday_morning) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:thursday_morning) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:friday_morning) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:saturday_morning) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:sunday_morning) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                        </tr>
-                        <tr>
-                          <td class="col l2 m2 s2 center grey-text darken-1"><%= I18n.t('views.user.midday') %></td>
-                          <% if $show_user.try(:availability).try(:monday_midday) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:tuesday_midday) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:wednesday_midday) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:thursday_midday) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:friday_midday) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:saturday_midday) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:sunday_midday) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                        </tr>
-                        <tr>
-                          <td class="col l2 m2 s2 center grey-text darken-1"><%= I18n.t('views.user.evening') %></td>
-                          <% if $show_user.try(:availability).try(:monday_evening) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:tuesday_evening) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:wednesday_evening) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:thursday_evening) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:friday_evening) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:saturday_evening) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                          <% if $show_user.try(:availability).try(:sunday_evening) %>
-                              <td class="availabilityBox grey-text free tooltipped" data-tooltip="<%= I18n.t('views.user.available') %>">&zwnj;</td>
-                          <% else %>
-                              <td class="availabilityBox grey-text notfree tooltipped" data-tooltip="<%= I18n.t('views.user.notavailable') %>">&zwnj;</td>
-                          <% end %>
-                        </tr>
-                      </table>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <!--/ General Availability Details  -->
-          <% end %>
-
-          <div id="wallpostSection">
-            <%= render template: "wallpost/index", :url => index_wallpost_path %>
-          </div>
-        </div>
-      </div>
+          </li>
+      </ul>
     </div>
+    <div id="profile-page-sidebar" class="col s12 m4">
+    <ul class="collection z-depth-1 with-header hoverable">
+        <li class="collection-header"><strong>Planning</strong></li>
+        <li class="collection-item avatar">
+            <img src="assets/lake-animals-dogs-pets.jpg" alt="" class="circle">
+            <img src="https://www.peepl.be/static/images/team/ayrton.jpg" class="circle top-circle font-size:0.5em;" style="position:absolute; left:40px; top: 3px; color:#ffc107;">
+            <span class="title truncate"><strong>Coming</strong> for a walk with Zara</span>
+            <p class="truncate">
+                <i>Ayrton Vercruysse</i><br>
+                18:00 - 19:00
+            </p>
+            <a href="#!" class="secondary-content planningDay">Today</a>
+        </li>
+        <li class="collection-item avatar">
+            <img src="http://bebusinessed.com/wp-content/uploads/2014/03/734899052_13956580111.jpg" alt="" class="circle">
+            <span class="title truncate"><strong>Going</strong> for a walk with Blacky</span>
+            <p class="truncate">
+                <i>@ Aaron Bakker</i><br>
+                10:00 - 11:00
+            </p>
+            <a href="#!" class="secondary-content planningDay">Saturday</a>
+        </li>
+    </ul>
   </div>
+  </div>
+    </div>
 
-  <!--end container-->
+  </div>
 </section>
-<!-- END CONTENT -->
-<!-- TODO: request api-key specifically for Leash -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
-<script type="text/javascript">
-  ShowGeoLocation();
-
-  var showMaps = document.getElementsByClassName("showProfileDetails");
-  for (var i = 0; i < showMaps.length; i++) {
-    showMaps[i].addEventListener('click', showGoogleMaps, false);
-  }
-  var hideMaps = document.getElementsByClassName("HideGoogleMapsTitle");
-  for (var i = 0; i < hideMaps.length; i++) {
-    hideMaps[i].addEventListener('click', hideGoogleMaps, false);
-  }
-
-  function showGoogleMaps() {
-    var map = document.getElementById('GoogleMapsDiv');
-    map.style.display = 'inline';
-    setTimeout(ShowGeoLocation, 10);
-
-  }
-
-  function hideGoogleMaps() {
-    var map = document.getElementById('GoogleMapsDiv');
-    map.style.display = 'none';
-  }
-
-  function ShowGeoLocation() {
-    var street = "<%= $show_user.address.try(:street) %>" + "";
-    var city = "<%= $show_user.address.try(:city).try(:name) %>" + "";
-    var country = "<%= $show_user.address.try(:country).try(:name) %>" + "";
-    var address = street + ', ' + city + ', ' + country;
-    if (address === "0, 0, 0") {
-      address = "Brussel, Belgium";
-    }
-    var geocoder = new google.maps.Geocoder();
-
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
-      zoom: 13,
-      center: { lat: 51.309553, lng: 3.132350 },
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControl: false,
-      scrollwheel: true,
-      draggable: true,
-      zoomControl: true,
-      zoomControlOptions: {
-        position: google.maps.ControlPosition.RIGHT_TOP
-      },
-      streetViewControl: false,
-      styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
-      mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
-      navigationControl: false,
-      navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
-    });
-
-    geocodeAddress(address, geocoder, map);
-  };
-
-
-  function geocodeAddress(address, geocoder, resultsMap) {
-    geocoder.geocode({ 'address': address }, function (results, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-        resultsMap.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: resultsMap,
-          position: results[0].geometry.location
-        });
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    })
-  };
-</script>
