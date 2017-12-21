@@ -1,0 +1,12 @@
+<%= form_for :tag, :url => tags_path do |f| %>
+    <div class="form-group">
+      <p>
+        <%= f.label "Naam" %>
+        <%= f.text_field :name %>
+      </p>
+      <%= f.submit "Opslaan", :id => "saveTag", :class => "btn waves-effect waves-light right" do %>
+          Save<i class="mdi-content-save right"></i>
+      <% end %>
+    </div>
+
+<% end %>

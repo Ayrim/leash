@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :animals
-  resources :dog
+  resources :dogs
   resources :wallpost
   resources :messaging
   resources :images
@@ -89,7 +89,7 @@ Rails.application.routes.draw do
   get 'extendPostsAfterDelete/:id' => 'wallpost#showNewPosts', :as => :extendAfterDelete_wallpost
 
   # Tags
-  post 'new_tag' => 'tag#create', :as => :create_tag
+  resources :tags
 
   #root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.
