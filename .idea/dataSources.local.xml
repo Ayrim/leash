@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="PostgreSQL - ayrton@localhost" uuid="9c80db78-a975-4648-9f80-733b5625b8ef">
+    <data-source name="PostgreSQL - ayrton@localhost" uuid="ec912881-903f-45bc-9300-75382e1b8c87">
       <secret-storage>master_key</secret-storage>
-      <schema-pattern>ayrton.*</schema-pattern>
-      <default-schemas>ayrton.*</default-schemas>
+      <user-name>ayrton</user-name>
+      <introspection-scope>ayrton:ayrton,pg_catalog,public</introspection-scope>
+      <resolve-scope>ayrton:ayrton,public</resolve-scope>
+    </data-source>
+    <data-source name="PostgreSQL - ayrton@localhost [2]" uuid="974abaeb-b717-4377-b9a3-d4c03bcfb634">
+      <secret-storage>master_key</secret-storage>
+      <user-name>ayrton</user-name>
+      <introspection-scope>ayrton:ayrton,pg_catalog,public</introspection-scope>
+      <resolve-scope>ayrton:ayrton,public</resolve-scope>
     </data-source>
   </component>
 </project>

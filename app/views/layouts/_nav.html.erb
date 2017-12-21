@@ -35,7 +35,7 @@
             <%= link_to "Leash", root_path, :class => 'brand-logo hide-on-med-and-down',  data: {activates: "sideNavMenu"} %>
             <%= link_to "Leash", root_path, :class => 'brand-logo hide-on-large-only',  data: {activates: "sideNavMenu"} %>
             <a href="#" data-activates="sideNavMenu" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
-          <% end %> 
+          <% end %>
         <ul class="right hide-on-med-and-down">
 
            <% if logged_in? %>
@@ -62,7 +62,7 @@
                 Pricing
               <% end %>
             </li>
-            <li> 
+            <li>
               <%= link_to about_us_path do %>
                 About us
               <% end %>
@@ -78,7 +78,7 @@
                 <img src="<%= user_avatar() %>" alt="" class="circle accountPicture" />
               <% end %>
             </li>
-           <% end %> 
+           <% end %>
           <li style="border-left-width: 2px; border-left-style: solid; border-left-color: #36373B; margin-top: 5px; height: 54px;">
             <a class="dropdown-button" href="#!" data-activates="dropdownMenu" style="line-height: 54px; font-size:1.2em;">
               <%= current_language() %>
@@ -118,7 +118,7 @@
               </li>
               <li>
                 <%= link_to images_path, :class => 'no-padding collapsible-header' do %>
-                  <i class="mdi-image-camera-alt material-icons"></i><%= I18n.t('views.layout.nav.photos') %>
+                  <i class="fa fa-camera material-icons"></i><%= I18n.t('views.layout.nav.photos') %>
                 <% end %>
               </li>
               <li>
@@ -127,7 +127,7 @@
                 <% end %>
               </li>
               <li class="no-padding">
-                <ul class="collapsible collapsible-accordion">
+                <ul>
                   <li>
                     <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %></a>
                     <div class="collapsible-body">
@@ -143,7 +143,7 @@
             <% else %>
               <li><%= link_to I18n.t('views.layout.nav.signin'), login_path %></li>
               <li><%= link_to I18n.t('views.layout.nav.signup'), signup_path %></li>
-            <% end %> 
+            <% end %>
           </ul>
           <% if logged_in? %>
             <div id="nav_sidebar_bottomSettings">
@@ -192,7 +192,7 @@
               <li class="hide-on-large-only"><%= link_to 'Pricing', pricing_path%></li>
               <li class="hide-on-large-only"><%= link_to 'About us', about_us_path%></li>
               <li class="hide-on-large-only"><%= link_to 'Contact', contact_us_path%></li>
-                <li class="divider hide-on-large-only"/>  
+                <li class="divider hide-on-large-only"/>
                 <li class="bottom left hide-on-large-only">
                   <% if current_language().to_s.exclude? "nl" %>
                       <%= link_to params.merge({:locale => :nl}) do %>

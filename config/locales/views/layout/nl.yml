@@ -23,7 +23,7 @@ nl:
   views: 
     layout:
       nav:
-        home: "Overzicht"
+        home: "Leash"
         profile: "Mijn Profiel"
         agenda: "Agenda"
         routes: "Routes"
