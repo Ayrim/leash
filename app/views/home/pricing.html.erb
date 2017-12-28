@@ -1,0 +1,229 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+
+<div class="container" style="display: table">
+	<div class="row pricingFlexRow">
+		<div class="col s12 m3 pricingBox1">
+			<div class="card pricing style-2">
+
+                <!-- START PLAN TITLE DIV. -->
+                <!-- CHANGE COLOR BY CHANGING LAST CSS CLASS (teal) AVAILABLE COLOR CLASSES LISTED HERE http://materializecss.com/color.html -->
+                <div class="plan-title waves-effect waves-block waves-light" style="background: #36373B">
+                    <h5 class="white-text">
+                        <span class="plan">Gratis</span>
+                    </h5>
+                </div>
+                <!-- END PLAN TITLE DIV. -->
+
+                <!-- START PRICE INFO DIV. -->
+                <div class="price waves-effect waves-block waves-light lighten-1" style="background: #454648">
+                    <h4 class="white-text">
+                        <span class="currency">€</span>
+                        <span class="amount">0</span>
+                        <span class="period">/jaar</span>
+                    </h4>
+                </div>
+                <!-- END PRICE INFO DIV. -->
+
+                <div class="card-content" style="min-height:200px;">
+                	<div style="min-height:240px;">
+	                    <!-- START FEATURE LIST -->
+	                    <ul class="collection">            
+	                        <li class="collection-item wppttip" style="min-height: 42px !important;">
+	                            <b>Max. 1</b> connectie
+	                        </li>
+	                                                        
+	                        <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Zelf kan je enkel routes bekijken.">
+	                            <b>Geen</b> wandelroutes <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+	                        </li>                           
+	                        <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Je kan geen afspraken maken en/of beheren.">
+	                            <b>Geen</b> afspraken <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+	                        </li>                            
+	                        <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Je kan geen honden toevoegen aan je profiel.">
+	                            <b>Geen</b> honden <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+	                        </li>       
+	                    </ul>
+                	</div>
+                    <!-- END FEATURE LIST -->
+
+                    <!-- START SIGN UP BUTTON -->
+                    <div class="plan-signup-btn">
+              			<%= link_to signup_path, :class => 'btn waves-effect waves-block waves-light no-margin white-text', :style => 'background: #454648' do %>
+							Registreer
+						<% end %>
+                    </div>
+                    <!-- END SIGN UP BUTTON -->
+
+                </div>
+            </div>
+		</div>
+		<div class="col s12 m3 pricingBox2">
+			<div class="card pricing style-2">
+
+                <!-- START PLAN TITLE DIV. -->
+                <!-- CHANGE COLOR BY CHANGING LAST CSS CLASS (teal) AVAILABLE COLOR CLASSES LISTED HERE http://materializecss.com/color.html -->
+                <div class="plan-title waves-effect waves-block waves-light" style="background: #36373B">
+                    <h5 class="white-text">
+                        <span class="plan">Premium</span>
+                    </h5>
+                </div>
+                <!-- END PLAN TITLE DIV. -->
+
+                <!-- START PRICE INFO DIV. -->
+                <div class="price waves-effect waves-block waves-light lighten-1" style="background: #454648">
+                    <h4 class="white-text">
+                        <span class="currency">€</span>
+                        <span class="amount">7.50</span>
+                        <span class="period">/3 maand</span>
+                    </h4>
+                </div>
+                <!-- END PRICE INFO DIV. -->
+
+                <div class="card-content" style="min-height:200px;">
+                	<div style="min-height:240px;">
+                    	<!-- START FEATURE LIST -->
+                    	<ul class="collection">            
+                            <li class="collection-item wppttip" style="min-height: 42px !important;">
+                                <b>Onbeperkt</b> aantal connecties
+                            </li>
+                                                        
+                            <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Bekijk en beheer alle wandelroutes.">
+                                <b>Onbeperkte</b> toegang tot de wandelroutes <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+                            </li>                            
+	                        <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Beheer uw afspraken met uw connecties.">
+	                            <b>Onbeperkte</b> afspraken <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+	                        </li>          
+                            <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Een extra toelage van € 1.50 wordt aangerekend per hond per maand.">
+                                <b>€ 1.50</b> toelage per hond <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+                            </li>        
+                    	</ul>
+                    </div>
+                    <!-- END FEATURE LIST -->
+
+                    <!-- START SIGN UP BUTTON -->
+                    <div class="plan-signup-btn">
+              			<%= link_to signup_path, :class => 'btn waves-effect waves-block waves-light no-margin white-text', :style => 'background: #454648' do %>
+							Registreer
+						<% end %>
+                    </div>
+                    <!-- END SIGN UP BUTTON -->
+
+                </div>
+            </div>
+		</div>
+		<div class="col s12 m3 pricingBox3">
+			<div class="card pricing style-2">
+
+                <!-- START PLAN TITLE DIV. -->
+                <!-- CHANGE COLOR BY CHANGING LAST CSS CLASS (teal) AVAILABLE COLOR CLASSES LISTED HERE http://materializecss.com/color.html -->
+                <div class="plan-title waves-effect waves-block waves-light" style="background: #36373B">
+                    <h5 class="white-text">
+                        <span class="plan">Premium</span>
+                    </h5>
+                </div>
+                <!-- END PLAN TITLE DIV. -->
+
+                <!-- START PRICE INFO DIV. -->
+                <div class="price waves-effect waves-block waves-light lighten-1" style="background: #454648">
+                    <h4 class="white-text">
+                        <span class="currency">€</span>
+                        <span class="amount">12.50</span>
+                        <span class="period">/6 maand</span>
+                    </h4>
+                </div>
+                <!-- END PRICE INFO DIV. -->
+
+                <div class="card-content" style="min-height:200px;">
+                	<div style="min-height:240px;">
+                    	<!-- START FEATURE LIST -->
+                    	<ul class="collection">            
+                            <li class="collection-item wppttip" style="min-height: 42px !important;">
+                                <b>Onbeperkt</b> aantal connecties
+                            </li>
+                                                        
+                            <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Bekijk en beheer alle wandelroutes.">
+                                <b>Onbeperkte</b> toegang tot de wandelroutes <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+                            </li>                            
+	                        <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Beheer uw afspraken met uw connecties.">
+	                            <b>Onbeperkte</b> afspraken <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+	                        </li>        
+                            <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Een extra toelage van € 1.50 wordt aangerekend per hond per maand.">
+                                <b>€ 1.50</b> toelage per hond <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+                            </li>     
+                    	</ul>
+                    </div>
+                    <!-- END FEATURE LIST -->
+
+                    <!-- START SIGN UP BUTTON -->
+                    <div class="plan-signup-btn">
+              			<%= link_to signup_path, :class => 'btn waves-effect waves-block waves-light no-margin white-text', :style => 'background: #454648' do %>
+							Registreer
+						<% end %>
+                    </div>
+                    <!-- END SIGN UP BUTTON -->
+
+                </div>
+            </div>
+		</div>
+		<div class="col s12 m3 pricingBox4">
+			<div class="card pricing style-2">
+
+                <!-- START PLAN TITLE DIV. -->
+                <!-- CHANGE COLOR BY CHANGING LAST CSS CLASS (teal) AVAILABLE COLOR CLASSES LISTED HERE http://materializecss.com/color.html -->
+                <div class="plan-title waves-effect waves-block waves-light" style="background: #FF5B45">
+                    <h5 class="white-text">
+                        <span class="plan">Premium</span>
+                    </h5>
+                </div>
+                <!-- END PLAN TITLE DIV. -->
+
+                <!-- START PRICE INFO DIV. -->
+                <div class="price waves-effect waves-block waves-light lighten-1" style="background: #ff7145">
+                    <h4 class="white-text">
+                        <span class="currency">€</span>
+                        <span class="amount">20.00</span>
+                        <span class="period">/jaar</span>
+                    </h4>
+                </div>
+                <!-- END PRICE INFO DIV. -->
+
+                <div class="card-content" style="min-height:200px;">
+                	<div style="min-height:240px;">
+                    	<!-- START FEATURE LIST -->
+                    	<ul class="collection">            
+                            <li class="collection-item wppttip" style="min-height: 42px !important;">
+                                <b>Onbeperkt</b> aantal connecties
+                            </li>
+                                                        
+                            <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Bekijk en beheer alle wandelroutes.">
+                                <b>Onbeperkte</b> toegang tot de wandelroutes <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+                            </li>                            
+	                        <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Beheer uw afspraken met uw connecties.">
+	                            <b>Onbeperkte</b> afspraken <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+	                        </li>         
+                            <li class="collection-item wppttip tooltipped" style="min-height: 42px !important;" data-position="bottom" data-delay="50" data-tooltip="Een extra toelage van € 1.50 wordt aangerekend per hond per maand.">
+                                <b>€ 1.50</b> toelage per hond <i class="mdi-action-info-outline right pricingInfoIcon"></i>
+                            </li>       
+                    	</ul>
+                    </div>
+                    <!-- END FEATURE LIST -->
+
+                    <!-- START SIGN UP BUTTON -->
+                    <div class="plan-signup-btn">
+              			<%= link_to signup_path, :class => 'btn waves-effect waves-block waves-light no-margin white-text', :style => 'background: #FF5B45' do %>
+							Registreer
+						<% end %>
+                    </div>
+                    <!-- END SIGN UP BUTTON -->
+
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $('.tooltipped').tooltip({delay: 50});
+	  });
+</script>

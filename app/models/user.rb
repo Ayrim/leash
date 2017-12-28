@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
         	:include => {
           		:preference => {:only => [:name]},
           		:experience => {:only => [:value]},
-          		:address => {:only => [:street, :number, :numberAddition],
+          		:address => {:only => [:street, :number, :numberAddition, :latitude, :longitude, :distance],
           			:include => {
           					:city => {:only => [:name]},
           					:country => {:only => [:name]},

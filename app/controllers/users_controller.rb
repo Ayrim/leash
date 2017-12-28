@@ -8,6 +8,25 @@ class UsersController < Api::V1::UsersController
   # This gives a better overview of the methods that will be available through the API
   # also provides a way of versioning the API 
 
+  def index
+    # show overview of users (both walkers and non-walkers)
+    # allow user to filter on (non-)walkers
+    # position of these people should be shown on a map (aprox. not exact)
+
+    # start with 10 users
+    # radius = 10km
+    LoadNearbyUsers(10, false, current_user.id);
+  end
+
+  def refresh_users
+    LoadNearbyUsers(params[:user][:address].to_i, false, current_user.id);
+
+    respond_to do |format|
+      format.html { render :index }
+      format.js { render 'users/index_refresh_users.js.erb' }
+    end
+  end
+
 	def show
     if(params[:id] != 'update_unreadmessages')
       $show_user = get_user(false)
@@ -75,28 +94,25 @@ class UsersController < Api::V1::UsersController
 	def create
 		@hideNav = true;
 		@showFooterSilhouette = true;
-		@user = User.new(user_params)
+		@user = sign_up(user_params, false);
     @isRegistration = true
+
 		begin
 			ActiveRecord::Base.transaction do
 				respond_to do |format|
-					if @user.save
-            visibility = Visibility.find_by(:value => "Public")
-            @globalAlbum = Photoalbum.new(:user_id => @user.id, :name => "No Album", :visibility => visibility)
-            @globalAlbum.save
-						@user.send_activation_email
-				        format.html { redirect_to login_path(:anchor => "activation"), alert: 'Please check your email to activate your account.' }
-				    else
-				        format.html { render :new }
-				        format.json { render json: @user.errors, status: :unprocessable_entity }
-				    end
+          if !@user.nil?
+              format.html { redirect_to login_path(:anchor => "activation"), alert: 'Please check your email to activate your account.' }
+				  else
+              format.html { render :new }
+              format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
 			  	end
 		  	end
 		rescue Net::OpenTimeout
 			@showModal = true;
 			flash.now.alert = "Something went wrong during registration. Please, try again later."
 			render action: :new
-	  	end
+	  end
 	end
 
   def update
@@ -122,21 +138,8 @@ class UsersController < Api::V1::UsersController
     @preferences = Preference.all
     @experiences = Experience.all
 
-    save_banner_picture_path = ""
-    save_profile_picture_path = ""
-    if(params[:user][:profile_picture])
-      # Upload image to Azure Blob Storage
-      save_profile_picture_path = uploadImageToAzure(params[:user][:profile_picture])
-    end
-
-    if(params[:user][:banner_picture])
-      # Upload image to Azure Blob Storage
-      save_banner_picture_path = uploadImageToAzure(params[:user][:banner_picture])
-    end
-
-
     respond_to do |format|
-      if ([(current_user.update_attribute(:banner_picture, save_banner_picture_path) if params[:user][:banner_picture])] && [(current_user.update_attribute(:profile_picture, save_profile_picture_path) if params[:user][:profile_picture])] && (current_user.update_attribute(:firstname, params[:user][:firstname]) if params[:user][:firstname]) && (current_user.update_attribute(:lastname, params[:user][:lastname]) if params[:user][:lastname]) && (current_user.update_attribute(:email, params[:user][:email]) if params[:user][:email]) && (current_user.update_attribute(:birthdate, params[:user][:birthdate]) if params[:user][:birthdate]) && (current_user.update_attribute(:description, params[:user][:description]) if params[:user][:description]))
+      if(update_user(params, false))
         format.html { redirect_to edit_settings_path, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: current_user }
       else
@@ -144,18 +147,6 @@ class UsersController < Api::V1::UsersController
         format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def uploadImageToAzure(param)
-    fileExtension = File.extname(param.original_filename)
-
-    fileName = current_user.id.to_s.to_s.rjust(3, "0") + '/' + SecureRandom.uuid + fileExtension
-    blobs = Azure::Blob::BlobService.new
-    content = File.open(param.tempfile.path, 'rb') { |file| file.read }
-    blob = blobs.create_block_blob("images", fileName, content)
-
-    #Blob has been uploaded
-    return 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
   end
 
   def update_walker_profile
@@ -163,32 +154,8 @@ class UsersController < Api::V1::UsersController
     @preferences = Preference.all
     @experiences = Experience.all
 
-    if(!current_user.availability)
-      current_user.availability = Availability.new(:monday_morning => ConvertToBooleanValue(params[:user][:availability_attributes][:monday_morning]),
-                                        :monday_midday => ConvertToBooleanValue(params[:user][:availability_attributes][:monday_midday]),
-                                        :monday_evening => ConvertToBooleanValue(params[:user][:availability_attributes][:monday_evening]),
-                                        :tuesday_morning => ConvertToBooleanValue(params[:user][:availability_attributes][:tuesday_morning]),
-                                        :tuesday_midday => ConvertToBooleanValue(params[:user][:availability_attributes][:tuesday_midday]),
-                                        :tuesday_evening => ConvertToBooleanValue(params[:user][:availability_attributes][:tuesday_evening]),
-                                        :wednesday_morning => ConvertToBooleanValue(params[:user][:availability_attributes][:wednesday_morning]),
-                                        :wednesday_midday => ConvertToBooleanValue(params[:user][:availability_attributes][:wednesday_midday]),
-                                        :wednesday_evening => ConvertToBooleanValue(params[:user][:availability_attributes][:wednesday_evening]),
-                                        :thursday_morning => ConvertToBooleanValue(params[:user][:availability_attributes][:thursday_morning]),
-                                        :thursday_midday => ConvertToBooleanValue(params[:user][:availability_attributes][:thursday_midday]),
-                                        :thursday_evening => ConvertToBooleanValue(params[:user][:availability_attributes][:thursday_evening]),
-                                        :friday_morning => ConvertToBooleanValue(params[:user][:availability_attributes][:friday_morning]),
-                                        :friday_midday => ConvertToBooleanValue(params[:user][:availability_attributes][:friday_midday]),
-                                        :friday_evening => ConvertToBooleanValue(params[:user][:availability_attributes][:friday_evening]),
-                                        :saturday_morning => ConvertToBooleanValue(params[:user][:availability_attributes][:saturday_morning]),
-                                        :saturday_midday => ConvertToBooleanValue(params[:user][:availability_attributes][:saturday_midday]),
-                                        :saturday_evening => ConvertToBooleanValue(params[:user][:availability_attributes][:saturday_evening]),
-                                        :sunday_morning => ConvertToBooleanValue(params[:user][:availability_attributes][:sunday_morning]),
-                                        :sunday_midday => ConvertToBooleanValue(params[:user][:availability_attributes][:sunday_midday]),
-                                        :sunday_evening => ConvertToBooleanValue(params[:user][:availability_attributes][:sunday_evening]));
-    end
-
     respond_to do |format|
-      if ((current_user.update_attribute(:number_of_walks, params[:user][:number_of_walks]) if params[:user][:number_of_walks]) && (current_user.update_attribute(:walking_region, params[:user][:walking_region]) if params[:user][:walking_region]) && (current_user.update_attribute(:skills, params[:user][:skills]) if params[:user][:skills]) && (current_user.update_attribute(:professional, ConvertToBooleanValue(params[:user][:professional])))  && (current_user.availability.update_attribute(:monday_morning, ConvertToBooleanValue(params[:user][:availability_attributes][:monday_morning]))) && (current_user.availability.update_attribute(:monday_midday, ConvertToBooleanValue(params[:user][:availability_attributes][:monday_midday]))) && (current_user.availability.update_attribute(:monday_evening, ConvertToBooleanValue(params[:user][:availability_attributes][:monday_evening]))) && (current_user.availability.update_attribute(:tuesday_morning, ConvertToBooleanValue(params[:user][:availability_attributes][:tuesday_morning]))) && (current_user.availability.update_attribute(:tuesday_midday, ConvertToBooleanValue(params[:user][:availability_attributes][:tuesday_midday]))) && (current_user.availability.update_attribute(:tuesday_evening, ConvertToBooleanValue(params[:user][:availability_attributes][:tuesday_evening]))) && (current_user.availability.update_attribute(:wednesday_morning, ConvertToBooleanValue(params[:user][:availability_attributes][:wednesday_morning]))) && (current_user.availability.update_attribute(:wednesday_midday, ConvertToBooleanValue(params[:user][:availability_attributes][:wednesday_midday]))) && (current_user.availability.update_attribute(:wednesday_evening, ConvertToBooleanValue(params[:user][:availability_attributes][:wednesday_evening]))) && (current_user.availability.update_attribute(:thursday_morning, ConvertToBooleanValue(params[:user][:availability_attributes][:thursday_morning]))) && (current_user.availability.update_attribute(:thursday_midday, ConvertToBooleanValue(params[:user][:availability_attributes][:thursday_midday]))) && (current_user.availability.update_attribute(:thursday_evening, ConvertToBooleanValue(params[:user][:availability_attributes][:thursday_evening]))) && (current_user.availability.update_attribute(:friday_morning, ConvertToBooleanValue(params[:user][:availability_attributes][:friday_morning]))) && (current_user.availability.update_attribute(:friday_midday, ConvertToBooleanValue(params[:user][:availability_attributes][:friday_midday]))) && (current_user.availability.update_attribute(:friday_evening, ConvertToBooleanValue(params[:user][:availability_attributes][:friday_evening]))) && (current_user.availability.update_attribute(:saturday_morning, ConvertToBooleanValue(params[:user][:availability_attributes][:saturday_morning]))) && (current_user.availability.update_attribute(:saturday_midday, ConvertToBooleanValue(params[:user][:availability_attributes][:saturday_midday]))) && (current_user.availability.update_attribute(:saturday_evening, ConvertToBooleanValue(params[:user][:availability_attributes][:saturday_evening]))) && (current_user.availability.update_attribute(:sunday_morning, ConvertToBooleanValue(params[:user][:availability_attributes][:sunday_morning]))) && (current_user.availability.update_attribute(:sunday_midday, ConvertToBooleanValue(params[:user][:availability_attributes][:sunday_midday]))) && (current_user.availability.update_attribute(:sunday_evening, ConvertToBooleanValue(params[:user][:availability_attributes][:sunday_evening]))) && (current_user.update_attribute(:preference, Preference.find(params[:user][:preference].to_i)) if params[:user][:preference]) && (current_user.update_attribute(:is_walker, ConvertToBooleanValue(params[:user][:is_walker])))  && (current_user.update_attribute(:experience, Experience.find(params[:user][:experience].to_i)) if params[:user][:experience]))
+      if (update_walker(params, false))
         format.html { redirect_to edit_settings_path, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: current_user }
       else
@@ -196,13 +163,13 @@ class UsersController < Api::V1::UsersController
         format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   def update_contactinfo
     @dontSetBodyHeight = true;
     @preferences = Preference.all
     @experiences = Experience.all
+    
     respond_to do |format|
       if(!current_user.address)
         @city = AddressController.new.create_city(params[:user][:address_attributes][:city_attributes]);

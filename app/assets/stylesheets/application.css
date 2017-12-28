@@ -214,6 +214,9 @@
         
 
         @media only screen and (max-width: 993px){
+            .parallax-header h1{
+                font-size: 34px !important;
+            }
             #nav_sidebar_wrapper{
                 box-sizing: border-box;
                 min-height: 100%;
@@ -230,7 +233,27 @@
                 height: 176px;
             }
             #nav_sidebar_bottomSettings_notloggedin{
-                height: 36px;
+                /*height: 36px;*/
+                height: 176px;
+            }
+            div .pricingFlexRow{
+                display: flex;
+                flex-direction:column;
+            }
+            .pricingBox1{
+                order: 4;
+            }
+            .pricingBox2{
+                order: 3;
+            }
+            .pricingBox3{
+                order: 2;
+            }
+            .pricingBox4{
+                order: 1;
+            }
+            .UserOverviewList{
+                padding-left: 0px !important;
             }
         }
         @media only screen and (min-width: 993px){
@@ -251,7 +274,11 @@
             }  
             #nav_sidebar_bottomSettings_notloggedin{
                 height: 36px;
-            }  
+            } 
+            div .pricingFlexRow {
+                display: table-cell; 
+                vertical-align: middle;
+            }
         }
 
         #nav_sidebar_bottomSettings ul li, #nav_sidebar_bottomSettings_notloggedin ul li{

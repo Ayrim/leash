@@ -1,7 +1,7 @@
 module Api
   	module V1
     	class UserSessionsController < AuthenticationController
-      		before_action :require_login, except: [:sign_in]
+      		before_action :require_login, except: [:sign_in, :sign_out]
 
       		# [POST] /api/signin
       		def sign_in(api = true, remember = false)
@@ -30,19 +30,31 @@ module Api
 								end
 							end
 						else
-							@showModal = true;
-							flash.now.alert = "Login failed."
-							render action: :new
+							if api
+								unauthorizedResponse()
+							else
+								@showModal = true;
+								flash.now.alert = "Login failed."
+								render action: :new
+							end
 						end
 					else
-						@showModal = true;
-						flash.now.alert = "Account has not been activated yet."
-						render action: :new
+						if api
+							unauthorizedResponse("403", "Account has not been activated yet.")
+						else
+							@showModal = true;
+							flash.now.alert = "Account has not been activated yet."
+							render action: :new
+						end
 					end
 				else
-					@showModal = true;
-					flash.now.alert = "It seems that this email address is not in use."
-					render action: :new
+					if api
+						unauthorizedResponse("404")
+					else
+						@showModal = true;
+						flash.now.alert = "It seems that this email address is not in use."
+						render action: :new
+					end
 				end
 			end
 

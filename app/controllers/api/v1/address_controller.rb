@@ -119,9 +119,9 @@ module Api
 			  			cityParams = params
 			  		end
 
-				    city = City.find_by(name: cityParams[:name]);
+				    city = City.find_by(name: cityParams[:name].titleize);
 				    if(!city)
-				      	city = City.new(:name => cityParams[:name],
+				      	city = City.new(:name => cityParams[:name].titleize,
 				                      	:postalcode => cityParams[:postalcode]);
 				      	city.save
 				    end
@@ -187,9 +187,9 @@ module Api
 			  			countryParams = params
 			  		end
 
-			  		country = Country.find_by(name: countryParams[:name]);
+			  		country = Country.find_by(name: countryParams[:name].titleize);
 				    if(!country)
-				      	country = Country.new(:name => countryParams[:name]);
+				      	country = Country.new(:name => countryParams[:name].titleize);
 				      	country.save
 				    end
 

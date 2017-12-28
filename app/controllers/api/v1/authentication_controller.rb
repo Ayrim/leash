@@ -23,7 +23,7 @@ module Api
 								apiKey.expires_at = DateTime.now + (2/24.0)
 								apiKey.save
 								
-			         			current_user = User.find_by(:id => apiKey.user_id)
+			         			@current_user = User.find_by(:id => apiKey.user_id)
 			         			return true
 			         		else
 			         			if(ApiKey.where("access_token = ?", access_token).first.nil?)
@@ -39,10 +39,10 @@ module Api
 			        end
 			    end	
 
-			    def unauthorizedResponse(message = "Access Denied")
+			    def unauthorizedResponse(code = "401", message = "Access Denied")
 			        @unauthorized = Unauthorizedexception.new
 			        @unauthorized.message = message
-			        @unauthorized.code = "401"
+			        @unauthorized.code = code
 			        render json: @unauthorized, status: :unauthorized
 			        return false;
 			    end

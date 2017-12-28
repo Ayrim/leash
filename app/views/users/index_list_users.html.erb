@@ -1,0 +1,16 @@
+<ul class="collection z-depth-1 with-header hoverable card">
+	<% @nearbyUsers.each do |user| %>
+		<li class="collection-item avatar">
+			<img src="<%= load_user_avatar(user) %>" alt="" class="circle">
+			<%= link_to user do %>
+				<span class="title"><%= user.firstname + ' ' + user.lastname %></span>
+			<% end %>
+			<p>
+				<%= user.try(:address).try(:city).name %>
+				<br/>
+				<%= I18n.t('views.home.overview.walkerdistance') + ': ' + '%.2f' % (user.try(:address).distance_to [current_user.address.latitude, current_user.address.longitude]) + ' km' %>
+				<%= javascript_tag "createMarker(#{user.address.latitude} ,#{user.address.longitude}, '#{user.firstname}')" %>
+			</p>
+		</li>
+	<% end %>
+</ul>

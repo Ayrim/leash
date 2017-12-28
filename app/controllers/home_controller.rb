@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_filter :require_login, except: [ :index, :pricing, :about_us, :contact_us, :how_and_why]
+
 	def index
 		@hideHome = true;
     	@dontSetBodyHeight = true;
@@ -15,5 +17,17 @@ class HomeController < ApplicationController
 		# take 3 random wallposts from these 10
 		@RandomPictures = Picture.joins(:visibility).joins(:photoalbum).where('(visibilities.value = ?) AND photoalbums.user_id != ?', 'Public', current_user.id).order("pictures.created_at desc").limit(10).shuffle.take(3)
 						
+	end
+
+	def pricing
+	end
+
+	def about_us
+	end
+
+	def contact_us
+	end
+
+	def how_and_why
 	end
 end

@@ -41,6 +41,8 @@ nl:
         loggingin: "Aanmelden..."
         registernow: "Nu registreren!"
         forgotpwd: "Wachtwoord vergeten?"
+      index:
+        refresh: "Vernieuwen"
       new:
         password: "Wachtwoord"
         confirmpassword: "Bevestig Wachtwoord"

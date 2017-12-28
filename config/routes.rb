@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :animals
-  resources :dog
+  resources :dogs
   resources :wallpost
   resources :messaging
   resources :images
@@ -21,14 +21,18 @@ Rails.application.routes.draw do
   resources :user_relation
 
   namespace :api do
-    scope module: :v1 do
+    scope module: :v1 do  #if versionNumber should be added to URL, replace 'scope module:' by 'namespace'
       # User_Session
       post 'signin' => 'user_sessions#sign_in'
-      post 'signout' => 'user_sessions#sign_in'
+      get 'signout' => 'user_sessions#sign_out'
+      post 'signup' => 'users#sign_up'
 
       # Users
       get 'users' => 'users#index'
       get 'users/:id' => 'users#get_user'
+      get 'users/nearby/:id' => 'users#LoadNearbyUsers'
+      post 'user/update' => 'users#update_user'
+      post 'user/update_walker/:id' => 'users#update_walker'
 
       # Address
       get 'address' => 'address#get_addresses'
@@ -45,6 +49,11 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'about-us' => 'home#about_us', :as => :about_us
+  get 'pricing' => 'home#pricing', :as => :pricing
+  get 'how-and-why' => 'home#how_and_why', :as => :how_and_why
+  get 'contact-us' => 'home#contact_us', :as => :contact_us
+
   get 'login'   => 'user_sessions#new', :as => :login
   get 'logout'  => 'user_sessions#destroy', :as => :logout
   get 'signup'  => 'users#new', :as => :signup
@@ -53,14 +62,25 @@ Rails.application.routes.draw do
   patch 'update_walker_profile' => 'users#update_walker_profile', :as => :update_walker_profile
   patch 'update_contactinfo' => 'users#update_contactinfo', :as => :update_contactinfo
   patch 'update_password' => 'users#update_password', :as => :update_password
+  patch 'refresh_users' => 'users#refresh_users', :as => :refresh_users
   get 'profile' => 'users#show', :as => :settings
   get 'edit_profile' => 'users#editSettings', :as => :edit_settings
   get 'send_invitation/:id' => 'users#send_invitation', :as => :send_invitation
+
   #post 'settings' => 'users#settings_post'
+
+  # Home
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview
+
+  # Messages
   get 'messaging' => 'messaging#index', :as => :root_messaging
   get 'update_unreadmessages' => 'messaging#update_unreadMessages', :as => :update_unreadmessages
+  post 'new_message' => 'messaging#create_message', :as => :create_message
+
+  # Relations
+  get 'remove_connection/:id' => 'user_relation#remove_connection', :as => :remove_connection
+  get 'accept_invitation/:id' => 'user_relation#accept_invitation', :as => :accept_invitation
 
   get 'remove_connection/:id' => 'user_relation#remove_connection', :as => :remove_connection
   get 'accept_invitation/:id' => 'user_relation#accept_invitation', :as => :accept_invitation
@@ -71,13 +91,18 @@ Rails.application.routes.draw do
   patch 'edit_photoalbum' => 'images#edit_photoalbum', :as => :edit_photoalbum
   patch 'edit_picture' => 'picture#edit_picture', :as => :update_picture
 
+  # Dogs
   post 'new_dog' => 'dog#create', :as => :create_dog
+
+
+  # Wallposts
   post 'new_post' => 'wallpost#create', :as => :create_wallpost
   post 'index_post' => 'wallpost#index', :as => :index_wallpost
   get 'extendPosts' => 'wallpost#showNewPosts', :as => :extend_wallpost
   get 'extendPostsAfterDelete/:id' => 'wallpost#showNewPosts', :as => :extendAfterDelete_wallpost
 
-  post 'new_message' => 'messaging#create_message', :as => :create_message
+  # Tags
+  resources :tags
 
   #root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.

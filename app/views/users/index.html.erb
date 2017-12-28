@@ -1,0 +1,246 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "authentication", :media => "all" %>
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
+<script type="text/javascript">
+    var bounds = new google.maps.LatLngBounds();
+    var walkerMap;
+    var userAddress = "0 0, 0, 0";
+	
+    var markers = [];
+    function createMarker(latitude, longitude, title){
+
+    	var marker = new google.maps.Marker({
+    		position: {lat: latitude, lng: longitude},
+    		map: walkerMap,
+    		title: title,
+    		visible: true
+  		});
+        markers.push(marker);
+        bounds.extend(marker.getPosition());
+
+        if(walkerMap!=null){
+            if(markers.length > 2){
+                walkerMap.fitBounds(bounds);
+            }
+        }
+    }
+
+</script>
+
+
+<!-- START CONTENT -->
+<section id="content"  style="background-color:white;">
+    <!--start container-->
+    <div class="container">
+    	<div class="row">
+    	</div>
+		<div class="row">
+			<div class="col m4 hoverable card hide-on-small-only">
+				<div id="map-canvas2" data-lat="#{current_user.address.latitude}" data-lng="#{current_user.address.longitude}" style="height:450px; margin: 10px 0px;"></div>
+			</div>
+	  		<div class="col s12 m8 UserOverviewList" style="padding-right:0;">
+            <ul id="collapsibleFilter" class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header">
+                        <i class="fa fa-filter" aria-hidden="true"></i>Filter
+                    </div>
+                    <div class="collapsible-body">
+                        <div style="overflow:overlay;">
+                        <%= form_for(current_user, :url => refresh_users_path, :remote => true, :html => {class: 'col s12'}) do |u| %>
+                                <p style="padding-bottom: 0px; margin-bottom: -15px;">
+                                    <label for="walkerRadius" class="active" style="font-size:1em;">Toon wandelaars in een straal van: <span id="rangefield">10</span> [km]</label>
+                                </p>
+                                <p class="range-field" style="padding-bottom:0; padding-bottom:0;padding-top: 10px;">
+                                    <%= u.range_field :address, :id => "walkerRadius", :min => 0, :max => 100, :value => 10, :onchange => "updateTextInput(this.value);"%>
+                                </p>
+                                
+                            <div  style="margin-left: 28px; margin-right:28px;">
+                                  <input name="filterAddress" type="radio" id="myAddress" checked onchange="javascript:OtherAddressChanged(false);"/>
+
+                                  <label for="myAddress">Rond mijn woonplaats</label>
+                                  <br />
+                                  <input name="filterAddress" type="radio" id="otherAddress" onchange="javascript:OtherAddressChanged(true);" />
+                                  <label for="otherAddress">Op basis van een ander adres</label>
+                                  <div id="otherAddressInputFields" class="hide" style="margin-left: 35px; border-style: solid; border-width: 1px; border-color: #FF5B45; padding-right:15px;">
+                                    <div class="row" style="margin-left:10px;">
+                                       <div class="input-field col s6">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">Street</label>
+                                        </div>
+                                       <div class="input-field col s2">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-left:10px;">
+                                       <div class="input-field col s2">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">PostalCode</label>
+                                        </div>
+                                       <div class="input-field col s5">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">City</label>
+                                        </div>
+                                       <div class="input-field col s5">
+                                          <input id="icon_prefix" type="text" class="validate">
+                                          <label for="icon_prefix">Country</label>
+                                        </div>
+                                    </div>
+                                  </div>
+
+                                   <div class="row">
+                                        <div class="row">
+                                            <div class="input-field col s12" id="submitAccountInfo">
+                                                <%= u.submit I18n.t('views.user.index.refresh'), :id => "refreshWalkers", :class => "btn waves-effect waves-light right", :onclick => "javascript:clearMarkers();" do %>
+                                                    <%= I18n.t('views.user.index.refresh') %><i class="mdi-content-save right"></i>
+                                                <% end %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                            </div>
+                        <% end %>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+                <!-- Showing Users -->
+                <div id="userList">
+                    <%= render template: "users/index_list_users" %>
+                </div>
+                <!-- End Users -->
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#collapsibleFilter').collapsible();
+    });
+
+    ShowGeoLocation();
+    $('#userList').html('<%= escape_javascript(render template: "users/index_list_users.html.erb") %>');
+
+    function OtherAddressChanged(showInputFields)
+    {
+        if(!showInputFields)
+        {
+            addClass(document.getElementById('otherAddressInputFields'), 'hide');
+        }
+        else
+        {
+            removeClass(document.getElementById('otherAddressInputFields'), 'hide');
+        }
+    }
+
+    function updateTextInput(val) {
+        document.getElementById('rangefield').textContent=val;
+    }
+
+    function ShowGeoLocation() {
+        var street = "<%= current_user.try(:address).try(:street) %>" + "";
+        var city = "<%= current_user.try(:address).try(:city).try(:name) %>" + "";
+        var country = "<%= current_user.try(:address).try(:country).try(:name) %>" + "";
+        var number = "<%= current_user.try(:address).try(:number) %>" + "";
+
+        var latitude = Number("<%= current_user.try(:address).try(:latitude) %>");
+        var longitude = Number("<%= current_user.try(:address).try(:longitude) %>");
+
+        userAddress = street + ' ' + number + ', ' + city + ', ' + country;
+        if (userAddress === "0 0, 0, 0") {
+            userAddress = "Brussel, Belgium";
+        }
+
+        var geocoder = new google.maps.Geocoder();
+
+        if(document.getElementById('map-canvas2') != undefined)
+        {
+            walkerMap = new google.maps.Map(document.getElementById('map-canvas2'), {
+                zoom: 13,
+                center: { lat: latitude, lng: longitude },
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                scrollwheel: true,
+                draggable: true,
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
+                streetViewControl: false,
+                styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
+                mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
+                navigationControl: false,
+                navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
+            });
+
+            geocodeAddress(userAddress, geocoder, walkerMap);
+        }
+    };
+
+    function geocodeAddress(address, geocoder, resultsMap) {
+        if(resultsMap == null) {
+            resultsMap = walkerMap;
+        }
+
+        if(geocoder == null) {
+            geocoder = new google.maps.Geocoder();
+        }
+
+        if(address == null){
+            address = userAddress;
+        }
+
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                });
+                markers.push(marker);
+
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        })
+
+    };
+
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+
+      // Removes the markers from the map, but keeps them in the array.
+    function clearMarkers() {
+        setMapOnAll(null);
+        markers = [];
+        bounds = new google.maps.LatLngBounds();
+        geocodeAddress(null, null, null);
+    }
+
+
+    function addClass(el, className) {
+        if (el.classList)
+            el.classList.add(className)
+        else if (!hasClass(el, className)) el.className += " " + className
+    }
+
+    function removeClass(el, className) {
+        if (el.classList)
+            el.classList.remove(className)
+        else if (hasClass(el, className)) {
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
+            el.className=el.className.replace(reg, ' ')
+      }
+    }
+</script>

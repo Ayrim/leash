@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112182140) do
+ActiveRecord::Schema.define(version: 20170123194306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20170112182140) do
     t.integer  "country_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "addresses", ["city_id"], name: "index_addresses_on_city_id", using: :btree
@@ -120,6 +122,8 @@ ActiveRecord::Schema.define(version: 20170112182140) do
     t.datetime "updated_at",                null: false
     t.boolean  "is_pending", default: true
   end
+
+  add_index "connections", ["user_id", "user_id"], name: "index_connections_on_user_id_and_user_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -229,8 +233,15 @@ ActiveRecord::Schema.define(version: 20170112182140) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "user_defined",  default: false, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "created_by_id"
+    t.integer  "user_id"
+    t.integer  "animal_id"
+    t.integer  "activity_id"
+    t.integer  "route_id"
+    t.integer  "blog_id"
   end
 
   create_table "user_group_relations", force: :cascade do |t|

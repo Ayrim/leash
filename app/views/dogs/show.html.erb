@@ -1,0 +1,70 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+
+<!-- START CONTENT -->
+<section id="content">
+
+  <!--start container-->
+  <div class="container">
+    <div id="dog-profile-page" class="section">
+      <div id="profile-page-content" class="row">
+        <div id="profile-page-sidebar" class="col s12 m12">
+          <ul class="collection z-depth-1 with-header hoverable">
+            <li class="collection-header"><h4><strong><%= @dog.name %></strong></h4></li>
+        </ul>
+        </div>
+      </div>
+
+      <div id="profile-page-content" class="row">
+      <div id="profile-page-sidebar" class="col s12 m8">
+      <ul class="collection z-depth-1 with-header hoverable">
+          <!-- <li class="collection-header"><strong><%= @dog.name %></strong></li> -->
+          <li class="collection-item avatar">
+              <img src="assets/lake-animals-dogs-pets.jpg" alt="" class="circle">
+              <img src="https://www.peepl.be/static/images/team/ayrton.jpg" class="circle top-circle font-size:0.5em;" style="position:absolute; left:40px; top: 3px; color:#ffc107;">
+              <span class="title truncate"><strong>Coming</strong> for a walk with Zara</span>
+              <p class="truncate">
+                  <i>Ayrton Vercruysse</i><br>
+                  18:00 - 19:00
+              </p>
+              <a href="#!" class="secondary-content planningDay">Today</a>
+          </li>
+          <li class="collection-item avatar">
+              <img src="http://bebusinessed.com/wp-content/uploads/2014/03/734899052_13956580111.jpg" alt="" class="circle">
+              <span class="title truncate"><strong>Going</strong> for a walk with Blacky</span>
+              <p class="truncate">
+                  <i>@ Aaron Bakker</i><br>
+                  10:00 - 11:00
+              </p>
+              <a href="#!" class="secondary-content planningDay">Saturday</a>
+          </li>
+      </ul>
+    </div>
+    <div id="profile-page-sidebar" class="col s12 m4">
+    <ul class="collection z-depth-1 with-header hoverable">
+        <li class="collection-header"><strong>Planning</strong></li>
+        <li class="collection-item avatar">
+            <img src="assets/lake-animals-dogs-pets.jpg" alt="" class="circle">
+            <img src="https://www.peepl.be/static/images/team/ayrton.jpg" class="circle top-circle font-size:0.5em;" style="position:absolute; left:40px; top: 3px; color:#ffc107;">
+            <span class="title truncate"><strong>Coming</strong> for a walk with Zara</span>
+            <p class="truncate">
+                <i>Ayrton Vercruysse</i><br>
+                18:00 - 19:00
+            </p>
+            <a href="#!" class="secondary-content planningDay">Today</a>
+        </li>
+        <li class="collection-item avatar">
+            <img src="http://bebusinessed.com/wp-content/uploads/2014/03/734899052_13956580111.jpg" alt="" class="circle">
+            <span class="title truncate"><strong>Going</strong> for a walk with Blacky</span>
+            <p class="truncate">
+                <i>@ Aaron Bakker</i><br>
+                10:00 - 11:00
+            </p>
+            <a href="#!" class="secondary-content planningDay">Saturday</a>
+        </li>
+    </ul>
+  </div>
+  </div>
+    </div>
+
+  </div>
+</section>
