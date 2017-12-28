@@ -1,0 +1,61 @@
+
+		html{
+			background-color: #FF5B45;
+			font-size:14px;
+		}
+		
+		body div.container{
+			height:82%;
+		}
+	
+	
+		/* ------- LOGIN-FORM ------- */
+		#login-page {
+			flex: 1 0 auto;
+			margin-top: 50px;
+			width: 325px;
+		}
+		
+		.login-form{
+			width: 300px;
+		}
+		form{
+			display:block;
+			margin-top:0em;
+		}
+		.profile-image-login{
+			width: 96px;
+			height: 96px;
+			margin: 0 auto;
+			margin-top: 20px;
+			margin-bottom: -20px;
+		}
+		
+		.toast{
+			padding:15px 25px;
+			background-color: #36373B !important;
+		}
+		
+		#toast-container{
+			top:5% !important;
+			right:5% !important;
+			left: auto !important;
+		}
+		/* ------- END LOGIN-FORM ------- */
+		
+		/* ------- FOOTER ------- */
+		/**
+		 * 1. Avoid the IE 10-11 `min-height` bug.
+		 * 2. Set `flex-shrink` to `0` to prevent Chrome, Opera, and Safari from
+		 *    letting these items shrink to smaller than their content's default
+		 *    minimum size.
+		 */
+		body {
+		  display: flex;
+		  flex-direction: column;
+		  height: 100vh; /* 1 */
+		}
+		footer {
+		  flex-shrink: 0; /* 2 */
+		}
+		/* ------- END FOOTER ------- */

@@ -1,0 +1,418 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/screen.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/editSettings.css"  media="screen,projection"/>
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+	 
+	  
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="materialize/js/materialize.js"></script>
+	  	  
+	  <script type="text/javascript" src="fullcalendar/lib/jquery-ui.custom.min.js"></script>
+	  <script type="text/javascript" src="fullcalendar/lib/moment.min.js"></script>
+	  <script type="text/javascript" src="fullcalendar/fullcalendar.min.js"></script>
+	  <script type="text/javascript" src="fullcalendar/fullcalendar.js"></script>
+	  
+      <!-- google map api -->
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
+	
+	
+	  <header>
+		<ul id="dropdown1" class="dropdown-content">
+		  <li><a href="settings.html">Settings</a></li>
+		  <li class="divider"></li>
+		  <li><a href="index.html">Sign Out</a></li>
+		</ul>
+		<ul id="dropdown2" class="dropdown-content">
+		  <li><a href="#!">Dogs</a></li>
+		  <li><a href="#!">Dog walkers</a></li>
+		  <li class="divider"></li>
+		  <li><a href="#!">Routes</a></li>
+		</ul>
+		<div class="navbar-fixed">
+			<nav>
+			  <div class="nav-wrapper">
+				<a href="#!" data-activates="mobile-demo" class="brand-logo hide-on-med-and-down">Leash<i class="material-icons left">menu</i></a>
+				<a href="#!" data-activates="mobile-demo" class="brand-logo hide-on-large-only">Leash</a>
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="margin-left: 15px;">menu</i></a>
+				<ul class="right hide-on-med-and-down">
+				  <!--<li><a class="dropdown-button" href="#!" data-activates="dropdown2">Search<i class="material-icons left">search</i></a></li>-->
+				  <!-- Dropdown Trigger -->
+				  <li><a class="dropdown-button" href="#!" data-activates="dropdown1">
+				  <img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle accountPicture" ><!--<i class="material-icons right">more_vert</i>--></a></li>
+				</ul>
+				<ul class="side-nav collapsible" id="mobile-demo"  data-collapsible="accordion">
+				  <li><a href="material design.html" class="no-padding collapsible-header">Home<i class="material-icons left">home</i></a></li>
+				  <li class="divider"></li>
+				  <li><a href="settings.html" class="no-padding collapsible-header">Settings<i class="material-icons left">settings</i></a></li>
+				  <li class="no-padding">
+					<ul class="collapsible collapsible-accordion">
+					  <li>
+						<a class="collapsible-header">Search<i class="material-icons left" >search</i></i></a>
+						<div class="collapsible-body">
+						  <ul>
+							<li><a href="#!">Dogs</a></li>
+							<li><a href="#!">Dog walkers</a></li>
+							<li><a href="#!">Routes</a></li>
+						  </ul>
+						</div>
+					  </li>
+					</ul>
+				  </li>
+				  
+				  
+					<!--<li>
+					  <div class="collapsible-header">Search<i class="material-icons left">search</i></div>
+					  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+					</li>-->
+	
+				  <li class="bottom center-align" style="
+						position: absolute;
+						bottom: 64px;
+						width: 100%;
+					"><img src="https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png" alt="" class="circle accountPicture" style="
+						margin-top: 25px;
+						height: 75px;
+					">
+					<a href="index.html" class="no-padding collapsible-header">Sign Out</a></li>
+				</ul>
+			  </div>
+			</nav>
+		</div>
+	  </header>
+	    <!-- START MAIN -->
+	<main>
+ <!-- <div id="main">-->
+    <!-- START WRAPPER -->
+    <!--<div class="wrapper">-->
+	        <!-- START CONTENT -->
+      <section id="content">        
+
+        <!--start container-->
+        <div class="container">
+
+		
+            <!-- profile-page-header -->
+            <div id="profile-page-header" class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img src="http://demo.geekslabs.com/materialize/v2.1/layout03/images/user-profile-bg.jpg" alt="user background">                    
+                </div>
+                <figure class="card-profile-image circle z-depth-2 responsive-img" style="position:absolute; background: url(https://pbs.twimg.com/profile_images/1846296430/ProfielFoto_400x400.png) 50% 50% no-repeat; width: 110px; height: 110px; background-size:cover;">
+                </figure>
+                <div class="card-content">
+                  <div class="row">                    
+                    <div class="col s10 m3 offset-m2 personName">                        
+                        <h4 class="card-title grey-text text-darken-4">Maxim Braekman</h4>
+                        <p class="medium-small grey-text">Premium user</p>                        
+                    </div>         		
+                    <div class="col m2 offset-m3 center-align hide-on-small-only">
+                        <h4 class="card-title grey-text text-darken-4">0</h4>
+                        <p class="medium-small grey-text">Dogs</p>                        
+                    </div>   
+                    <div class="col m2 center-align hide-on-small-only">
+                        <h4 class="card-title grey-text text-darken-4">10+</h4>
+                        <p class="medium-small grey-text">Walking Experience</p>                        
+                    </div> 
+                  </div>
+                </div>
+            </div>
+            <!--/ profile-page-header -->
+		
+		  <!--<div class="row">
+            <div class="card-image waves-effect waves-block waves-light">
+			  <div class="col  s12 m12 l12 card">-->
+			<div class="row">	
+			
+			
+             <div class="col s12 m9 l10">
+				<div class="row">			
+				
+				 <div class="col s12 m12 l12">
+				  <div id="Profile" class="card-panel section scrollspy">
+					<h4 class="header2">Profile</h4>
+					<hr class="card-panel-header-line" />
+					<div class="row">
+					  <form class="col s12">
+						<div class="row">
+						  <div class="input-field col s12 m6">
+							<input id="first_name" type="text" value="Maxim">
+							<label for="first_name" class="active">First Name</label>
+						  </div>
+						
+						  <div class="input-field col s12 m6">
+							<input id="last_name" type="text" value="Braekman">
+							<label for="last_name" class="active">Last Name</label>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="input-field col s12 m6">
+							<input id="email5" type="email" value="maxim.braekman@hotmail.com">
+							<label for="email" class="active" >Email</label>
+						  </div>                  
+						  <div class="input-field col s12 m6">
+						  
+							<input id="birthdate" type="text" class="datepicker" value="22 August, 1989">
+							<label for="birthdate" class="active">Date of Birth</label>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="input-field col s4">
+							<input id="number_of_walks" type="number" value="11">
+							<label for="number_of_walks" class="active">Number of walks</label>
+						  </div> 
+						  <div class="input-field col s8 m4">
+							<input id="walking_region" type="text" value="Coast">
+							<label for="walking_region" class="active">Region of walks</label>
+						  </div> 
+						  <div class="input-field col s12 m4">
+							<input id="skills" type="text" value="Dog walking/training">
+							<label for="skills" class="active">Skills</label>
+						  </div> 
+						</div>
+						
+						<div class="row">
+						  <div class="file-field input-field col s12">
+							<div class="btn" style="display:inline-block; float:right;">
+							  <span>...</span>
+							  <input type="file" />
+							</div>
+							<div class="file-path-wrapper">
+								<input id="profilePicture" class="file-path validate" type="text">
+							<label for="profilePicture" class="active">Profile picture</label>
+							</div>
+						  </div>
+							  
+						  <div class="file-field input-field col s12">
+							<div class="btn" style="display:inline-block; float:right;">
+							  <span>...</span>
+							  <input type="file" />
+							</div>
+							<div class="file-path-wrapper">
+								<input id="bannerPicture" class="file-path validate" type="text">
+							<label for="bannerPicture" class="active">Banner picture</label>
+							</div>
+						  </div>
+						  
+						</div>
+						<div class="row">
+						  <div class="input-field col s12">
+							<textarea id="message5" class="materialize-textarea" length="120"></textarea>
+							<label for="message">Description</label>
+						  </div>
+						  <div class="row">
+							<div class="input-field col s12">
+							  <button class="btn waves-effect waves-light right disabled" type="submit" name="action">Save
+								<i class="mdi-content-save right"></i>
+							  </button>
+							</div>
+						  </div>
+						</div>
+					  </form>
+					</div>
+				  </div>
+				 </div>
+				<!--</div>-->
+				
+				<div class="col s12 m12 l12">
+				  <div id="Security" class="card-panel section scrollspy">
+					<h4 class="header2">Security</h4>
+					<hr class="card-panel-header-line" />
+					<div class="row">
+					  <form class="col s12">
+						<div class="row">
+						  <div class="input-field col s12 m6">
+							<input id="old_password" type="password">
+							<label for="old_password">Current Password</label>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="input-field col s12 m6">
+							<input id="new_password" type="password">
+							<label for="new_password">New Password</label>
+						  </div>
+						
+						  <div class="input-field col s12 m6">
+							<input id="confirm_new_password" type="password">
+							<label for="confirm_new_password">Confirm New Password</label>
+						  </div>
+						</div>
+						
+						<div class="row">
+						  <div class="row">
+							<div class="input-field col s12">
+							  <button class="btn waves-effect waves-light right disabled" type="submit" name="action">Save
+								<i class="mdi-content-save right"></i>
+							  </button>
+							</div>
+						  </div>
+						</div>
+					  </form>
+					</div>
+				  </div>
+				 </div>
+				 
+				 <div class="col s12 m12 l12">
+				  <div id="ContactInfo" class="card-panel section scrollspy">
+					<h4 class="header2">Contact Information</h4>
+					<hr class="card-panel-header-line" />
+					<div class="row">
+					  <form class="col s12">
+						<div class="row">
+						  <div class="input-field col s12 m5">
+							<input id="address" type="text" value="Ontmijnersstraat">
+							<label for="address" class="active">Address</label>
+						  </div>
+						  <div class="input-field col s6 m2">
+							<input id="house_number" type="text" value="58">
+							<label for="house_number" class="active">House number</label>
+						  </div>
+						  <div class="input-field col s6 m2">
+							<input id="busnummer" type="text" value="">
+							<label for="busnummer">Bus</label>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="input-field col s5 m2">
+							<input id="zipcode" type="text" value="8370">
+							<label for="zipcode" class="active">Zipcode</label>
+						  </div>                  
+						  <div class="input-field col s7 m5">
+							<input id="city" type="text" class="text" value="Blankenberge">
+							<label for="city" class="active">City</label>
+						  </div>
+						  
+						  <div class="input-field col s12 m5">
+							<input id="country" type="text" value="Belgium">
+							<label for="country" class="active">Country</label>
+						  </div>
+						</div>
+						
+						
+						<div class="row">
+						  <div class="input-field col s12 m6">
+							<input id="phone_number" type="tel" value="0498/20 85 85">
+							<label for="phone_number" class="active">Telephone number</label>
+						  </div>
+						</div>
+						
+						<div class="row">
+						  <div class="row">
+							<div class="input-field col s12">
+							  <button class="btn waves-effect waves-light right disabled" type="submit" name="action">Save
+								<i class="mdi-content-save right"></i>
+							  </button>
+							</div>
+						  </div>
+						</div>
+					  </form>
+					</div>
+				  </div>
+				 </div>
+				 
+				</div>
+		  
+		  </div>
+			
+		    <!-- Table of Contents -->
+			<div class="col hide-on-small-only m3 l2 tableOfContents">
+			  <div class="toc-wrapper pinned">
+				  <ul class="section table-of-contents">
+					<li><a href="#Profile">Profile</a></li>
+					<li><a href="#Security">Security</a></li>
+					<li><a href="#ContactInfo">Contact Information</a></li>
+				  </ul>
+			  </div>
+			</div>
+		  </div>
+        </div>
+        
+		
+        <!--end container-->
+      </section>
+      <!-- END CONTENT -->
+
+   <!-- </div>-->
+    <!-- END WRAPPER -->
+
+<!-- </div>-->
+  <!-- END MAIN -->
+	  </main>
+	  
+	<footer class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m4 center-align">
+					<div class="service-box">
+						<h4>Leash-logo</h4>
+						<p class="text-muted">
+							The favourite community of 
+							dog-lovers.<br /><br />
+							Find someone in your neighbourhood to walk your dog or find a dog to take for a walk.
+						</p>
+					</div>
+				</div>
+				<div class="col s12 m4 center-align">
+					<div class="service-box">
+						<h4>Follow us on</h4>
+						<div class="text-center footerSocialMedia">
+							<p class="text-muted left-align">
+								<a class="footerlink" href="#" target="blank">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-facebook-square fa-stack-2x"></i>
+									</span>   Facebook
+								</a><br>
+								<a class="footerlink" href="#" target="blank">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-twitter-square fa-stack-2x"></i>
+									</span>   Twitter
+								</a><br>
+								<a class="footerlink" href="#" target="blank">
+									<span class="fa-stack fa-lg">
+										<i class="fa fa-google-plus-square fa-stack-2x"></i>
+									</span>   Google Plus
+								</a><br>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m4 center-align">
+					<div class="service-box">
+						<h4>Contact us</h4>
+						<p class="text-muted">Questions or advice? 
+							<br />Feel free to send us a mail!
+							<br />
+							<br />
+							<a class="footerlink" href="mailto:leashayrim@gmail.com">
+								<span class="fa-stack fa-lg">
+									<i class="fa fa-envelope-square fa-stack-2x"></i>
+								</span>   info@leash.be
+							</a><br>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+            <div class="container center">
+				<p class="text-muted">Copyright <span class="fa fa-copyright"></span> 2016</p>
+            </div>
+          </div>
+	</footer>
+    </body>
+	
+      <script type="text/javascript" src="scripts/EditSettings.js"></script>
+  </html>
+        
