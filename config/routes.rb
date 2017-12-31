@@ -83,9 +83,6 @@ Rails.application.routes.draw do
   get 'remove_connection/:id' => 'user_relation#remove_connection', :as => :remove_connection
   get 'accept_invitation/:id' => 'user_relation#accept_invitation', :as => :accept_invitation
 
-  get 'remove_connection/:id' => 'user_relation#remove_connection', :as => :remove_connection
-  get 'accept_invitation/:id' => 'user_relation#accept_invitation', :as => :accept_invitation
-
 
   post 'create_picture' => 'picture#create', :as => :create_picture
   post 'create_photoalbum' => 'images#create_photoalbum', :as => :create_photoalbum
@@ -93,7 +90,7 @@ Rails.application.routes.draw do
   patch 'edit_picture' => 'picture#edit_picture', :as => :update_picture
 
   # Dogs
-  post 'new_dog' => 'dog#create', :as => :create_dog
+  post 'new_dog' => 'dogs#create', :as => :create_dog
 
 
   # Wallposts

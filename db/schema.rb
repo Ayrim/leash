@@ -123,8 +123,6 @@ ActiveRecord::Schema.define(version: 20170123194306) do
     t.boolean  "is_pending", default: true
   end
 
-  add_index "connections", ["user_id", "user_id"], name: "index_connections_on_user_id_and_user_id", using: :btree
-
   create_table "countries", force: :cascade do |t|
     t.string   "name"
     t.string   "ISO"
@@ -233,9 +231,8 @@ ActiveRecord::Schema.define(version: 20170123194306) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "user_defined",  default: false, null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "created_by_id"
     t.integer  "user_id"
     t.integer  "animal_id"
