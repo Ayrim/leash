@@ -1,13 +1,14 @@
-class DogController < ApplicationController
+class DogsController < ApplicationController
   def index
     @dog = Dog.all
   end
 
   def new
+
   end
 
   def show
-
+    @dog = Dog.find(params[:id])
   end
 
   def create

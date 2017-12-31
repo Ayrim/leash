@@ -1,0 +1,109 @@
+<%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+<%= stylesheet_link_tag "fullcalendar", :media => "all" %>
+
+
+<div class="container">
+
+  <div class="row" >
+
+    <% @dog.each do |dog| %>
+        <%= link_to dog_path(dog) do %>
+        <div class="col" >
+
+
+
+      <ul class="collection z-depth-1 with-header hoverable card" style="width: 280px; height: 400px;">
+        <li class="collection-header"><strong><%= dog.animal.name %></strong></li>
+
+        <img src="/assets/dog-silhouette.png" alt="" class="circle" style="width:250px;padding-top: 15px; padding-bottom: 15px;padding-left: 15px;">
+
+        <li class="collection-item avatar">
+
+          <span class="title truncate"><%=dog.breed%></span>
+          <p>Home
+          </p>
+        </li>
+
+
+      </ul>
+    </div>
+    <% end %>
+    <% end %>
+    <%= link_to new_dog_path do %>
+    <div class="col s12 m3" style="width:300px;height: 600px !important;">
+
+
+      <ul class="collection z-depth-1 with-header hoverable card" style="width: 280px; height: 400px;">
+        <li class="collection-header"><strong>Hond toevoegen </strong></li>
+        <img src="/assets/bigplus.png" style="width:250px;padding-top: 15px; padding-bottom: 15px;padding-left: 15px;">
+
+        <li class="collection-item avatar">
+          <span class="title truncate">Hond toevoegen</span>
+        </li>
+
+
+      </ul>
+    </div>
+  <% end %>
+
+  </div>
+</div>
+<!--<h1>Dogs</h1>-->
+
+<!--<table>-->
+  <!--<tr>-->
+    <!--<th>Title</th>-->
+    <!--<th>Text</th>-->
+    <!--<th colspan="2"></th>-->
+  <!--</tr>-->
+
+  <!--<% @dog.each do |dog| %>-->
+      <!--<tr>-->
+        <!--<td><%= dog.animal.name %></td>-->
+        <!--<td><%= dog.breed %></td>-->
+        <!--<td><%= link_to 'Show', dog_path(dog) %></td>-->
+        <!--<td><%= link_to 'Edit', edit_dog_path(dog) %></td>-->
+      <!--</tr>-->
+  <!--<% end %>-->
+<!--</table>-->
+
+<script type="text/javascript">
+
+//  $(document).ready(function(){
+//    // page is now ready, initialize the calendar...
+//    $('#calendar').fullCalendar({
+//      // put your options and callbacks here
+//      header: {
+//        left: 'prev,next today',
+//        center: 'title',
+//        right: 'month,agendaWeek,agendaDay'
+//      },
+//      defaultView: 'month',
+//      editable: true,
+//      events: [
+//        {
+//          title: 'Deadline',
+//          start: '2016-04-01'
+//        },
+//        {
+//          id: 999,
+//          title: 'Repeating Event',
+//          start: '2016-04-09T16:00:00'
+//        },
+//        {
+//          id: 999,
+//          title: 'Repeating Event',
+//          start: '2016-04-16T16:00:00'
+//        },
+//        {
+//          title: 'Meeting',
+//          start: '2016-04-12T10:30:00',
+//          end: '2016-04-12T12:30:00'
+//        },
+//        {
+//          title: 'Lunch',
+//          start: '2016-04-12T12:00:00'
+//        }]
+//    })
+//  })
+</script>

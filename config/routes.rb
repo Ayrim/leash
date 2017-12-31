@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :animals
-  resources :dog
+  resources :dogs
   resources :wallpost
   resources :messaging
   resources :images
@@ -69,10 +69,19 @@ Rails.application.routes.draw do
   get 'send_invitation/:id' => 'users#send_invitation', :as => :send_invitation
 
   #post 'settings' => 'users#settings_post'
+
+  # Home
   get 'home'    => 'home#index', :as => :home_root
   get 'overview'=> 'home#overview', :as => :overview
+
+  # Messages
   get 'messaging' => 'messaging#index', :as => :root_messaging
   get 'update_unreadmessages' => 'messaging#update_unreadMessages', :as => :update_unreadmessages
+  post 'new_message' => 'messaging#create_message', :as => :create_message
+
+  # Relations
+  get 'remove_connection/:id' => 'user_relation#remove_connection', :as => :remove_connection
+  get 'accept_invitation/:id' => 'user_relation#accept_invitation', :as => :accept_invitation
 
   get 'remove_connection/:id' => 'user_relation#remove_connection', :as => :remove_connection
   get 'accept_invitation/:id' => 'user_relation#accept_invitation', :as => :accept_invitation
@@ -83,13 +92,18 @@ Rails.application.routes.draw do
   patch 'edit_photoalbum' => 'images#edit_photoalbum', :as => :edit_photoalbum
   patch 'edit_picture' => 'picture#edit_picture', :as => :update_picture
 
+  # Dogs
   post 'new_dog' => 'dog#create', :as => :create_dog
+
+
+  # Wallposts
   post 'new_post' => 'wallpost#create', :as => :create_wallpost
   post 'index_post' => 'wallpost#index', :as => :index_wallpost
   get 'extendPosts' => 'wallpost#showNewPosts', :as => :extend_wallpost
   get 'extendPostsAfterDelete/:id' => 'wallpost#showNewPosts', :as => :extendAfterDelete_wallpost
 
-  post 'new_message' => 'messaging#create_message', :as => :create_message
+  # Tags
+  resources :tags
 
   #root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.

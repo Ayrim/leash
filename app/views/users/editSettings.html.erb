@@ -3,6 +3,214 @@
 
 <main>
 
+<<<<<<< HEAD
+  <% if @showModal %>
+      <script type="text/javascript">
+        Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %><%= flash.notice %></p>', 10000);
+      </script>
+  <% end %>
+  <section id="content">
+    <!--start container-->
+    <div class="container">
+
+      <!-- profile-page-header -->
+      <div id="profile-page-header" class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img src="<%= user_banner() %>" alt="user background">
+        </div>
+        <figure class="card-profile-image circle z-depth-2 responsive-img" style="position:absolute; background: url(<%= user_avatar() %>) 50% 50% no-repeat; width: 110px; height: 110px; background-size:cover;">
+        </figure>
+        <div class="card-content">
+          <div class="row">
+            <div class="col s10 m3 offset-m2 personName">
+              <h4 class="card-title grey-text text-darken-4"><%= current_user.firstname + ' ' + current_user.lastname %></h4>
+              <p class="medium-small grey-text">Premium user</p>
+            </div>
+            <div class="col m2 offset-m3 center-align hide-on-small-only">
+              <h4 class="card-title grey-text text-darken-4">0</h4>
+              <p class="medium-small grey-text">Dogs</p>
+            </div>
+            <div class="col m2 center-align hide-on-small-only">
+              <h4 class="card-title grey-text text-darken-4">10+</h4>
+              <p class="medium-small grey-text">Walking Experience</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--/ profile-page-header -->
+      <div class="row">
+
+        <div class="col s12 m9 l10">
+          <div class="row">
+
+            <div class="col s12 m12 l12">
+              <div id="Profile" class="card-panel section scrollspy">
+                <h4 class="header2">Profile</h4>
+                <hr class="card-panel-header-line" />
+                <% if current_user.errors.any? %>
+                    <div id="error_explanation" class="row s12" style="padding-left:25px; padding-top:5px; margin-left:10px; margin-right:10px; border-radius:5px; border-style: solid; border-color:red; border-width:1px;">
+                      <h5><%= pluralize(current_user.errors.count, "error") %> prohibited this user from being saved:</h5>
+                      <ul>
+                        <% current_user.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                <% end %>
+
+                <div class="row">
+                  <%= form_for(current_user, :url => update_profile_path, :html => {class: 'col s12', :onchange => 'document.getElementById(\'submitAccountInfo\').getElementsByTagName("i")[0].className = \'btn waves-effect waves-light right\''}) do |u| %>
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <%= u.text_field :firstname %>
+                          <label for="firstname" class="active">First Name</label>
+                        </div>
+
+                        <div class="input-field col s12 m6">
+                          <%= u.text_field :lastname %>
+                          <label for="lastname" class="active">Last Name</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <%= u.email_field :email %>
+                          <label for="email" class="active">Email</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+
+                          <%= u.text_field :birthdate, :class => 'datepicker', :value => nice_date_form(u.object.birthdate) %>
+                          <label for="birthdate" class="active">Date of Birth</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s4">
+                          <%= u.number_field :number_of_walks %>
+                          <label for="number_of_walks" class="active">Number of walks</label>
+                        </div>
+                        <div class="input-field col s8 m4">
+                          <%= u.text_field :walking_region %>
+                          <label for="walking_region" class="active">Region of walks</label>
+                        </div>
+                        <div class="input-field col s12 m4">
+                          <%= u.text_field :skills %>
+                          <label for="skills" class="active">Skills</label>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="file-field input-field col s12">
+                          <div class="btn" style="display:inline-block; float:right;">
+                            <span>...</span>
+                            <%= u.file_field :profile_picture, :accept => "image/png,image/gif,image/jpeg" %>
+                            <!--<input type="file" name="user[profile_picture]" id="user_profile_picture" accept="image/png,image/gif,image/jpeg"/>-->
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input id="user_profile_picture" class="file-path validate" type="text" >
+                            <label for="user_profile_picture" class="active">Profile picture</label>
+                          </div>
+                        </div>
+
+                        <div class="file-field input-field col s12">
+                          <div class="btn" style="display:inline-block; float:right;">
+                            <span>...</span>
+                            <%= u.file_field :banner_picture, :accept => "image/png,image/gif,image/jpeg" %>
+                            <!--<input type="file" name="user[banner_picture]" id="user_banner_picture" accept="image/png,image/gif,image/jpeg" />-->
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input id="user_banner_picture" class="file-path validate" type="text">
+                            <label for="user_banner_picture" class="active">Banner picture</label>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <%= u.text_area :description, :class => 'materialize-textarea', :length => '120' %>
+                          <label for="description">Description</label>
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s12" id="submitAccountInfo">
+                            <%= u.submit "Save", :id => "saveAccountInfo", :class => "btn waves-effect waves-light right disabled" do %>
+                                Save<i class="mdi-content-save right"></i>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <!--</div>-->
+
+            <div class="col s12 m12 l12">
+              <div id="Security" class="card-panel section scrollspy">
+                <h4 class="header2">Security</h4>
+                <hr class="card-panel-header-line" />
+                <div class="row">
+                  <% if flash.alert %>
+                      <div id="error_explanation" class="row s12" style="padding-left:15px; padding-top:5px; padding-bottom:5px; margin-left:10px; margin-right:10px; border-radius:5px; border-style: solid; border-color:red; border-width:1px;">
+                        <%= flash.alert %>
+                      </div>
+                  <% end %>
+                  <!--<form class="col s12" onchange="document.getElementById('submitPasswordChange').className = 'btn waves-effect waves-light right'">-->
+                  <%= form_for(current_user, :url => update_password_path, :html => {class: 'col s12', :onchange => 'document.getElementById(\'submitPasswordChange\').getElementsByTagName("i")[0].className = \'btn waves-effect waves-light right\''}) do |u| %>
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <!--<input id="old_password" type="password">-->
+                          <%= password_field :current_password, params[:current_password] %>
+                          <label for="current_password">Current Password</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <!--<input id="new_password" type="password">-->
+                          <%= u.password_field :password %>
+                          <label for="password">New Password</label>
+                        </div>
+
+                        <div class="input-field col s12 m6">
+                          <!--<input id="confirm_new_password" type="password">-->
+                          <%= u.password_field :password_confirmation %>
+                          <label for="password_confirmation">Confirm New Password</label>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="row">
+                          <div class="input-field col s12" id="submitPasswordChange">
+                            <%= u.submit "Save", :id => "saveAccountInfo", :class => "btn waves-effect waves-light right disabled" do %>
+                                Save<i class="mdi-content-save right"></i>
+                            <% end %>
+                            <!--<button class="btn waves-effect waves-light right disabled" id="submitPasswordChange" type="submit" name="action">
+                                Save
+                                <i class="mdi-content-save right"></i>
+                            </button>-->
+                          </div>
+                        </div>
+                      </div>
+                  <% end %>
+                  <!--</form>-->
+                </div>
+              </div>
+            </div>
+
+            <div class="col s12 m12 l12">
+              <div id="ContactInfo" class="card-panel section scrollspy">
+                <h4 class="header2">Contact Information</h4>
+                <hr class="card-panel-header-line" />
+                <div class="row">
+                  <%= form_for(current_user, :url => update_contactinfo_path, :html => {class: 'col s12', :onchange => 'document.getElementById(\'submitContactInfo\').getElementsByTagName("i")[0].className = \'btn waves-effect waves-light right\''}) do |u| %>
+                      <%= u.fields_for :address, current_user.address || Address.new do |address_fields| %>
+                          <div class="row">
+                            <div class="input-field col s12 m5">
+                              <%= address_fields.text_field :street %>
+                              <label for="address" class="active">Address</label>
+                            </div>
+                            <div class="input-field col s6 m2">
+                              <%= address_fields.text_field :number %>
+                              <label for="house_number" class="active">House number</label>
+=======
     <% if @showModal %>
     <script type="text/javascript">
         Materialize.toast('<p style="word-wrap: break-word;"><%= flash.alert %><%= flash.notice %></p>', 10000);
@@ -423,10 +631,49 @@
                                         <% end %>
                                     </div>
                                 </div>
+>>>>>>> development
                             </div>
+                            <div class="input-field col s6 m2">
+                              <%= address_fields.text_field :numberAddition %>
+                              <label for="busnummer">Bus</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <%= address_fields.fields_for :city, current_user.address.try(:city) || City.new do |city| %>
+                                <div class="input-field col s5 m2">
+                                  <%= city.text_field :postalcode %>
+                                  <label for="zipcode" class="active">Zipcode</label>
+                                </div>
+                                <div class="input-field col s7 m5">
+                                  <%= city.text_field :name %>
+                                  <label for="city" class="active">City</label>
+                                </div>
+                            <% end %>
+                            <%= address_fields.fields_for :country, current_user.address.try(:country) || Country.new do |country| %>
+                                <div class="input-field col s12 m5">
+                                  <%= country.text_field :name %>
+                                  <label for="country" class="active">Country</label>
+                                </div>
+                            <% end %>
+                          </div>
+                      <% end %>
 
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <%= u.phone_field :phone %>
+                          <label for="phone_number" class="active">Telephone number</label>
                         </div>
+                      </div>
 
+<<<<<<< HEAD
+                      <div class="row">
+                        <div class="row">
+                          <div class="input-field col s12" id="submitContactInfo">
+                            <%= u.submit "Save", :id => "saveContactInfo", :class => "btn waves-effect waves-light right disabled" do %>
+                                Save<i class="mdi-content-save right"></i>
+                            <% end %>
+                          </div>
+=======
                     </div>
 
                     <!-- Table of Contents -->
@@ -438,12 +685,40 @@
                                 <li><a href="#Security"><%= I18n.t('views.user.edit.security') %></a></li>
                                 <li><a href="#ContactInfo"><%= I18n.t('views.user.edit.contactinfo') %></a></li>
                             </ul>
+>>>>>>> development
                         </div>
-                    </div>
+                      </div>
+                  <% end %>
                 </div>
+              </div>
             </div>
 
+          </div>
 
+        </div>
+
+<<<<<<< HEAD
+        <!-- Table of Contents -->
+        <div class="col hide-on-small-only m3 l2 tableOfContents">
+          <div class="toc-wrapper pinned">
+            <ul class="section table-of-contents">
+              <li><a href="#Profile">Profile</a></li>
+              <li><a href="#Security">Security</a></li>
+              <li><a href="#ContactInfo">Contact Information</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--end container-->
+  </section>
+
+
+</main>
+
+=======
             <!--end container-->
     </section>
 
@@ -468,3 +743,4 @@
         $(".pinned").css("top", Math.max(75, 450 - $(this).scrollTop()));
     });
 </script>
+>>>>>>> development
