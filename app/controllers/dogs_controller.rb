@@ -8,11 +8,14 @@ class DogsController < ApplicationController
   end
 
   def show
-    @dog = Dog.find(params[:id])
+    if(params[:id] != 'update_unreadmessages')
+      @dog = Dog.find(params[:id])
+    end
   end
 
   def create
     puts dog_params
+
     @animal = Animal.new(animal_params)
 
     if @animal.save
@@ -33,6 +36,6 @@ class DogsController < ApplicationController
     end
   private
     def animal_params
-      params.require(:animal).permit(:name, dog_attributes: :breed)
+      params.require(:animal).permit(:name,:user_id, dog_attributes: :breed)
     end
 end

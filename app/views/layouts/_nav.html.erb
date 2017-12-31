@@ -129,7 +129,9 @@
               <li class="no-padding">
                 <ul>
                   <li>
-                    <a class="collapsible-header"><i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %></a>
+                    <%= link_to dogs_path, :class => 'no-padding collapsible-header' do %>
+                      <i class="fa fa-paw material-icons" aria-hidden="true"></i><%= I18n.t('views.layout.nav.dogs') %>
+                    <% end %>
                     <div class="collapsible-body">
                       <ul>
                         <li><a href="#!" class="navDogName">Blacky</a></li>

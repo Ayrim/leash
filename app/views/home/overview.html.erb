@@ -90,7 +90,13 @@
 			</div>
 			<div class="col s12 m4">
 			 <ul class="collection z-depth-1 with-header hoverable card">
-				<li class="collection-header"><strong><%= I18n.t('views.home.overview.dogsheader') %></strong></li>
+			 	
+				<li class="collection-header">
+					<%= link_to dogs_path do %>
+                        <strong><%= I18n.t('views.home.overview.dogsheader') %></strong>
+                    <% end %>
+                </li>
+
 				<li class="collection-item avatar">
 				  <img src="assets/lake-animals-dogs-pets.jpg" alt="" class="circle">
 				  <i class="material-icons" style="position:absolute; left:40px; top: 3px; color:#ffc107;">stars</i>
