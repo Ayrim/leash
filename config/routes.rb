@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get 'users/nearby/:id' => 'users#LoadNearbyUsers'
       post 'user/update' => 'users#update_user'
       post 'user/update_walker/:id' => 'users#update_walker'
+      post 'user/update_contactInfo/:id' => 'users#update_contactInfo'
 
       # Address
       get 'address' => 'address#get_addresses'

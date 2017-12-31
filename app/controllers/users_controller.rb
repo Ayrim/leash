@@ -19,7 +19,38 @@ class UsersController < Api::V1::UsersController
   end
 
   def refresh_users
-    LoadNearbyUsers(params[:user][:address].to_i, false, current_user.id);
+
+    puts '----------------------------------------------------------------'
+    puts params.to_json
+    puts '----------------------------------------------------------------'
+
+    if(params[:filterAddress].to_s == "otherAddress")
+      # define long/lat by given address
+      puts ' 1. ============================================'
+      cityParams = params[:user][:address_attributes][:city_attributes]
+      otherCity = City.new(:name => cityParams[:name].titleize,
+                                :postalcode => cityParams[:postalcode])
+      puts ' 2. ============================================'
+      countryParams = params[:user][:address_attributes][:country_attributes]
+      otherCountry = Country.new(:name => countryParams[:name].titleize);
+      puts ' 3. ============================================'
+      address_params = params[:user][:address_attributes]
+      puts ' 4. ============================================'
+      otherAddress = Address.new(:street => address_params[:street], 
+                                  :number => address_params[:number],
+                                  :city => otherCity,
+                                  :country => otherCountry
+                                )
+      puts ' 5. ============================================'
+      puts otherAddress.full_address
+      puts ' 6. ============================================'
+
+      LoadNearbyUsers(params[:user][:address].to_i, false, current_user.id, otherAddress);
+    else
+      # define radius based on home-location
+      LoadNearbyUsers(params[:user][:address].to_i, false, current_user.id);
+    end
+
 
     respond_to do |format|
       format.html { render :index }
@@ -171,28 +202,12 @@ class UsersController < Api::V1::UsersController
     @experiences = Experience.all
     
     respond_to do |format|
-      if(!current_user.address)
-        @city = AddressController.new.create_city(params[:user][:address_attributes][:city_attributes]);
-        @country = AddressController.new.create_country(params[:user][:address_attributes][:country_attributes]);
-        current_user.address = AddressController.new.create_address(:street => params[:user][:address_attributes][:street], 
-                                                                :number => params[:user][:address_attributes][:number],
-                                                                :numberAddition => params[:user][:address_attributes][:numberAddition],
-                                                                :city => @city,
-                                                                :country => @country
-                                                                );
-        current_user.update_attribute(:phone, params[:user][:phone]);
-        format.html { render :editSettings }
+      if(update_contactInfo(params, false))
+        format.html { redirect_to edit_settings_path, notice: 'User was successfully updated.' }
+        format.json { render :show, status: :ok, location: current_user }
       else
-        @city = AddressController.new.create_city(params[:user][:address_attributes][:city_attributes]);
-        @country = AddressController.new.create_country(params[:user][:address_attributes][:country_attributes]);
-
-        if ((current_user.update_attribute(:phone, params[:user][:phone]) if params[:user][:phone]) && (current_user.address.update_attribute(:street, params[:user][:address_attributes][:street]) if params[:user][:address_attributes][:street]) && (current_user.address.update_attribute(:number, params[:user][:address_attributes][:number]) if params[:user][:address_attributes][:number]) && (current_user.address.update_attribute(:numberAddition, params[:user][:address_attributes][:numberAddition]) if params[:user][:address_attributes][:numberAddition]) && (current_user.address.update_attribute(:city, @city) if @city) && (current_user.address.update_attribute(:country, @country) if @country))
-          format.html { redirect_to edit_settings_path, notice: 'User was successfully updated.' }
-          format.json { render :show, status: :ok, location: current_user }
-        else
-          format.html { render :editSettings }
-          format.json { render json: current_user.errors, status: :unprocessable_entity }
-        end
+        format.html { render :editSettings }
+        format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
     end
   end

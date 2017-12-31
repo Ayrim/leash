@@ -2,7 +2,7 @@
 <%= stylesheet_link_tag "authentication", :media => "all" %>
 
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMva16GKFEfz0R_mX1BBFLMVytin6l2xM"></script>
 <script type="text/javascript">
     var bounds = new google.maps.LatLngBounds();
     var walkerMap;
@@ -57,37 +57,42 @@
                                 </p>
                                 
                             <div  style="margin-left: 28px; margin-right:28px;">
-                                  <input name="filterAddress" type="radio" id="myAddress" checked onchange="javascript:OtherAddressChanged(false);"/>
-
+                                  <input name="filterAddress" type="radio" id="myAddress" value="myAddress" checked onchange="javascript:OtherAddressChanged(false);"/>
                                   <label for="myAddress">Rond mijn woonplaats</label>
                                   <br />
-                                  <input name="filterAddress" type="radio" id="otherAddress" onchange="javascript:OtherAddressChanged(true);" />
+                                  <input name="filterAddress" type="radio" id="otherAddress" value="otherAddress" onchange="javascript:OtherAddressChanged(true);" />
                                   <label for="otherAddress">Op basis van een ander adres</label>
                                   <div id="otherAddressInputFields" class="hide" style="margin-left: 35px; border-style: solid; border-width: 1px; border-color: #FF5B45; padding-right:15px;">
-                                    <div class="row" style="margin-left:10px;">
-                                       <div class="input-field col s6">
-                                          <input id="icon_prefix" type="text" class="validate">
-                                          <label for="icon_prefix">Street</label>
+                                    <%= u.fields_for :address, Address.new do |address_fields| %>
+                                        <div class="row" style="margin-left:10px;">
+                                           <div class="input-field col s6">
+                                              <%= address_fields.text_field :street, :class => "validate" %>
+                                              <label for="user_address_attributes_street" id="streetLabel"><%= I18n.t('views.user.edit.address') %></label>
+                                            </div>
+                                           <div class="input-field col s2">
+                                              <%= address_fields.text_field :number, :class => "validate" %>
+                                              <label for="user_address_attributes_number" id="houseNumberLabel"><%= I18n.t('views.user.edit.housenumber') %></label>
+                                            </div>
                                         </div>
-                                       <div class="input-field col s2">
-                                          <input id="icon_prefix" type="text" class="validate">
-                                          <label for="icon_prefix">Number</label>
+                                        <div class="row" style="margin-left:10px;">
+                                            <%= address_fields.fields_for :city, City.new do |city| %>
+                                               <div class="input-field col s2">
+                                                    <%= city.text_field :postalcode, :class => "validate" %>
+                                                    <label for="user_address_attributes_city_attributes_postalcode" id="cityZIPLabel"><%= I18n.t('views.user.edit.zipcode') %></label>
+                                                </div>
+                                               <div class="input-field col s5">
+                                                    <%= city.text_field :name, :class => "validate" %>
+                                                    <label for="user_address_attributes_city_attributes_name" id="cityNameLabel"><%= I18n.t('views.user.edit.city') %></label>
+                                                </div>
+                                            <% end %>
+                                            <%= address_fields.fields_for :country, Country.new do |country| %>
+                                                <div class="input-field col s5">
+                                                    <%= country.text_field :name, :class => "validate" %>
+                                                    <label for="user_address_attributes_country_attributes_name" id="countryNameLabel"><%= I18n.t('views.user.edit.country') %></label>
+                                                </div>
+                                            <% end %>
                                         </div>
-                                    </div>
-                                    <div class="row" style="margin-left:10px;">
-                                       <div class="input-field col s2">
-                                          <input id="icon_prefix" type="text" class="validate">
-                                          <label for="icon_prefix">PostalCode</label>
-                                        </div>
-                                       <div class="input-field col s5">
-                                          <input id="icon_prefix" type="text" class="validate">
-                                          <label for="icon_prefix">City</label>
-                                        </div>
-                                       <div class="input-field col s5">
-                                          <input id="icon_prefix" type="text" class="validate">
-                                          <label for="icon_prefix">Country</label>
-                                        </div>
-                                    </div>
+                                    <% end %>
                                   </div>
 
                                    <div class="row">
@@ -137,6 +142,16 @@
         else
         {
             removeClass(document.getElementById('otherAddressInputFields'), 'hide');
+            document.getElementById('user_address_attributes_street').value = '';
+            removeClass(document.getElementById('streetLabel'), 'active');
+            document.getElementById('user_address_attributes_number').value = '';
+            removeClass(document.getElementById('houseNumberLabel'), 'active');
+            document.getElementById('user_address_attributes_city_attributes_postalcode').value = '';
+            removeClass(document.getElementById('cityZIPLabel'), 'active');
+            document.getElementById('user_address_attributes_city_attributes_name').value = '';
+            removeClass(document.getElementById('cityNameLabel'), 'active');
+            document.getElementById('user_address_attributes_country_attributes_name').value = '';
+            removeClass(document.getElementById('countryNameLabel'), 'active');
         }
     }
 
