@@ -21,6 +21,7 @@ Geocoder.configure(
 
   # geocoding service
   #api_key: "AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek",
+  #api_key: "AIzaSyDMva16GKFEfz0R_mX1BBFLMVytin6l2xM",
   lookup: :google,
 
   use_https: false,

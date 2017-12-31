@@ -116,7 +116,7 @@ module Api
       end
 
       #[GET] /api/users/nearby/:id?radius=10
-      def LoadNearbyUsers(radius = 10, api = true, user_id = 0)
+      def LoadNearbyUsers(radius = 10, api = true, user_id = 0, otherAddress = nil)
         if(authorization_required(api))
           current_user_id = 0;
           if(!current_user.nil?)
@@ -134,8 +134,14 @@ module Api
           if(params[:radius])
             radius = params[:radius].to_i
           end
+          
+          puts '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'
 
-          addresses = Address.near(current_user.address.full_address, radius, order: 'distance').where('user_id != ?', current_user_id)
+          if(!otherAddress.nil?)
+            addresses = Address.near(otherAddress.full_address, radius, order: 'distance').where('user_id != ?', current_user_id)
+          else
+            addresses = Address.near(current_user.address.full_address, radius, order: 'distance').where('user_id != ?', current_user_id)
+          end
 
           if !addresses.nil?
             @nearbyUsers = User.includes(:address).references(:address).merge(addresses)
@@ -184,6 +190,10 @@ module Api
 
 
           if ([(current_user.update_attribute(:banner_picture, save_banner_picture_path) if userparams[:user][:banner_picture])] && [(current_user.update_attribute(:profile_picture, save_profile_picture_path) if userparams[:user][:profile_picture])] && (current_user.update_attribute(:firstname, userparams[:user][:firstname]) if userparams[:user][:firstname]) && (current_user.update_attribute(:lastname, userparams[:user][:lastname]) if userparams[:user][:lastname]) && (current_user.update_attribute(:email, userparams[:user][:email]) if userparams[:user][:email]) && (current_user.update_attribute(:birthdate, userparams[:user][:birthdate]) if userparams[:user][:birthdate]) && (current_user.update_attribute(:description, userparams[:user][:description]) if userparams[:user][:description]) && (current_user.update_attribute(:language, userparams[:user][:language]) if userparams[:user][:language]) && (current_user.update_attribute(:nationality, userparams[:user][:nationality]) if userparams[:user][:nationality]))
+            if(!userparams[:user][:address].nil?)
+              update_contactInfo(userparams, false);
+            end
+
             if(api)
               render json: current_user, status: :ok
             else
@@ -252,6 +262,65 @@ module Api
           end
         end
       end
+
+      #[POST] /api/user/update_contactInfo
+      def update_contactInfo(userparams = nil, api = true)
+        if(authorization_required(api))
+          current_user_id = 0;
+          if(!current_user.nil?)
+            current_user_id = current_user.id;
+          else (params.has_key?(:id))
+            if(params[:id])
+              current_user_id = params[:id]
+            end
+          end
+
+          if(!userparams[:user][:address].nil?)
+            address_params = userparams[:user][:address]
+            city_params = userparams[:user][:address][:city]
+            country_params = userparams[:user][:address][:country]
+          else
+            address_params = userparams[:user][:address_attributes]
+            city_params = userparams[:user][:address_attributes][:city_attributes]
+            country_params = userparams[:user][:address_attributes][:country_attributes]
+          end
+
+          current_user = User.find(current_user_id);
+
+          @city = AddressController.new.create_city(city_params, api);
+          @country = AddressController.new.create_country(country_params, api);
+
+          if(!current_user.address)
+            current_user.address = AddressController.new.create_address(:street => address_params[:street], 
+                                                                    :number => address_params[:number],
+                                                                    :numberAddition => address_params[:numberAddition],
+                                                                    :city => @city,
+                                                                    :country => @country
+                                                                    );
+            current_user.update_attribute(:phone, userparams[:user][:phone]);
+            if(api)
+              render json: current_user, status: :ok
+            else
+              return true;
+            end
+          else
+            if ((current_user.update_attribute(:phone, userparams[:user][:phone]) if userparams[:user][:phone]) && (current_user.address.update_attribute(:street, address_params[:street]) if address_params[:street]) && (current_user.address.update_attribute(:number, address_params[:number]) if address_params[:number]) && (current_user.address.update_attribute(:numberAddition, address_params[:numberAddition]) if address_params[:numberAddition]) && (current_user.address.update_attribute(:city, @city) if @city) && (current_user.address.update_attribute(:country, @country) if @country))
+              if(api)
+                render json: current_user, status: :ok
+              else
+                return true;
+              end
+            else
+              if(api)
+                render json: current_user.errors, status: :unprocessable_entity
+              else
+                return false;
+              end
+            end
+          end
+        end
+      end
+
 
     # Overall methods
 
