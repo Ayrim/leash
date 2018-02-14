@@ -5,6 +5,8 @@ class CreatePictures < ActiveRecord::Migration
       t.string :comment
       t.integer :tag
       t.string :url
+  	  t.references :photo_album, 		index: true, foreign_key: true
+  	  t.references :visibility, 		index: true, foreign_key: true
 
       t.timestamps null: false
     end
