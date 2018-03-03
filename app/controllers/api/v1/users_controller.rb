@@ -3,7 +3,7 @@ module Api
     class UsersController < AuthenticationController
       #before_action :require_login, except: [:index, :get_user, :LoadNearbyUsers]
       skip_before_filter :verify_authenticity_token
-      
+
       def verify_user_exists()
         user = User.find_by(email: params[:email])
         if !user.nil?
@@ -25,7 +25,7 @@ module Api
             ActiveRecord::Base.transaction do
                 if @newUser.save
                   visibility = Visibility.find_by(:value => "Public")
-                  @globalAlbum = Photoalbum.new(:user_id => @newUser.id, :name => "No Album", :visibility => visibility)
+                  @globalAlbum = PhotoAlbum.new(:user_id => @newUser.id, :name => "No Album", :visibility => visibility)
                   @globalAlbum.save
                   @newUser.send_activation_email
 
@@ -80,7 +80,7 @@ module Api
     	end
 
       # [GET] /api/users/:id
-      def get_user(api = true)    
+      def get_user(api = true)
         # check if the page is being loaded for the current user or for a different user
         begin
           if(authorization_required(api))
@@ -130,11 +130,11 @@ module Api
               current_user_id = user_id;
             end
           end
-          
+
           if(params[:radius])
             radius = params[:radius].to_i
           end
-          
+
           puts '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-'
 
           if(!otherAddress.nil?)
@@ -291,7 +291,7 @@ module Api
           @country = AddressController.new.create_country(country_params, api);
 
           if(!current_user.address)
-            current_user.address = AddressController.new.create_address(:street => address_params[:street], 
+            current_user.address = AddressController.new.create_address(:street => address_params[:street],
                                                                     :number => address_params[:number],
                                                                     :numberAddition => address_params[:numberAddition],
                                                                     :city => @city,
@@ -335,7 +335,7 @@ module Api
         #Blob has been uploaded
         return 'https://' + Azure.config.storage_account_name + '.blob.core.windows.net/images/' + fileName
       end
-      
+
       # def uploadImageToAzureFromAPI(original_filename, tempfilePath)
       #   fileExtension = File.extname(original_filename)
 

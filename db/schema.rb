@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123194306) do
+ActiveRecord::Schema.define(version: 20170112182140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,13 +34,13 @@ ActiveRecord::Schema.define(version: 20170123194306) do
     t.string   "street"
     t.string   "number"
     t.string   "numberAddition"
+    t.float    "latitude"
+    t.float    "longitude"
     t.integer  "user_id"
     t.integer  "city_id"
     t.integer  "country_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.float    "latitude"
-    t.float    "longitude"
   end
 
   add_index "addresses", ["city_id"], name: "index_addresses_on_city_id", using: :btree
@@ -72,9 +72,6 @@ ActiveRecord::Schema.define(version: 20170123194306) do
     t.boolean  "monday_morning"
     t.boolean  "monday_midday"
     t.boolean  "monday_evening"
-    t.integer  "user_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
     t.boolean  "tuesday_morning"
     t.boolean  "tuesday_midday"
     t.boolean  "tuesday_evening"
@@ -93,6 +90,9 @@ ActiveRecord::Schema.define(version: 20170123194306) do
     t.boolean  "sunday_morning"
     t.boolean  "sunday_midday"
     t.boolean  "sunday_evening"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   add_index "availabilities", ["user_id"], name: "index_availabilities_on_user_id", using: :btree
@@ -113,14 +113,6 @@ ActiveRecord::Schema.define(version: 20170123194306) do
     t.string   "postalcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "connections", force: :cascade do |t|
-    t.integer  "user_1_id"
-    t.integer  "user_2_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.boolean  "is_pending", default: true
   end
 
   create_table "countries", force: :cascade do |t|
@@ -186,30 +178,30 @@ ActiveRecord::Schema.define(version: 20170123194306) do
   add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
   add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
 
-  create_table "photoalbums", force: :cascade do |t|
+  create_table "photo_albums", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
     t.string   "description"
     t.integer  "visibility_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "photoalbums", ["user_id"], name: "index_photoalbums_on_user_id", using: :btree
-  add_index "photoalbums", ["visibility_id"], name: "index_photoalbums_on_visibility_id", using: :btree
+  add_index "photo_albums", ["user_id"], name: "index_photo_albums_on_user_id", using: :btree
+  add_index "photo_albums", ["visibility_id"], name: "index_photo_albums_on_visibility_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.string   "name"
     t.string   "comment"
     t.integer  "tag"
     t.string   "url"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "photoalbum_id"
+    t.integer  "photo_album_id"
     t.integer  "visibility_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
-  add_index "pictures", ["photoalbum_id"], name: "index_pictures_on_photoalbum_id", using: :btree
+  add_index "pictures", ["photo_album_id"], name: "index_pictures_on_photo_album_id", using: :btree
   add_index "pictures", ["visibility_id"], name: "index_pictures_on_visibility_id", using: :btree
 
   create_table "plannings", force: :cascade do |t|
@@ -231,14 +223,15 @@ ActiveRecord::Schema.define(version: 20170123194306) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.boolean  "user_defined",  default: false, null: false
     t.integer  "created_by_id"
     t.integer  "user_id"
     t.integer  "animal_id"
     t.integer  "activity_id"
     t.integer  "route_id"
     t.integer  "blog_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "user_group_relations", force: :cascade do |t|
@@ -287,8 +280,6 @@ ActiveRecord::Schema.define(version: 20170123194306) do
     t.string   "nationality"
     t.date     "birthdate"
     t.string   "phone"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
     t.string   "activation_digest"
     t.boolean  "activated",         default: false
     t.datetime "activated_at"
@@ -306,6 +297,8 @@ ActiveRecord::Schema.define(version: 20170123194306) do
     t.boolean  "is_walker"
     t.integer  "preference_id"
     t.integer  "experience_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -347,9 +340,9 @@ ActiveRecord::Schema.define(version: 20170123194306) do
   add_foreign_key "flocks", "plannings"
   add_foreign_key "flocks", "users"
   add_foreign_key "groups", "users"
-  add_foreign_key "photoalbums", "users"
-  add_foreign_key "photoalbums", "visibilities"
-  add_foreign_key "pictures", "photoalbums"
+  add_foreign_key "photo_albums", "users"
+  add_foreign_key "photo_albums", "visibilities"
+  add_foreign_key "pictures", "photo_albums"
   add_foreign_key "pictures", "visibilities"
   add_foreign_key "plannings", "animals"
   add_foreign_key "user_group_relations", "users"

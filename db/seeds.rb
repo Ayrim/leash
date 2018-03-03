@@ -41,5 +41,5 @@ Visibility.create(value: 'Public')
 Visibility.create(value: 'Connections')
 Visibility.create(value: 'Private')
 
-PhotoAlbum.Create(user_id: 1, name: "No Album", visibility_id: 1 )
-PhotoAlbum.Create(user_id: 2, name: "No Album", visibility_id: 1 )
+PhotoAlbum.create(user_id: 1, name: "No Album", visibility_id: 1 )
+PhotoAlbum.create(user_id: 2, name: "No Album", visibility_id: 1 )

@@ -15,8 +15,8 @@ class HomeController < ApplicationController
 		# posts = Wallpost.order(created_at: :desc).where(userIdQuery).where("picture is not NULL").limit(10)
 		posts = Wallpost.order(created_at: :desc).where("picture is not NULL").limit(10)
 		# take 3 random wallposts from these 10
-		@RandomPictures = Picture.joins(:visibility).joins(:photoalbum).where('(visibilities.value = ?) AND photoalbums.user_id != ?', 'Public', current_user.id).order("pictures.created_at desc").limit(10).shuffle.take(3)
-						
+		@RandomPictures = Picture.joins(:visibility).joins(:photo_album).where('(visibilities.value = ?) AND photo_albums.user_id != ?', 'Public', current_user.id).order("pictures.created_at desc").limit(10).shuffle.take(3)
+
 	end
 
 	def pricing
