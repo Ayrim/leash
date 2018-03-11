@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_filter :require_login, except: [ :index, :pricing, :about_us, :contact_us, :how_and_why]
+  before_action :require_login, except: [ :index, :pricing, :about_us, :contact_us, :how_and_why]
 
 	def index
 		@hideHome = true;

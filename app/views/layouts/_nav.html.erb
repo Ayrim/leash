@@ -6,13 +6,6 @@
           <% end %>
         </li>
       <% end %>
-      <% if current_language().to_s.exclude? "en" %>
-        <li class="liFlag">
-          <%= link_to params.merge({:locale => :en}), :class => "languageFlagLink" do %>
-            <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left:15px">en</span>
-          <% end %>
-        </li>
-      <% end %>
     </ul>
 
     <div class="navbar-fixed">
@@ -172,18 +165,6 @@
                   <% end %>
                 </li>
                 <li class="divider hide-on-large-only"/>
-                <li class="bottom left hide-on-large-only">
-                  <% if current_language().to_s.exclude? "nl" %>
-                      <%= link_to params.merge({:locale => :nl}) do %>
-                         <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
-                      <% end %>
-                  <% end %>
-                  <% if current_language().to_s.exclude? "en" %>
-                      <%= link_to params.merge({:locale => :en}) do %>
-                        <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
-                      <% end %>
-                  <% end %>
-                </li>
               </ul>
              </div>
             <% else %>
@@ -195,18 +176,6 @@
               <li class="hide-on-large-only"><%= link_to 'About us', about_us_path%></li>
               <li class="hide-on-large-only"><%= link_to 'Contact', contact_us_path%></li>
                 <li class="divider hide-on-large-only"/>
-                <li class="bottom left hide-on-large-only">
-                  <% if current_language().to_s.exclude? "nl" %>
-                      <%= link_to params.merge({:locale => :nl}) do %>
-                         <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-be" alt="Belgium" /><span style="margin-left: 10px;">nl</span>
-                      <% end %>
-                  <% end %>
-                  <% if current_language().to_s.exclude? "en" %>
-                      <%= link_to params.merge({:locale => :en}) do %>
-                        <img src="<%= asset_url("/assets/flags/blank.png") %>" class="flag flag-gb" alt="United Kingdom" /><span style="margin-left: 10px;">en</span>
-                      <% end %>
-                  <% end %>
-                </li>
               </ul>
              </div>
             <% end %>

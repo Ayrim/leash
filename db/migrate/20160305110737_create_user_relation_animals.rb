@@ -1,4 +1,4 @@
-class CreateUserRelationAnimals < ActiveRecord::Migration
+class CreateUserRelationAnimals < ActiveRecord::Migration[5.1]
   def change
     create_table :user_relation_animals do |t|
       t.references :user, index: true, foreign_key: true

@@ -1,4 +1,4 @@
-class CreateDogs < ActiveRecord::Migration
+class CreateDogs < ActiveRecord::Migration[5.1]
   def change
     create_table :dogs do |t|
       t.references :animal, index: true, foreign_key: true

@@ -1,4 +1,4 @@
-class CreateUserGroupRelations < ActiveRecord::Migration
+class CreateUserGroupRelations < ActiveRecord::Migration[5.1]
   def change
     create_table :user_group_relations do |t|
       t.integer :group

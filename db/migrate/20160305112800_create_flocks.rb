@@ -1,4 +1,4 @@
-class CreateFlocks < ActiveRecord::Migration
+class CreateFlocks < ActiveRecord::Migration[5.1]
   def change
     create_table :flocks do |t|
       t.references :user, index: true, foreign_key: true

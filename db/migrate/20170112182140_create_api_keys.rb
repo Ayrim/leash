@@ -1,4 +1,4 @@
-class CreateApiKeys < ActiveRecord::Migration
+class CreateApiKeys < ActiveRecord::Migration[5.1]
   def change
     create_table :api_keys do |t|
       t.references :user, index: true, foreign_key: true

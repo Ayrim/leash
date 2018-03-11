@@ -1,4 +1,4 @@
-class CreateUserRelations < ActiveRecord::Migration
+class CreateUserRelations < ActiveRecord::Migration[5.1]
   def change
     create_table :user_relations do |t|
       t.integer :user_1_id, index: true
