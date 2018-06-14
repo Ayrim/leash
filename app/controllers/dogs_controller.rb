@@ -3,10 +3,6 @@ class DogsController < ApplicationController
     @dog = Dog.all
   end
 
-  def new
-
-  end
-
   def show
     if(params[:id] != 'update_unreadmessages')
       @dog = Dog.find(params[:id])

@@ -49,6 +49,12 @@ ActiveRecord::Schema.define(version: 20170112182140) do
     t.date "birthdate"
     t.string "breed"
     t.bigint "user_id"
+    t.string "gender"
+    t.boolean "neutered"
+    t.string "likes"
+    t.string "dislikes"
+    t.string "behaviour"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_animals_on_user_id"

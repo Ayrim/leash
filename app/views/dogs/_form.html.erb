@@ -5,7 +5,7 @@
         <%= f.text_field :name %>
       </p>
 
-      <%= f.fields_for :dog do |d| %>
+      <!-- <%= f.fields_for :dog do |d| %> -->
           <p>
             <%= d.label "Ras" %><br />
             <%= d.text_field :breed %>
@@ -24,21 +24,18 @@
             <%= d.label "Kan omgaan met andere honden" %><br />
 
           </p>
-      <% end %>
+      <!-- <% end %> -->
       <p>
         <%= f.label :birthdate %>
         <%= f.date_field :birthdate, :class => 'datepicker'%>
       </p>
 
-      <!--<p>-->
-        <!--<%= f.submit %>-->
-      <!--</p>-->
       <%= f.submit "Opslaan", :id => "saveDog", :class => "btn waves-effect waves-light right" do %>
           Save<i class="mdi-content-save right"></i>
       <% end %>
     </div>
-
 <% end %>
+
 <script type="text/javascript">
   $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
