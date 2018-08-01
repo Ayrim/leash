@@ -24,10 +24,10 @@ module Leash
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # config.active_record.raise_in_transactional_callbacks = true
 
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
-  
+
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'views', '*', '*.yml').to_s]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'views', '*.yml').to_s]
     config.i18n.default_locale = :nl

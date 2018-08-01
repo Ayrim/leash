@@ -1,4 +1,4 @@
-class CreatePlannings < ActiveRecord::Migration
+class CreatePlannings < ActiveRecord::Migration[5.1]
   def change
     create_table :plannings do |t|
       t.date :startDate

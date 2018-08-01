@@ -1,4 +1,4 @@
-class CreateWallposts < ActiveRecord::Migration
+class CreateWallposts < ActiveRecord::Migration[5.1]
   def change
     create_table :wallposts do |t|
       t.references :user, index: true, foreign_key: true
